@@ -1,0 +1,10 @@
+quantity,this_formula,aniGTO,literature_or_reference,relative_difference,source
+"slab: exact 2D exchange per electron (Ha), r_s^2D=4",-0.1500527194,,-0.1501,3.150e-04,"Kaplan et al. 2018 (2D gas)"
+"slab: coefficient a_x for the exact 2D limit",0.5217479494,,0.5217,9.191e-05,"Constantin 2008, eq. 12"
+"slab: SCAN 2D-limit E_x/N (Ha), r_s^2D=4",-1.670598666,,-1.671,2.402e-04,"Kaplan et al. 2018, App. A estimate"
+"slab: SCAN 2D-limit E_x/N (Ha), numerical",-1.670598666,,-1.655,-9.425e-03,"Kaplan et al. 2018, numerical"
+"slab: SCAN/exact ratio",11.13341146,,11.02598268,9.743e-03,"Kaplan et al. 2018 ("order of magnitude")"
+"Gaussian sheet: exact 2D limit E_x (Ha)",-1.253314137,-1.25331412934,-1.253314137,0.000e+00,"eq A12 limit"
+"Gaussian sheet: coefficient A_2D",0.653225897,0.653225892833,0.653225897,2.526e-13,"this work, eq A28"
+"Gaussian sheet: SCAN limit (Ha)",-11.14514069,,-11.145141,2.765e-08,"this work, Table 2 / eq A25"
+"Gaussian sheet: SCAN/exact ratio",8.892535686,8.89253574259,8.89,2.852e-04,"this work, abstract (8.9)"

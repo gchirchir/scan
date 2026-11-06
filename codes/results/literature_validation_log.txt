@@ -1,0 +1,13 @@
+slab: exact 2D exchange per electron (Ha), r_s^2D=4 this formula    -0.150053 | aniGTO           -- | reference    -0.1501 | rel.diff +3.15e-04 | Kaplan et al. 2018 (2D gas)
+slab: coefficient a_x for the exact 2D limit   this formula     0.521748 | aniGTO           -- | reference     0.5217 | rel.diff +9.19e-05 | Constantin 2008, eq. 12
+slab: SCAN 2D-limit E_x/N (Ha), r_s^2D=4       this formula    -1.670599 | aniGTO           -- | reference    -1.6710 | rel.diff +2.40e-04 | Kaplan et al. 2018, App. A estimate
+slab: SCAN 2D-limit E_x/N (Ha), numerical      this formula    -1.670599 | aniGTO           -- | reference    -1.6550 | rel.diff -9.43e-03 | Kaplan et al. 2018, numerical
+slab: SCAN/exact ratio                         this formula    11.133411 | aniGTO           -- | reference    11.0260 | rel.diff +9.74e-03 | Kaplan et al. 2018 ("order of magnitude")
+Gaussian sheet: exact 2D limit E_x (Ha)        this formula    -1.253314 | aniGTO    -1.253314 | reference    -1.2533 | rel.diff +0.00e+00 | eq A12 limit
+Gaussian sheet: coefficient A_2D               this formula     0.653226 | aniGTO     0.653226 | reference     0.6532 | rel.diff +2.53e-13 | this work, eq A28
+Gaussian sheet: SCAN limit (Ha)                this formula   -11.145141 | aniGTO           -- | reference   -11.1451 | rel.diff +2.77e-08 | this work, Table 2 / eq A25
+Gaussian sheet: SCAN/exact ratio               this formula     8.892536 | aniGTO     8.892536 | reference     8.8900 | rel.diff +2.85e-04 | this work, abstract (8.9)
+slab integral: closed form 0.003114414234204, quadrature 0.003114414234204 (r_s^2D=4)
+r_s^2D=1: a_x = 0.5217479494
+r_s^2D=10: a_x = 0.5217479494
+aniGTO exact sheet exchange at lambda=1e+08: -1.253314129337; closed form eq A10: -1.253314129337; limit -sqrt(pi/2): -1.253314137316

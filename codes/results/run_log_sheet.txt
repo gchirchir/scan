@@ -1,0 +1,19 @@
+DC-SCAN 2D (sheet) benchmark  2026-11-05 15:18
+python 3.14.7  numpy 2.5.2  host gabriel
+A2D = 0.6532258969913366 (note 0.6532258969913366)  M2D = 1.918653475142493
+
+lambda      exact        SCAN          DC-SCAN      DC-exact    DC-SCAN(min)  min-exact
+1          -0.797885     -0.795058    -0.795058  +0.002827    -0.795058  +0.002827
+2          -0.964802     -1.000228    -0.869377  +0.095425    -0.847350  +0.117452
+10         -1.179303     -1.672690    -1.082995  +0.096308    -1.082147  +0.097156
+100        -1.245397     -3.179886    -1.184779  +0.060619    -1.184778  +0.060619
+1000       -1.252517     -5.130958    -1.221408  +0.031109    -1.221408  +0.031109
+10000      -1.253234     -7.045312    -1.238506  +0.014728    -1.238506  +0.014728
+
+Table 1 regression vs note (6-decimal values): max |diff| = 0.0e+00 Ha
+quadrature 400 -> 560 nodes: max |dE(DC-SCAN)| = 7.6e-07, |dE(SCAN)| = 1.5e-13 Ha; wider u/t ranges: 2.7e-07 / 3.6e-13 Ha
+exact E_x: max |Eq44 - Eq10| = 5.8e-14; aniGTO IEE: max |diff| = 1.3e-15 (lam <= 1e3), 8.0e-05 (lam = 1e4); finer quadrature of the aniGTO integrand: max 6.2e-14 Ha
+lam -> inf limits: exact -sqrt(pi/2) = -1.253314, SCAN -h0x a1 M2D = -11.145141 (ratio 8.89)
+approach exponents (last decade): exact-limit ~ lam^-1.000, DC-exact ~ lam^-0.333, SCAN-limit ~ lam^-0.233
+DC-SCAN - exact at lam = 1e5, 1e6: +0.006862, +0.003187 Ha
+total time 34.8 s

@@ -1,0 +1,17 @@
+DC-SCAN 1D (wire) benchmark  2026-11-05 15:13
+python 3.14.7  numpy 2.5.2  host gabriel
+A2D = 0.6532258969913366 (note 0.6532258969913366)  A1D = 0.3333333333333333
+
+lambda      exact        SCAN          DC-SCAN      DC-exact    DC-SCAN(min)  min-exact
+1          -0.797885     -0.795058    -0.795058  +0.002827    -0.795058  +0.002827
+2          -1.213337     -1.260632    -1.060135  +0.153201    -1.014727  +0.198609
+10         -2.400278     -3.649731    -2.126863  +0.273415    -2.082682  +0.317596
+100        -4.227637    -16.362299    -4.193878  +0.033759    -4.185478  +0.042159
+1000       -6.064646    -70.762964    -6.170789  -0.106143    -6.170167  -0.105521
+10000      -7.901840   -292.064785    -7.990438  -0.088598    -7.990407  -0.088567
+
+Table 2 regression vs note (6-decimal values): max |diff| = 0.0e+00 Ha
+quadrature 400 -> 560 nodes: max |dE(DC-SCAN)| = 4.6e-08 Ha, max |dE(SCAN)| = 7.2e-12 Ha
+exact E_x: max |Eq44 - Eq11| = 1.3e-11; aniGTO IEE: max |diff| = 3.0e-12 for lam <= 1e3, 6.7e-05 at lam = 1e4; aniGTO integrand with finer quadrature at lam = 1e4: 8.0e-11 Ha
+target log coefficient -sqrt(2/pi) = -0.797885; last-interval slopes: exact -0.797885, DC-SCAN -0.787048; SCAN power 0.5883 (Eq. 15 predicts 1/2)
+total time 118.9 s
