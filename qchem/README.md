@@ -12,7 +12,7 @@ W_new), and its independent verification with anisotropic Gaussian (aniGTO) dens
   - `validation/`
     - `merge_check.py` — Gaussian sheets/wires and the IBM well, compared with the DC-SCAN manuscript.
     - `anigto_limits.py`, `run_anigto.sbatch` — W = 0 / W = 1 / W[n] limit checks and exchange versus lambda on
-      aniGTO sheets and wires (N = 2, 4, 6; lambda = 1 ... 1e4); exact exchange by the separable Coulomb kernel.
+      aniGTO sheets and wires (N = 2, 4, 6; lambda = 1e-3 ... 1e4; lambda = 0 is the analytic n -> 0 limit); exact exchange by the separable Coulomb kernel.
     - `common_species.py` — He, Be, H, H2 on one r2SCAN/dyall-v4z density by three routes: PySCF; analytic
       Cartesian aniGTO fields (exact tau - tau_W, Lagrange identity) on the PySCF grid; and on a radial grid split
       at alpha = 1.
@@ -23,5 +23,6 @@ W_new), and its independent verification with anisotropic Gaussian (aniGTO) dens
 
 ## Run
     python3 2D_Ref/validation/anigto_limits.py --m 220     # aniGTO sheets and wires (cluster: run_anigto.sbatch)
+    python3 2D_Ref/validation/anigto_limits.py --m 220 --lams 0.001,0.01,0.1 --out 2D_Ref/validation/anigto_limits_small_m220.csv
     python3 2D_Ref/validation/common_species.py            # He, Be, H, H2: PySCF vs aniGTO
     python3 2D_Ref/make_table_anigto_limits.py; python3 2D_Ref/make_table_he_be.py

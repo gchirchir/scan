@@ -110,8 +110,12 @@ def exact_closed(geom, lam):
     """jcp_main Eqs. (10), (11): one-orbital sheet / wire."""
     if lam == 1:
         return -np.sqrt(2 / np.pi)
-    qq = np.sqrt(lam ** 2 - 1)
-    r = np.arctan(qq) / qq if geom == "sheet" else np.arccosh(lam) / qq
+    if lam > 1:
+        qq = np.sqrt(lam ** 2 - 1)
+        r = np.arctan(qq) / qq if geom == "sheet" else np.arccosh(lam) / qq
+    else:                                       # lam < 1: analytic continuation of Eqs. (10), (11)
+        qq = np.sqrt(1 - lam ** 2)
+        r = np.arctanh(qq) / qq if geom == "sheet" else np.arccos(lam) / qq
     return -np.sqrt(2 / np.pi) * lam * r
 
 

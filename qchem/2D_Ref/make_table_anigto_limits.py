@@ -5,6 +5,7 @@ import glob
 import os
 import re
 
+import numpy as np
 import pandas as pd
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -12,6 +13,20 @@ files = sorted(glob.glob(os.path.join(HERE, "validation", "anigto_limits_m*.csv"
                key=lambda f: int(re.search(r"_m(\d+)", f).group(1)))
 df = pd.read_csv(files[-1])
 M = int(re.search(r"_m(\d+)", files[-1]).group(1))
+# lambda < 1 (approach to lambda = 0) from the same grid, and the analytic lambda = 0 limit (n -> 0: every energy -> 0)
+small = os.path.join(HERE, "validation", f"anigto_limits_small_m{M}.csv")
+if os.path.exists(small):
+    df = pd.concat([df, pd.read_csv(small)], ignore_index=True)
+    zero = df.drop_duplicates("system").copy()
+    for c in zero.columns:
+        if c not in ("system", "N"):
+            zero[c] = 0.0
+    zero["lam"] = 0.0
+    zero["frac_active"] = np.nan; zero["W_mean"] = np.nan; zero["Wnew_mean"] = np.nan
+    df = pd.concat([df, zero], ignore_index=True)
+order = {s: i for i, s in enumerate(dict.fromkeys(df.system))}
+df = df.assign(_o=df.system.map(order)).sort_values(["_o", "lam"]).drop(columns="_o").reset_index(drop=True)
+dfx = df[df.lam > 0]                                    # computed rows (for the max |Delta| and the printed checks)
 G = "\\textcolor{green!50!black}{%s}"
 
 
@@ -23,7 +38,13 @@ def d(x):
 
 
 def lam(x):
+    if x == 0:
+        return "0$^{\\dagger}$"
     return "1" if x == 1 else f"$10^{{{int(round(__import__('math').log10(x)))}}}$"
+
+
+def fa(x):
+    return "--" if not np.isfinite(x) else f"{x:.3f}"
 
 
 L = ["\\begin{tabular}{@{}llr rrr rrr rrr rrr@{}}", "\\toprule",
@@ -39,7 +60,7 @@ for r in df.itertuples():
         L.append("\\addlinespace")
     lab = f"aniGTO {geom}, ${N}$" if r.system != prev else ""
     prev = r.system
-    L.append(" & ".join([lab, lam(r.lam), f"{r.frac_active:.3f}",
+    L.append(" & ".join([lab, lam(r.lam), fa(r.frac_active),
                          f"{r.Ex_r2SCAN_libxc:.8f}", f"{r.Ex_W0:.8f}", G % d(r.dEx_W0),
                          f"{r.Ec_r2SCAN_libxc:.8f}", f"{r.Ec_W0:.8f}", G % d(r.dEc_W0),
                          f"{r.Ex_Q2D_pure:.8f}", f"{r.Ex_W1:.8f}", G % d(r.dEx_W1),
@@ -59,21 +80,22 @@ if os.path.exists(cs_path):
                              f"{round(g('Ec_libxc'), 8) + 0.0:.8f}", f"{round(g('Ec_W0'), 8) + 0.0:.8f}", G % d(g('Ec_W0') - g('Ec_libxc')),
                              f"{g('Ex_Q2D'):.8f}", f"{g('Ex_W1'):.8f}", G % d(g('Ex_W1') - g('Ex_Q2D')),
                              f"{round(g('Ec_Q2D'), 8) + 0.0:.8f}", f"{round(g('Ec_W1'), 8) + 0.0:.8f}", G % d(g('Ec_W1') - g('Ec_Q2D'))]) + " \\\\")
-mx = {k: df[k].abs().max() for k in ("dEx_W0", "dEc_W0", "dEx_W1", "dEc_W1", "dEx_model", "dEc_model")}
+mx = {k: dfx[k].abs().max() for k in ("dEx_W0", "dEc_W0", "dEx_W1", "dEc_W1", "dEx_model", "dEc_model")}
 L += ["\\midrule", "max $|\\Delta|$ & & & & & " + G % d(mx["dEx_W0"]) + " & & & " + G % d(mx["dEc_W0"])
       + " & & & " + G % d(mx["dEx_W1"]) + " & & & " + G % d(mx["dEc_W1"]) + " \\\\", "\\bottomrule", "\\end{tabular}"]
 open(os.path.join(HERE, "tab_anigto_limits.tex"), "w").write("\n".join(L) + "\n")
 
 # numbers quoted in the text
 print(f"grid {M}^3; max |d| " + " ".join(f"{k} {v:.1e}" for k, v in mx.items()))
-print("max |N_grid - N| %.1e" % (df.N_grid - df.N).abs().max())
-n2 = df[df.N == 2]
+print("max |N_grid - N| %.1e" % (dfx.N_grid - dfx.N).abs().max())
+n2 = dfx[dfx.N == 2]
 print("N=2: max |Ex_exact - closed| %.1e, max f_act %.3f" % ((n2.Ex_exact - n2.Ex_closed).abs().max(), n2.frac_active.max()))
-print("N=4,6: min f_act (lam>=10) %.3f" % df[(df.N > 2) & (df.lam >= 10)].frac_active.min())
+print("N=4,6: min f_act (lam>=10) %.3f" % dfx[(dfx.N > 2) & (dfx.lam >= 10)].frac_active.min())
 if len(files) > 1:
     d0 = pd.read_csv(files[-2])
     for k in ("Ex_r2SCAN_libxc", "Ec_r2SCAN_libxc", "Ex_Q2D_pure", "Ex_Worig"):
-        print(f"grid change {k}: max |d| {(df[k] - d0[k]).abs().max():.1e} Ha")
+        big = pd.read_csv(files[-1])
+        print(f"grid change {k}: max |d| {(big[k] - d0[k]).abs().max():.1e} Ha")
 
 # ---------------------------------------------------------------- tab_anigto_ex.tex: exchange vs lambda (same run)
 X = ["\\begin{tabular}{@{}llr rrrrrr rr@{}}", "\\toprule",
@@ -87,8 +109,8 @@ for r in df.itertuples():
         X.append("\\addlinespace")
     lab = f"aniGTO {geom}, ${N}$" if r.system != prev else ""
     prev = r.system
-    X.append(" & ".join([lab, lam(r.lam), f"{r.frac_active:.3f}", f"{r.Ex_exact:.6f}", f"{r.Ex_r2SCAN_libxc:.4f}",
+    X.append(" & ".join([lab, lam(r.lam), fa(r.frac_active), f"{r.Ex_exact:.6f}", f"{r.Ex_r2SCAN_libxc:.4f}",
                          f"{r.Ex_W1:.4f}", f"{r.Ex_Worig:.4f}", f"{r.Ex_Wnew:.4f}", f"{r.Ex_Worig - r.Ex_exact:+.4f}",
-                         f"{r.W_mean:.3f}", f"{r.Wnew_mean:.3f}"]) + " \\\\")
+                         fa(r.W_mean), fa(r.Wnew_mean)]) + " \\\\")
 X += ["\\bottomrule", "\\end{tabular}"]
 open(os.path.join(HERE, "tab_anigto_ex.tex"), "w").write("\n".join(X) + "\n")
