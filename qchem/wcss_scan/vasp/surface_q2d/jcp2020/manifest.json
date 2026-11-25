@@ -1,0 +1,6638 @@
+[
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "LDA",
+    "element": "Ag",
+    "structure": "fcc",
+    "facet": "100",
+    "layers": 13,
+    "atoms": 13,
+    "a": 4.09,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/LDA/Ag/100"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBE",
+    "element": "Ag",
+    "structure": "fcc",
+    "facet": "100",
+    "layers": 13,
+    "atoms": 13,
+    "a": 4.09,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBE/Ag/100"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBEsol",
+    "element": "Ag",
+    "structure": "fcc",
+    "facet": "100",
+    "layers": 13,
+    "atoms": 13,
+    "a": 4.09,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBEsol/Ag/100"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "Q2D-GGA",
+    "element": "Ag",
+    "structure": "fcc",
+    "facet": "100",
+    "layers": 13,
+    "atoms": 13,
+    "a": 4.09,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/Q2D-GGA/Ag/100"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "LDA",
+    "element": "Ag",
+    "structure": "fcc",
+    "facet": "110",
+    "layers": 13,
+    "atoms": 13,
+    "a": 4.09,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/LDA/Ag/110"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBE",
+    "element": "Ag",
+    "structure": "fcc",
+    "facet": "110",
+    "layers": 13,
+    "atoms": 13,
+    "a": 4.09,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBE/Ag/110"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBEsol",
+    "element": "Ag",
+    "structure": "fcc",
+    "facet": "110",
+    "layers": 13,
+    "atoms": 13,
+    "a": 4.09,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBEsol/Ag/110"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "Q2D-GGA",
+    "element": "Ag",
+    "structure": "fcc",
+    "facet": "110",
+    "layers": 13,
+    "atoms": 13,
+    "a": 4.09,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/Q2D-GGA/Ag/110"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "LDA",
+    "element": "Ag",
+    "structure": "fcc",
+    "facet": "111",
+    "layers": 13,
+    "atoms": 13,
+    "a": 4.09,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/LDA/Ag/111"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBE",
+    "element": "Ag",
+    "structure": "fcc",
+    "facet": "111",
+    "layers": 13,
+    "atoms": 13,
+    "a": 4.09,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBE/Ag/111"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBEsol",
+    "element": "Ag",
+    "structure": "fcc",
+    "facet": "111",
+    "layers": 13,
+    "atoms": 13,
+    "a": 4.09,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBEsol/Ag/111"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "Q2D-GGA",
+    "element": "Ag",
+    "structure": "fcc",
+    "facet": "111",
+    "layers": 13,
+    "atoms": 13,
+    "a": 4.09,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/Q2D-GGA/Ag/111"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "LDA",
+    "element": "Au",
+    "structure": "fcc",
+    "facet": "100",
+    "layers": 13,
+    "atoms": 13,
+    "a": 4.08,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/LDA/Au/100"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBE",
+    "element": "Au",
+    "structure": "fcc",
+    "facet": "100",
+    "layers": 13,
+    "atoms": 13,
+    "a": 4.08,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBE/Au/100"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBEsol",
+    "element": "Au",
+    "structure": "fcc",
+    "facet": "100",
+    "layers": 13,
+    "atoms": 13,
+    "a": 4.08,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBEsol/Au/100"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "Q2D-GGA",
+    "element": "Au",
+    "structure": "fcc",
+    "facet": "100",
+    "layers": 13,
+    "atoms": 13,
+    "a": 4.08,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/Q2D-GGA/Au/100"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "LDA",
+    "element": "Au",
+    "structure": "fcc",
+    "facet": "110",
+    "layers": 13,
+    "atoms": 13,
+    "a": 4.08,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/LDA/Au/110"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBE",
+    "element": "Au",
+    "structure": "fcc",
+    "facet": "110",
+    "layers": 13,
+    "atoms": 13,
+    "a": 4.08,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBE/Au/110"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBEsol",
+    "element": "Au",
+    "structure": "fcc",
+    "facet": "110",
+    "layers": 13,
+    "atoms": 13,
+    "a": 4.08,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBEsol/Au/110"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "Q2D-GGA",
+    "element": "Au",
+    "structure": "fcc",
+    "facet": "110",
+    "layers": 13,
+    "atoms": 13,
+    "a": 4.08,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/Q2D-GGA/Au/110"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "LDA",
+    "element": "Au",
+    "structure": "fcc",
+    "facet": "111",
+    "layers": 13,
+    "atoms": 13,
+    "a": 4.08,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/LDA/Au/111"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBE",
+    "element": "Au",
+    "structure": "fcc",
+    "facet": "111",
+    "layers": 13,
+    "atoms": 13,
+    "a": 4.08,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBE/Au/111"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBEsol",
+    "element": "Au",
+    "structure": "fcc",
+    "facet": "111",
+    "layers": 13,
+    "atoms": 13,
+    "a": 4.08,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBEsol/Au/111"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "Q2D-GGA",
+    "element": "Au",
+    "structure": "fcc",
+    "facet": "111",
+    "layers": 13,
+    "atoms": 13,
+    "a": 4.08,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/Q2D-GGA/Au/111"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "LDA",
+    "element": "Cu",
+    "structure": "fcc",
+    "facet": "100",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.61,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/LDA/Cu/100"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBE",
+    "element": "Cu",
+    "structure": "fcc",
+    "facet": "100",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.61,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBE/Cu/100"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBEsol",
+    "element": "Cu",
+    "structure": "fcc",
+    "facet": "100",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.61,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBEsol/Cu/100"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "Q2D-GGA",
+    "element": "Cu",
+    "structure": "fcc",
+    "facet": "100",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.61,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/Q2D-GGA/Cu/100"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "LDA",
+    "element": "Cu",
+    "structure": "fcc",
+    "facet": "110",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.61,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/LDA/Cu/110"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBE",
+    "element": "Cu",
+    "structure": "fcc",
+    "facet": "110",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.61,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBE/Cu/110"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBEsol",
+    "element": "Cu",
+    "structure": "fcc",
+    "facet": "110",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.61,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBEsol/Cu/110"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "Q2D-GGA",
+    "element": "Cu",
+    "structure": "fcc",
+    "facet": "110",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.61,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/Q2D-GGA/Cu/110"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "LDA",
+    "element": "Cu",
+    "structure": "fcc",
+    "facet": "111",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.61,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/LDA/Cu/111"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBE",
+    "element": "Cu",
+    "structure": "fcc",
+    "facet": "111",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.61,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBE/Cu/111"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBEsol",
+    "element": "Cu",
+    "structure": "fcc",
+    "facet": "111",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.61,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBEsol/Cu/111"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "Q2D-GGA",
+    "element": "Cu",
+    "structure": "fcc",
+    "facet": "111",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.61,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/Q2D-GGA/Cu/111"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "LDA",
+    "element": "Ir",
+    "structure": "fcc",
+    "facet": "100",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.84,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/LDA/Ir/100"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBE",
+    "element": "Ir",
+    "structure": "fcc",
+    "facet": "100",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.84,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBE/Ir/100"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBEsol",
+    "element": "Ir",
+    "structure": "fcc",
+    "facet": "100",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.84,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBEsol/Ir/100"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "Q2D-GGA",
+    "element": "Ir",
+    "structure": "fcc",
+    "facet": "100",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.84,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/Q2D-GGA/Ir/100"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "LDA",
+    "element": "Ir",
+    "structure": "fcc",
+    "facet": "110",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.84,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/LDA/Ir/110"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBE",
+    "element": "Ir",
+    "structure": "fcc",
+    "facet": "110",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.84,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBE/Ir/110"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBEsol",
+    "element": "Ir",
+    "structure": "fcc",
+    "facet": "110",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.84,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBEsol/Ir/110"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "Q2D-GGA",
+    "element": "Ir",
+    "structure": "fcc",
+    "facet": "110",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.84,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/Q2D-GGA/Ir/110"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "LDA",
+    "element": "Ir",
+    "structure": "fcc",
+    "facet": "111",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.84,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/LDA/Ir/111"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBE",
+    "element": "Ir",
+    "structure": "fcc",
+    "facet": "111",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.84,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBE/Ir/111"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBEsol",
+    "element": "Ir",
+    "structure": "fcc",
+    "facet": "111",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.84,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBEsol/Ir/111"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "Q2D-GGA",
+    "element": "Ir",
+    "structure": "fcc",
+    "facet": "111",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.84,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/Q2D-GGA/Ir/111"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "LDA",
+    "element": "Pd",
+    "structure": "fcc",
+    "facet": "100",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.89,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/LDA/Pd/100"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBE",
+    "element": "Pd",
+    "structure": "fcc",
+    "facet": "100",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.89,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBE/Pd/100"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBEsol",
+    "element": "Pd",
+    "structure": "fcc",
+    "facet": "100",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.89,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBEsol/Pd/100"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "Q2D-GGA",
+    "element": "Pd",
+    "structure": "fcc",
+    "facet": "100",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.89,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/Q2D-GGA/Pd/100"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "LDA",
+    "element": "Pd",
+    "structure": "fcc",
+    "facet": "110",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.89,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/LDA/Pd/110"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBE",
+    "element": "Pd",
+    "structure": "fcc",
+    "facet": "110",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.89,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBE/Pd/110"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBEsol",
+    "element": "Pd",
+    "structure": "fcc",
+    "facet": "110",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.89,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBEsol/Pd/110"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "Q2D-GGA",
+    "element": "Pd",
+    "structure": "fcc",
+    "facet": "110",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.89,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/Q2D-GGA/Pd/110"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "LDA",
+    "element": "Pd",
+    "structure": "fcc",
+    "facet": "111",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.89,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/LDA/Pd/111"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBE",
+    "element": "Pd",
+    "structure": "fcc",
+    "facet": "111",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.89,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBE/Pd/111"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBEsol",
+    "element": "Pd",
+    "structure": "fcc",
+    "facet": "111",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.89,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBEsol/Pd/111"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "Q2D-GGA",
+    "element": "Pd",
+    "structure": "fcc",
+    "facet": "111",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.89,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/Q2D-GGA/Pd/111"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "LDA",
+    "element": "Pt",
+    "structure": "fcc",
+    "facet": "100",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.92,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/LDA/Pt/100"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBE",
+    "element": "Pt",
+    "structure": "fcc",
+    "facet": "100",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.92,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBE/Pt/100"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBEsol",
+    "element": "Pt",
+    "structure": "fcc",
+    "facet": "100",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.92,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBEsol/Pt/100"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "Q2D-GGA",
+    "element": "Pt",
+    "structure": "fcc",
+    "facet": "100",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.92,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/Q2D-GGA/Pt/100"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "LDA",
+    "element": "Pt",
+    "structure": "fcc",
+    "facet": "110",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.92,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/LDA/Pt/110"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBE",
+    "element": "Pt",
+    "structure": "fcc",
+    "facet": "110",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.92,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBE/Pt/110"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBEsol",
+    "element": "Pt",
+    "structure": "fcc",
+    "facet": "110",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.92,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBEsol/Pt/110"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "Q2D-GGA",
+    "element": "Pt",
+    "structure": "fcc",
+    "facet": "110",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.92,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/Q2D-GGA/Pt/110"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "LDA",
+    "element": "Pt",
+    "structure": "fcc",
+    "facet": "111",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.92,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/LDA/Pt/111"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBE",
+    "element": "Pt",
+    "structure": "fcc",
+    "facet": "111",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.92,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBE/Pt/111"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBEsol",
+    "element": "Pt",
+    "structure": "fcc",
+    "facet": "111",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.92,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBEsol/Pt/111"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "Q2D-GGA",
+    "element": "Pt",
+    "structure": "fcc",
+    "facet": "111",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.92,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/Q2D-GGA/Pt/111"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "LDA",
+    "element": "Rh",
+    "structure": "fcc",
+    "facet": "100",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.8,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/LDA/Rh/100"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBE",
+    "element": "Rh",
+    "structure": "fcc",
+    "facet": "100",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.8,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBE/Rh/100"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBEsol",
+    "element": "Rh",
+    "structure": "fcc",
+    "facet": "100",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.8,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBEsol/Rh/100"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "Q2D-GGA",
+    "element": "Rh",
+    "structure": "fcc",
+    "facet": "100",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.8,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/Q2D-GGA/Rh/100"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "LDA",
+    "element": "Rh",
+    "structure": "fcc",
+    "facet": "110",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.8,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/LDA/Rh/110"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBE",
+    "element": "Rh",
+    "structure": "fcc",
+    "facet": "110",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.8,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBE/Rh/110"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBEsol",
+    "element": "Rh",
+    "structure": "fcc",
+    "facet": "110",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.8,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBEsol/Rh/110"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "Q2D-GGA",
+    "element": "Rh",
+    "structure": "fcc",
+    "facet": "110",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.8,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/Q2D-GGA/Rh/110"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "LDA",
+    "element": "Rh",
+    "structure": "fcc",
+    "facet": "111",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.8,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/LDA/Rh/111"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBE",
+    "element": "Rh",
+    "structure": "fcc",
+    "facet": "111",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.8,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBE/Rh/111"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBEsol",
+    "element": "Rh",
+    "structure": "fcc",
+    "facet": "111",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.8,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBEsol/Rh/111"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "Q2D-GGA",
+    "element": "Rh",
+    "structure": "fcc",
+    "facet": "111",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.8,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/Q2D-GGA/Rh/111"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "LDA",
+    "element": "Cr",
+    "structure": "bcc",
+    "facet": "100",
+    "layers": 13,
+    "atoms": 13,
+    "a": 2.88,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/LDA/Cr/100"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBE",
+    "element": "Cr",
+    "structure": "bcc",
+    "facet": "100",
+    "layers": 13,
+    "atoms": 13,
+    "a": 2.88,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBE/Cr/100"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBEsol",
+    "element": "Cr",
+    "structure": "bcc",
+    "facet": "100",
+    "layers": 13,
+    "atoms": 13,
+    "a": 2.88,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBEsol/Cr/100"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "Q2D-GGA",
+    "element": "Cr",
+    "structure": "bcc",
+    "facet": "100",
+    "layers": 13,
+    "atoms": 13,
+    "a": 2.88,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/Q2D-GGA/Cr/100"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "LDA",
+    "element": "Cr",
+    "structure": "bcc",
+    "facet": "110",
+    "layers": 13,
+    "atoms": 13,
+    "a": 2.88,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/LDA/Cr/110"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBE",
+    "element": "Cr",
+    "structure": "bcc",
+    "facet": "110",
+    "layers": 13,
+    "atoms": 13,
+    "a": 2.88,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBE/Cr/110"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBEsol",
+    "element": "Cr",
+    "structure": "bcc",
+    "facet": "110",
+    "layers": 13,
+    "atoms": 13,
+    "a": 2.88,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBEsol/Cr/110"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "Q2D-GGA",
+    "element": "Cr",
+    "structure": "bcc",
+    "facet": "110",
+    "layers": 13,
+    "atoms": 13,
+    "a": 2.88,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/Q2D-GGA/Cr/110"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "LDA",
+    "element": "Cr",
+    "structure": "bcc",
+    "facet": "111",
+    "layers": 13,
+    "atoms": 13,
+    "a": 2.88,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/LDA/Cr/111"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBE",
+    "element": "Cr",
+    "structure": "bcc",
+    "facet": "111",
+    "layers": 13,
+    "atoms": 13,
+    "a": 2.88,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBE/Cr/111"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBEsol",
+    "element": "Cr",
+    "structure": "bcc",
+    "facet": "111",
+    "layers": 13,
+    "atoms": 13,
+    "a": 2.88,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBEsol/Cr/111"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "Q2D-GGA",
+    "element": "Cr",
+    "structure": "bcc",
+    "facet": "111",
+    "layers": 13,
+    "atoms": 13,
+    "a": 2.88,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/Q2D-GGA/Cr/111"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "LDA",
+    "element": "Fe",
+    "structure": "bcc",
+    "facet": "100",
+    "layers": 13,
+    "atoms": 13,
+    "a": 2.87,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/LDA/Fe/100"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBE",
+    "element": "Fe",
+    "structure": "bcc",
+    "facet": "100",
+    "layers": 13,
+    "atoms": 13,
+    "a": 2.87,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBE/Fe/100"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBEsol",
+    "element": "Fe",
+    "structure": "bcc",
+    "facet": "100",
+    "layers": 13,
+    "atoms": 13,
+    "a": 2.87,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBEsol/Fe/100"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "Q2D-GGA",
+    "element": "Fe",
+    "structure": "bcc",
+    "facet": "100",
+    "layers": 13,
+    "atoms": 13,
+    "a": 2.87,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/Q2D-GGA/Fe/100"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "LDA",
+    "element": "Fe",
+    "structure": "bcc",
+    "facet": "110",
+    "layers": 13,
+    "atoms": 13,
+    "a": 2.87,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/LDA/Fe/110"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBE",
+    "element": "Fe",
+    "structure": "bcc",
+    "facet": "110",
+    "layers": 13,
+    "atoms": 13,
+    "a": 2.87,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBE/Fe/110"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBEsol",
+    "element": "Fe",
+    "structure": "bcc",
+    "facet": "110",
+    "layers": 13,
+    "atoms": 13,
+    "a": 2.87,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBEsol/Fe/110"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "Q2D-GGA",
+    "element": "Fe",
+    "structure": "bcc",
+    "facet": "110",
+    "layers": 13,
+    "atoms": 13,
+    "a": 2.87,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/Q2D-GGA/Fe/110"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "LDA",
+    "element": "Fe",
+    "structure": "bcc",
+    "facet": "111",
+    "layers": 13,
+    "atoms": 13,
+    "a": 2.87,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/LDA/Fe/111"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBE",
+    "element": "Fe",
+    "structure": "bcc",
+    "facet": "111",
+    "layers": 13,
+    "atoms": 13,
+    "a": 2.87,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBE/Fe/111"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBEsol",
+    "element": "Fe",
+    "structure": "bcc",
+    "facet": "111",
+    "layers": 13,
+    "atoms": 13,
+    "a": 2.87,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBEsol/Fe/111"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "Q2D-GGA",
+    "element": "Fe",
+    "structure": "bcc",
+    "facet": "111",
+    "layers": 13,
+    "atoms": 13,
+    "a": 2.87,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/Q2D-GGA/Fe/111"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "LDA",
+    "element": "Mo",
+    "structure": "bcc",
+    "facet": "100",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.15,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/LDA/Mo/100"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBE",
+    "element": "Mo",
+    "structure": "bcc",
+    "facet": "100",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.15,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBE/Mo/100"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBEsol",
+    "element": "Mo",
+    "structure": "bcc",
+    "facet": "100",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.15,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBEsol/Mo/100"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "Q2D-GGA",
+    "element": "Mo",
+    "structure": "bcc",
+    "facet": "100",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.15,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/Q2D-GGA/Mo/100"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "LDA",
+    "element": "Mo",
+    "structure": "bcc",
+    "facet": "110",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.15,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/LDA/Mo/110"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBE",
+    "element": "Mo",
+    "structure": "bcc",
+    "facet": "110",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.15,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBE/Mo/110"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBEsol",
+    "element": "Mo",
+    "structure": "bcc",
+    "facet": "110",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.15,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBEsol/Mo/110"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "Q2D-GGA",
+    "element": "Mo",
+    "structure": "bcc",
+    "facet": "110",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.15,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/Q2D-GGA/Mo/110"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "LDA",
+    "element": "Mo",
+    "structure": "bcc",
+    "facet": "111",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.15,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/LDA/Mo/111"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBE",
+    "element": "Mo",
+    "structure": "bcc",
+    "facet": "111",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.15,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBE/Mo/111"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBEsol",
+    "element": "Mo",
+    "structure": "bcc",
+    "facet": "111",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.15,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBEsol/Mo/111"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "Q2D-GGA",
+    "element": "Mo",
+    "structure": "bcc",
+    "facet": "111",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.15,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/Q2D-GGA/Mo/111"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "LDA",
+    "element": "Nb",
+    "structure": "bcc",
+    "facet": "100",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.3,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/LDA/Nb/100"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBE",
+    "element": "Nb",
+    "structure": "bcc",
+    "facet": "100",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.3,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBE/Nb/100"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBEsol",
+    "element": "Nb",
+    "structure": "bcc",
+    "facet": "100",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.3,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBEsol/Nb/100"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "Q2D-GGA",
+    "element": "Nb",
+    "structure": "bcc",
+    "facet": "100",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.3,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/Q2D-GGA/Nb/100"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "LDA",
+    "element": "Nb",
+    "structure": "bcc",
+    "facet": "110",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.3,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/LDA/Nb/110"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBE",
+    "element": "Nb",
+    "structure": "bcc",
+    "facet": "110",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.3,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBE/Nb/110"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBEsol",
+    "element": "Nb",
+    "structure": "bcc",
+    "facet": "110",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.3,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBEsol/Nb/110"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "Q2D-GGA",
+    "element": "Nb",
+    "structure": "bcc",
+    "facet": "110",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.3,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/Q2D-GGA/Nb/110"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "LDA",
+    "element": "Nb",
+    "structure": "bcc",
+    "facet": "111",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.3,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/LDA/Nb/111"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBE",
+    "element": "Nb",
+    "structure": "bcc",
+    "facet": "111",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.3,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBE/Nb/111"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBEsol",
+    "element": "Nb",
+    "structure": "bcc",
+    "facet": "111",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.3,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBEsol/Nb/111"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "Q2D-GGA",
+    "element": "Nb",
+    "structure": "bcc",
+    "facet": "111",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.3,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/Q2D-GGA/Nb/111"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "LDA",
+    "element": "Ta",
+    "structure": "bcc",
+    "facet": "100",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.3,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/LDA/Ta/100"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBE",
+    "element": "Ta",
+    "structure": "bcc",
+    "facet": "100",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.3,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBE/Ta/100"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBEsol",
+    "element": "Ta",
+    "structure": "bcc",
+    "facet": "100",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.3,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBEsol/Ta/100"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "Q2D-GGA",
+    "element": "Ta",
+    "structure": "bcc",
+    "facet": "100",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.3,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/Q2D-GGA/Ta/100"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "LDA",
+    "element": "Ta",
+    "structure": "bcc",
+    "facet": "110",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.3,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/LDA/Ta/110"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBE",
+    "element": "Ta",
+    "structure": "bcc",
+    "facet": "110",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.3,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBE/Ta/110"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBEsol",
+    "element": "Ta",
+    "structure": "bcc",
+    "facet": "110",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.3,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBEsol/Ta/110"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "Q2D-GGA",
+    "element": "Ta",
+    "structure": "bcc",
+    "facet": "110",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.3,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/Q2D-GGA/Ta/110"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "LDA",
+    "element": "Ta",
+    "structure": "bcc",
+    "facet": "111",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.3,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/LDA/Ta/111"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBE",
+    "element": "Ta",
+    "structure": "bcc",
+    "facet": "111",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.3,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBE/Ta/111"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBEsol",
+    "element": "Ta",
+    "structure": "bcc",
+    "facet": "111",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.3,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBEsol/Ta/111"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "Q2D-GGA",
+    "element": "Ta",
+    "structure": "bcc",
+    "facet": "111",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.3,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/Q2D-GGA/Ta/111"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "LDA",
+    "element": "V",
+    "structure": "bcc",
+    "facet": "100",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.03,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/LDA/V/100"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBE",
+    "element": "V",
+    "structure": "bcc",
+    "facet": "100",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.03,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBE/V/100"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBEsol",
+    "element": "V",
+    "structure": "bcc",
+    "facet": "100",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.03,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBEsol/V/100"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "Q2D-GGA",
+    "element": "V",
+    "structure": "bcc",
+    "facet": "100",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.03,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/Q2D-GGA/V/100"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "LDA",
+    "element": "V",
+    "structure": "bcc",
+    "facet": "110",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.03,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/LDA/V/110"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBE",
+    "element": "V",
+    "structure": "bcc",
+    "facet": "110",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.03,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBE/V/110"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBEsol",
+    "element": "V",
+    "structure": "bcc",
+    "facet": "110",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.03,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBEsol/V/110"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "Q2D-GGA",
+    "element": "V",
+    "structure": "bcc",
+    "facet": "110",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.03,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/Q2D-GGA/V/110"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "LDA",
+    "element": "V",
+    "structure": "bcc",
+    "facet": "111",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.03,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/LDA/V/111"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBE",
+    "element": "V",
+    "structure": "bcc",
+    "facet": "111",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.03,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBE/V/111"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBEsol",
+    "element": "V",
+    "structure": "bcc",
+    "facet": "111",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.03,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBEsol/V/111"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "Q2D-GGA",
+    "element": "V",
+    "structure": "bcc",
+    "facet": "111",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.03,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/Q2D-GGA/V/111"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "LDA",
+    "element": "W",
+    "structure": "bcc",
+    "facet": "100",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.17,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/LDA/W/100"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBE",
+    "element": "W",
+    "structure": "bcc",
+    "facet": "100",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.17,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBE/W/100"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBEsol",
+    "element": "W",
+    "structure": "bcc",
+    "facet": "100",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.17,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBEsol/W/100"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "Q2D-GGA",
+    "element": "W",
+    "structure": "bcc",
+    "facet": "100",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.17,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/Q2D-GGA/W/100"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "LDA",
+    "element": "W",
+    "structure": "bcc",
+    "facet": "110",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.17,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/LDA/W/110"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBE",
+    "element": "W",
+    "structure": "bcc",
+    "facet": "110",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.17,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBE/W/110"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBEsol",
+    "element": "W",
+    "structure": "bcc",
+    "facet": "110",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.17,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBEsol/W/110"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "Q2D-GGA",
+    "element": "W",
+    "structure": "bcc",
+    "facet": "110",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.17,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/Q2D-GGA/W/110"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "LDA",
+    "element": "W",
+    "structure": "bcc",
+    "facet": "111",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.17,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/LDA/W/111"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBE",
+    "element": "W",
+    "structure": "bcc",
+    "facet": "111",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.17,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBE/W/111"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBEsol",
+    "element": "W",
+    "structure": "bcc",
+    "facet": "111",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.17,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBEsol/W/111"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "Q2D-GGA",
+    "element": "W",
+    "structure": "bcc",
+    "facet": "111",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.17,
+    "c": null,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/Q2D-GGA/W/111"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "LDA",
+    "element": "Co",
+    "structure": "hcp",
+    "facet": "0001",
+    "layers": 13,
+    "atoms": 13,
+    "a": 2.51,
+    "c": 4.07,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/LDA/Co/0001"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBE",
+    "element": "Co",
+    "structure": "hcp",
+    "facet": "0001",
+    "layers": 13,
+    "atoms": 13,
+    "a": 2.51,
+    "c": 4.07,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBE/Co/0001"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBEsol",
+    "element": "Co",
+    "structure": "hcp",
+    "facet": "0001",
+    "layers": 13,
+    "atoms": 13,
+    "a": 2.51,
+    "c": 4.07,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBEsol/Co/0001"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "Q2D-GGA",
+    "element": "Co",
+    "structure": "hcp",
+    "facet": "0001",
+    "layers": 13,
+    "atoms": 13,
+    "a": 2.51,
+    "c": 4.07,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/Q2D-GGA/Co/0001"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "LDA",
+    "element": "Co",
+    "structure": "hcp",
+    "facet": "10-10",
+    "layers": 13,
+    "atoms": 13,
+    "a": 2.51,
+    "c": 4.07,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/LDA/Co/10-10"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBE",
+    "element": "Co",
+    "structure": "hcp",
+    "facet": "10-10",
+    "layers": 13,
+    "atoms": 13,
+    "a": 2.51,
+    "c": 4.07,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBE/Co/10-10"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBEsol",
+    "element": "Co",
+    "structure": "hcp",
+    "facet": "10-10",
+    "layers": 13,
+    "atoms": 13,
+    "a": 2.51,
+    "c": 4.07,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBEsol/Co/10-10"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "Q2D-GGA",
+    "element": "Co",
+    "structure": "hcp",
+    "facet": "10-10",
+    "layers": 13,
+    "atoms": 13,
+    "a": 2.51,
+    "c": 4.07,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/Q2D-GGA/Co/10-10"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "LDA",
+    "element": "Co",
+    "structure": "hcp",
+    "facet": "11-20",
+    "layers": 13,
+    "atoms": 26,
+    "a": 2.51,
+    "c": 4.07,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/LDA/Co/11-20"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBE",
+    "element": "Co",
+    "structure": "hcp",
+    "facet": "11-20",
+    "layers": 13,
+    "atoms": 26,
+    "a": 2.51,
+    "c": 4.07,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBE/Co/11-20"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBEsol",
+    "element": "Co",
+    "structure": "hcp",
+    "facet": "11-20",
+    "layers": 13,
+    "atoms": 26,
+    "a": 2.51,
+    "c": 4.07,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBEsol/Co/11-20"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "Q2D-GGA",
+    "element": "Co",
+    "structure": "hcp",
+    "facet": "11-20",
+    "layers": 13,
+    "atoms": 26,
+    "a": 2.51,
+    "c": 4.07,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/Q2D-GGA/Co/11-20"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "LDA",
+    "element": "Cd",
+    "structure": "hcp",
+    "facet": "0001",
+    "layers": 13,
+    "atoms": 13,
+    "a": 2.98,
+    "c": 5.62,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/LDA/Cd/0001"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBE",
+    "element": "Cd",
+    "structure": "hcp",
+    "facet": "0001",
+    "layers": 13,
+    "atoms": 13,
+    "a": 2.98,
+    "c": 5.62,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBE/Cd/0001"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBEsol",
+    "element": "Cd",
+    "structure": "hcp",
+    "facet": "0001",
+    "layers": 13,
+    "atoms": 13,
+    "a": 2.98,
+    "c": 5.62,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBEsol/Cd/0001"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "Q2D-GGA",
+    "element": "Cd",
+    "structure": "hcp",
+    "facet": "0001",
+    "layers": 13,
+    "atoms": 13,
+    "a": 2.98,
+    "c": 5.62,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/Q2D-GGA/Cd/0001"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "LDA",
+    "element": "Cd",
+    "structure": "hcp",
+    "facet": "10-10",
+    "layers": 13,
+    "atoms": 13,
+    "a": 2.98,
+    "c": 5.62,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/LDA/Cd/10-10"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBE",
+    "element": "Cd",
+    "structure": "hcp",
+    "facet": "10-10",
+    "layers": 13,
+    "atoms": 13,
+    "a": 2.98,
+    "c": 5.62,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBE/Cd/10-10"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBEsol",
+    "element": "Cd",
+    "structure": "hcp",
+    "facet": "10-10",
+    "layers": 13,
+    "atoms": 13,
+    "a": 2.98,
+    "c": 5.62,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBEsol/Cd/10-10"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "Q2D-GGA",
+    "element": "Cd",
+    "structure": "hcp",
+    "facet": "10-10",
+    "layers": 13,
+    "atoms": 13,
+    "a": 2.98,
+    "c": 5.62,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/Q2D-GGA/Cd/10-10"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "LDA",
+    "element": "Cd",
+    "structure": "hcp",
+    "facet": "11-20",
+    "layers": 13,
+    "atoms": 26,
+    "a": 2.98,
+    "c": 5.62,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/LDA/Cd/11-20"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBE",
+    "element": "Cd",
+    "structure": "hcp",
+    "facet": "11-20",
+    "layers": 13,
+    "atoms": 26,
+    "a": 2.98,
+    "c": 5.62,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBE/Cd/11-20"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBEsol",
+    "element": "Cd",
+    "structure": "hcp",
+    "facet": "11-20",
+    "layers": 13,
+    "atoms": 26,
+    "a": 2.98,
+    "c": 5.62,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBEsol/Cd/11-20"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "Q2D-GGA",
+    "element": "Cd",
+    "structure": "hcp",
+    "facet": "11-20",
+    "layers": 13,
+    "atoms": 26,
+    "a": 2.98,
+    "c": 5.62,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/Q2D-GGA/Cd/11-20"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "LDA",
+    "element": "Hf",
+    "structure": "hcp",
+    "facet": "0001",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.19,
+    "c": 5.05,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/LDA/Hf/0001"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBE",
+    "element": "Hf",
+    "structure": "hcp",
+    "facet": "0001",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.19,
+    "c": 5.05,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBE/Hf/0001"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBEsol",
+    "element": "Hf",
+    "structure": "hcp",
+    "facet": "0001",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.19,
+    "c": 5.05,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBEsol/Hf/0001"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "Q2D-GGA",
+    "element": "Hf",
+    "structure": "hcp",
+    "facet": "0001",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.19,
+    "c": 5.05,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/Q2D-GGA/Hf/0001"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "LDA",
+    "element": "Hf",
+    "structure": "hcp",
+    "facet": "10-10",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.19,
+    "c": 5.05,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/LDA/Hf/10-10"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBE",
+    "element": "Hf",
+    "structure": "hcp",
+    "facet": "10-10",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.19,
+    "c": 5.05,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBE/Hf/10-10"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBEsol",
+    "element": "Hf",
+    "structure": "hcp",
+    "facet": "10-10",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.19,
+    "c": 5.05,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBEsol/Hf/10-10"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "Q2D-GGA",
+    "element": "Hf",
+    "structure": "hcp",
+    "facet": "10-10",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.19,
+    "c": 5.05,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/Q2D-GGA/Hf/10-10"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "LDA",
+    "element": "Hf",
+    "structure": "hcp",
+    "facet": "11-20",
+    "layers": 13,
+    "atoms": 26,
+    "a": 3.19,
+    "c": 5.05,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/LDA/Hf/11-20"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBE",
+    "element": "Hf",
+    "structure": "hcp",
+    "facet": "11-20",
+    "layers": 13,
+    "atoms": 26,
+    "a": 3.19,
+    "c": 5.05,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBE/Hf/11-20"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBEsol",
+    "element": "Hf",
+    "structure": "hcp",
+    "facet": "11-20",
+    "layers": 13,
+    "atoms": 26,
+    "a": 3.19,
+    "c": 5.05,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBEsol/Hf/11-20"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "Q2D-GGA",
+    "element": "Hf",
+    "structure": "hcp",
+    "facet": "11-20",
+    "layers": 13,
+    "atoms": 26,
+    "a": 3.19,
+    "c": 5.05,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/Q2D-GGA/Hf/11-20"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "LDA",
+    "element": "Ru",
+    "structure": "hcp",
+    "facet": "0001",
+    "layers": 13,
+    "atoms": 13,
+    "a": 2.71,
+    "c": 4.28,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/LDA/Ru/0001"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBE",
+    "element": "Ru",
+    "structure": "hcp",
+    "facet": "0001",
+    "layers": 13,
+    "atoms": 13,
+    "a": 2.71,
+    "c": 4.28,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBE/Ru/0001"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBEsol",
+    "element": "Ru",
+    "structure": "hcp",
+    "facet": "0001",
+    "layers": 13,
+    "atoms": 13,
+    "a": 2.71,
+    "c": 4.28,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBEsol/Ru/0001"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "Q2D-GGA",
+    "element": "Ru",
+    "structure": "hcp",
+    "facet": "0001",
+    "layers": 13,
+    "atoms": 13,
+    "a": 2.71,
+    "c": 4.28,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/Q2D-GGA/Ru/0001"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "LDA",
+    "element": "Ru",
+    "structure": "hcp",
+    "facet": "10-10",
+    "layers": 13,
+    "atoms": 13,
+    "a": 2.71,
+    "c": 4.28,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/LDA/Ru/10-10"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBE",
+    "element": "Ru",
+    "structure": "hcp",
+    "facet": "10-10",
+    "layers": 13,
+    "atoms": 13,
+    "a": 2.71,
+    "c": 4.28,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBE/Ru/10-10"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBEsol",
+    "element": "Ru",
+    "structure": "hcp",
+    "facet": "10-10",
+    "layers": 13,
+    "atoms": 13,
+    "a": 2.71,
+    "c": 4.28,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBEsol/Ru/10-10"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "Q2D-GGA",
+    "element": "Ru",
+    "structure": "hcp",
+    "facet": "10-10",
+    "layers": 13,
+    "atoms": 13,
+    "a": 2.71,
+    "c": 4.28,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/Q2D-GGA/Ru/10-10"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "LDA",
+    "element": "Ru",
+    "structure": "hcp",
+    "facet": "11-20",
+    "layers": 13,
+    "atoms": 26,
+    "a": 2.71,
+    "c": 4.28,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/LDA/Ru/11-20"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBE",
+    "element": "Ru",
+    "structure": "hcp",
+    "facet": "11-20",
+    "layers": 13,
+    "atoms": 26,
+    "a": 2.71,
+    "c": 4.28,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBE/Ru/11-20"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBEsol",
+    "element": "Ru",
+    "structure": "hcp",
+    "facet": "11-20",
+    "layers": 13,
+    "atoms": 26,
+    "a": 2.71,
+    "c": 4.28,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBEsol/Ru/11-20"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "Q2D-GGA",
+    "element": "Ru",
+    "structure": "hcp",
+    "facet": "11-20",
+    "layers": 13,
+    "atoms": 26,
+    "a": 2.71,
+    "c": 4.28,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/Q2D-GGA/Ru/11-20"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "LDA",
+    "element": "Ti",
+    "structure": "hcp",
+    "facet": "0001",
+    "layers": 13,
+    "atoms": 13,
+    "a": 2.95,
+    "c": 4.68,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/LDA/Ti/0001"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBE",
+    "element": "Ti",
+    "structure": "hcp",
+    "facet": "0001",
+    "layers": 13,
+    "atoms": 13,
+    "a": 2.95,
+    "c": 4.68,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBE/Ti/0001"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBEsol",
+    "element": "Ti",
+    "structure": "hcp",
+    "facet": "0001",
+    "layers": 13,
+    "atoms": 13,
+    "a": 2.95,
+    "c": 4.68,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBEsol/Ti/0001"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "Q2D-GGA",
+    "element": "Ti",
+    "structure": "hcp",
+    "facet": "0001",
+    "layers": 13,
+    "atoms": 13,
+    "a": 2.95,
+    "c": 4.68,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/Q2D-GGA/Ti/0001"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "LDA",
+    "element": "Ti",
+    "structure": "hcp",
+    "facet": "10-10",
+    "layers": 13,
+    "atoms": 13,
+    "a": 2.95,
+    "c": 4.68,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/LDA/Ti/10-10"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBE",
+    "element": "Ti",
+    "structure": "hcp",
+    "facet": "10-10",
+    "layers": 13,
+    "atoms": 13,
+    "a": 2.95,
+    "c": 4.68,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBE/Ti/10-10"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBEsol",
+    "element": "Ti",
+    "structure": "hcp",
+    "facet": "10-10",
+    "layers": 13,
+    "atoms": 13,
+    "a": 2.95,
+    "c": 4.68,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBEsol/Ti/10-10"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "Q2D-GGA",
+    "element": "Ti",
+    "structure": "hcp",
+    "facet": "10-10",
+    "layers": 13,
+    "atoms": 13,
+    "a": 2.95,
+    "c": 4.68,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/Q2D-GGA/Ti/10-10"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "LDA",
+    "element": "Ti",
+    "structure": "hcp",
+    "facet": "11-20",
+    "layers": 13,
+    "atoms": 26,
+    "a": 2.95,
+    "c": 4.68,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/LDA/Ti/11-20"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBE",
+    "element": "Ti",
+    "structure": "hcp",
+    "facet": "11-20",
+    "layers": 13,
+    "atoms": 26,
+    "a": 2.95,
+    "c": 4.68,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBE/Ti/11-20"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBEsol",
+    "element": "Ti",
+    "structure": "hcp",
+    "facet": "11-20",
+    "layers": 13,
+    "atoms": 26,
+    "a": 2.95,
+    "c": 4.68,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBEsol/Ti/11-20"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "Q2D-GGA",
+    "element": "Ti",
+    "structure": "hcp",
+    "facet": "11-20",
+    "layers": 13,
+    "atoms": 26,
+    "a": 2.95,
+    "c": 4.68,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/Q2D-GGA/Ti/11-20"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "LDA",
+    "element": "Zn",
+    "structure": "hcp",
+    "facet": "0001",
+    "layers": 13,
+    "atoms": 13,
+    "a": 2.66,
+    "c": 4.95,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/LDA/Zn/0001"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBE",
+    "element": "Zn",
+    "structure": "hcp",
+    "facet": "0001",
+    "layers": 13,
+    "atoms": 13,
+    "a": 2.66,
+    "c": 4.95,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBE/Zn/0001"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBEsol",
+    "element": "Zn",
+    "structure": "hcp",
+    "facet": "0001",
+    "layers": 13,
+    "atoms": 13,
+    "a": 2.66,
+    "c": 4.95,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBEsol/Zn/0001"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "Q2D-GGA",
+    "element": "Zn",
+    "structure": "hcp",
+    "facet": "0001",
+    "layers": 13,
+    "atoms": 13,
+    "a": 2.66,
+    "c": 4.95,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/Q2D-GGA/Zn/0001"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "LDA",
+    "element": "Zn",
+    "structure": "hcp",
+    "facet": "10-10",
+    "layers": 13,
+    "atoms": 13,
+    "a": 2.66,
+    "c": 4.95,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/LDA/Zn/10-10"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBE",
+    "element": "Zn",
+    "structure": "hcp",
+    "facet": "10-10",
+    "layers": 13,
+    "atoms": 13,
+    "a": 2.66,
+    "c": 4.95,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBE/Zn/10-10"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBEsol",
+    "element": "Zn",
+    "structure": "hcp",
+    "facet": "10-10",
+    "layers": 13,
+    "atoms": 13,
+    "a": 2.66,
+    "c": 4.95,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBEsol/Zn/10-10"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "Q2D-GGA",
+    "element": "Zn",
+    "structure": "hcp",
+    "facet": "10-10",
+    "layers": 13,
+    "atoms": 13,
+    "a": 2.66,
+    "c": 4.95,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/Q2D-GGA/Zn/10-10"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "LDA",
+    "element": "Zn",
+    "structure": "hcp",
+    "facet": "11-20",
+    "layers": 13,
+    "atoms": 26,
+    "a": 2.66,
+    "c": 4.95,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/LDA/Zn/11-20"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBE",
+    "element": "Zn",
+    "structure": "hcp",
+    "facet": "11-20",
+    "layers": 13,
+    "atoms": 26,
+    "a": 2.66,
+    "c": 4.95,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBE/Zn/11-20"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBEsol",
+    "element": "Zn",
+    "structure": "hcp",
+    "facet": "11-20",
+    "layers": 13,
+    "atoms": 26,
+    "a": 2.66,
+    "c": 4.95,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBEsol/Zn/11-20"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "Q2D-GGA",
+    "element": "Zn",
+    "structure": "hcp",
+    "facet": "11-20",
+    "layers": 13,
+    "atoms": 26,
+    "a": 2.66,
+    "c": 4.95,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/Q2D-GGA/Zn/11-20"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "LDA",
+    "element": "Zr",
+    "structure": "hcp",
+    "facet": "0001",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.23,
+    "c": 5.15,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/LDA/Zr/0001"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBE",
+    "element": "Zr",
+    "structure": "hcp",
+    "facet": "0001",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.23,
+    "c": 5.15,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBE/Zr/0001"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBEsol",
+    "element": "Zr",
+    "structure": "hcp",
+    "facet": "0001",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.23,
+    "c": 5.15,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBEsol/Zr/0001"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "Q2D-GGA",
+    "element": "Zr",
+    "structure": "hcp",
+    "facet": "0001",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.23,
+    "c": 5.15,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/Q2D-GGA/Zr/0001"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "LDA",
+    "element": "Zr",
+    "structure": "hcp",
+    "facet": "10-10",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.23,
+    "c": 5.15,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/LDA/Zr/10-10"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBE",
+    "element": "Zr",
+    "structure": "hcp",
+    "facet": "10-10",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.23,
+    "c": 5.15,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBE/Zr/10-10"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBEsol",
+    "element": "Zr",
+    "structure": "hcp",
+    "facet": "10-10",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.23,
+    "c": 5.15,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBEsol/Zr/10-10"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "Q2D-GGA",
+    "element": "Zr",
+    "structure": "hcp",
+    "facet": "10-10",
+    "layers": 13,
+    "atoms": 13,
+    "a": 3.23,
+    "c": 5.15,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/Q2D-GGA/Zr/10-10"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "LDA",
+    "element": "Zr",
+    "structure": "hcp",
+    "facet": "11-20",
+    "layers": 13,
+    "atoms": 26,
+    "a": 3.23,
+    "c": 5.15,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/LDA/Zr/11-20"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBE",
+    "element": "Zr",
+    "structure": "hcp",
+    "facet": "11-20",
+    "layers": 13,
+    "atoms": 26,
+    "a": 3.23,
+    "c": 5.15,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBE/Zr/11-20"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "PBEsol",
+    "element": "Zr",
+    "structure": "hcp",
+    "facet": "11-20",
+    "layers": 13,
+    "atoms": 26,
+    "a": 3.23,
+    "c": 5.15,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/PBEsol/Zr/11-20"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "slab",
+    "xc": "Q2D-GGA",
+    "element": "Zr",
+    "structure": "hcp",
+    "facet": "11-20",
+    "layers": 13,
+    "atoms": 26,
+    "a": 3.23,
+    "c": 5.15,
+    "vacuum_A": 21.0,
+    "kmesh": [
+      16,
+      16,
+      1
+    ],
+    "encut_eV": 800,
+    "production_geometry": false,
+    "path": "slabs/Q2D-GGA/Zr/11-20"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "LDA",
+    "element": "Ag",
+    "structure": "fcc",
+    "a_seed": 4.09,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/LDA/Ag"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "PBE",
+    "element": "Ag",
+    "structure": "fcc",
+    "a_seed": 4.09,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/PBE/Ag"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "PBEsol",
+    "element": "Ag",
+    "structure": "fcc",
+    "a_seed": 4.09,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/PBEsol/Ag"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "Q2D-GGA",
+    "element": "Ag",
+    "structure": "fcc",
+    "a_seed": 4.09,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/Q2D-GGA/Ag"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "LDA",
+    "element": "Au",
+    "structure": "fcc",
+    "a_seed": 4.08,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/LDA/Au"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "PBE",
+    "element": "Au",
+    "structure": "fcc",
+    "a_seed": 4.08,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/PBE/Au"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "PBEsol",
+    "element": "Au",
+    "structure": "fcc",
+    "a_seed": 4.08,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/PBEsol/Au"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "Q2D-GGA",
+    "element": "Au",
+    "structure": "fcc",
+    "a_seed": 4.08,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/Q2D-GGA/Au"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "LDA",
+    "element": "Cd",
+    "structure": "hcp",
+    "a_seed": 2.98,
+    "c_seed": 5.62,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/LDA/Cd"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "PBE",
+    "element": "Cd",
+    "structure": "hcp",
+    "a_seed": 2.98,
+    "c_seed": 5.62,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/PBE/Cd"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "PBEsol",
+    "element": "Cd",
+    "structure": "hcp",
+    "a_seed": 2.98,
+    "c_seed": 5.62,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/PBEsol/Cd"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "Q2D-GGA",
+    "element": "Cd",
+    "structure": "hcp",
+    "a_seed": 2.98,
+    "c_seed": 5.62,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/Q2D-GGA/Cd"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "LDA",
+    "element": "Co",
+    "structure": "hcp",
+    "a_seed": 2.51,
+    "c_seed": 4.07,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/LDA/Co"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "PBE",
+    "element": "Co",
+    "structure": "hcp",
+    "a_seed": 2.51,
+    "c_seed": 4.07,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/PBE/Co"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "PBEsol",
+    "element": "Co",
+    "structure": "hcp",
+    "a_seed": 2.51,
+    "c_seed": 4.07,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/PBEsol/Co"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "Q2D-GGA",
+    "element": "Co",
+    "structure": "hcp",
+    "a_seed": 2.51,
+    "c_seed": 4.07,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/Q2D-GGA/Co"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "LDA",
+    "element": "Cr",
+    "structure": "bcc",
+    "a_seed": 2.88,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/LDA/Cr"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "PBE",
+    "element": "Cr",
+    "structure": "bcc",
+    "a_seed": 2.88,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/PBE/Cr"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "PBEsol",
+    "element": "Cr",
+    "structure": "bcc",
+    "a_seed": 2.88,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/PBEsol/Cr"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "Q2D-GGA",
+    "element": "Cr",
+    "structure": "bcc",
+    "a_seed": 2.88,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/Q2D-GGA/Cr"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "LDA",
+    "element": "Cu",
+    "structure": "fcc",
+    "a_seed": 3.61,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/LDA/Cu"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "PBE",
+    "element": "Cu",
+    "structure": "fcc",
+    "a_seed": 3.61,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/PBE/Cu"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "PBEsol",
+    "element": "Cu",
+    "structure": "fcc",
+    "a_seed": 3.61,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/PBEsol/Cu"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "Q2D-GGA",
+    "element": "Cu",
+    "structure": "fcc",
+    "a_seed": 3.61,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/Q2D-GGA/Cu"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "LDA",
+    "element": "Fe",
+    "structure": "bcc",
+    "a_seed": 2.87,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/LDA/Fe"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "PBE",
+    "element": "Fe",
+    "structure": "bcc",
+    "a_seed": 2.87,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/PBE/Fe"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "PBEsol",
+    "element": "Fe",
+    "structure": "bcc",
+    "a_seed": 2.87,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/PBEsol/Fe"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "Q2D-GGA",
+    "element": "Fe",
+    "structure": "bcc",
+    "a_seed": 2.87,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/Q2D-GGA/Fe"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "LDA",
+    "element": "Hf",
+    "structure": "hcp",
+    "a_seed": 3.19,
+    "c_seed": 5.05,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/LDA/Hf"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "PBE",
+    "element": "Hf",
+    "structure": "hcp",
+    "a_seed": 3.19,
+    "c_seed": 5.05,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/PBE/Hf"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "PBEsol",
+    "element": "Hf",
+    "structure": "hcp",
+    "a_seed": 3.19,
+    "c_seed": 5.05,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/PBEsol/Hf"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "Q2D-GGA",
+    "element": "Hf",
+    "structure": "hcp",
+    "a_seed": 3.19,
+    "c_seed": 5.05,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/Q2D-GGA/Hf"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "LDA",
+    "element": "Ir",
+    "structure": "fcc",
+    "a_seed": 3.84,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/LDA/Ir"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "PBE",
+    "element": "Ir",
+    "structure": "fcc",
+    "a_seed": 3.84,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/PBE/Ir"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "PBEsol",
+    "element": "Ir",
+    "structure": "fcc",
+    "a_seed": 3.84,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/PBEsol/Ir"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "Q2D-GGA",
+    "element": "Ir",
+    "structure": "fcc",
+    "a_seed": 3.84,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/Q2D-GGA/Ir"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "LDA",
+    "element": "Mo",
+    "structure": "bcc",
+    "a_seed": 3.15,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/LDA/Mo"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "PBE",
+    "element": "Mo",
+    "structure": "bcc",
+    "a_seed": 3.15,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/PBE/Mo"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "PBEsol",
+    "element": "Mo",
+    "structure": "bcc",
+    "a_seed": 3.15,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/PBEsol/Mo"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "Q2D-GGA",
+    "element": "Mo",
+    "structure": "bcc",
+    "a_seed": 3.15,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/Q2D-GGA/Mo"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "LDA",
+    "element": "Nb",
+    "structure": "bcc",
+    "a_seed": 3.3,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/LDA/Nb"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "PBE",
+    "element": "Nb",
+    "structure": "bcc",
+    "a_seed": 3.3,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/PBE/Nb"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "PBEsol",
+    "element": "Nb",
+    "structure": "bcc",
+    "a_seed": 3.3,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/PBEsol/Nb"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "Q2D-GGA",
+    "element": "Nb",
+    "structure": "bcc",
+    "a_seed": 3.3,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/Q2D-GGA/Nb"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "LDA",
+    "element": "Pd",
+    "structure": "fcc",
+    "a_seed": 3.89,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/LDA/Pd"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "PBE",
+    "element": "Pd",
+    "structure": "fcc",
+    "a_seed": 3.89,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/PBE/Pd"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "PBEsol",
+    "element": "Pd",
+    "structure": "fcc",
+    "a_seed": 3.89,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/PBEsol/Pd"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "Q2D-GGA",
+    "element": "Pd",
+    "structure": "fcc",
+    "a_seed": 3.89,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/Q2D-GGA/Pd"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "LDA",
+    "element": "Pt",
+    "structure": "fcc",
+    "a_seed": 3.92,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/LDA/Pt"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "PBE",
+    "element": "Pt",
+    "structure": "fcc",
+    "a_seed": 3.92,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/PBE/Pt"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "PBEsol",
+    "element": "Pt",
+    "structure": "fcc",
+    "a_seed": 3.92,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/PBEsol/Pt"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "Q2D-GGA",
+    "element": "Pt",
+    "structure": "fcc",
+    "a_seed": 3.92,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/Q2D-GGA/Pt"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "LDA",
+    "element": "Rh",
+    "structure": "fcc",
+    "a_seed": 3.8,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/LDA/Rh"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "PBE",
+    "element": "Rh",
+    "structure": "fcc",
+    "a_seed": 3.8,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/PBE/Rh"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "PBEsol",
+    "element": "Rh",
+    "structure": "fcc",
+    "a_seed": 3.8,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/PBEsol/Rh"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "Q2D-GGA",
+    "element": "Rh",
+    "structure": "fcc",
+    "a_seed": 3.8,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/Q2D-GGA/Rh"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "LDA",
+    "element": "Ru",
+    "structure": "hcp",
+    "a_seed": 2.71,
+    "c_seed": 4.28,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/LDA/Ru"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "PBE",
+    "element": "Ru",
+    "structure": "hcp",
+    "a_seed": 2.71,
+    "c_seed": 4.28,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/PBE/Ru"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "PBEsol",
+    "element": "Ru",
+    "structure": "hcp",
+    "a_seed": 2.71,
+    "c_seed": 4.28,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/PBEsol/Ru"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "Q2D-GGA",
+    "element": "Ru",
+    "structure": "hcp",
+    "a_seed": 2.71,
+    "c_seed": 4.28,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/Q2D-GGA/Ru"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "LDA",
+    "element": "Ta",
+    "structure": "bcc",
+    "a_seed": 3.3,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/LDA/Ta"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "PBE",
+    "element": "Ta",
+    "structure": "bcc",
+    "a_seed": 3.3,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/PBE/Ta"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "PBEsol",
+    "element": "Ta",
+    "structure": "bcc",
+    "a_seed": 3.3,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/PBEsol/Ta"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "Q2D-GGA",
+    "element": "Ta",
+    "structure": "bcc",
+    "a_seed": 3.3,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/Q2D-GGA/Ta"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "LDA",
+    "element": "Ti",
+    "structure": "hcp",
+    "a_seed": 2.95,
+    "c_seed": 4.68,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/LDA/Ti"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "PBE",
+    "element": "Ti",
+    "structure": "hcp",
+    "a_seed": 2.95,
+    "c_seed": 4.68,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/PBE/Ti"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "PBEsol",
+    "element": "Ti",
+    "structure": "hcp",
+    "a_seed": 2.95,
+    "c_seed": 4.68,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/PBEsol/Ti"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "Q2D-GGA",
+    "element": "Ti",
+    "structure": "hcp",
+    "a_seed": 2.95,
+    "c_seed": 4.68,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/Q2D-GGA/Ti"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "LDA",
+    "element": "V",
+    "structure": "bcc",
+    "a_seed": 3.03,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/LDA/V"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "PBE",
+    "element": "V",
+    "structure": "bcc",
+    "a_seed": 3.03,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/PBE/V"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "PBEsol",
+    "element": "V",
+    "structure": "bcc",
+    "a_seed": 3.03,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/PBEsol/V"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "Q2D-GGA",
+    "element": "V",
+    "structure": "bcc",
+    "a_seed": 3.03,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/Q2D-GGA/V"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "LDA",
+    "element": "W",
+    "structure": "bcc",
+    "a_seed": 3.17,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/LDA/W"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "PBE",
+    "element": "W",
+    "structure": "bcc",
+    "a_seed": 3.17,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/PBE/W"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "PBEsol",
+    "element": "W",
+    "structure": "bcc",
+    "a_seed": 3.17,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/PBEsol/W"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "Q2D-GGA",
+    "element": "W",
+    "structure": "bcc",
+    "a_seed": 3.17,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/Q2D-GGA/W"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "LDA",
+    "element": "Zn",
+    "structure": "hcp",
+    "a_seed": 2.66,
+    "c_seed": 4.95,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/LDA/Zn"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "PBE",
+    "element": "Zn",
+    "structure": "hcp",
+    "a_seed": 2.66,
+    "c_seed": 4.95,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/PBE/Zn"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "PBEsol",
+    "element": "Zn",
+    "structure": "hcp",
+    "a_seed": 2.66,
+    "c_seed": 4.95,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/PBEsol/Zn"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "Q2D-GGA",
+    "element": "Zn",
+    "structure": "hcp",
+    "a_seed": 2.66,
+    "c_seed": 4.95,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/Q2D-GGA/Zn"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "LDA",
+    "element": "Zr",
+    "structure": "hcp",
+    "a_seed": 3.23,
+    "c_seed": 5.15,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/LDA/Zr"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "PBE",
+    "element": "Zr",
+    "structure": "hcp",
+    "a_seed": 3.23,
+    "c_seed": 5.15,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/PBE/Zr"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "PBEsol",
+    "element": "Zr",
+    "structure": "hcp",
+    "a_seed": 3.23,
+    "c_seed": 5.15,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/PBEsol/Zr"
+  },
+  {
+    "protocol": "jcp2020",
+    "stage": "bulk",
+    "xc": "Q2D-GGA",
+    "element": "Zr",
+    "structure": "hcp",
+    "a_seed": 3.23,
+    "c_seed": 5.15,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 800,
+    "path": "bulk/Q2D-GGA/Zr"
+  }
+]

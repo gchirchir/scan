@@ -1,0 +1,140 @@
+Loading PySCF/2.7.0-foss-2023a
+  Loading requirement: GCCcore/12.3.0 zlib/1.2.13-GCCcore-12.3.0
+    binutils/2.40-GCCcore-12.3.0 GCC/12.3.0 numactl/2.0.16-GCCcore-12.3.0
+    XZ/5.4.2-GCCcore-12.3.0 libxml2/2.11.4-GCCcore-12.3.0
+    libpciaccess/0.17-GCCcore-12.3.0 hwloc/2.9.1-GCCcore-12.3.0 OpenSSL/1.1
+    libevent/2.1.12-GCCcore-12.3.0 UCX/1.14.1-GCCcore-12.3.0
+    libfabric/1.18.0-GCCcore-12.3.0 PMIx/4.2.4-GCCcore-12.3.0
+    UCC/1.2.0-GCCcore-12.3.0 OpenMPI/4.1.5-GCC-12.3.0 OpenBLAS/0.3.23-GCC-12.3.0
+    FlexiBLAS/3.3.1-GCC-12.3.0 FFTW/3.3.10-GCC-12.3.0 gompi/2023a
+    FFTW.MPI/3.3.10-gompi-2023a ScaLAPACK/2.2.0-gompi-2023a-fb foss/2023a
+    bzip2/1.0.8-GCCcore-12.3.0 ncurses/6.4-GCCcore-12.3.0
+    libreadline/8.2-GCCcore-12.3.0 Tcl/8.6.13-GCCcore-12.3.0
+    SQLite/3.42.0-GCCcore-12.3.0 libffi/3.4.4-GCCcore-12.3.0
+    Python/3.11.3-GCCcore-12.3.0 gfbf/2023a cffi/1.15.1-GCCcore-12.3.0
+    cryptography/41.0.1-GCCcore-12.3.0 virtualenv/20.23.1-GCCcore-12.3.0
+    Python-bundle-PyPI/2023.06-GCCcore-12.3.0 pybind11/2.11.1-GCCcore-12.3.0
+    SciPy-bundle/2023.07-gfbf-2023a mpi4py/3.1.4-gompi-2023a
+    Szip/2.1.1-GCCcore-12.3.0 HDF5/1.14.0-gompi-2023a h5py/3.9.0-foss-2023a
+    libcint/5.4.0-gfbf-2023a libxc/6.2.2-GCC-12.3.0 XCFun/2.1.1-GCCcore-12.3.0
+    CPPE/0.3.1-GCC-12.3.0 PyBerny/0.6.3-foss-2023a CheMPS2/1.8.12-foss-2023a
+    PyCheMPS2/1.8.12-foss-2023a gzip/1.12-GCCcore-12.3.0
+    lz4/1.9.4-GCCcore-12.3.0 zstd/1.5.5-GCCcore-12.3.0 ICU/73.2-GCCcore-12.3.0
+    Boost.MPI/1.82.0-gompi-2023a Block/1.5.3-20200525-foss-2023a
+    NECI/20230620-foss-2023a Dice/20240702-foss-2023a tblis/20230422-foss-2023a
+task=6 Ti 4.06 host=r19ch08b02.lem.kdm.wcss.pl date=2026-11-22T15:02:40+01:00
+WARNING!
+  Very diffused basis functions are found in the basis set. They may lead to severe
+  linear dependence and numerical instability.  You can set  cell.exp_to_discard=0.1
+  to remove the diffused Gaussians whose exponents are less than 0.1.
+
+/usr/local/easybuild/software/PySCF/2.7.0-foss-2023a/lib/python3.11/site-packages/pyscf/gto/mole.py:1294: UserWarning: Function mol.dumps drops attribute _mesh because it is not JSON-serializable
+  warnings.warn(msg)
+rhokerker it    1 rms(rho_out-rho_in) = 5.658e-02  N_in = 36.000000
+rhokerker it    2 rms(rho_out-rho_in) = 2.873e-02  N_in = 36.000000
+rhokerker it    3 rms(rho_out-rho_in) = 6.151e-03  N_in = 36.000000
+rhokerker it    4 rms(rho_out-rho_in) = 4.440e-03  N_in = 36.000000
+rhokerker it    5 rms(rho_out-rho_in) = 5.779e-04  N_in = 36.000000
+rhokerker it    6 rms(rho_out-rho_in) = 2.153e-04  N_in = 36.000000
+rhokerker it    7 rms(rho_out-rho_in) = 6.102e-05  N_in = 36.000000
+rhokerker it    8 rms(rho_out-rho_in) = 3.468e-05  N_in = 36.000000
+rhokerker it    9 rms(rho_out-rho_in) = 1.556e-05  N_in = 36.000000
+rhokerker it   10 rms(rho_out-rho_in) = 9.037e-06  N_in = 36.000000
+rhokerker it   11 rms(rho_out-rho_in) = 6.393e-07  N_in = 36.000000
+Kerker SCF: converged=True iterations=11 rms=6.39e-07 E=-174.5833363094 |g|/sqrt(n)=1.61e-07
+bulk: E=-174.58333631 Ha, N_grid=36.000000/36, FFT-grad rel.err 1.21e-03
+WARNING!
+  Very diffused basis functions are found in the basis set. They may lead to severe
+  linear dependence and numerical instability.  You can set  cell.exp_to_discard=0.1
+  to remove the diffused Gaussians whose exponents are less than 0.1.
+
+rhokerker it    1 rms(rho_out-rho_in) = 6.873e-02  N_in = 132.000000
+rhokerker it    2 rms(rho_out-rho_in) = 1.290e-01  N_in = 132.000000
+rhokerker it    3 rms(rho_out-rho_in) = 2.470e-02  N_in = 132.000000
+rhokerker it    4 rms(rho_out-rho_in) = 4.680e-02  N_in = 132.000000
+rhokerker it    5 rms(rho_out-rho_in) = 2.175e-02  N_in = 132.000000
+rhokerker it    6 rms(rho_out-rho_in) = 1.183e-02  N_in = 132.000000
+rhokerker it    7 rms(rho_out-rho_in) = 3.211e-03  N_in = 132.000000
+rhokerker it    8 rms(rho_out-rho_in) = 5.806e-03  N_in = 132.000000
+rhokerker it    9 rms(rho_out-rho_in) = 4.529e-03  N_in = 132.000000
+rhokerker it   10 rms(rho_out-rho_in) = 1.168e-03  N_in = 132.000000
+rhokerker it   11 rms(rho_out-rho_in) = 7.850e-04  N_in = 132.000000
+rhokerker it   12 rms(rho_out-rho_in) = 8.721e-04  N_in = 132.000000
+rhokerker it   13 rms(rho_out-rho_in) = 3.232e-04  N_in = 132.000000
+rhokerker it   14 rms(rho_out-rho_in) = 2.577e-04  N_in = 132.000000
+rhokerker it   15 rms(rho_out-rho_in) = 2.444e-04  N_in = 132.000000
+rhokerker it   16 rms(rho_out-rho_in) = 2.187e-04  N_in = 132.000000
+rhokerker it   17 rms(rho_out-rho_in) = 1.945e-04  N_in = 132.000000
+rhokerker it   18 rms(rho_out-rho_in) = 2.002e-04  N_in = 132.000000
+rhokerker it   19 rms(rho_out-rho_in) = 2.305e-04  N_in = 132.000000
+rhokerker it   20 rms(rho_out-rho_in) = 2.578e-04  N_in = 132.000000
+rhokerker it   21 rms(rho_out-rho_in) = 2.824e-04  N_in = 132.000000
+rhokerker it   22 rms(rho_out-rho_in) = 3.073e-04  N_in = 132.000000
+rhokerker it   23 rms(rho_out-rho_in) = 1.986e-04  N_in = 132.000000
+rhokerker it   24 rms(rho_out-rho_in) = 2.298e-04  N_in = 132.000000
+rhokerker it   25 rms(rho_out-rho_in) = 1.650e-04  N_in = 132.000000
+rhokerker it   26 rms(rho_out-rho_in) = 7.379e-05  N_in = 132.000000
+rhokerker it   27 rms(rho_out-rho_in) = 7.372e-05  N_in = 132.000000
+rhokerker it   28 rms(rho_out-rho_in) = 3.439e-05  N_in = 132.000000
+rhokerker it   29 rms(rho_out-rho_in) = 4.527e-05  N_in = 132.000000
+rhokerker it   30 rms(rho_out-rho_in) = 1.995e-05  N_in = 132.000000
+rhokerker it   31 rms(rho_out-rho_in) = 1.272e-05  N_in = 132.000000
+rhokerker it   32 rms(rho_out-rho_in) = 9.347e-06  N_in = 132.000000
+rhokerker it   33 rms(rho_out-rho_in) = 6.449e-06  N_in = 132.000000
+rhokerker it   34 rms(rho_out-rho_in) = 4.547e-06  N_in = 132.000000
+rhokerker it   35 rms(rho_out-rho_in) = 1.738e-05  N_in = 132.000000
+rhokerker it   36 rms(rho_out-rho_in) = 1.087e-04  N_in = 132.000000
+rhokerker it   37 rms(rho_out-rho_in) = 2.983e-05  N_in = 132.000000
+rhokerker it   38 rms(rho_out-rho_in) = 5.964e-05  N_in = 132.000000
+rhokerker it   39 rms(rho_out-rho_in) = 1.092e-05  N_in = 132.000000
+rhokerker it   40 rms(rho_out-rho_in) = 1.531e-06  N_in = 132.000000
+rhokerker it   41 rms(rho_out-rho_in) = 8.264e-06  N_in = 132.000000
+rhokerker it   42 rms(rho_out-rho_in) = 4.644e-05  N_in = 132.000000
+rhokerker it   43 rms(rho_out-rho_in) = 1.042e-04  N_in = 132.000000
+rhokerker it   44 rms(rho_out-rho_in) = 2.181e-05  N_in = 132.000000
+rhokerker it   45 rms(rho_out-rho_in) = 2.892e-05  N_in = 132.000000
+rhokerker it   46 rms(rho_out-rho_in) = 3.459e-05  N_in = 132.000000
+rhokerker it   47 rms(rho_out-rho_in) = 3.316e-05  N_in = 132.000000
+rhokerker it   48 rms(rho_out-rho_in) = 2.328e-05  N_in = 132.000000
+rhokerker it   49 rms(rho_out-rho_in) = 6.990e-06  N_in = 132.000000
+rhokerker it   50 rms(rho_out-rho_in) = 7.127e-06  N_in = 132.000000
+rhokerker it   51 rms(rho_out-rho_in) = 7.586e-06  N_in = 132.000000
+rhokerker it   52 rms(rho_out-rho_in) = 8.718e-06  N_in = 132.000000
+rhokerker it   53 rms(rho_out-rho_in) = 6.026e-06  N_in = 132.000000
+rhokerker it   54 rms(rho_out-rho_in) = 5.291e-06  N_in = 132.000000
+rhokerker it   55 rms(rho_out-rho_in) = 2.146e-05  N_in = 132.000000
+rhokerker it   56 rms(rho_out-rho_in) = 1.686e-05  N_in = 132.000000
+rhokerker it   57 rms(rho_out-rho_in) = 1.993e-05  N_in = 132.000000
+rhokerker it   58 rms(rho_out-rho_in) = 1.990e-05  N_in = 132.000000
+rhokerker it   59 rms(rho_out-rho_in) = 1.512e-05  N_in = 132.000000
+rhokerker it   60 rms(rho_out-rho_in) = 3.913e-05  N_in = 132.000000
+rhokerker it   61 rms(rho_out-rho_in) = 3.139e-05  N_in = 132.000000
+rhokerker it   62 rms(rho_out-rho_in) = 4.582e-05  N_in = 132.000000
+rhokerker it   63 rms(rho_out-rho_in) = 2.114e-05  N_in = 132.000000
+rhokerker it   64 rms(rho_out-rho_in) = 2.149e-05  N_in = 132.000000
+rhokerker it   65 rms(rho_out-rho_in) = 1.644e-05  N_in = 132.000000
+rhokerker it   66 rms(rho_out-rho_in) = 1.608e-05  N_in = 132.000000
+rhokerker it   67 rms(rho_out-rho_in) = 7.764e-06  N_in = 132.000000
+rhokerker it   68 rms(rho_out-rho_in) = 6.816e-06  N_in = 132.000000
+rhokerker it   69 rms(rho_out-rho_in) = 4.864e-06  N_in = 132.000000
+rhokerker it   70 rms(rho_out-rho_in) = 2.725e-06  N_in = 132.000000
+rhokerker it   71 rms(rho_out-rho_in) = 2.267e-06  N_in = 132.000000
+rhokerker it   72 rms(rho_out-rho_in) = 8.306e-07  N_in = 132.000000
+Kerker SCF: converged=True iterations=72 rms=8.31e-07 E=-640.0670130891 |g|/sqrt(n)=1.04e-05
+slab: E=-640.06701309 Ha, N_grid=132.000000/132, FFT-grad rel.err 1.89e-03
+{
+ "scf_SCAN": 2.195467340025555,
+ "x_LDA": 2.7685962620987588,
+ "xc_LDA": 3.0701258085981102,
+ "x_PBE": 1.820500427061525,
+ "xc_PBE": 2.760161782421485,
+ "x_PBEsol": 2.1531842483261534,
+ "xc_PBEsol": 2.979949603494012,
+ "x_Q2D-GGA": 2.372742439527103,
+ "xc_Q2D-GGA": 3.312415509109477,
+ "x_SCAN": 2.372159993627553,
+ "xc_SCAN": 3.08696535600262,
+ "x_DC-SCAN": 3.1444925226205376,
+ "xc_DC-SCAN": 3.859297884995604
+}
+done date=2026-11-23T23:57:53+01:00

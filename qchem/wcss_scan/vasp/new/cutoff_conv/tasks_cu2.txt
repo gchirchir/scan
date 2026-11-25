@@ -1,0 +1,3 @@
+# system a_ang kind layers kxy kz cutoff damp shift   Cu bulk at 150 Ha: grad err 5.3e-2 (fails 1 % gate) -> higher cutoffs
+Cu 3.56 bulk 6 8 2 300 0 0
+Cu 3.56 bulk 6 8 2 400 0 0

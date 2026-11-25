@@ -1,0 +1,149 @@
+Loading PySCF/2.7.0-foss-2023a
+  Loading requirement: GCCcore/12.3.0 zlib/1.2.13-GCCcore-12.3.0
+    binutils/2.40-GCCcore-12.3.0 GCC/12.3.0 numactl/2.0.16-GCCcore-12.3.0
+    XZ/5.4.2-GCCcore-12.3.0 libxml2/2.11.4-GCCcore-12.3.0
+    libpciaccess/0.17-GCCcore-12.3.0 hwloc/2.9.1-GCCcore-12.3.0 OpenSSL/1.1
+    libevent/2.1.12-GCCcore-12.3.0 UCX/1.14.1-GCCcore-12.3.0
+    libfabric/1.18.0-GCCcore-12.3.0 PMIx/4.2.4-GCCcore-12.3.0
+    UCC/1.2.0-GCCcore-12.3.0 OpenMPI/4.1.5-GCC-12.3.0 OpenBLAS/0.3.23-GCC-12.3.0
+    FlexiBLAS/3.3.1-GCC-12.3.0 FFTW/3.3.10-GCC-12.3.0 gompi/2023a
+    FFTW.MPI/3.3.10-gompi-2023a ScaLAPACK/2.2.0-gompi-2023a-fb foss/2023a
+    bzip2/1.0.8-GCCcore-12.3.0 ncurses/6.4-GCCcore-12.3.0
+    libreadline/8.2-GCCcore-12.3.0 Tcl/8.6.13-GCCcore-12.3.0
+    SQLite/3.42.0-GCCcore-12.3.0 libffi/3.4.4-GCCcore-12.3.0
+    Python/3.11.3-GCCcore-12.3.0 gfbf/2023a cffi/1.15.1-GCCcore-12.3.0
+    cryptography/41.0.1-GCCcore-12.3.0 virtualenv/20.23.1-GCCcore-12.3.0
+    Python-bundle-PyPI/2023.06-GCCcore-12.3.0 pybind11/2.11.1-GCCcore-12.3.0
+    SciPy-bundle/2023.07-gfbf-2023a mpi4py/3.1.4-gompi-2023a
+    Szip/2.1.1-GCCcore-12.3.0 HDF5/1.14.0-gompi-2023a h5py/3.9.0-foss-2023a
+    libcint/5.4.0-gfbf-2023a libxc/6.2.2-GCC-12.3.0 XCFun/2.1.1-GCCcore-12.3.0
+    CPPE/0.3.1-GCC-12.3.0 PyBerny/0.6.3-foss-2023a CheMPS2/1.8.12-foss-2023a
+    PyCheMPS2/1.8.12-foss-2023a gzip/1.12-GCCcore-12.3.0
+    lz4/1.9.4-GCCcore-12.3.0 zstd/1.5.5-GCCcore-12.3.0 ICU/73.2-GCCcore-12.3.0
+    Boost.MPI/1.82.0-gompi-2023a Block/1.5.3-20200525-foss-2023a
+    NECI/20230620-foss-2023a Dice/20240702-foss-2023a tblis/20230422-foss-2023a
+task=2 Rh 3.81 host=r19ch04b01.lem.kdm.wcss.pl date=2026-11-22T15:02:40+01:00
+/usr/local/easybuild/software/PySCF/2.7.0-foss-2023a/lib/python3.11/site-packages/pyscf/pbc/gto/cell.py:1153: UserWarning: Electron number 51 and spin 0 are not consistent in cell
+
+  warnings.warn('Electron number %d and spin %d are not consistent '
+WARNING!
+  Very diffused basis functions are found in the basis set. They may lead to severe
+  linear dependence and numerical instability.  You can set  cell.exp_to_discard=0.1
+  to remove the diffused Gaussians whose exponents are less than 0.1.
+
+/usr/local/easybuild/software/PySCF/2.7.0-foss-2023a/lib/python3.11/site-packages/pyscf/gto/mole.py:1294: UserWarning: Function mol.dumps drops attribute _mesh because it is not JSON-serializable
+  warnings.warn(msg)
+rhokerker it    1 rms(rho_out-rho_in) = 9.188e-02  N_in = 51.000000
+rhokerker it    2 rms(rho_out-rho_in) = 3.859e-02  N_in = 51.000000
+rhokerker it    3 rms(rho_out-rho_in) = 1.019e-02  N_in = 51.000000
+rhokerker it    4 rms(rho_out-rho_in) = 2.294e-03  N_in = 51.000000
+rhokerker it    5 rms(rho_out-rho_in) = 6.179e-04  N_in = 51.000000
+rhokerker it    6 rms(rho_out-rho_in) = 2.718e-04  N_in = 51.000000
+rhokerker it    7 rms(rho_out-rho_in) = 7.774e-05  N_in = 51.000000
+rhokerker it    8 rms(rho_out-rho_in) = 5.556e-05  N_in = 51.000000
+rhokerker it    9 rms(rho_out-rho_in) = 1.375e-05  N_in = 51.000000
+rhokerker it   10 rms(rho_out-rho_in) = 4.443e-06  N_in = 51.000000
+rhokerker it   11 rms(rho_out-rho_in) = 1.152e-06  N_in = 51.000000
+rhokerker it   12 rms(rho_out-rho_in) = 4.958e-07  N_in = 51.000000
+Kerker SCF: converged=True iterations=12 rms=4.96e-07 E=-331.1555284158 |g|/sqrt(n)=9.43e-08
+bulk: E=-331.15552842 Ha, N_grid=51.000000/51, FFT-grad rel.err 2.86e-05
+/usr/local/easybuild/software/PySCF/2.7.0-foss-2023a/lib/python3.11/site-packages/pyscf/pbc/gto/cell.py:1153: UserWarning: Electron number 187 and spin 0 are not consistent in cell
+
+  warnings.warn('Electron number %d and spin %d are not consistent '
+WARNING!
+  Very diffused basis functions are found in the basis set. They may lead to severe
+  linear dependence and numerical instability.  You can set  cell.exp_to_discard=0.1
+  to remove the diffused Gaussians whose exponents are less than 0.1.
+
+rhokerker it    1 rms(rho_out-rho_in) = 8.260e-02  N_in = 187.000000
+rhokerker it    2 rms(rho_out-rho_in) = 3.965e-02  N_in = 187.000000
+rhokerker it    3 rms(rho_out-rho_in) = 6.364e-02  N_in = 187.000000
+rhokerker it    4 rms(rho_out-rho_in) = 1.686e-02  N_in = 187.000000
+rhokerker it    5 rms(rho_out-rho_in) = 1.038e-02  N_in = 187.000000
+rhokerker it    6 rms(rho_out-rho_in) = 2.803e-02  N_in = 187.000000
+rhokerker it    7 rms(rho_out-rho_in) = 1.543e-02  N_in = 187.000000
+rhokerker it    8 rms(rho_out-rho_in) = 6.122e-03  N_in = 187.000000
+rhokerker it    9 rms(rho_out-rho_in) = 2.630e-03  N_in = 187.000000
+rhokerker it   10 rms(rho_out-rho_in) = 2.231e-03  N_in = 187.000000
+rhokerker it   11 rms(rho_out-rho_in) = 1.055e-03  N_in = 187.000000
+rhokerker it   12 rms(rho_out-rho_in) = 6.647e-04  N_in = 187.000000
+rhokerker it   13 rms(rho_out-rho_in) = 7.807e-04  N_in = 187.000000
+rhokerker it   14 rms(rho_out-rho_in) = 5.882e-04  N_in = 187.000000
+rhokerker it   15 rms(rho_out-rho_in) = 3.606e-04  N_in = 187.000000
+rhokerker it   16 rms(rho_out-rho_in) = 1.688e-04  N_in = 187.000000
+rhokerker it   17 rms(rho_out-rho_in) = 1.972e-04  N_in = 187.000000
+rhokerker it   18 rms(rho_out-rho_in) = 1.916e-04  N_in = 187.000000
+rhokerker it   19 rms(rho_out-rho_in) = 1.562e-03  N_in = 187.000000
+rhokerker it   20 rms(rho_out-rho_in) = 4.509e-04  N_in = 187.000000
+rhokerker it   21 rms(rho_out-rho_in) = 1.220e-04  N_in = 187.000000
+rhokerker it   22 rms(rho_out-rho_in) = 1.088e-04  N_in = 187.000000
+rhokerker it   23 rms(rho_out-rho_in) = 1.410e-04  N_in = 187.000000
+rhokerker it   24 rms(rho_out-rho_in) = 1.708e-04  N_in = 187.000000
+rhokerker it   25 rms(rho_out-rho_in) = 1.020e-02  N_in = 187.000000
+rhokerker it   26 rms(rho_out-rho_in) = 1.943e-04  N_in = 187.000000
+rhokerker it   27 rms(rho_out-rho_in) = 2.036e-04  N_in = 187.000000
+rhokerker it   28 rms(rho_out-rho_in) = 1.481e-04  N_in = 187.000000
+rhokerker it   29 rms(rho_out-rho_in) = 3.388e-03  N_in = 187.000000
+rhokerker it   30 rms(rho_out-rho_in) = 1.373e-04  N_in = 187.000000
+rhokerker it   31 rms(rho_out-rho_in) = 2.152e-04  N_in = 187.000000
+rhokerker it   32 rms(rho_out-rho_in) = 1.700e-04  N_in = 187.000000
+rhokerker it   33 rms(rho_out-rho_in) = 1.041e-03  N_in = 187.000000
+rhokerker it   34 rms(rho_out-rho_in) = 2.046e-04  N_in = 187.000000
+rhokerker it   35 rms(rho_out-rho_in) = 5.715e-04  N_in = 187.000000
+rhokerker it   36 rms(rho_out-rho_in) = 1.581e-04  N_in = 187.000000
+rhokerker it   37 rms(rho_out-rho_in) = 1.951e-04  N_in = 187.000000
+rhokerker it   38 rms(rho_out-rho_in) = 1.195e-04  N_in = 187.000000
+rhokerker it   39 rms(rho_out-rho_in) = 1.718e-04  N_in = 187.000000
+rhokerker it   40 rms(rho_out-rho_in) = 1.117e-04  N_in = 187.000000
+rhokerker it   41 rms(rho_out-rho_in) = 1.154e-04  N_in = 187.000000
+rhokerker it   42 rms(rho_out-rho_in) = 6.858e-05  N_in = 187.000000
+rhokerker it   43 rms(rho_out-rho_in) = 6.643e-05  N_in = 187.000000
+rhokerker it   44 rms(rho_out-rho_in) = 2.140e-04  N_in = 187.000000
+rhokerker it   45 rms(rho_out-rho_in) = 2.916e-04  N_in = 187.000000
+rhokerker it   46 rms(rho_out-rho_in) = 3.515e-04  N_in = 187.000000
+rhokerker it   47 rms(rho_out-rho_in) = 2.637e-04  N_in = 187.000000
+rhokerker it   48 rms(rho_out-rho_in) = 2.525e-04  N_in = 187.000000
+rhokerker it   49 rms(rho_out-rho_in) = 2.893e-04  N_in = 187.000000
+rhokerker it   50 rms(rho_out-rho_in) = 2.951e-04  N_in = 187.000000
+rhokerker it   51 rms(rho_out-rho_in) = 2.880e-04  N_in = 187.000000
+rhokerker it   52 rms(rho_out-rho_in) = 2.387e-04  N_in = 187.000000
+rhokerker it   53 rms(rho_out-rho_in) = 1.155e-04  N_in = 187.000000
+rhokerker it   54 rms(rho_out-rho_in) = 1.219e-04  N_in = 187.000000
+rhokerker it   55 rms(rho_out-rho_in) = 1.105e-04  N_in = 187.000000
+rhokerker it   56 rms(rho_out-rho_in) = 1.120e-04  N_in = 187.000000
+rhokerker it   57 rms(rho_out-rho_in) = 9.290e-05  N_in = 187.000000
+rhokerker it   58 rms(rho_out-rho_in) = 3.033e-04  N_in = 187.000000
+rhokerker it   59 rms(rho_out-rho_in) = 3.447e-04  N_in = 187.000000
+rhokerker it   60 rms(rho_out-rho_in) = 2.423e-04  N_in = 187.000000
+rhokerker it   61 rms(rho_out-rho_in) = 6.396e-04  N_in = 187.000000
+rhokerker it   62 rms(rho_out-rho_in) = 6.476e-04  N_in = 187.000000
+rhokerker it   63 rms(rho_out-rho_in) = 3.880e-04  N_in = 187.000000
+rhokerker it   64 rms(rho_out-rho_in) = 1.871e-04  N_in = 187.000000
+rhokerker it   65 rms(rho_out-rho_in) = 1.098e-04  N_in = 187.000000
+rhokerker it   66 rms(rho_out-rho_in) = 1.175e-04  N_in = 187.000000
+rhokerker it   67 rms(rho_out-rho_in) = 1.274e-04  N_in = 187.000000
+rhokerker it   68 rms(rho_out-rho_in) = 3.530e-04  N_in = 187.000000
+rhokerker it   69 rms(rho_out-rho_in) = 1.262e-04  N_in = 187.000000
+rhokerker it   70 rms(rho_out-rho_in) = 1.323e-04  N_in = 187.000000
+rhokerker it   71 rms(rho_out-rho_in) = 2.011e-04  N_in = 187.000000
+rhokerker it   72 rms(rho_out-rho_in) = 5.306e-04  N_in = 187.000000
+rhokerker it   73 rms(rho_out-rho_in) = 2.770e-04  N_in = 187.000000
+rhokerker it   74 rms(rho_out-rho_in) = 2.729e-04  N_in = 187.000000
+rhokerker it   75 rms(rho_out-rho_in) = 2.477e-04  N_in = 187.000000
+rhokerker it   76 rms(rho_out-rho_in) = 5.958e-04  N_in = 187.000000
+rhokerker it   77 rms(rho_out-rho_in) = 4.490e-04  N_in = 187.000000
+rhokerker it   78 rms(rho_out-rho_in) = 2.890e-04  N_in = 187.000000
+rhokerker it   79 rms(rho_out-rho_in) = 2.414e-04  N_in = 187.000000
+rhokerker it   80 rms(rho_out-rho_in) = 2.479e-04  N_in = 187.000000
+rhokerker it   81 rms(rho_out-rho_in) = 2.093e-04  N_in = 187.000000
+rhokerker it   82 rms(rho_out-rho_in) = 1.658e-04  N_in = 187.000000
+rhokerker it   83 rms(rho_out-rho_in) = 1.521e-04  N_in = 187.000000
+rhokerker it   84 rms(rho_out-rho_in) = 1.430e-04  N_in = 187.000000
+rhokerker it   85 rms(rho_out-rho_in) = 1.530e-04  N_in = 187.000000
+rhokerker it   86 rms(rho_out-rho_in) = 1.375e-04  N_in = 187.000000
+rhokerker it   87 rms(rho_out-rho_in) = 1.393e-04  N_in = 187.000000
+rhokerker it   88 rms(rho_out-rho_in) = 9.506e-05  N_in = 187.000000
+rhokerker it   89 rms(rho_out-rho_in) = 1.993e-04  N_in = 187.000000
+rhokerker it   90 rms(rho_out-rho_in) = 1.240e-04  N_in = 187.000000
+rhokerker it   91 rms(rho_out-rho_in) = 1.729e-04  N_in = 187.000000
+[2026-11-23T07:24:41.809] error: *** JOB 6395994 ON r19ch04b01 CANCELLED AT 2026-11-23T07:24:41 DUE to SIGNAL Terminated ***

@@ -1,0 +1,6 @@
+# system functional pseudo   LDA with LDA (GTH-PADE) pseudopotentials instead of GTH-PBE: test whether the LDA deviations
+# from PRL Table I in job 6391364 (Al -0.18, Au -0.32, Rh +0.22 J/m2) come from the PBE-pseudopotential / LDA mismatch.
+Al LDA gth-lda
+Au LDA gth-lda
+Rh LDA gth-lda
+Pt LDA gth-lda

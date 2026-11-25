@@ -1,0 +1,19 @@
+\begin{tabular}{@{}llrrrrl@{}}
+\toprule
+Approach & Density & AE6 MAE & BH6 MAE & \multicolumn{2}{c}{IBM MAE $E_x$ (Ha)} & Functional changed \\
+\cmidrule(lr){5-6}
+ & & (kcal/mol) & (kcal/mol) & $L\geq1$ & $L<1$ & \\
+\midrule
+r$^2$SCAN & r$^2$SCAN & \textcolor{pyscfred}{3.34} & \textcolor{pyscfred}{7.24} & \textcolor{pyscfred}{0.0425} & \textcolor{pyscfred}{0.3849} & no (baseline) \\
+SS & r$^2$SCAN & \textcolor{pyscfred}{1078.38} & \textcolor{pyscfred}{23.03} & \textcolor{pyscfred}{0.0264} & \textcolor{pyscfred}{0.0351} & no \\
+TD & r$^2$SCAN & \textcolor{pyscfred}{101.15} & \textcolor{pyscfred}{11.14} & \textcolor{pyscfred}{0.0264} & \textcolor{pyscfred}{0.0351} & no (other spin route) \\
+PBE & PBE & \textcolor{pyscfred}{14.18} & -- & -- & -- & -- \\
+r$^2$SCAN & PBE & \textcolor{pyscfred}{3.97} & -- & \textcolor{pyscfred}{0.0425} & \textcolor{pyscfred}{0.3849} & no (baseline) \\
+SS & PBE & \textcolor{pyscfred}{1058.05} & -- & \textcolor{pyscfred}{0.0264} & \textcolor{pyscfred}{0.0351} & no \\
+W1: $t{=}10^{-1}$ & r$^2$SCAN & \textcolor{pyscfred}{22.54} & \textcolor{pyscfred}{6.70} & \textcolor{pyscfred}{0.0268} & \textcolor{pyscfred}{0.0848} & yes (weight $W$) \\
+W2: $t{=}10^{-3}$, $p_0{=}4$ & r$^2$SCAN & \textcolor{pyscfred}{4.09} & \textcolor{pyscfred}{6.80} & \textcolor{pyscfred}{0.0302} & \textcolor{pyscfred}{0.0643} & yes (weight $W$) \\
+W3: $t{=}10^{-3}$, $p_0{=}5$ & r$^2$SCAN & \textcolor{pyscfred}{3.33} & \textcolor{pyscfred}{6.99} & \textcolor{pyscfred}{0.0316} & \textcolor{pyscfred}{0.0702} & yes (weight $W$) \\
+$W^{\rm new}$, SS: $p_0{=}6$ & r$^2$SCAN & \textcolor{pyscfred}{9.25} & \textcolor{pyscfred}{7.04} & \textcolor{pyscfred}{0.0328} & \textcolor{pyscfred}{0.0755} & yes (weight $W$) \\
+$W^{\rm new}$, TD: $p_0{=}6$ & r$^2$SCAN & \textcolor{pyscfred}{4.06} & \textcolor{pyscfred}{6.48} & \textcolor{pyscfred}{0.0328} & \textcolor{pyscfred}{0.0755} & yes (weight $W$) \\
+\bottomrule
+\end{tabular}

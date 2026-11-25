@@ -1,0 +1,97 @@
+=== def2-tzvp grid 6 10:18:16
+H       2S=1 E(PBE)=-0.49961566 E(r2SCAN@PBE)=-0.49984442 dEx(SS)=+0.000 dEx(TD)=+0.000 dEc=-0.000 mHa [Exc check 0.0e+00]
+C       2S=2 E(PBE)=-37.79596990 E(r2SCAN@PBE)=-37.83195454 dEx(SS)=+1209.461 dEx(TD)=+176.448 dEc=-6.637 mHa [Exc check 0.0e+00]
+O       2S=2 E(PBE)=-75.00967096 E(r2SCAN@PBE)=-75.05770894 dEx(SS)=+116.110 dEx(TD)=+16.547 dEc=-0.931 mHa [Exc check 0.0e+00]
+Si      2S=2 E(PBE)=-289.22285049 E(r2SCAN@PBE)=-289.34004600 dEx(SS)=+29.522 dEx(TD)=+2.768 dEc=-0.462 mHa [Exc check 0.0e+00]
+S       2S=2 E(PBE)=-397.93833181 E(r2SCAN@PBE)=-398.08239525 dEx(SS)=+13.959 dEx(TD)=+2.477 dEc=-0.424 mHa [Exc check 0.0e+00]
+SiH4    2S=0 E(PBE)=-291.72075443 E(r2SCAN@PBE)=-291.85167835 dEx(SS)=+175.644 dEx(TD)=+175.644 dEc=-19.562 mHa [Exc check 0.0e+00]
+SiO     2S=0 E(PBE)=-364.54409847 E(r2SCAN@PBE)=-364.69650690 dEx(SS)=+24.373 dEx(TD)=+24.373 dEc=-3.701 mHa [Exc check 0.0e+00]
+S2      2S=2 E(PBE)=-796.06002417 E(r2SCAN@PBE)=-796.34170869 dEx(SS)=+4.284 dEx(TD)=+1.839 dEc=-0.223 mHa [Exc check 0.0e+00]
+C3H4    2S=0 E(PBE)=-116.53401271 E(r2SCAN@PBE)=-116.61778188 dEx(SS)=+235.866 dEx(TD)=+235.866 dEc=-17.375 mHa [Exc check 0.0e+00]
+C2H2O2  2S=0 E(PBE)=-227.66648608 E(r2SCAN@PBE)=-227.79240597 dEx(SS)=+199.041 dEx(TD)=+199.041 dEc=-12.211 mHa [Exc check 0.0e+00]
+C4H8    2S=0 E(PBE)=-157.03958000 E(r2SCAN@PBE)=-157.15893538 dEx(SS)=+339.850 dEx(TD)=+339.850 dEc=-27.912 mHa [Exc check 0.0e+00]
+pbe     ME=  +10.09  MAE=   13.82 kcal/mol
+r2scan  ME=   -0.42  MAE=    2.99 kcal/mol
+SS      ME=+1082.87  MAE= 1110.49 kcal/mol
+TD      ME=  +71.55  MAE=  107.32 kcal/mol
+=== aug-cc-pvtz grid 6 10:20:21
+H       2S=1 E(PBE)=-0.49980440 E(r2SCAN@PBE)=-0.49987857 dEx(SS)=+0.000 dEx(TD)=+0.000 dEc=+0.000 mHa [Exc check 0.0e+00]
+C       2S=2 E(PBE)=-37.79563172 E(r2SCAN@PBE)=-37.83130476 dEx(SS)=+1162.349 dEx(TD)=+212.590 dEc=-7.149 mHa [Exc check 0.0e+00]
+O       2S=2 E(PBE)=-75.00779419 E(r2SCAN@PBE)=-75.05553418 dEx(SS)=+133.450 dEx(TD)=+19.513 dEc=-0.949 mHa [Exc check 0.0e+00]
+Si      2S=2 E(PBE)=-289.22709059 E(r2SCAN@PBE)=-289.34517506 dEx(SS)=+32.385 dEx(TD)=+1.992 dEc=-0.284 mHa [Exc check 0.0e+00]
+S       2S=2 E(PBE)=-397.94481419 E(r2SCAN@PBE)=-398.08864827 dEx(SS)=+14.694 dEx(TD)=+2.479 dEc=-0.421 mHa [Exc check 0.0e+00]
+SiH4    2S=0 E(PBE)=-291.72292236 E(r2SCAN@PBE)=-291.85506328 dEx(SS)=+182.597 dEx(TD)=+182.597 dEc=-19.102 mHa [Exc check 0.0e+00]
+SiO     2S=0 E(PBE)=-364.54312471 E(r2SCAN@PBE)=-364.69689826 dEx(SS)=+28.161 dEx(TD)=+28.161 dEc=-4.082 mHa [Exc check 0.0e+00]
+S2      2S=2 E(PBE)=-796.06897459 E(r2SCAN@PBE)=-796.35101359 dEx(SS)=+4.056 dEx(TD)=+1.861 dEc=-0.222 mHa [Exc check 0.0e+00]
+C3H4    2S=0 E(PBE)=-116.53364450 E(r2SCAN@PBE)=-116.61771092 dEx(SS)=+271.823 dEx(TD)=+271.823 dEc=-16.988 mHa [Exc check 3.6e-15]
+C2H2O2  2S=0 E(PBE)=-227.66098870 E(r2SCAN@PBE)=-227.78784134 dEx(SS)=+236.316 dEx(TD)=+236.316 dEc=-12.741 mHa [Exc check 0.0e+00]
+C4H8    2S=0 E(PBE)=-157.03924582 E(r2SCAN@PBE)=-157.15945411 dEx(SS)=+397.901 dEx(TD)=+397.901 dEc=-27.822 mHa [Exc check 0.0e+00]
+pbe     ME=   +8.81  MAE=   13.13 kcal/mol
+r2scan  ME=   -0.64  MAE=    3.32 kcal/mol
+SS      ME=+1029.23  MAE= 1058.15 kcal/mol
+TD      ME=  +90.82  MAE=  129.42 kcal/mol
+=== def2-qzvpp grid 6 10:25:47
+H       2S=1 E(PBE)=-0.49993965 E(r2SCAN@PBE)=-0.50002112 dEx(SS)=+0.000 dEx(TD)=+0.000 dEc=+0.000 mHa [Exc check 0.0e+00]
+C       2S=2 E(PBE)=-37.79837263 E(r2SCAN@PBE)=-37.83325855 dEx(SS)=+1137.795 dEx(TD)=+182.837 dEc=-6.730 mHa [Exc check 0.0e+00]
+O       2S=2 E(PBE)=-75.01421506 E(r2SCAN@PBE)=-75.06113268 dEx(SS)=+114.499 dEx(TD)=+15.928 dEc=-0.876 mHa [Exc check 0.0e+00]
+Si      2S=2 E(PBE)=-289.23339078 E(r2SCAN@PBE)=-289.34887836 dEx(SS)=+34.949 dEx(TD)=+2.066 dEc=-0.315 mHa [Exc check 0.0e+00]
+S       2S=2 E(PBE)=-397.95178174 E(r2SCAN@PBE)=-398.09404803 dEx(SS)=+13.884 dEx(TD)=+2.249 dEc=-0.384 mHa [Exc check 0.0e+00]
+SiH4    2S=0 E(PBE)=-291.73277609 E(r2SCAN@PBE)=-291.86276587 dEx(SS)=+183.511 dEx(TD)=+183.511 dEc=-19.360 mHa [Exc check 0.0e+00]
+SiO     2S=0 E(PBE)=-364.56050439 E(r2SCAN@PBE)=-364.71046121 dEx(SS)=+25.597 dEx(TD)=+25.597 dEc=-4.164 mHa [Exc check 0.0e+00]
+S2      2S=2 E(PBE)=-796.08713310 E(r2SCAN@PBE)=-796.36602428 dEx(SS)=+3.334 dEx(TD)=+1.661 dEc=-0.190 mHa [Exc check 0.0e+00]
+C3H4    2S=0 E(PBE)=-116.54344193 E(r2SCAN@PBE)=-116.62509905 dEx(SS)=+227.460 dEx(TD)=+227.460 dEc=-16.400 mHa [Exc check 0.0e+00]
+C2H2O2  2S=0 E(PBE)=-227.68150993 E(r2SCAN@PBE)=-227.80461558 dEx(SS)=+197.814 dEx(TD)=+197.814 dEc=-12.108 mHa [Exc check 0.0e+00]
+C4H8    2S=0 E(PBE)=-157.05283764 E(r2SCAN@PBE)=-157.16981108 dEx(SS)=+333.280 dEx(TD)=+333.280 dEc=-27.023 mHa [Exc check 0.0e+00]
+pbe     ME=  +10.53  MAE=   14.22 kcal/mol
+r2scan  ME=   +1.00  MAE=    3.35 kcal/mol
+SS      ME=+1018.08  MAE= 1045.90 kcal/mol
+TD      ME=  +79.15  MAE=  116.44 kcal/mol
+=== def2-qzvppd grid 6 10:37:36
+H       2S=1 E(PBE)=-0.49993965 E(r2SCAN@PBE)=-0.50002112 dEx(SS)=+0.000 dEx(TD)=+0.000 dEc=+0.000 mHa [Exc check 0.0e+00]
+C       2S=2 E(PBE)=-37.79839919 E(r2SCAN@PBE)=-37.83327428 dEx(SS)=+1138.418 dEx(TD)=+182.742 dEc=-6.728 mHa [Exc check 0.0e+00]
+O       2S=2 E(PBE)=-75.01446980 E(r2SCAN@PBE)=-75.06129090 dEx(SS)=+114.125 dEx(TD)=+15.991 dEc=-0.896 mHa [Exc check 0.0e+00]
+Si      2S=2 E(PBE)=-289.23340124 E(r2SCAN@PBE)=-289.34887744 dEx(SS)=+34.999 dEx(TD)=+2.066 dEc=-0.315 mHa [Exc check 0.0e+00]
+S       2S=2 E(PBE)=-397.95190211 E(r2SCAN@PBE)=-398.09407854 dEx(SS)=+13.994 dEx(TD)=+2.318 dEc=-0.398 mHa [Exc check 0.0e+00]
+SiH4    2S=0 E(PBE)=-291.73278478 E(r2SCAN@PBE)=-291.86276134 dEx(SS)=+183.495 dEx(TD)=+183.495 dEc=-19.364 mHa [Exc check 0.0e+00]
+SiO     2S=0 E(PBE)=-364.56073324 E(r2SCAN@PBE)=-364.71058340 dEx(SS)=+25.516 dEx(TD)=+25.516 dEc=-4.168 mHa [Exc check 0.0e+00]
+S2      2S=2 E(PBE)=-796.08743207 E(r2SCAN@PBE)=-796.36615010 dEx(SS)=+3.402 dEx(TD)=+1.687 dEc=-0.196 mHa [Exc check 0.0e+00]
+C3H4    2S=0 E(PBE)=-116.54349615 E(r2SCAN@PBE)=-116.62512177 dEx(SS)=+227.073 dEx(TD)=+227.073 dEc=-16.356 mHa [Exc check 0.0e+00]
+C2H2O2  2S=0 E(PBE)=-227.68180845 E(r2SCAN@PBE)=-227.80482065 dEx(SS)=+197.875 dEx(TD)=+197.875 dEc=-12.144 mHa [Exc check 0.0e+00]
+C4H8    2S=0 E(PBE)=-157.05286689 E(r2SCAN@PBE)=-157.16982487 dEx(SS)=+332.877 dEx(TD)=+332.877 dEc=-26.992 mHa [Exc check 0.0e+00]
+pbe     ME=  +10.49  MAE=   14.18 kcal/mol
+r2scan  ME=   +0.98  MAE=    3.33 kcal/mol
+SS      ME=+1018.64  MAE= 1046.44 kcal/mol
+TD      ME=  +79.15  MAE=  116.41 kcal/mol
+=== dyall-v4z grid 6 10:52:17
+H       2S=1 E(PBE)=-0.49998825 E(r2SCAN@PBE)=-0.50003705 dEx(SS)=+0.000 dEx(TD)=+0.000 dEc=+0.000 mHa [Exc check 0.0e+00]
+C       2S=2 E(PBE)=-37.79869884 E(r2SCAN@PBE)=-37.83346620 dEx(SS)=+1141.482 dEx(TD)=+163.804 dEc=-6.301 mHa [Exc check 0.0e+00]
+O       2S=2 E(PBE)=-75.01489622 E(r2SCAN@PBE)=-75.06174291 dEx(SS)=+107.332 dEx(TD)=+14.768 dEc=-0.857 mHa [Exc check 0.0e+00]
+Si      2S=2 E(PBE)=-289.23408575 E(r2SCAN@PBE)=-289.34945499 dEx(SS)=+34.228 dEx(TD)=+2.284 dEc=-0.366 mHa [Exc check 0.0e+00]
+S       2S=2 E(PBE)=-397.95261185 E(r2SCAN@PBE)=-398.09446316 dEx(SS)=+14.519 dEx(TD)=+2.263 dEc=-0.386 mHa [Exc check 0.0e+00]
+SiH4    2S=0 E(PBE)=-291.73193457 E(r2SCAN@PBE)=-291.86190808 dEx(SS)=+181.784 dEx(TD)=+181.784 dEc=-19.352 mHa [Exc check 0.0e+00]
+SiO     2S=0 E(PBE)=-364.55962531 E(r2SCAN@PBE)=-364.70971228 dEx(SS)=+23.845 dEx(TD)=+23.845 dEc=-4.132 mHa [Exc check 0.0e+00]
+S2      2S=2 E(PBE)=-796.08642918 E(r2SCAN@PBE)=-796.36447423 dEx(SS)=+3.561 dEx(TD)=+1.736 dEc=-0.210 mHa [Exc check 0.0e+00]
+C3H4    2S=0 E(PBE)=-116.54530480 E(r2SCAN@PBE)=-116.62719149 dEx(SS)=+197.102 dEx(TD)=+197.102 dEc=-15.433 mHa [Exc check 0.0e+00]
+C2H2O2  2S=0 E(PBE)=-227.68437217 E(r2SCAN@PBE)=-227.80774669 dEx(SS)=+171.716 dEx(TD)=+171.716 dEc=-11.389 mHa [Exc check 0.0e+00]
+C4H8    2S=0 E(PBE)=-157.05555938 E(r2SCAN@PBE)=-157.17287967 dEx(SS)=+289.646 dEx(TD)=+289.646 dEc=-25.637 mHa [Exc check 0.0e+00]
+pbe     ME=  +10.12  MAE=   14.18 kcal/mol
+r2scan  ME=   +0.91  MAE=    3.98 kcal/mol
+SS      ME=+1030.08  MAE= 1058.02 kcal/mol
+TD      ME=  +71.73  MAE=  109.19 kcal/mol
+=== aug-cc-pvqz grid 6 11:17:59
+H       2S=1 E(PBE)=-0.49993411 E(r2SCAN@PBE)=-0.49999511 dEx(SS)=+0.000 dEx(TD)=+0.000 dEc=+0.000 mHa [Exc check 0.0e+00]
+C       2S=2 E(PBE)=-37.79752291 E(r2SCAN@PBE)=-37.83313835 dEx(SS)=+1160.724 dEx(TD)=+175.439 dEc=-6.458 mHa [Exc check 0.0e+00]
+O       2S=2 E(PBE)=-75.01286115 E(r2SCAN@PBE)=-75.06025767 dEx(SS)=+112.704 dEx(TD)=+16.357 dEc=-0.952 mHa [Exc check 0.0e+00]
+Si      2S=2 E(PBE)=-289.22971550 E(r2SCAN@PBE)=-289.34705387 dEx(SS)=+36.244 dEx(TD)=+2.252 dEc=-0.349 mHa [Exc check 0.0e+00]
+S       2S=2 E(PBE)=-397.94786449 E(r2SCAN@PBE)=-398.09201708 dEx(SS)=+13.920 dEx(TD)=+2.626 dEc=-0.455 mHa [Exc check 0.0e+00]
+SiH4    2S=0 E(PBE)=-291.72846469 E(r2SCAN@PBE)=-291.86026312 dEx(SS)=+180.119 dEx(TD)=+180.119 dEc=-19.355 mHa [Exc check 0.0e+00]
+SiO     2S=0 E(PBE)=-364.55403060 E(r2SCAN@PBE)=-364.70628477 dEx(SS)=+25.221 dEx(TD)=+25.221 dEc=-4.144 mHa [Exc check 0.0e+00]
+S2      2S=2 E(PBE)=-796.07712004 E(r2SCAN@PBE)=-796.35979835 dEx(SS)=+3.471 dEx(TD)=+1.737 dEc=-0.194 mHa [Exc check 0.0e+00]
+C3H4    2S=0 E(PBE)=-116.54188150 E(r2SCAN@PBE)=-116.62438135 dEx(SS)=+218.347 dEx(TD)=+218.347 dEc=-15.912 mHa [Exc check 0.0e+00]
+C2H2O2  2S=0 E(PBE)=-227.67817219 E(r2SCAN@PBE)=-227.80269502 dEx(SS)=+190.290 dEx(TD)=+190.290 dEc=-11.794 mHa [Exc check 0.0e+00]
+C4H8    2S=0 E(PBE)=-157.05111841 E(r2SCAN@PBE)=-157.16898899 dEx(SS)=+318.739 dEx(TD)=+318.739 dEc=-26.242 mHa [Exc check 0.0e+00]
+pbe     ME=  +10.48  MAE=   14.30 kcal/mol
+r2scan  ME=   +0.53  MAE=    3.31 kcal/mol
+SS      ME=+1042.60  MAE= 1069.56 kcal/mol
+TD      ME=  +75.66  MAE=  112.46 kcal/mol
+SCAN_DONE

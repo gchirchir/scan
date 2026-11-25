@@ -1,0 +1,5 @@
+# system a_ang kind layers kxy kz cutoff damp shift   (6-layer periodic fcc(111) bulk, 8x8x2; cutoff gate for Cu, Rh)
+Cu 3.56 bulk 6 8 2 150 0 0
+Cu 3.56 bulk 6 8 2 250 0 0
+Rh 3.81 bulk 6 8 2 150 0 0
+Rh 3.81 bulk 6 8 2 250 0 0

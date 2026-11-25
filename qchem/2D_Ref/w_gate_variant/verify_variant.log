@@ -1,0 +1,7 @@
+original                 SS: AE6 MAE  1078.38  C3H4 +2062.63  C2H2O2 +1490.13  BH6 MAE  23.03  BH6 ME  -1.04
+original                 TD: AE6 MAE   101.15  C3H4  +169.05  C2H2O2  +104.97  BH6 MAE  11.14  BH6 ME  +5.82
+SS-G3 t=1e-3 p0=5 k=12   SS: AE6 MAE     3.33  C3H4    +0.16  C2H2O2    +6.34  BH6 MAE   6.99  BH6 ME  -6.99
+SS-G3 t=1e-3 p0=5 k=12   TD: AE6 MAE     4.46  C3H4    -1.18  C2H2O2    +1.61  BH6 MAE   6.27  BH6 ME  -6.27
+TD t=1e-4 p0=6 k=12      SS: AE6 MAE     7.93  C3H4    +9.56  C2H2O2   +11.37  BH6 MAE   7.04  BH6 ME  -7.04
+TD t=1e-4 p0=6 k=12      TD: AE6 MAE     4.06  C3H4    -1.17  C2H2O2    +1.27  BH6 MAE   6.48  BH6 ME  -6.48
+closed-formula weight vs _q2d weight (original t): max |diff| = 2.23e-14

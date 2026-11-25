@@ -1,0 +1,18 @@
+PySCF 2.7.0 numpy 1.25.1 scipy 1.11.1
+numba 0.63.1
+[     5.2s] iso_1_Z5: nb=84  E_HF=-20.2735272493  E_FCI=-20.3108583032  Ec=-37.3311 mHa  (2.1s)
+[    27.2s]    HF: J=5.55267283 W0=-2.77633642 W0p=-0.07566204 W1=-2.84659249 (Lieb lambda=1, |drho|=2.3e-05) Winf=-4.03108268 Wpinf=2.70911868 eps_H(check)=-1.2e-09 |drho_KS|=4.3e-09 N=2.00000000
+[    27.2s]       AC1=+1.335  AC6=+1.319  KHAN=+0.664  SPL=+1.623  genISI2=-0.903  (mHa vs FCI)
+[    33.7s]    FCI: J=5.54998028 W0=-2.77499014 W0p=-0.07570404 W1=-2.84797763 (FCI 2-RDM, |drho|=0.0e+00) Winf=-4.02913098 Wpinf=2.70716182 eps_H(check)=2.4e-05 |drho_KS|=1.0e-03 N=2.00000000
+[    33.7s]       AC1=-1.586  AC6=-1.590  KHAN=-2.420  SPL=-0.374  genISI2=-2.900  (mHa vs FCI)
+/home/gabchi5762/pyscf/gpu/scan/he_20261111/12_trap_ac_benchmark.py:1036: RuntimeWarning: Mean of empty slice
+  f'{np.nanmean(np.abs(e)):.2f}' for e in errs) + r' \\')
+/home/gabchi5762/pyscf/gpu/scan/he_20261111/12_trap_ac_benchmark.py:1037: RuntimeWarning: Mean of empty slice
+  lines.append(r'\textit{MARE (\%)}' + ' &' * 12 + ' & '.join(f'{np.nanmean(x):.3f}' for x in rel) + r' \\')
+/usr/local/easybuild/software/SciPy-bundle/2023.07-gfbf-2023a/lib/python3.11/site-packages/numpy/core/fromnumeric.py:3504: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/usr/local/easybuild/software/SciPy-bundle/2023.07-gfbf-2023a/lib/python3.11/site-packages/numpy/core/_methods.py:129: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+/home/gabchi5762/pyscf/gpu/scan/he_20261111/12_trap_ac_benchmark.py:1077: RuntimeWarning: Mean of empty slice
+  f'{np.nanmean(np.abs(e)):.2f}' for e in errs[m]) + r' \\')
+[    33.7s] done

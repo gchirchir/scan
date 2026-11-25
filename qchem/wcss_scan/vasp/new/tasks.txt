@@ -1,0 +1,7 @@
+# name system lattice_A layers kxy kz cutoff_Ha
+Pt_L8_k8_c30 Pt 3.95 8 8 4 30
+Cu_L8_k8_c30 Cu 3.56 8 8 4 30
+Rh_L8_k8_c30 Rh 3.81 8 8 4 30
+Au_L8_k8_c30 Au 4.10 8 8 4 30
+Pd_L8_k8_c30 Pd 3.92 8 8 4 30
+Ti_L8_k8_c30 Ti 4.06 8 8 4 30

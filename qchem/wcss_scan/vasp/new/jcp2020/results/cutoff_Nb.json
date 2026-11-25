@@ -1,0 +1,143 @@
+{
+ "system": "Nb",
+ "cutoff_ha": 350.0,
+ "passed": true,
+ "criteria": "gerr<1%, |dN|<1e-4, |dE vs 600 Ha|<1 meV/atom, Q2D-GGA and SCAN",
+ "k": [
+  6,
+  6,
+  6
+ ],
+ "rows": [
+  {
+   "functional": "Q2D-GGA",
+   "cutoff_ha": 150.0,
+   "converged": true,
+   "e_atom_ha": -56.97527883327593,
+   "grad_fft_relerr": 9.089758316450831e-05,
+   "nelec_err": 1.4335199693960021e-12,
+   "mesh": [
+    31,
+    31,
+    31
+   ]
+  },
+  {
+   "functional": "Q2D-GGA",
+   "cutoff_ha": 250.0,
+   "converged": true,
+   "e_atom_ha": -56.975258277389685,
+   "grad_fft_relerr": 5.5520031212933876e-08,
+   "nelec_err": 1.4672707493446069e-12,
+   "mesh": [
+    41,
+    41,
+    41
+   ]
+  },
+  {
+   "functional": "Q2D-GGA",
+   "cutoff_ha": 350.0,
+   "converged": true,
+   "e_atom_ha": -56.975302293786164,
+   "grad_fft_relerr": 1.2304656924750385e-10,
+   "nelec_err": 1.4939161019356106e-12,
+   "mesh": [
+    47,
+    47,
+    47
+   ]
+  },
+  {
+   "functional": "Q2D-GGA",
+   "cutoff_ha": 450.0,
+   "converged": true,
+   "e_atom_ha": -56.9752854010702,
+   "grad_fft_relerr": 5.766721436599407e-13,
+   "nelec_err": 1.5099033134902129e-12,
+   "mesh": [
+    53,
+    53,
+    53
+   ]
+  },
+  {
+   "functional": "Q2D-GGA",
+   "cutoff_ha": 600.0,
+   "converged": true,
+   "e_atom_ha": -56.97529027165608,
+   "grad_fft_relerr": 6.761324150755697e-13,
+   "nelec_err": 1.5045742429720121e-12,
+   "mesh": [
+    61,
+    61,
+    61
+   ]
+  },
+  {
+   "functional": "SCAN",
+   "cutoff_ha": 150.0,
+   "converged": true,
+   "e_atom_ha": -57.119145743694226,
+   "grad_fft_relerr": 8.944961852807647e-05,
+   "nelec_err": 1.4157564010019996e-12,
+   "mesh": [
+    31,
+    31,
+    31
+   ]
+  },
+  {
+   "functional": "SCAN",
+   "cutoff_ha": 250.0,
+   "converged": true,
+   "e_atom_ha": -57.11863059967381,
+   "grad_fft_relerr": 5.4881418797730496e-08,
+   "nelec_err": 1.4352963262354024e-12,
+   "mesh": [
+    41,
+    41,
+    41
+   ]
+  },
+  {
+   "functional": "SCAN",
+   "cutoff_ha": 350.0,
+   "converged": true,
+   "e_atom_ha": -57.1187122338601,
+   "grad_fft_relerr": 1.2183200110821473e-10,
+   "nelec_err": 1.4637180356658064e-12,
+   "mesh": [
+    47,
+    47,
+    47
+   ]
+  },
+  {
+   "functional": "SCAN",
+   "cutoff_ha": 450.0,
+   "converged": true,
+   "e_atom_ha": -57.11873209235109,
+   "grad_fft_relerr": 6.352734279799007e-13,
+   "nelec_err": 1.4761525335416081e-12,
+   "mesh": [
+    53,
+    53,
+    53
+   ]
+  },
+  {
+   "functional": "SCAN",
+   "cutoff_ha": 600.0,
+   "converged": true,
+   "e_atom_ha": -57.11874874627284,
+   "grad_fft_relerr": 7.346025051498865e-13,
+   "nelec_err": 1.4690471061840071e-12,
+   "mesh": [
+    61,
+    61,
+    61
+   ]
+  }
+ ]
+}

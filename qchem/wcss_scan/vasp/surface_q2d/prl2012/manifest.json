@@ -1,0 +1,1038 @@
+[
+  {
+    "protocol": "prl2012",
+    "stage": "slab",
+    "xc": "LDA",
+    "element": "Al",
+    "structure": "fcc",
+    "facet": "111",
+    "layers": 11,
+    "atoms": 11,
+    "a": 4.02,
+    "c": null,
+    "vacuum_A": 10.5,
+    "kmesh": [
+      10,
+      10,
+      1
+    ],
+    "encut_eV": 476,
+    "production_geometry": false,
+    "path": "slabs/LDA/Al/111"
+  },
+  {
+    "protocol": "prl2012",
+    "stage": "slab",
+    "xc": "PBE",
+    "element": "Al",
+    "structure": "fcc",
+    "facet": "111",
+    "layers": 11,
+    "atoms": 11,
+    "a": 4.02,
+    "c": null,
+    "vacuum_A": 10.5,
+    "kmesh": [
+      10,
+      10,
+      1
+    ],
+    "encut_eV": 476,
+    "production_geometry": false,
+    "path": "slabs/PBE/Al/111"
+  },
+  {
+    "protocol": "prl2012",
+    "stage": "slab",
+    "xc": "PBEsol",
+    "element": "Al",
+    "structure": "fcc",
+    "facet": "111",
+    "layers": 11,
+    "atoms": 11,
+    "a": 4.02,
+    "c": null,
+    "vacuum_A": 10.5,
+    "kmesh": [
+      10,
+      10,
+      1
+    ],
+    "encut_eV": 476,
+    "production_geometry": false,
+    "path": "slabs/PBEsol/Al/111"
+  },
+  {
+    "protocol": "prl2012",
+    "stage": "slab",
+    "xc": "Q2D-GGA",
+    "element": "Al",
+    "structure": "fcc",
+    "facet": "111",
+    "layers": 11,
+    "atoms": 11,
+    "a": 4.02,
+    "c": null,
+    "vacuum_A": 10.5,
+    "kmesh": [
+      10,
+      10,
+      1
+    ],
+    "encut_eV": 476,
+    "production_geometry": false,
+    "path": "slabs/Q2D-GGA/Al/111"
+  },
+  {
+    "protocol": "prl2012",
+    "stage": "slab",
+    "xc": "LDA",
+    "element": "Cu",
+    "structure": "fcc",
+    "facet": "111",
+    "layers": 11,
+    "atoms": 11,
+    "a": 3.6,
+    "c": null,
+    "vacuum_A": 10.5,
+    "kmesh": [
+      10,
+      10,
+      1
+    ],
+    "encut_eV": 476,
+    "production_geometry": false,
+    "path": "slabs/LDA/Cu/111"
+  },
+  {
+    "protocol": "prl2012",
+    "stage": "slab",
+    "xc": "PBE",
+    "element": "Cu",
+    "structure": "fcc",
+    "facet": "111",
+    "layers": 11,
+    "atoms": 11,
+    "a": 3.6,
+    "c": null,
+    "vacuum_A": 10.5,
+    "kmesh": [
+      10,
+      10,
+      1
+    ],
+    "encut_eV": 476,
+    "production_geometry": false,
+    "path": "slabs/PBE/Cu/111"
+  },
+  {
+    "protocol": "prl2012",
+    "stage": "slab",
+    "xc": "PBEsol",
+    "element": "Cu",
+    "structure": "fcc",
+    "facet": "111",
+    "layers": 11,
+    "atoms": 11,
+    "a": 3.6,
+    "c": null,
+    "vacuum_A": 10.5,
+    "kmesh": [
+      10,
+      10,
+      1
+    ],
+    "encut_eV": 476,
+    "production_geometry": false,
+    "path": "slabs/PBEsol/Cu/111"
+  },
+  {
+    "protocol": "prl2012",
+    "stage": "slab",
+    "xc": "Q2D-GGA",
+    "element": "Cu",
+    "structure": "fcc",
+    "facet": "111",
+    "layers": 11,
+    "atoms": 11,
+    "a": 3.6,
+    "c": null,
+    "vacuum_A": 10.5,
+    "kmesh": [
+      10,
+      10,
+      1
+    ],
+    "encut_eV": 476,
+    "production_geometry": false,
+    "path": "slabs/Q2D-GGA/Cu/111"
+  },
+  {
+    "protocol": "prl2012",
+    "stage": "slab",
+    "xc": "LDA",
+    "element": "Rh",
+    "structure": "fcc",
+    "facet": "111",
+    "layers": 11,
+    "atoms": 11,
+    "a": 3.79,
+    "c": null,
+    "vacuum_A": 10.5,
+    "kmesh": [
+      10,
+      10,
+      1
+    ],
+    "encut_eV": 476,
+    "production_geometry": false,
+    "path": "slabs/LDA/Rh/111"
+  },
+  {
+    "protocol": "prl2012",
+    "stage": "slab",
+    "xc": "PBE",
+    "element": "Rh",
+    "structure": "fcc",
+    "facet": "111",
+    "layers": 11,
+    "atoms": 11,
+    "a": 3.79,
+    "c": null,
+    "vacuum_A": 10.5,
+    "kmesh": [
+      10,
+      10,
+      1
+    ],
+    "encut_eV": 476,
+    "production_geometry": false,
+    "path": "slabs/PBE/Rh/111"
+  },
+  {
+    "protocol": "prl2012",
+    "stage": "slab",
+    "xc": "PBEsol",
+    "element": "Rh",
+    "structure": "fcc",
+    "facet": "111",
+    "layers": 11,
+    "atoms": 11,
+    "a": 3.79,
+    "c": null,
+    "vacuum_A": 10.5,
+    "kmesh": [
+      10,
+      10,
+      1
+    ],
+    "encut_eV": 476,
+    "production_geometry": false,
+    "path": "slabs/PBEsol/Rh/111"
+  },
+  {
+    "protocol": "prl2012",
+    "stage": "slab",
+    "xc": "Q2D-GGA",
+    "element": "Rh",
+    "structure": "fcc",
+    "facet": "111",
+    "layers": 11,
+    "atoms": 11,
+    "a": 3.79,
+    "c": null,
+    "vacuum_A": 10.5,
+    "kmesh": [
+      10,
+      10,
+      1
+    ],
+    "encut_eV": 476,
+    "production_geometry": false,
+    "path": "slabs/Q2D-GGA/Rh/111"
+  },
+  {
+    "protocol": "prl2012",
+    "stage": "slab",
+    "xc": "LDA",
+    "element": "Au",
+    "structure": "fcc",
+    "facet": "111",
+    "layers": 11,
+    "atoms": 11,
+    "a": 4.07,
+    "c": null,
+    "vacuum_A": 10.5,
+    "kmesh": [
+      10,
+      10,
+      1
+    ],
+    "encut_eV": 476,
+    "production_geometry": false,
+    "path": "slabs/LDA/Au/111"
+  },
+  {
+    "protocol": "prl2012",
+    "stage": "slab",
+    "xc": "PBE",
+    "element": "Au",
+    "structure": "fcc",
+    "facet": "111",
+    "layers": 11,
+    "atoms": 11,
+    "a": 4.07,
+    "c": null,
+    "vacuum_A": 10.5,
+    "kmesh": [
+      10,
+      10,
+      1
+    ],
+    "encut_eV": 476,
+    "production_geometry": false,
+    "path": "slabs/PBE/Au/111"
+  },
+  {
+    "protocol": "prl2012",
+    "stage": "slab",
+    "xc": "PBEsol",
+    "element": "Au",
+    "structure": "fcc",
+    "facet": "111",
+    "layers": 11,
+    "atoms": 11,
+    "a": 4.07,
+    "c": null,
+    "vacuum_A": 10.5,
+    "kmesh": [
+      10,
+      10,
+      1
+    ],
+    "encut_eV": 476,
+    "production_geometry": false,
+    "path": "slabs/PBEsol/Au/111"
+  },
+  {
+    "protocol": "prl2012",
+    "stage": "slab",
+    "xc": "Q2D-GGA",
+    "element": "Au",
+    "structure": "fcc",
+    "facet": "111",
+    "layers": 11,
+    "atoms": 11,
+    "a": 4.07,
+    "c": null,
+    "vacuum_A": 10.5,
+    "kmesh": [
+      10,
+      10,
+      1
+    ],
+    "encut_eV": 476,
+    "production_geometry": false,
+    "path": "slabs/Q2D-GGA/Au/111"
+  },
+  {
+    "protocol": "prl2012",
+    "stage": "slab",
+    "xc": "LDA",
+    "element": "Pt",
+    "structure": "fcc",
+    "facet": "111",
+    "layers": 11,
+    "atoms": 11,
+    "a": 3.92,
+    "c": null,
+    "vacuum_A": 10.5,
+    "kmesh": [
+      10,
+      10,
+      1
+    ],
+    "encut_eV": 476,
+    "production_geometry": false,
+    "path": "slabs/LDA/Pt/111"
+  },
+  {
+    "protocol": "prl2012",
+    "stage": "slab",
+    "xc": "PBE",
+    "element": "Pt",
+    "structure": "fcc",
+    "facet": "111",
+    "layers": 11,
+    "atoms": 11,
+    "a": 3.92,
+    "c": null,
+    "vacuum_A": 10.5,
+    "kmesh": [
+      10,
+      10,
+      1
+    ],
+    "encut_eV": 476,
+    "production_geometry": false,
+    "path": "slabs/PBE/Pt/111"
+  },
+  {
+    "protocol": "prl2012",
+    "stage": "slab",
+    "xc": "PBEsol",
+    "element": "Pt",
+    "structure": "fcc",
+    "facet": "111",
+    "layers": 11,
+    "atoms": 11,
+    "a": 3.92,
+    "c": null,
+    "vacuum_A": 10.5,
+    "kmesh": [
+      10,
+      10,
+      1
+    ],
+    "encut_eV": 476,
+    "production_geometry": false,
+    "path": "slabs/PBEsol/Pt/111"
+  },
+  {
+    "protocol": "prl2012",
+    "stage": "slab",
+    "xc": "Q2D-GGA",
+    "element": "Pt",
+    "structure": "fcc",
+    "facet": "111",
+    "layers": 11,
+    "atoms": 11,
+    "a": 3.92,
+    "c": null,
+    "vacuum_A": 10.5,
+    "kmesh": [
+      10,
+      10,
+      1
+    ],
+    "encut_eV": 476,
+    "production_geometry": false,
+    "path": "slabs/Q2D-GGA/Pt/111"
+  },
+  {
+    "protocol": "prl2012",
+    "stage": "slab",
+    "xc": "LDA",
+    "element": "Pd",
+    "structure": "fcc",
+    "facet": "111",
+    "layers": 11,
+    "atoms": 11,
+    "a": 3.88,
+    "c": null,
+    "vacuum_A": 10.5,
+    "kmesh": [
+      10,
+      10,
+      1
+    ],
+    "encut_eV": 476,
+    "production_geometry": false,
+    "path": "slabs/LDA/Pd/111"
+  },
+  {
+    "protocol": "prl2012",
+    "stage": "slab",
+    "xc": "PBE",
+    "element": "Pd",
+    "structure": "fcc",
+    "facet": "111",
+    "layers": 11,
+    "atoms": 11,
+    "a": 3.88,
+    "c": null,
+    "vacuum_A": 10.5,
+    "kmesh": [
+      10,
+      10,
+      1
+    ],
+    "encut_eV": 476,
+    "production_geometry": false,
+    "path": "slabs/PBE/Pd/111"
+  },
+  {
+    "protocol": "prl2012",
+    "stage": "slab",
+    "xc": "PBEsol",
+    "element": "Pd",
+    "structure": "fcc",
+    "facet": "111",
+    "layers": 11,
+    "atoms": 11,
+    "a": 3.88,
+    "c": null,
+    "vacuum_A": 10.5,
+    "kmesh": [
+      10,
+      10,
+      1
+    ],
+    "encut_eV": 476,
+    "production_geometry": false,
+    "path": "slabs/PBEsol/Pd/111"
+  },
+  {
+    "protocol": "prl2012",
+    "stage": "slab",
+    "xc": "Q2D-GGA",
+    "element": "Pd",
+    "structure": "fcc",
+    "facet": "111",
+    "layers": 11,
+    "atoms": 11,
+    "a": 3.88,
+    "c": null,
+    "vacuum_A": 10.5,
+    "kmesh": [
+      10,
+      10,
+      1
+    ],
+    "encut_eV": 476,
+    "production_geometry": false,
+    "path": "slabs/Q2D-GGA/Pd/111"
+  },
+  {
+    "protocol": "prl2012",
+    "stage": "slab",
+    "xc": "LDA",
+    "element": "Ti",
+    "structure": "fcc",
+    "facet": "111",
+    "layers": 11,
+    "atoms": 11,
+    "a": 4.1,
+    "c": null,
+    "vacuum_A": 10.5,
+    "kmesh": [
+      10,
+      10,
+      1
+    ],
+    "encut_eV": 476,
+    "production_geometry": false,
+    "path": "slabs/LDA/Ti/111"
+  },
+  {
+    "protocol": "prl2012",
+    "stage": "slab",
+    "xc": "PBE",
+    "element": "Ti",
+    "structure": "fcc",
+    "facet": "111",
+    "layers": 11,
+    "atoms": 11,
+    "a": 4.1,
+    "c": null,
+    "vacuum_A": 10.5,
+    "kmesh": [
+      10,
+      10,
+      1
+    ],
+    "encut_eV": 476,
+    "production_geometry": false,
+    "path": "slabs/PBE/Ti/111"
+  },
+  {
+    "protocol": "prl2012",
+    "stage": "slab",
+    "xc": "PBEsol",
+    "element": "Ti",
+    "structure": "fcc",
+    "facet": "111",
+    "layers": 11,
+    "atoms": 11,
+    "a": 4.1,
+    "c": null,
+    "vacuum_A": 10.5,
+    "kmesh": [
+      10,
+      10,
+      1
+    ],
+    "encut_eV": 476,
+    "production_geometry": false,
+    "path": "slabs/PBEsol/Ti/111"
+  },
+  {
+    "protocol": "prl2012",
+    "stage": "slab",
+    "xc": "Q2D-GGA",
+    "element": "Ti",
+    "structure": "fcc",
+    "facet": "111",
+    "layers": 11,
+    "atoms": 11,
+    "a": 4.1,
+    "c": null,
+    "vacuum_A": 10.5,
+    "kmesh": [
+      10,
+      10,
+      1
+    ],
+    "encut_eV": 476,
+    "production_geometry": false,
+    "path": "slabs/Q2D-GGA/Ti/111"
+  },
+  {
+    "protocol": "prl2012",
+    "stage": "bulk",
+    "xc": "LDA",
+    "element": "Al",
+    "structure": "fcc",
+    "a_seed": 4.02,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 476,
+    "path": "bulk/LDA/Al"
+  },
+  {
+    "protocol": "prl2012",
+    "stage": "bulk",
+    "xc": "PBE",
+    "element": "Al",
+    "structure": "fcc",
+    "a_seed": 4.02,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 476,
+    "path": "bulk/PBE/Al"
+  },
+  {
+    "protocol": "prl2012",
+    "stage": "bulk",
+    "xc": "PBEsol",
+    "element": "Al",
+    "structure": "fcc",
+    "a_seed": 4.02,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 476,
+    "path": "bulk/PBEsol/Al"
+  },
+  {
+    "protocol": "prl2012",
+    "stage": "bulk",
+    "xc": "Q2D-GGA",
+    "element": "Al",
+    "structure": "fcc",
+    "a_seed": 4.02,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 476,
+    "path": "bulk/Q2D-GGA/Al"
+  },
+  {
+    "protocol": "prl2012",
+    "stage": "bulk",
+    "xc": "LDA",
+    "element": "Au",
+    "structure": "fcc",
+    "a_seed": 4.07,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 476,
+    "path": "bulk/LDA/Au"
+  },
+  {
+    "protocol": "prl2012",
+    "stage": "bulk",
+    "xc": "PBE",
+    "element": "Au",
+    "structure": "fcc",
+    "a_seed": 4.07,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 476,
+    "path": "bulk/PBE/Au"
+  },
+  {
+    "protocol": "prl2012",
+    "stage": "bulk",
+    "xc": "PBEsol",
+    "element": "Au",
+    "structure": "fcc",
+    "a_seed": 4.07,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 476,
+    "path": "bulk/PBEsol/Au"
+  },
+  {
+    "protocol": "prl2012",
+    "stage": "bulk",
+    "xc": "Q2D-GGA",
+    "element": "Au",
+    "structure": "fcc",
+    "a_seed": 4.07,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 476,
+    "path": "bulk/Q2D-GGA/Au"
+  },
+  {
+    "protocol": "prl2012",
+    "stage": "bulk",
+    "xc": "LDA",
+    "element": "Cu",
+    "structure": "fcc",
+    "a_seed": 3.6,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 476,
+    "path": "bulk/LDA/Cu"
+  },
+  {
+    "protocol": "prl2012",
+    "stage": "bulk",
+    "xc": "PBE",
+    "element": "Cu",
+    "structure": "fcc",
+    "a_seed": 3.6,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 476,
+    "path": "bulk/PBE/Cu"
+  },
+  {
+    "protocol": "prl2012",
+    "stage": "bulk",
+    "xc": "PBEsol",
+    "element": "Cu",
+    "structure": "fcc",
+    "a_seed": 3.6,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 476,
+    "path": "bulk/PBEsol/Cu"
+  },
+  {
+    "protocol": "prl2012",
+    "stage": "bulk",
+    "xc": "Q2D-GGA",
+    "element": "Cu",
+    "structure": "fcc",
+    "a_seed": 3.6,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 476,
+    "path": "bulk/Q2D-GGA/Cu"
+  },
+  {
+    "protocol": "prl2012",
+    "stage": "bulk",
+    "xc": "LDA",
+    "element": "Pd",
+    "structure": "fcc",
+    "a_seed": 3.88,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 476,
+    "path": "bulk/LDA/Pd"
+  },
+  {
+    "protocol": "prl2012",
+    "stage": "bulk",
+    "xc": "PBE",
+    "element": "Pd",
+    "structure": "fcc",
+    "a_seed": 3.88,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 476,
+    "path": "bulk/PBE/Pd"
+  },
+  {
+    "protocol": "prl2012",
+    "stage": "bulk",
+    "xc": "PBEsol",
+    "element": "Pd",
+    "structure": "fcc",
+    "a_seed": 3.88,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 476,
+    "path": "bulk/PBEsol/Pd"
+  },
+  {
+    "protocol": "prl2012",
+    "stage": "bulk",
+    "xc": "Q2D-GGA",
+    "element": "Pd",
+    "structure": "fcc",
+    "a_seed": 3.88,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 476,
+    "path": "bulk/Q2D-GGA/Pd"
+  },
+  {
+    "protocol": "prl2012",
+    "stage": "bulk",
+    "xc": "LDA",
+    "element": "Pt",
+    "structure": "fcc",
+    "a_seed": 3.92,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 476,
+    "path": "bulk/LDA/Pt"
+  },
+  {
+    "protocol": "prl2012",
+    "stage": "bulk",
+    "xc": "PBE",
+    "element": "Pt",
+    "structure": "fcc",
+    "a_seed": 3.92,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 476,
+    "path": "bulk/PBE/Pt"
+  },
+  {
+    "protocol": "prl2012",
+    "stage": "bulk",
+    "xc": "PBEsol",
+    "element": "Pt",
+    "structure": "fcc",
+    "a_seed": 3.92,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 476,
+    "path": "bulk/PBEsol/Pt"
+  },
+  {
+    "protocol": "prl2012",
+    "stage": "bulk",
+    "xc": "Q2D-GGA",
+    "element": "Pt",
+    "structure": "fcc",
+    "a_seed": 3.92,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 476,
+    "path": "bulk/Q2D-GGA/Pt"
+  },
+  {
+    "protocol": "prl2012",
+    "stage": "bulk",
+    "xc": "LDA",
+    "element": "Rh",
+    "structure": "fcc",
+    "a_seed": 3.79,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 476,
+    "path": "bulk/LDA/Rh"
+  },
+  {
+    "protocol": "prl2012",
+    "stage": "bulk",
+    "xc": "PBE",
+    "element": "Rh",
+    "structure": "fcc",
+    "a_seed": 3.79,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 476,
+    "path": "bulk/PBE/Rh"
+  },
+  {
+    "protocol": "prl2012",
+    "stage": "bulk",
+    "xc": "PBEsol",
+    "element": "Rh",
+    "structure": "fcc",
+    "a_seed": 3.79,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 476,
+    "path": "bulk/PBEsol/Rh"
+  },
+  {
+    "protocol": "prl2012",
+    "stage": "bulk",
+    "xc": "Q2D-GGA",
+    "element": "Rh",
+    "structure": "fcc",
+    "a_seed": 3.79,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 476,
+    "path": "bulk/Q2D-GGA/Rh"
+  },
+  {
+    "protocol": "prl2012",
+    "stage": "bulk",
+    "xc": "LDA",
+    "element": "Ti",
+    "structure": "fcc",
+    "a_seed": 4.1,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 476,
+    "path": "bulk/LDA/Ti"
+  },
+  {
+    "protocol": "prl2012",
+    "stage": "bulk",
+    "xc": "PBE",
+    "element": "Ti",
+    "structure": "fcc",
+    "a_seed": 4.1,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 476,
+    "path": "bulk/PBE/Ti"
+  },
+  {
+    "protocol": "prl2012",
+    "stage": "bulk",
+    "xc": "PBEsol",
+    "element": "Ti",
+    "structure": "fcc",
+    "a_seed": 4.1,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 476,
+    "path": "bulk/PBEsol/Ti"
+  },
+  {
+    "protocol": "prl2012",
+    "stage": "bulk",
+    "xc": "Q2D-GGA",
+    "element": "Ti",
+    "structure": "fcc",
+    "a_seed": 4.1,
+    "c_seed": null,
+    "kmesh": [
+      16,
+      16,
+      16
+    ],
+    "encut_eV": 476,
+    "path": "bulk/Q2D-GGA/Ti"
+  }
+]

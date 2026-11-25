@@ -1,0 +1,94 @@
+{
+ "system": "Pd",
+ "structure": "fcc",
+ "functional": "PBEsol",
+ "a0_ang": 3.8867698180772603,
+ "B0_GPa": 204.80942997877688,
+ "fit_rms_meV": 0.10564379519061312,
+ "minimum_near_edge": false,
+ "a_exp": 3.891,
+ "c_over_a_fixed": null,
+ "k": [
+  12,
+  12,
+  12
+ ],
+ "sigma_ev": 0.05,
+ "cutoff_ha": 350.0,
+ "spin": false,
+ "points": [
+  {
+   "a_ang": 3.69645,
+   "volume_ang3": 12.626835335752785,
+   "energy": -127.10819672580232,
+   "converged": true,
+   "iterations": 9,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.7450875,
+   "volume_ang3": 13.131850070020276,
+   "energy": -127.11266798592284,
+   "converged": true,
+   "iterations": 9,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.793725,
+   "volume_ang3": 13.65015390876073,
+   "energy": -127.11557295170087,
+   "converged": true,
+   "iterations": 9,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.8423625,
+   "volume_ang3": 14.18191943774651,
+   "energy": -127.11713738869237,
+   "converged": true,
+   "iterations": 9,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.891,
+   "volume_ang3": 14.727319242750001,
+   "energy": -127.11755955060589,
+   "converged": true,
+   "iterations": 9,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.9396375,
+   "volume_ang3": 15.286525909543554,
+   "energy": -127.11701192388676,
+   "converged": true,
+   "iterations": 10,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.988275,
+   "volume_ang3": 15.859712023899577,
+   "energy": -127.11567652049257,
+   "converged": true,
+   "iterations": 9,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 4.036912500000001,
+   "volume_ang3": 16.447050171590412,
+   "energy": -127.11366306737784,
+   "converged": true,
+   "iterations": 10,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 4.0855500000000005,
+   "volume_ang3": 17.048712938388476,
+   "energy": -127.11108078504434,
+   "converged": true,
+   "iterations": 10,
+   "solver": "KRKS-kerker"
+  }
+ ],
+ "seconds": 22569.747451782227
+}

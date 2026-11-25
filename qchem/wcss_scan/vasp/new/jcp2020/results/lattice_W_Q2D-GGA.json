@@ -1,0 +1,95 @@
+{
+ "system": "W",
+ "structure": "bcc",
+ "functional": "Q2D-GGA",
+ "a0_ang": 3.1444260261437393,
+ "a_center": 3.165,
+ "B0_GPa": 327.2847500187709,
+ "fit_rms_meV": 0.6399887735497726,
+ "minimum_near_edge": false,
+ "a_exp": 3.165,
+ "c_over_a_fixed": null,
+ "k": [
+  12,
+  12,
+  12
+ ],
+ "sigma_ev": 0.05,
+ "cutoff_ha": 450.0,
+ "spin": false,
+ "points": [
+  {
+   "a_ang": 3.00675,
+   "volume_ang3": 13.591330185023438,
+   "energy": -68.09635245241681,
+   "converged": true,
+   "iterations": 8,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.0463125,
+   "volume_ang3": 14.134920231081667,
+   "energy": -68.10207977485999,
+   "converged": true,
+   "iterations": 8,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.085875,
+   "volume_ang3": 14.692814463577148,
+   "energy": -68.10570720435186,
+   "converged": true,
+   "iterations": 8,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.1254375000000003,
+   "volume_ang3": 15.265198651164932,
+   "energy": -68.10746379979912,
+   "converged": true,
+   "iterations": 9,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.165,
+   "volume_ang3": 15.852258562499998,
+   "energy": -68.10746807230466,
+   "converged": true,
+   "iterations": 8,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.2045624999999998,
+   "volume_ang3": 16.454179966237433,
+   "energy": -68.10582328486332,
+   "converged": true,
+   "iterations": 8,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.244125,
+   "volume_ang3": 17.071148631032226,
+   "energy": -68.10275759208504,
+   "converged": true,
+   "iterations": 8,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.2836875000000005,
+   "volume_ang3": 17.703350325539432,
+   "energy": -68.09842253168534,
+   "converged": true,
+   "iterations": 8,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.3232500000000003,
+   "volume_ang3": 18.35097081841405,
+   "energy": -68.09297540530962,
+   "converged": true,
+   "iterations": 8,
+   "solver": "KRKS-kerker"
+  }
+ ],
+ "seconds": 36849.448714494705
+}

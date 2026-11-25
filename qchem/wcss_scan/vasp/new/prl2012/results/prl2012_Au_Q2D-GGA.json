@@ -1,0 +1,74 @@
+{
+ "system": "Au",
+ "functional": "Q2D-GGA",
+ "a_ang": 4.07,
+ "sigma_J_m2": 1.3031134372495,
+ "sigma_prl": 1.5,
+ "sigma_exp": 1.5,
+ "bulk": {
+  "system": "Au",
+  "functional": "Q2D-GGA",
+  "xc": "GGA_X_Q2D,GGA_C_Q2D",
+  "kind": "bulk",
+  "a_ang": 4.07,
+  "layers": 3,
+  "vacuum_ang": 0.0,
+  "kmesh": [
+   10,
+   10,
+   4
+  ],
+  "cutoff_ha": 150.0,
+  "sigma_ev": 0.05,
+  "kerker_alpha": 0.3,
+  "scf_type": "KRKS-kerker",
+  "nelectron": 33,
+  "energy": -99.44113536488382,
+  "converged": true,
+  "cycles": 7,
+  "basis": "gth-dzvp-molopt-sr",
+  "pseudo": "gth-pbe",
+  "area_bohr2": 25.61457701274609,
+  "grad_fft_relerr": 3.45968971458121e-07,
+  "nelec_err": 8.242295734817162e-12,
+  "mesh": [
+   31,
+   31,
+   75
+  ],
+  "seconds": 892.8569984436035
+ },
+ "slab": {
+  "system": "Au",
+  "functional": "Q2D-GGA",
+  "xc": "GGA_X_Q2D,GGA_C_Q2D",
+  "kind": "slab",
+  "a_ang": 4.07,
+  "layers": 11,
+  "vacuum_ang": 10.0,
+  "kmesh": [
+   10,
+   10,
+   1
+  ],
+  "cutoff_ha": 150.0,
+  "sigma_ev": 0.05,
+  "kerker_alpha": 0.3,
+  "scf_type": "KRKS-kerker",
+  "nelectron": 121,
+  "energy": -364.5746177307857,
+  "converged": true,
+  "cycles": 12,
+  "basis": "gth-dzvp-molopt-sr",
+  "pseudo": "gth-pbe",
+  "area_bohr2": 25.61457701274609,
+  "grad_fft_relerr": 3.991315849161457e-07,
+  "nelec_err": 1.935518412210513e-11,
+  "mesh": [
+   31,
+   31,
+   351
+  ],
+  "seconds": 4732.138639211655
+ }
+}

@@ -1,0 +1,95 @@
+{
+ "system": "Zn",
+ "structure": "hcp",
+ "functional": "LDA",
+ "a0_ang": 2.5834490648057185,
+ "a_center": 2.665,
+ "B0_GPa": 103.34552525750858,
+ "fit_rms_meV": 0.04430629721474512,
+ "minimum_near_edge": false,
+ "a_exp": 2.665,
+ "c_over_a_fixed": 1.8562851782363978,
+ "k": [
+  12,
+  12,
+  6
+ ],
+ "sigma_ev": 0.05,
+ "cutoff_ha": 600.0,
+ "spin": false,
+ "points": [
+  {
+   "a_ang": 2.5317499999999997,
+   "volume_ang3": 13.043909861127245,
+   "energy": -120.6420125052723,
+   "converged": true,
+   "iterations": 8,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 2.5650625000000002,
+   "volume_ang3": 13.565605638189798,
+   "energy": -120.64315209547615,
+   "converged": true,
+   "iterations": 8,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 2.598375,
+   "volume_ang3": 14.10102946953286,
+   "energy": -120.64321131356434,
+   "converged": true,
+   "iterations": 8,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 2.6316875,
+   "volume_ang3": 14.650359641575646,
+   "energy": -120.6423462026497,
+   "converged": true,
+   "iterations": 8,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 2.665,
+   "volume_ang3": 15.213774440737431,
+   "energy": -120.64072930902779,
+   "converged": true,
+   "iterations": 8,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 2.6983125,
+   "volume_ang3": 15.791452153437378,
+   "energy": -120.63845737899452,
+   "converged": true,
+   "iterations": 7,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 2.7316249999999997,
+   "volume_ang3": 16.383571066094746,
+   "energy": -120.6356389789381,
+   "converged": true,
+   "iterations": 7,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 2.7649375000000003,
+   "volume_ang3": 16.99030946512878,
+   "energy": -120.63237639418745,
+   "converged": true,
+   "iterations": 7,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 2.7982500000000003,
+   "volume_ang3": 17.61184563695866,
+   "energy": -120.62875401542861,
+   "converged": true,
+   "iterations": 7,
+   "solver": "KRKS-kerker"
+  }
+ ],
+ "seconds": 28764.12708878517
+}

@@ -1,0 +1,12 @@
+{
+ "species": "H",
+ "spin2S": 1,
+ "e_r2scan": -0.50014341,
+ "dEx_A": 0.0,
+ "dEx_B": 0.0,
+ "dEc": 0.0,
+ "e_scalarA": -0.50014341,
+ "e_scalarB": -0.50014341,
+ "pyscf": "2.14.0",
+ "source": "ae6_bh6_run.log (local)"
+}

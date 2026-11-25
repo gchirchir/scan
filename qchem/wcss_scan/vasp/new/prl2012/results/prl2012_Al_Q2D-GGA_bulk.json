@@ -1,0 +1,33 @@
+{
+ "system": "Al",
+ "functional": "Q2D-GGA",
+ "xc": "GGA_X_Q2D,GGA_C_Q2D",
+ "kind": "bulk",
+ "a_ang": 3.95,
+ "layers": 3,
+ "vacuum_ang": 0.0,
+ "kmesh": [
+  10,
+  10,
+  4
+ ],
+ "cutoff_ha": 150.0,
+ "sigma_ev": 0.05,
+ "kerker_alpha": 0.3,
+ "scf_type": "KRKS-kerker",
+ "nelectron": 9,
+ "energy": -6.1960811030170975,
+ "converged": true,
+ "cycles": 6,
+ "basis": "gth-dzvp-molopt-sr",
+ "pseudo": "gth-pbe",
+ "area_bohr2": 24.126402081592445,
+ "grad_fft_relerr": 4.773522380914697e-11,
+ "nelec_err": -1.724131948321883e-11,
+ "mesh": [
+  31,
+  31,
+  73
+ ],
+ "seconds": 425.3849000930786
+}

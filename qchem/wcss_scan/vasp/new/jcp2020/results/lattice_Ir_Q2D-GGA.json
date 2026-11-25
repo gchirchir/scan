@@ -1,0 +1,94 @@
+{
+ "system": "Ir",
+ "structure": "fcc",
+ "functional": "Q2D-GGA",
+ "a0_ang": 3.8094056434997947,
+ "B0_GPa": 412.6961694684809,
+ "fit_rms_meV": 0.1674582457673056,
+ "minimum_near_edge": false,
+ "a_exp": 3.839,
+ "c_over_a_fixed": null,
+ "k": [
+  12,
+  12,
+  12
+ ],
+ "sigma_ev": 0.05,
+ "cutoff_ha": 350.0,
+ "spin": false,
+ "points": [
+  {
+   "a_ang": 3.6470499999999997,
+   "volume_ang3": 12.127329035425653,
+   "energy": -105.285207371026,
+   "converged": true,
+   "iterations": 9,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.6950375,
+   "volume_ang3": 12.612365838975206,
+   "energy": -105.29194049579044,
+   "converged": true,
+   "iterations": 9,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.743025,
+   "volume_ang3": 13.110166041923284,
+   "energy": -105.2960305769686,
+   "converged": true,
+   "iterations": 9,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.7910125000000003,
+   "volume_ang3": 13.620895402703633,
+   "energy": -105.29781879356362,
+   "converged": true,
+   "iterations": 9,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.839,
+   "volume_ang3": 14.144719679749993,
+   "energy": -105.29761435992461,
+   "converged": true,
+   "iterations": 9,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.8869874999999996,
+   "volume_ang3": 14.68180463149612,
+   "energy": -105.29569403308733,
+   "converged": true,
+   "iterations": 9,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.9349749999999997,
+   "volume_ang3": 15.232316016375773,
+   "energy": -105.29232406558006,
+   "converged": true,
+   "iterations": 10,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.9829625,
+   "volume_ang3": 15.796419592822682,
+   "energy": -105.28771050651501,
+   "converged": true,
+   "iterations": 10,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 4.03095,
+   "volume_ang3": 16.374281119270595,
+   "energy": -105.2820392456155,
+   "converged": true,
+   "iterations": 10,
+   "solver": "KRKS-kerker"
+  }
+ ],
+ "seconds": 27760.771721839905
+}

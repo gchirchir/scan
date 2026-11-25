@@ -1,0 +1,6 @@
+{
+  "basis": "dyall-v4z",
+  "grid_level": 9,
+  "pyscf_version": "2.14.0",
+  "note": "PDF densities: numerical HF from AtomicOrbitals. Here: PySCF HF in the given Gaussian basis, checked against the numerical HF limit (hf_minus_limit_mha in atomic_results.csv)."
+}

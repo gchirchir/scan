@@ -1,0 +1,49 @@
+host r18-2.lem.kdm.wcss.pl
+name, memory.total [MiB], driver_version
+NVIDIA H100, 95830 MiB, 595.112.07
+=== modules
+CUDA/11.1.1-GCC-10.2.0
+CUDA/11.3.1
+CUDA/11.7.0
+CUDA/11.8.0
+CUDA/12.1.1
+CUDA/12.2.0
+CUDA/12.2.2
+CUDA/12.3.0
+CUDA/12.4.0
+CUDA/12.6.0
+CUDA/12.8
+CUDA/12.8.0
+CUDA/12.9.1
+CUDA/13.0.0
+cuDNN/8.9.2.26-CUDA-12.1.1
+cuDNN/9.10.1.4-CUDA-12.8.0
+cuTENSOR/2.0.1.2-CUDA-12.2.2
+NCCL/2.12.12-GCCcore-11.3.0-CUDA-11.7.0
+NCCL/2.26.6-GCCcore-14.2.0-CUDA-12.8.0
+Python/3.10.4-GCCcore-11.3.0
+Python/3.10.4-GCCcore-11.3.0-bare
+Python/3.11.3-GCCcore-12.3.0
+Python/3.11.5-GCCcore-13.2.0
+Python/3.12.3-GCCcore-13.3.0
+Python/3.13.1-GCC-14.2.0
+Python/3.13.1-GCCcore-14.2.0
+Python/3.13.5-GCCcore-14.3.0
+Python/3.9.6-GCCcore-11.2.0
+Python/3.9.6-GCCcore-11.2.0-bare
+=== PySCF module contents
+ERROR: Unable to locate a modulefile for 'PySCF/2.7.0-foss-2023a'
+/var/spool/slurmd/r18-2/job6401876/slurm_script: line 11: python: command not found
+/var/spool/slurmd/r18-2/job6401876/slurm_script: line 11: python: command not found
+/var/spool/slurmd/r18-2/job6401876/slurm_script: line 11: python: command not found
+=== /home/gabchi5762/envs/pyscf_gpu
+ModuleNotFoundError: No module named 'gpu4pyscf'
+ModuleNotFoundError: No module named 'cupy'
+=== /home/gabchi5762/envs/pyscf214
+/var/spool/slurmd/r18-2/job6401876/slurm_script: line 12: /home/gabchi5762/envs/pyscf214/bin/python: No such file or directory
+/var/spool/slurmd/r18-2/job6401876/slurm_script: line 12: /home/gabchi5762/envs/pyscf214/bin/python: No such file or directory
+=== /home/gabchi5762/envs/jaxsce_env
+ModuleNotFoundError: No module named 'gpu4pyscf'
+ModuleNotFoundError: No module named 'cupy'
+=== pip reachability
+timeout: failed to run command ‘python’: No such file or directory

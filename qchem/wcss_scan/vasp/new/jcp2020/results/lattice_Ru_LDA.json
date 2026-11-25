@@ -1,0 +1,95 @@
+{
+ "system": "Ru",
+ "structure": "hcp",
+ "functional": "LDA",
+ "a0_ang": 2.6790267014722247,
+ "a_center": 2.706,
+ "B0_GPa": 371.7608958938761,
+ "fit_rms_meV": 0.1305118407267932,
+ "minimum_near_edge": false,
+ "a_exp": 2.706,
+ "c_over_a_fixed": 1.582409460458241,
+ "k": [
+  12,
+  12,
+  8
+ ],
+ "sigma_ev": 0.05,
+ "cutoff_ha": 350.0,
+ "spin": false,
+ "points": [
+  {
+   "a_ang": 2.5707,
+   "volume_ang3": 11.640555327532725,
+   "energy": -189.15702885364786,
+   "converged": true,
+   "iterations": 9,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 2.604525,
+   "volume_ang3": 12.106123444891061,
+   "energy": -189.16767251748436,
+   "converged": true,
+   "iterations": 9,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 2.63835,
+   "volume_ang3": 12.583942656981954,
+   "energy": -189.17392498233417,
+   "converged": true,
+   "iterations": 9,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 2.672175,
+   "volume_ang3": 13.074172068931805,
+   "energy": -189.17634298405898,
+   "converged": true,
+   "iterations": 10,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 2.706,
+   "volume_ang3": 13.576970785867005,
+   "energy": -189.17542636770017,
+   "converged": true,
+   "iterations": 10,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 2.7398249999999997,
+   "volume_ang3": 14.092497912913954,
+   "energy": -189.1716236154922,
+   "converged": true,
+   "iterations": 10,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 2.7736499999999995,
+   "volume_ang3": 14.62091255519905,
+   "energy": -189.16533656244823,
+   "converged": true,
+   "iterations": 10,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 2.807475,
+   "volume_ang3": 15.162373817848712,
+   "energy": -189.15692452307368,
+   "converged": true,
+   "iterations": 10,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 2.8413,
+   "volume_ang3": 15.717040805989285,
+   "energy": -189.14670760969994,
+   "converged": true,
+   "iterations": 10,
+   "solver": "KRKS-kerker"
+  }
+ ],
+ "seconds": 23227.68251633644
+}

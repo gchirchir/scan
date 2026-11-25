@@ -1,0 +1,13 @@
+test,functional,ae6_mae,bh6_mae,err_SiH4,err_SiO,err_S2,err_C3H4,err_C2H2O2,err_C4H8,ibm_x_ge1,ibm_x_lt1,ibm_xc_ge1,ibm_xc_lt1
+V1 dyall-v4z/grid 9,r2SCAN,3.3423,7.2385,-3.4217,-6.5414,6.0449,0.3753,1.8197,1.8511,,,,
+V1 dyall-v4z/grid 9,original,1078.3786,23.0348,-83.2097,73.2931,24.2206,2062.6275,1490.1336,2736.7869,,,,
+V1 dyall-v4z/grid 9,original TD,101.1495,11.1446,-104.0412,-8.9297,7.8963,169.0490,104.9653,212.0156,,,,
+V1 dyall-v4z/grid 9,new G3,9.2459,7.0435,-2.5139,-2.1398,8.8085,12.1957,13.1238,16.6938,,,,
+V1 dyall-v4z/grid 9,new TD,4.0579,6.4801,-6.6183,-7.7143,6.4479,-1.1678,1.2747,-1.1241,,,,
+V2 dyall-v4z/grid 9 (independent SCF rerun),r2SCAN,3.3426,7.2384,-3.4217,-6.5415,6.0449,0.3758,1.8197,1.8517,,,,
+V2 dyall-v4z/grid 9 (independent SCF rerun),original,1078.3785,23.0345,-83.2097,73.2912,24.2211,2062.6289,1490.1309,2736.7889,,,,
+V2 dyall-v4z/grid 9 (independent SCF rerun),original TD,101.1482,11.1447,-104.0412,-8.9299,7.8963,169.0464,104.9631,212.0122,,,,
+V2 dyall-v4z/grid 9 (independent SCF rerun),new G3,9.2462,7.0435,-2.5139,-2.1399,8.8089,12.1962,13.1239,16.6945,,,,
+V2 dyall-v4z/grid 9 (independent SCF rerun),new TD,4.0577,6.4801,-6.6183,-7.7144,6.4479,-1.1673,1.2748,-1.1234,,,,
+V5 IBM direct,original,,,,,,,,,0.0264,0.0351,0.0175,0.0372
+V5 IBM direct,new G3,,,,,,,,,0.0328,0.0755,0.0219,0.0724

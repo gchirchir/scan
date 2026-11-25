@@ -1,0 +1,28 @@
+H       E(r2SCAN@PBE)=-0.50003705  W=0 check -5.7e-10 Ha
+C       E(r2SCAN@PBE)=-37.83346522  W=0 check -3.8e-12 Ha
+O       E(r2SCAN@PBE)=-75.06174520  W=0 check -1.1e-13 Ha
+Si      E(r2SCAN@PBE)=-289.34945498  W=0 check -8.2e-12 Ha
+S       E(r2SCAN@PBE)=-398.09446316  W=0 check -2.9e-13 Ha
+SiH4    E(r2SCAN@PBE)=-291.86190808  W=0 check +0.0e+00 Ha
+SiO     E(r2SCAN@PBE)=-364.70971228  W=0 check +0.0e+00 Ha
+S2      E(r2SCAN@PBE)=-796.36447423  W=0 check -1.3e-13 Ha
+C3H4    E(r2SCAN@PBE)=-116.62719149  W=0 check +0.0e+00 Ha
+C2H2O2  E(r2SCAN@PBE)=-227.80774669  W=0 check -3.6e-15 Ha
+C4H8    E(r2SCAN@PBE)=-157.17287967  W=0 check +0.0e+00 Ha
+molecule                     label     ref     pbe  r2scan  orig_SS  orig_TD  new_SS_SS  new_SS_TD  new_TD_SS  new_TD_TD
+    SiH4                   SiH$_4$  324.59  312.43  321.48   240.80   220.75     322.36     317.37     322.65     318.52
+     SiO                       SiO  193.40  194.93  187.32   263.00   184.88     192.66     185.81     191.63     186.12
+      S2                     S$_2$  103.90  113.71  110.16   125.79   111.55     113.58     110.62     112.81     110.38
+    C3H4      C$_3$H$_4$ (propyne)  705.28  721.17  706.98  2729.99   889.49     704.89     704.92     709.04     705.33
+  C2H2O2 C$_2$H$_2$O$_2$ (glyoxal)  635.33  663.41  638.34  2096.00   752.86     641.30     637.61     642.86     637.63
+    C4H8  C$_4$H$_8$ (cyclobutane) 1150.12 1167.71 1153.82  3837.50  1383.49    1149.89    1149.93    1155.79    1150.84
+pbe        ME=   +10.12 MAE=    14.18
+r2scan     ME=    +0.91 MAE=     3.98
+orig_SS    ME= +1030.08 MAE=  1058.01
+orig_TD    ME=   +71.73 MAE=   109.19
+new_SS_SS  ME=    +2.01 MAE=     3.21
+new_SS_TD  ME=    -1.06 MAE=     4.06
+new_TD_SS  ME=    +3.69 MAE=     4.93
+new_TD_TD  ME=    -0.63 MAE=     3.82
+max |W=0 check| = 5.653814638684196e-10
+ALL_DONE

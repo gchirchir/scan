@@ -1,0 +1,289 @@
+Loading PySCF/2.7.0-foss-2023a
+  Loading requirement: GCCcore/12.3.0 zlib/1.2.13-GCCcore-12.3.0
+    binutils/2.40-GCCcore-12.3.0 GCC/12.3.0 numactl/2.0.16-GCCcore-12.3.0
+    XZ/5.4.2-GCCcore-12.3.0 libxml2/2.11.4-GCCcore-12.3.0
+    libpciaccess/0.17-GCCcore-12.3.0 hwloc/2.9.1-GCCcore-12.3.0 OpenSSL/1.1
+    libevent/2.1.12-GCCcore-12.3.0 UCX/1.14.1-GCCcore-12.3.0
+    libfabric/1.18.0-GCCcore-12.3.0 PMIx/4.2.4-GCCcore-12.3.0
+    UCC/1.2.0-GCCcore-12.3.0 OpenMPI/4.1.5-GCC-12.3.0 OpenBLAS/0.3.23-GCC-12.3.0
+    FlexiBLAS/3.3.1-GCC-12.3.0 FFTW/3.3.10-GCC-12.3.0 gompi/2023a
+    FFTW.MPI/3.3.10-gompi-2023a ScaLAPACK/2.2.0-gompi-2023a-fb foss/2023a
+    bzip2/1.0.8-GCCcore-12.3.0 ncurses/6.4-GCCcore-12.3.0
+    libreadline/8.2-GCCcore-12.3.0 Tcl/8.6.13-GCCcore-12.3.0
+    SQLite/3.42.0-GCCcore-12.3.0 libffi/3.4.4-GCCcore-12.3.0
+    Python/3.11.3-GCCcore-12.3.0 gfbf/2023a cffi/1.15.1-GCCcore-12.3.0
+    cryptography/41.0.1-GCCcore-12.3.0 virtualenv/20.23.1-GCCcore-12.3.0
+    Python-bundle-PyPI/2023.06-GCCcore-12.3.0 pybind11/2.11.1-GCCcore-12.3.0
+    SciPy-bundle/2023.07-gfbf-2023a mpi4py/3.1.4-gompi-2023a
+    Szip/2.1.1-GCCcore-12.3.0 HDF5/1.14.0-gompi-2023a h5py/3.9.0-foss-2023a
+    libcint/5.4.0-gfbf-2023a libxc/6.2.2-GCC-12.3.0 XCFun/2.1.1-GCCcore-12.3.0
+    CPPE/0.3.1-GCC-12.3.0 PyBerny/0.6.3-foss-2023a CheMPS2/1.8.12-foss-2023a
+    PyCheMPS2/1.8.12-foss-2023a gzip/1.12-GCCcore-12.3.0
+    lz4/1.9.4-GCCcore-12.3.0 zstd/1.5.5-GCCcore-12.3.0 ICU/73.2-GCCcore-12.3.0
+    Boost.MPI/1.82.0-gompi-2023a Block/1.5.3-20200525-foss-2023a
+    NECI/20230620-foss-2023a Dice/20240702-foss-2023a tblis/20230422-foss-2023a
+task=4 Pt 3.95 bulk 3 8 4 30 0 0 host=r11ch06b03.lem.kdm.wcss.pl date=2026-11-21T18:40:42+01:00
+#INFO: **** input file is /home/gabchi5762/pyscf/gpu/scan/vasp/new/cutoff_conv/cutoff_conv.py ****
+#!/usr/bin/env python3
+"""Standalone cutoff / SCF-stability test for transition-metal fcc(111) cells (Claude Code, 2026-11-21).
+
+Why: every non-Al production run of 22_surface_density_dcscan.py at 30 Ha failed (slab SCF diverged to positive
+energies) and the bulk FFT-gradient relative error was 0.41-0.43 (Pt, Pd) and 0.12-0.18 (Au), vs 0.004 for Al.
+This script repeats exactly the bulk/slab setup of script 22 (fcc111_cell and run_scf copied, PBEsol, GTH-PBE,
+gth-dzvp-molopt-sr, Gaussian smearing, common chemical potential for odd cells) and records, per cutoff:
+SCF energy, cycles, convergence, grid electron count, the same FFT-gradient error metric as script 22, mesh, time.
+Optional SCF stabilisers for the slab (damping, level shift, DIIS start) are passed on the command line.
+
+Usage: python cutoff_conv.py --system Pt --a 3.95 --kind bulk --cutoff 150 [--kxy 8 --kz 4]
+       python cutoff_conv.py --system Pt --a 3.95 --kind slab --layers 8 --kxy 4 --cutoff 150 --damp 0.3 --shift 0.2
+Output: results/conv_<system>_<kind>_L<layers>_k<kxy>_c<cutoff>[_stab].json
+"""
+import argparse, json, math, os, time
+import numpy as np
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+RES = os.path.join(HERE, "results")
+HA2EV = 27.211386245988
+HA_PER_BOHR2_TO_J_PER_M2 = 1556.8929
+
+
+def fcc111_cell(symbol, a_ang, layers, vacuum_ang, periodic_bulk=False):
+    """1x1 hexagonal fcc(111) cell; ABC stacking along z (copied from script 22)."""
+    from pyscf.pbc import gto
+    a_in = a_ang / math.sqrt(2.0)
+    d0 = a_ang / math.sqrt(3.0)
+    a1 = np.array([a_in, 0.0, 0.0])
+    a2 = np.array([0.5 * a_in, 0.5 * math.sqrt(3.0) * a_in, 0.0])
+    shift = (a1 + a2) / 3.0
+    if periodic_bulk:
+        if layers % 3:
+            raise SystemExit("bulk cell needs a multiple of 3 layers")
+        height, z0 = layers * d0, 0.5 * d0
+    else:
+        height, z0 = (layers - 1) * d0 + vacuum_ang, 0.5 * vacuum_ang
+    atoms = [[symbol, tuple((k % 3) * shift + np.array([0.0, 0.0, z0 + k * d0]))] for k in range(layers)]
+    cell = gto.Cell()
+    cell.a = np.array([a1, a2, [0.0, 0.0, height]])
+    cell.atom = atoms
+    cell.unit = "Angstrom"
+    cell.basis = "gth-dzvp-molopt-sr"
+    cell.pseudo = "gth-pbe"
+    cell.verbose = 4
+    return cell
+
+
+def build_mf(cell, kmesh, sigma_ev, cutoff, damp, shift, diis_start, max_cycle):
+    from pyscf.pbc import dft
+    from pyscf.pbc.scf.addons import smearing_
+    cell.ke_cutoff = cutoff
+    cell.build()
+    kpts = cell.make_kpts(kmesh, wrap_around=True)
+    unrestricted = bool(cell.nelectron % 2)
+    if unrestricted:
+        cell.spin = (cell.nelectron * len(kpts)) % 2      # parity over the whole k mesh (as script 22)
+        mf = dft.KUKS(cell, kpts)
+    else:
+        mf = dft.KRKS(cell, kpts)
+    mf.xc = "GGA_X_PBE_SOL,GGA_C_PBE_SOL"
+    mf = smearing_(mf, sigma=sigma_ev / HA2EV, method="gaussian", fix_spin=False)
+    mf.conv_tol = 1e-8
+    mf.max_cycle = max_cycle
+    if damp:
+        mf.damp = damp
+    if shift:
+        mf.level_shift = shift
+    if diis_start is not None:
+        mf.diis_start_cycle = diis_start
+    return mf, ("KUKS-common-mu" if unrestricted else "KRKS")
+
+
+def grad_check(mf):
+    """Analytic (AO) density gradient vs FFT gradient on the uniform mesh: same metric as script 22."""
+    cell, ni, grids = mf.cell, mf._numint, mf.grids
+    dm = np.asarray(mf.make_rdm1())
+    unrestricted = dm.ndim == 4 and dm.shape[0] == 2
+    rows = []
+    for ao_k1, ao_k2, mask, weight, coords in ni.block_loop(cell, grids, cell.nao_nr(), deriv=1, kpts=mf.kpts):
+        if unrestricted:
+            r = np.asarray(ni.eval_rho(cell, ao_k1, dm[0], xctype="GGA", hermi=1)) + \
+                np.asarray(ni.eval_rho(cell, ao_k1, dm[1], xctype="GGA", hermi=1))
+        else:
+            r = ni.eval_rho(cell, ao_k1, dm, xctype="GGA", hermi=1)
+        rows.append(np.asarray(r).real)
+    R = np.concatenate(rows, axis=1)
+    rho, grad = R[0], R[1:4]
+    mesh = np.asarray(grids.mesh) if hasattr(grids, "mesh") else np.asarray(cell.mesh)
+    Gv = cell.get_Gv(mesh)
+    nG = np.fft.fftn(rho.reshape(mesh)).ravel()
+    gradF = np.array([np.fft.ifftn((1j * Gv[:, i] * nG).reshape(mesh)).real.ravel() for i in range(3)])
+    gerr = float(np.max(np.abs(grad - gradF)) / max(np.max(np.abs(grad)), 1e-30))
+    w = cell.vol / rho.size
+    return gerr, float(rho.sum() * w), [int(m) for m in mesh], float(rho.min())
+
+
+def main():
+    p = argparse.ArgumentParser()
+    p.add_argument("--system", required=True)
+    p.add_argument("--a", type=float, required=True)
+    p.add_argument("--kind", choices=["bulk", "slab"], required=True)
+    p.add_argument("--layers", type=int, default=3)
+    p.add_argument("--vacuum", type=float, default=14.0)
+    p.add_argument("--kxy", type=int, default=8)
+    p.add_argument("--kz", type=int, default=4)
+    p.add_argument("--cutoff", type=float, required=True)
+    p.add_argument("--sigma", type=float, default=0.05)
+    p.add_argument("--damp", type=float, default=0.0)
+    p.add_argument("--shift", type=float, default=0.0)
+    p.add_argument("--diis-start", type=int, default=None)
+    p.add_argument("--max-cycle", type=int, default=150)
+    a = p.parse_args()
+    os.makedirs(RES, exist_ok=True)
+    stab = bool(a.damp or a.shift or a.diis_start is not None)
+    kmesh = [a.kxy, a.kxy, a.kz if a.kind == "bulk" else 1]
+    tag = f"conv_{a.system}_{a.kind}_L{a.layers}_k{a.kxy}_c{int(a.cutoff)}" + ("_stab" if stab else "")
+    cell = fcc111_cell(a.system, a.a, a.layers, a.vacuum, periodic_bulk=(a.kind == "bulk"))
+    t0 = time.time()
+    mf, scf_type = build_mf(cell, kmesh, a.sigma, a.cutoff, a.damp, a.shift, a.diis_start, a.max_cycle)
+    ncyc = [0]
+    mf.callback = lambda env: ncyc.__setitem__(0, ncyc[0] + 1)
+    e = float(mf.kernel())
+    out = dict(vars(a), tag=tag, kmesh=kmesh, scf_type=scf_type, nelectron=int(cell.nelectron),
+               energy=e, energy_per_atom=e / a.layers, converged=bool(mf.converged), cycles=ncyc[0],
+               scf_seconds=time.time() - t0)
+    if mf.converged:
+        gerr, ngrid, mesh, rhomin = grad_check(mf)
+        out.update(grad_fft_relerr=gerr, nelec_grid=ngrid, nelec_err=ngrid - cell.nelectron, mesh=mesh,
+                   rho_min=rhomin)
+    out["seconds"] = time.time() - t0
+    with open(os.path.join(RES, tag + ".json"), "w") as fh:
+        json.dump(out, fh, indent=1)
+    print("RESULT", json.dumps({k: out.get(k) for k in ("tag", "converged", "cycles", "energy", "grad_fft_relerr",
+                                                         "nelec_err", "mesh", "seconds")}))
+
+
+if __name__ == "__main__":
+    main()
+#INFO: ******************** input file end ********************
+
+
+System: uname_result(system='Linux', node='r11ch06b03.lem.kdm.wcss.pl', release='5.14.0-687.60.1.el9_8.x86_64', version='#1 SMP PREEMPT_DYNAMIC Mon Oct 26 08:05:05 EDT 2026', machine='x86_64')  Threads 16
+Python 3.11.3 (main, Dec  9 2024, 15:01:57) [GCC 12.3.0]
+numpy 1.25.1  scipy 1.11.1  h5py 3.9.0
+Date: Sat Nov 21 18:40:43 2026
+PySCF version 2.7.0
+PySCF path  /usr/local/easybuild/software/PySCF/2.7.0-foss-2023a/lib/python3.11/site-packages/pyscf
+
+[ENV] PYSCF_TMPDIR /lustre/pd03/hpc-gabchi5762-1768308766/surfconv_tmp/6384181_4
+[ENV] PYSCF_MAX_MEMORY 98304
+[ENV] EBDEVELPYSCF /usr/local/easybuild/software/PySCF/2.7.0-foss-2023a/easybuild/PySCF-2.7.0-foss-2023a-easybuild-devel
+[ENV] EBVERSIONPYSCF 2.7.0
+[ENV] EBROOTPYSCF /usr/local/easybuild/software/PySCF/2.7.0-foss-2023a
+[ENV] EBEXTSLISTPYSCF dftd3-94091d8,doci-08079a9,icmpspt-50c386e,properties-8b94d8d,qsdopt-3ad2c02,semiempirical-470d716,shciscf-7edb54d,nptyping-2.5.0,MCfun-0.2.3,pyqmc-0.6.0,dmrgscf-a03f7b6,fciqmc-ee98fb4,mbd-485c18c,naive-hci-0c28d6e,tblis-c67c8af,zquatev-4eb41b1
+[CONFIG] conf_file None
+[INPUT] verbose = 4
+[INPUT] num. atoms = 3
+[INPUT] num. electrons = 54
+[INPUT] charge = 0
+[INPUT] spin (= nelec alpha-beta = 2S) = 0
+[INPUT] symmetry False subgroup None
+[INPUT] Mole.unit = Angstrom
+[INPUT] Symbol           X                Y                Z      unit          X                Y                Z       unit  Magmom
+[INPUT]  1 Pt     0.000000000000   0.000000000000   1.140266781650 AA    0.000000000000   0.000000000000   2.154791926257 Bohr   0.0
+[INPUT]  2 Pt     1.396535892843   0.806290373666   3.420800344949 AA    2.639070360599   1.523667983102   6.464375778770 Bohr   0.0
+[INPUT]  3 Pt     2.793071785687   1.612580747332   5.701333908248 AA    5.278140721198   3.047335966204  10.773959631284 Bohr   0.0
+
+nuclear repulsion = -298.515290903433
+number of shells = 12
+number of NR pGTOs = 288
+number of NR cGTOs = 78
+basis = gth-dzvp-molopt-sr
+ecp = {}
+CPU time:         0.63
+lattice vectors  a1 [5.278140721, 0.000000000, 0.000000000]
+                 a2 [2.639070361, 4.571003949, 0.000000000]
+                 a3 [0.000000000, 0.000000000, 12.928751558]
+dimension = 3
+low_dim_ft_type = None
+Cell volume = 311.924
+rcut = 25.73945711839878 (nimgs = [6 6 2])
+lattice sum = 1111 cells
+precision = 1e-08
+pseudo = gth-pbe
+ke_cutoff = 30.0
+    = [15 15 33] mesh (7425 PWs)
+
+
+******** <class 'pyscf.pbc.scf.addons.SmearingKRKS'> ********
+method = SmearingKRKS
+initial guess = minao
+damping factor = 0
+level_shift factor = 0
+DIIS = <class 'pyscf.scf.diis.CDIIS'>
+diis_start_cycle = 1
+diis_space = 8
+diis_damp = 0
+SCF conv_tol = 1e-08
+SCF conv_tol_grad = None
+SCF max_cycles = 150
+direct_scf = True
+direct_scf_tol = 1e-13
+chkfile to save SCF result = /lustre/pd03/hpc-gabchi5762-1768308766/surfconv_tmp/6384181_4/tmpjmw2oe4q
+max_memory 98304 MB (current use 102 MB)
+
+
+******** PBC SCF flags ********
+N kpts = 256
+Exchange divergence treatment (exxdiv) = ewald
+    madelung (= occupied orbital energy shift) = 0.06467238871587933
+    Total energy shift due to Ewald probe charge = -1/2 * Nelec*madelung = -1.74615449533
+Smearing method = gaussian
+DF object = <pyscf.pbc.df.fft.FFTDF object at 0x7f1375ec9010>
+XC functionals = GGA_X_PBE_SOL,GGA_C_PBE_SOL
+small_rho_cutoff = 1e-07
+Uniform grid, mesh = [15 15 33]
+Set gradient conv threshold to 0.0001
+nelec by numeric integration = 54.00134268840179
+init E= -352.312003696592
+    sigma = 0.00183747  Optimized mu = 0.809380350931  entropy = 0.209360956427
+nelec by numeric integration = 54.00124207398027
+    Total E(T) = -360.02436443757  Free energy = -360.024749131232  E0 = -360.024556784401
+cycle= 1 E= -360.02436443757  delta_E= -7.71  |g|= 8.13  |ddm|=  120
+    sigma = 0.00183747  Optimized mu = 0.91001900292  entropy = 0.121668625255
+nelec by numeric integration = 54.00134521637419
+    Total E(T) = -359.981942203568  Free energy = -359.982165765543  E0 = -359.982053984555
+cycle= 2 E= -359.981942203568  delta_E= 0.0424  |g|= 8.53  |ddm|= 67.1
+    sigma = 0.00183747  Optimized mu = 0.838369785273  entropy = 0.217346727165
+nelec by numeric integration = 54.001286515711286
+    Total E(T) = -360.157734562091  Free energy = -360.158133929336  E0 = -360.157934245714
+cycle= 3 E= -360.157734562091  delta_E= -0.176  |g|= 0.589  |ddm|= 39.8
+    sigma = 0.00183747  Optimized mu = 0.844079756498  entropy = 0.220051121818
+nelec by numeric integration = 54.00129232729486
+    Total E(T) = -360.158735812073  Free energy = -360.159140148552  E0 = -360.158937980313
+cycle= 4 E= -360.158735812073  delta_E= -0.001  |g|= 0.0622  |ddm|= 3.71
+    sigma = 0.00183747  Optimized mu = 0.843754358169  entropy = 0.217940121272
+nelec by numeric integration = 54.00129118849729
+    Total E(T) = -360.158750677143  Free energy = -360.159151134729  E0 = -360.158950905936
+cycle= 5 E= -360.158750677143  delta_E= -1.49e-05  |g|= 0.0237  |ddm|= 1.53
+    sigma = 0.00183747  Optimized mu = 0.843686977109  entropy = 0.218890410984
+nelec by numeric integration = 54.00129140834569
+    Total E(T) = -360.158750917472  Free energy = -360.159153121183  E0 = -360.158952019327
+cycle= 6 E= -360.158750917472  delta_E= -2.4e-07  |g|= 0.00163  |ddm|= 0.472
+    sigma = 0.00183747  Optimized mu = 0.843686521521  entropy = 0.218915270965
+nelec by numeric integration = 54.00129141540339
+    Total E(T) = -360.158750881809  Free energy = -360.1591531312  E0 = -360.158952006505
+cycle= 7 E= -360.158750881809  delta_E= 3.57e-08  |g|= 0.000399  |ddm|= 0.0361
+    sigma = 0.00183747  Optimized mu = 0.843686057103  entropy = 0.218917693738
+nelec by numeric integration = 54.0012914147766
+    Total E(T) = -360.158750872762  Free energy = -360.159153126605  E0 = -360.158951999684
+cycle= 8 E= -360.158750872762  delta_E= 9.05e-09  |g|= 0.00403  |ddm|= 0.00581
+    sigma = 0.00183747  Optimized mu = 0.843685973791  entropy = 0.218918097895
+nelec by numeric integration = 54.001291414677425
+    Total E(T) = -360.158750876709  Free energy = -360.159153131295  E0 = -360.158952004002
+cycle= 9 E= -360.158750876709  delta_E= -3.95e-09  |g|= 3.24e-05  |ddm|= 0.00494
+    sigma = 0.00183747  Optimized mu = 0.843685940836  entropy = 0.218918147669
+nelec by numeric integration = 54.00129141490035
+    Total E(T) = -360.158750876582  Free energy = -360.159153131259  E0 = -360.158952003921
+Extra cycle  E= -360.158750876582  delta_E= 1.27e-10  |g|= 0.000353  |ddm|= 0.000735
+converged SCF energy = -360.158750876582
+RESULT {"tag": "conv_Pt_bulk_L3_k8_c30", "converged": true, "cycles": 9, "energy": -360.15875087658236, "grad_fft_relerr": 0.41129770252275827, "nelec_err": 0.001291414900357779, "mesh": [15, 15, 33], "seconds": 74.3409652709961}
+done date=2026-11-21T18:41:57+01:00

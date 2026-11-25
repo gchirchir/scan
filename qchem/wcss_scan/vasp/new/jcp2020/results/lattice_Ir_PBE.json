@@ -1,0 +1,94 @@
+{
+ "system": "Ir",
+ "structure": "fcc",
+ "functional": "PBE",
+ "a0_ang": 3.861919026635808,
+ "B0_GPa": 354.22473102018716,
+ "fit_rms_meV": 0.13860049209981973,
+ "minimum_near_edge": false,
+ "a_exp": 3.839,
+ "c_over_a_fixed": null,
+ "k": [
+  12,
+  12,
+  12
+ ],
+ "sigma_ev": 0.05,
+ "cutoff_ha": 350.0,
+ "spin": false,
+ "points": [
+  {
+   "a_ang": 3.6470499999999997,
+   "volume_ang3": 12.127329035425653,
+   "energy": -105.45682321310917,
+   "converged": true,
+   "iterations": 9,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.6950375,
+   "volume_ang3": 12.612365838975206,
+   "energy": -105.46561350207944,
+   "converged": true,
+   "iterations": 9,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.743025,
+   "volume_ang3": 13.110166041923284,
+   "energy": -105.47171213376598,
+   "converged": true,
+   "iterations": 10,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.7910125000000003,
+   "volume_ang3": 13.620895402703633,
+   "energy": -105.47546820831694,
+   "converged": true,
+   "iterations": 9,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.839,
+   "volume_ang3": 14.144719679749993,
+   "energy": -105.47719213932442,
+   "converged": true,
+   "iterations": 9,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.8869874999999996,
+   "volume_ang3": 14.68180463149612,
+   "energy": -105.47716151410471,
+   "converged": true,
+   "iterations": 9,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.9349749999999997,
+   "volume_ang3": 15.232316016375773,
+   "energy": -105.47562336771595,
+   "converged": true,
+   "iterations": 9,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.9829625,
+   "volume_ang3": 15.796419592822682,
+   "energy": -105.47279691075862,
+   "converged": true,
+   "iterations": 9,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 4.03095,
+   "volume_ang3": 16.374281119270595,
+   "energy": -105.46887690411498,
+   "converged": true,
+   "iterations": 9,
+   "solver": "KRKS-kerker"
+  }
+ ],
+ "seconds": 26738.23094701767
+}

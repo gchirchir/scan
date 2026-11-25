@@ -1,0 +1,10 @@
+# system a_ang(PRL PBEsol) cutoff_Ha bulk_layers kz   Table 3 SCAN/DC-SCAN columns: self-consistent SCAN density with the
+# Table 3 (PRL) protocol: 11-layer slab, 10 A vacuum, 10x10x1, 3-layer bulk 10x10x4; no SCAN lattice constants in the
+# PRL -> PBEsol a; DC-SCAN evaluated on the SCAN density (script 22 --scf-xc SCAN).
+Al 4.02 150 3 4
+Cu 3.56 300 3 4
+Rh 3.81 150 3 4
+Au 4.10 150 3 4
+Pt 3.95 150 3 4
+Pd 3.92 150 3 4
+Ti 4.06 250 3 4

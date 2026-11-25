@@ -1,0 +1,30 @@
+# system functional   PRL 108,126402 Table I recreation: 11-layer slab, 10 A vacuum, 10x10x1 / bulk 3L 10x10x4, each functional at
+# its PRL lattice constant, self-consistent; bulk and slab Kerker (alpha 0.3, q0 0.8, 12 vec); cutoff Ti 250, Cu 300, else 150 Ha.
+Al LDA
+Al PBE
+Al PBEsol
+Al Q2D-GGA
+Cu LDA
+Cu PBE
+Cu PBEsol
+Cu Q2D-GGA
+Rh LDA
+Rh PBE
+Rh PBEsol
+Rh Q2D-GGA
+Au LDA
+Au PBE
+Au PBEsol
+Au Q2D-GGA
+Pt LDA
+Pt PBE
+Pt PBEsol
+Pt Q2D-GGA
+Pd LDA
+Pd PBE
+Pd PBEsol
+Pd Q2D-GGA
+Ti LDA
+Ti PBE
+Ti PBEsol
+Ti Q2D-GGA

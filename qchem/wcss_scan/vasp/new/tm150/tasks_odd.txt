@@ -1,0 +1,6 @@
+# system a_ang(PRL PBEsol) cutoff_Ha bulk_layers kz   Cu, Rh, Au: 3-layer bulk cell has an odd electron count (33/51/33),
+# so a 6-layer bulk (66/102/66 electrons, kz 2 = same k density along z as 3 layers with kz 4) keeps the restricted
+# solver; the 8-layer slab is even (88/136/88). Otherwise the tasks.txt production protocol.
+Cu 3.56 150 6 2
+Rh 3.81 150 6 2
+Au 4.10 150 6 2

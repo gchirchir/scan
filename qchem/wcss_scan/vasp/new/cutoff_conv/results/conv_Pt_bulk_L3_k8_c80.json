@@ -1,0 +1,38 @@
+{
+ "system": "Pt",
+ "a": 3.95,
+ "kind": "bulk",
+ "layers": 3,
+ "vacuum": 14.0,
+ "kxy": 8,
+ "kz": 4,
+ "cutoff": 80.0,
+ "sigma": 0.05,
+ "damp": 0.0,
+ "shift": 0.0,
+ "diis_start": null,
+ "max_cycle": 150,
+ "tag": "conv_Pt_bulk_L3_k8_c80",
+ "kmesh": [
+  8,
+  8,
+  4
+ ],
+ "scf_type": "KRKS",
+ "nelectron": 54,
+ "energy": -360.22476298723166,
+ "energy_per_atom": -120.07492099574388,
+ "converged": true,
+ "cycles": 11,
+ "scf_seconds": 283.7826199531555,
+ "grad_fft_relerr": 0.01042174167257153,
+ "nelec_grid": 54.00000000000206,
+ "nelec_err": 2.0605739337042905e-12,
+ "mesh": [
+  23,
+  23,
+  55
+ ],
+ "rho_min": 0.008593763509348606,
+ "seconds": 292.36638498306274
+}

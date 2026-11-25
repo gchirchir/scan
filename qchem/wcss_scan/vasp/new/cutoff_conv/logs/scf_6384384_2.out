@@ -1,0 +1,565 @@
+Loading PySCF/2.7.0-foss-2023a
+  Loading requirement: GCCcore/12.3.0 zlib/1.2.13-GCCcore-12.3.0
+    binutils/2.40-GCCcore-12.3.0 GCC/12.3.0 numactl/2.0.16-GCCcore-12.3.0
+    XZ/5.4.2-GCCcore-12.3.0 libxml2/2.11.4-GCCcore-12.3.0
+    libpciaccess/0.17-GCCcore-12.3.0 hwloc/2.9.1-GCCcore-12.3.0 OpenSSL/1.1
+    libevent/2.1.12-GCCcore-12.3.0 UCX/1.14.1-GCCcore-12.3.0
+    libfabric/1.18.0-GCCcore-12.3.0 PMIx/4.2.4-GCCcore-12.3.0
+    UCC/1.2.0-GCCcore-12.3.0 OpenMPI/4.1.5-GCC-12.3.0 OpenBLAS/0.3.23-GCC-12.3.0
+    FlexiBLAS/3.3.1-GCC-12.3.0 FFTW/3.3.10-GCC-12.3.0 gompi/2023a
+    FFTW.MPI/3.3.10-gompi-2023a ScaLAPACK/2.2.0-gompi-2023a-fb foss/2023a
+    bzip2/1.0.8-GCCcore-12.3.0 ncurses/6.4-GCCcore-12.3.0
+    libreadline/8.2-GCCcore-12.3.0 Tcl/8.6.13-GCCcore-12.3.0
+    SQLite/3.42.0-GCCcore-12.3.0 libffi/3.4.4-GCCcore-12.3.0
+    Python/3.11.3-GCCcore-12.3.0 gfbf/2023a cffi/1.15.1-GCCcore-12.3.0
+    cryptography/41.0.1-GCCcore-12.3.0 virtualenv/20.23.1-GCCcore-12.3.0
+    Python-bundle-PyPI/2023.06-GCCcore-12.3.0 pybind11/2.11.1-GCCcore-12.3.0
+    SciPy-bundle/2023.07-gfbf-2023a mpi4py/3.1.4-gompi-2023a
+    Szip/2.1.1-GCCcore-12.3.0 HDF5/1.14.0-gompi-2023a h5py/3.9.0-foss-2023a
+    libcint/5.4.0-gfbf-2023a libxc/6.2.2-GCC-12.3.0 XCFun/2.1.1-GCCcore-12.3.0
+    CPPE/0.3.1-GCC-12.3.0 PyBerny/0.6.3-foss-2023a CheMPS2/1.8.12-foss-2023a
+    PyCheMPS2/1.8.12-foss-2023a gzip/1.12-GCCcore-12.3.0
+    lz4/1.9.4-GCCcore-12.3.0 zstd/1.5.5-GCCcore-12.3.0 ICU/73.2-GCCcore-12.3.0
+    Boost.MPI/1.82.0-gompi-2023a Block/1.5.3-20200525-foss-2023a
+    NECI/20230620-foss-2023a Dice/20240702-foss-2023a tblis/20230422-foss-2023a
+task=2 s20_d5a     Pt 3.95 8 4  150 0.20 0.5 0 1 atom 12 host=r19ch01b02.lem.kdm.wcss.pl date=2026-11-21T19:23:31+01:00
+#INFO: **** input file is /home/gabchi5762/pyscf/gpu/scan/vasp/new/cutoff_conv/cutoff_conv.py ****
+#!/usr/bin/env python3
+"""Standalone cutoff / SCF-stability test for transition-metal fcc(111) cells (Claude Code, 2026-11-21).
+
+Why: every non-Al production run of 22_surface_density_dcscan.py at 30 Ha failed (slab SCF diverged to positive
+energies) and the bulk FFT-gradient relative error was 0.41-0.43 (Pt, Pd) and 0.12-0.18 (Au), vs 0.004 for Al.
+This script repeats exactly the bulk/slab setup of script 22 (fcc111_cell and run_scf copied, PBEsol, GTH-PBE,
+gth-dzvp-molopt-sr, Gaussian smearing, common chemical potential for odd cells) and records, per cutoff:
+SCF energy, cycles, convergence, grid electron count, the same FFT-gradient error metric as script 22, mesh, time.
+Optional SCF stabilisers for the slab (damping, level shift, DIIS start) are passed on the command line.
+
+Usage: python cutoff_conv.py --system Pt --a 3.95 --kind bulk --cutoff 150 [--kxy 8 --kz 4]
+       python cutoff_conv.py --system Pt --a 3.95 --kind slab --layers 8 --kxy 4 --cutoff 150 --damp 0.3 --shift 0.2
+Output: results/conv_<system>_<kind>_L<layers>_k<kxy>_c<cutoff>[_stab].json
+"""
+import argparse, json, math, os, time
+import numpy as np
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+RES = os.path.join(HERE, "results")
+HA2EV = 27.211386245988
+HA_PER_BOHR2_TO_J_PER_M2 = 1556.8929
+
+
+def fcc111_cell(symbol, a_ang, layers, vacuum_ang, periodic_bulk=False):
+    """1x1 hexagonal fcc(111) cell; ABC stacking along z (copied from script 22)."""
+    from pyscf.pbc import gto
+    a_in = a_ang / math.sqrt(2.0)
+    d0 = a_ang / math.sqrt(3.0)
+    a1 = np.array([a_in, 0.0, 0.0])
+    a2 = np.array([0.5 * a_in, 0.5 * math.sqrt(3.0) * a_in, 0.0])
+    shift = (a1 + a2) / 3.0
+    if periodic_bulk:
+        if layers % 3:
+            raise SystemExit("bulk cell needs a multiple of 3 layers")
+        height, z0 = layers * d0, 0.5 * d0
+    else:
+        height, z0 = (layers - 1) * d0 + vacuum_ang, 0.5 * vacuum_ang
+    atoms = [[symbol, tuple((k % 3) * shift + np.array([0.0, 0.0, z0 + k * d0]))] for k in range(layers)]
+    cell = gto.Cell()
+    cell.a = np.array([a1, a2, [0.0, 0.0, height]])
+    cell.atom = atoms
+    cell.unit = "Angstrom"
+    cell.basis = "gth-dzvp-molopt-sr"
+    cell.pseudo = "gth-pbe"
+    cell.verbose = 4
+    return cell
+
+
+def build_mf(cell, kmesh, sigma_ev, cutoff, damp, shift, diis_start, max_cycle, guess="minao", diis_space=8):
+    from pyscf.pbc import dft
+    from pyscf.pbc.scf.addons import smearing_
+    cell.ke_cutoff = cutoff
+    cell.build()
+    kpts = cell.make_kpts(kmesh, wrap_around=True)
+    unrestricted = bool(cell.nelectron % 2)
+    if unrestricted:
+        cell.spin = (cell.nelectron * len(kpts)) % 2      # parity over the whole k mesh (as script 22)
+        mf = dft.KUKS(cell, kpts)
+    else:
+        mf = dft.KRKS(cell, kpts)
+    mf.xc = "GGA_X_PBE_SOL,GGA_C_PBE_SOL"
+    mf = smearing_(mf, sigma=sigma_ev / HA2EV, method="gaussian", fix_spin=False)
+    mf.conv_tol = 1e-8
+    mf.max_cycle = max_cycle
+    if damp:
+        mf.damp = damp
+    if shift:
+        mf.level_shift = shift
+    if diis_start is not None:
+        mf.diis_start_cycle = diis_start
+    mf.init_guess = guess
+    mf.diis_space = diis_space
+    return mf, ("KUKS-common-mu" if unrestricted else "KRKS")
+
+
+def grad_check(mf):
+    """Analytic (AO) density gradient vs FFT gradient on the uniform mesh: same metric as script 22."""
+    cell, ni, grids = mf.cell, mf._numint, mf.grids
+    dm = np.asarray(mf.make_rdm1())
+    unrestricted = dm.ndim == 4 and dm.shape[0] == 2
+    rows = []
+    for ao_k1, ao_k2, mask, weight, coords in ni.block_loop(cell, grids, cell.nao_nr(), deriv=1, kpts=mf.kpts):
+        if unrestricted:
+            r = np.asarray(ni.eval_rho(cell, ao_k1, dm[0], xctype="GGA", hermi=1)) + \
+                np.asarray(ni.eval_rho(cell, ao_k1, dm[1], xctype="GGA", hermi=1))
+        else:
+            r = ni.eval_rho(cell, ao_k1, dm, xctype="GGA", hermi=1)
+        rows.append(np.asarray(r).real)
+    R = np.concatenate(rows, axis=1)
+    rho, grad = R[0], R[1:4]
+    mesh = np.asarray(grids.mesh) if hasattr(grids, "mesh") else np.asarray(cell.mesh)
+    Gv = cell.get_Gv(mesh)
+    nG = np.fft.fftn(rho.reshape(mesh)).ravel()
+    gradF = np.array([np.fft.ifftn((1j * Gv[:, i] * nG).reshape(mesh)).real.ravel() for i in range(3)])
+    gerr = float(np.max(np.abs(grad - gradF)) / max(np.max(np.abs(grad)), 1e-30))
+    w = cell.vol / rho.size
+    return gerr, float(rho.sum() * w), [int(m) for m in mesh], float(rho.min())
+
+
+def main():
+    p = argparse.ArgumentParser()
+    p.add_argument("--system", required=True)
+    p.add_argument("--a", type=float, required=True)
+    p.add_argument("--kind", choices=["bulk", "slab"], required=True)
+    p.add_argument("--layers", type=int, default=3)
+    p.add_argument("--vacuum", type=float, default=14.0)
+    p.add_argument("--kxy", type=int, default=8)
+    p.add_argument("--kz", type=int, default=4)
+    p.add_argument("--cutoff", type=float, required=True)
+    p.add_argument("--sigma", type=float, default=0.05)
+    p.add_argument("--damp", type=float, default=0.0)
+    p.add_argument("--shift", type=float, default=0.0)
+    p.add_argument("--diis-start", type=int, default=None)
+    p.add_argument("--max-cycle", type=int, default=150)
+    p.add_argument("--guess", default="minao")
+    p.add_argument("--diis-space", type=int, default=8)
+    p.add_argument("--label", default="")
+    a = p.parse_args()
+    os.makedirs(RES, exist_ok=True)
+    stab = bool(a.damp or a.shift or a.diis_start is not None)
+    kmesh = [a.kxy, a.kxy, a.kz if a.kind == "bulk" else 1]
+    tag = f"conv_{a.system}_{a.kind}_L{a.layers}_k{a.kxy}_c{int(a.cutoff)}" + ("_stab" if stab else "") + (f"_{a.label}" if a.label else "")
+    cell = fcc111_cell(a.system, a.a, a.layers, a.vacuum, periodic_bulk=(a.kind == "bulk"))
+    t0 = time.time()
+    mf, scf_type = build_mf(cell, kmesh, a.sigma, a.cutoff, a.damp, a.shift, a.diis_start, a.max_cycle, a.guess, a.diis_space)
+    ncyc = [0]
+    mf.callback = lambda env: ncyc.__setitem__(0, ncyc[0] + 1)
+    e = float(mf.kernel())
+    out = dict(vars(a), tag=tag, kmesh=kmesh, scf_type=scf_type, nelectron=int(cell.nelectron),
+               energy=e, energy_per_atom=e / a.layers, converged=bool(mf.converged), cycles=ncyc[0],
+               scf_seconds=time.time() - t0)
+    if mf.converged:
+        gerr, ngrid, mesh, rhomin = grad_check(mf)
+        out.update(grad_fft_relerr=gerr, nelec_grid=ngrid, nelec_err=ngrid - cell.nelectron, mesh=mesh,
+                   rho_min=rhomin)
+    out["seconds"] = time.time() - t0
+    with open(os.path.join(RES, tag + ".json"), "w") as fh:
+        json.dump(out, fh, indent=1)
+    print("RESULT", json.dumps({k: out.get(k) for k in ("tag", "converged", "cycles", "energy", "grad_fft_relerr",
+                                                         "nelec_err", "mesh", "seconds")}))
+
+
+if __name__ == "__main__":
+    main()
+#INFO: ******************** input file end ********************
+
+
+System: uname_result(system='Linux', node='r19ch01b02.lem.kdm.wcss.pl', release='5.14.0-687.46.1.el9_8.x86_64', version='#1 SMP PREEMPT_DYNAMIC Fri Sep 11 09:03:19 EDT 2026', machine='x86_64')  Threads 16
+Python 3.11.3 (main, Dec  9 2024, 15:01:57) [GCC 12.3.0]
+numpy 1.25.1  scipy 1.11.1  h5py 3.9.0
+Date: Sat Nov 21 19:23:32 2026
+PySCF version 2.7.0
+PySCF path  /usr/local/easybuild/software/PySCF/2.7.0-foss-2023a/lib/python3.11/site-packages/pyscf
+
+[ENV] PYSCF_TMPDIR /lustre/pd03/hpc-gabchi5762-1768308766/surfconv_tmp/6384384_2
+[ENV] PYSCF_MAX_MEMORY 98304
+[ENV] EBDEVELPYSCF /usr/local/easybuild/software/PySCF/2.7.0-foss-2023a/easybuild/PySCF-2.7.0-foss-2023a-easybuild-devel
+[ENV] EBVERSIONPYSCF 2.7.0
+[ENV] EBROOTPYSCF /usr/local/easybuild/software/PySCF/2.7.0-foss-2023a
+[ENV] EBEXTSLISTPYSCF dftd3-94091d8,doci-08079a9,icmpspt-50c386e,properties-8b94d8d,qsdopt-3ad2c02,semiempirical-470d716,shciscf-7edb54d,nptyping-2.5.0,MCfun-0.2.3,pyqmc-0.6.0,dmrgscf-a03f7b6,fciqmc-ee98fb4,mbd-485c18c,naive-hci-0c28d6e,tblis-c67c8af,zquatev-4eb41b1
+[CONFIG] conf_file None
+[INPUT] verbose = 4
+[INPUT] num. atoms = 8
+[INPUT] num. electrons = 144
+[INPUT] charge = 0
+[INPUT] spin (= nelec alpha-beta = 2S) = 0
+[INPUT] symmetry False subgroup None
+[INPUT] Mole.unit = Angstrom
+[INPUT] Symbol           X                Y                Z      unit          X                Y                Z       unit  Magmom
+[INPUT]  1 Pt     0.000000000000   0.000000000000   7.000000000000 AA    0.000000000000   0.000000000000  13.228082871955 Bohr   0.0
+[INPUT]  2 Pt     1.396535892843   0.806290373666   9.280533563299 AA    2.639070360599   1.523667983102  17.537666724469 Bohr   0.0
+[INPUT]  3 Pt     2.793071785687   1.612580747332  11.561067126598 AA    5.278140721198   3.047335966204  21.847250576983 Bohr   0.0
+[INPUT]  4 Pt     0.000000000000   0.000000000000  13.841600689897 AA    0.000000000000   0.000000000000  26.156834429496 Bohr   0.0
+[INPUT]  5 Pt     1.396535892843   0.806290373666  16.122134253196 AA    2.639070360599   1.523667983102  30.466418282010 Bohr   0.0
+[INPUT]  6 Pt     2.793071785687   1.612580747332  18.402667816495 AA    5.278140721198   3.047335966204  34.776002134523 Bohr   0.0
+[INPUT]  7 Pt     0.000000000000   0.000000000000  20.683201379794 AA    0.000000000000   0.000000000000  39.085585987037 Bohr   0.0
+[INPUT]  8 Pt     1.396535892843   0.806290373666  22.963734943093 AA    2.639070360599   1.523667983102  43.395169839551 Bohr   0.0
+
+nuclear repulsion = 3197.33522481906
+number of shells = 32
+number of NR pGTOs = 768
+number of NR cGTOs = 208
+basis = gth-dzvp-molopt-sr
+ecp = {}
+CPU time:         1.29
+lattice vectors  a1 [5.278140721, 0.000000000, 0.000000000]
+                 a2 [2.639070361, 4.571003949, 0.000000000]
+                 a3 [0.000000000, 0.000000000, 56.623252712]
+dimension = 3
+low_dim_ft_type = None
+Cell volume = 1366.12
+rcut = 25.73945711839878 (nimgs = [6 6 1])
+lattice sum = 387 cells
+precision = 1e-08
+pseudo = gth-pbe
+ke_cutoff = 150.0
+    = [ 31  31 315] mesh (302715 PWs)
+
+
+******** <class 'pyscf.pbc.scf.addons.SmearingKRKS'> ********
+method = SmearingKRKS
+initial guess = atom
+damping factor = 0.5
+level_shift factor = 0
+DIIS = <class 'pyscf.scf.diis.CDIIS'>
+diis_start_cycle = 1
+diis_space = 12
+diis_damp = 0
+SCF conv_tol = 1e-08
+SCF conv_tol_grad = None
+SCF max_cycles = 200
+direct_scf = True
+direct_scf_tol = 1e-13
+chkfile to save SCF result = /lustre/pd03/hpc-gabchi5762-1768308766/surfconv_tmp/6384384_2/tmp9tkklcw3
+max_memory 98304 MB (current use 103 MB)
+
+
+******** PBC SCF flags ********
+N kpts = 16
+Exchange divergence treatment (exxdiv) = ewald
+    madelung (= occupied orbital energy shift) = 0.04596249375948877
+    Total energy shift due to Ewald probe charge = -1/2 * Nelec*madelung = -3.30929955068
+Smearing method = gaussian
+DF object = <pyscf.pbc.df.fft.FFTDF object at 0x7f18ee978110>
+XC functionals = GGA_X_PBE_SOL,GGA_C_PBE_SOL
+small_rho_cutoff = 1e-07
+Uniform grid, mesh = [ 31  31 315]
+Set gradient conv threshold to 0.0001
+Spherically averaged atomic HF for {'Pt'}
+
+
+******** <class 'pyscf.scf.atom_hf_pp.AtomSCFPP'> ********
+method = AtomSCFPP
+initial guess = minao
+damping factor = 0
+level_shift factor = 0
+DIIS = <class 'pyscf.scf.diis.CDIIS'>
+diis_start_cycle = 1
+diis_space = 8
+diis_damp = 0
+SCF conv_tol = 1e-09
+SCF conv_tol_grad = None
+SCF max_cycles = 50
+direct_scf = True
+direct_scf_tol = 1e-13
+chkfile to save SCF result = /lustre/pd03/hpc-gabchi5762-1768308766/surfconv_tmp/6384384_2/tmppjmg_9l7
+max_memory 98304 MB (current use 136 MB)
+atom = Pt
+Set gradient conv threshold to 3.16228e-05
+Initial guess from minao.
+tot grids = 24312
+/usr/local/easybuild/software/PySCF/2.7.0-foss-2023a/lib/python3.11/site-packages/pyscf/gto/mole.py:1294: UserWarning: Function mol.dumps drops attribute _mesh because it is not JSON-serializable
+  warnings.warn(msg)
+init E= -116.091309222841
+cycle= 1 E= -118.960113580163  delta_E= -2.87  |g|=    0  |ddm|=    3
+cycle= 2 E= -119.031637083414  delta_E= -0.0715  |g|=    0  |ddm|= 0.953
+cycle= 3 E= -119.073975438596  delta_E= -0.0423  |g|=    0  |ddm|= 0.354
+cycle= 4 E= -119.074093470077  delta_E= -0.000118  |g|=    0  |ddm|= 0.021
+cycle= 5 E= -119.074094295743  delta_E= -8.26e-07  |g|=    0  |ddm|= 0.00145
+cycle= 6 E= -119.07409429652  delta_E= -7.77e-10  |g|=    0  |ddm|= 3.87e-05
+Extra cycle  E= -119.074094296521  delta_E= -1.18e-12  |g|=    0  |ddm|= 1.49e-06
+Atomic HF for atom  Pt  converged. SCF energy = -119.074094296521
+
+nelec by numeric integration = 144.00000011250222
+init E= -961.600221876592
+    sigma = 0.00734986  Optimized mu = 0.554228254902  entropy = 1.35406414978
+nelec by numeric integration = 144.0000000000096
+    Total E(T) = -958.492564257384  Free energy = -958.502516445321  E0 = -958.497540351353
+cycle= 1 E= -958.492564257384  delta_E= 3.11  |g|= 37.5  |ddm|= 30.1
+    sigma = 0.00734986  Optimized mu = -0.436893003742  entropy = 0.597024678627
+nelec by numeric integration = 143.99999999990735
+    Total E(T) = 441.519450183944  Free energy = 441.515062133491  E0 = 441.517256158718
+cycle= 2 E= 441.519450183944  delta_E= 1.4e+03  |g|=  787  |ddm|=  267
+    sigma = 0.00734986  Optimized mu = -0.240603083242  entropy = 0.841011489526
+nelec by numeric integration = 143.99999999992872
+    Total E(T) = -305.564933982059  Free energy = -305.571115302496  E0 = -305.568024642278
+cycle= 3 E= -305.564933982059  delta_E= -747  |g|=  617  |ddm|=  224
+    sigma = 0.00734986  Optimized mu = -0.0456239582021  entropy = 0.01999953747
+nelec by numeric integration = 143.9999999998637
+    Total E(T) = -461.503448125766  Free energy = -461.503595119655  E0 = -461.503521622711
+cycle= 4 E= -461.503448125766  delta_E= -156  |g|=  570  |ddm|= 47.4
+    sigma = 0.00734986  Optimized mu = 0.116752980016  entropy = 0.267793081578
+nelec by numeric integration = 143.99999999981748
+    Total E(T) = -543.939817283268  Free energy = -543.941785526114  E0 = -543.940801404691
+cycle= 5 E= -543.939817283268  delta_E= -82.4  |g|=  548  |ddm|= 22.2
+    sigma = 0.00734986  Optimized mu = 0.191020183501  entropy = 0.202652768656
+nelec by numeric integration = 143.99999999977274
+    Total E(T) = -586.460092307877  Free energy = -586.461581778254  E0 = -586.460837043066
+cycle= 6 E= -586.460092307877  delta_E= -42.5  |g|=  522  |ddm|= 16.8
+    sigma = 0.00734986  Optimized mu = 0.197430054001  entropy = 0.438001429797
+nelec by numeric integration = 143.99999999977982
+    Total E(T) = -612.945396851464  Free energy = -612.948616102595  E0 = -612.947006477029
+cycle= 7 E= -612.945396851464  delta_E= -26.5  |g|=  511  |ddm|= 6.88
+    sigma = 0.00734986  Optimized mu = 0.201695643273  entropy = 0.311689799366
+nelec by numeric integration = 143.99999999977933
+    Total E(T) = -624.173301520992  Free energy = -624.175592398764  E0 = -624.174446959878
+cycle= 8 E= -624.173301520992  delta_E= -11.2  |g|=  500  |ddm|= 3.75
+    sigma = 0.00734986  Optimized mu = 0.202360808757  entropy = 0.289607641503
+nelec by numeric integration = 143.99999999977905
+    Total E(T) = -625.420401152018  Free energy = -625.422529728923  E0 = -625.42146544047
+cycle= 9 E= -625.420401152018  delta_E= -1.25  |g|=  499  |ddm|= 0.394
+    sigma = 0.00734986  Optimized mu = 0.203507391129  entropy = 0.320077604432
+nelec by numeric integration = 143.99999999977746
+    Total E(T) = -623.833635926668  Free energy = -623.835988453669  E0 = -623.834812190168
+cycle= 10 E= -623.833635926668  delta_E= 1.59  |g|=  506  |ddm|= 2.07
+    sigma = 0.00734986  Optimized mu = 0.202852252055  entropy = 0.281953969257
+nelec by numeric integration = 143.99999999977837
+    Total E(T) = -625.516603502805  Free energy = -625.518675826256  E0 = -625.517639664531
+cycle= 11 E= -625.516603502805  delta_E= -1.68  |g|=  501  |ddm|= 1.42
+    sigma = 0.00734986  Optimized mu = 0.201735012814  entropy = 0.308695558344
+nelec by numeric integration = 143.99999999977894
+    Total E(T) = -623.722845200469  Free energy = -623.725114070974  E0 = -623.723979635722
+cycle= 12 E= -623.722845200469  delta_E= 1.79  |g|=  501  |ddm|= 0.601
+    sigma = 0.00734986  Optimized mu = 0.201466152186  entropy = 0.334873479875
+nelec by numeric integration = 143.99999999977854
+    Total E(T) = -621.646593284961  Free energy = -621.649054559641  E0 = -621.647823922301
+cycle= 13 E= -621.646593284961  delta_E= 2.08  |g|=  505  |ddm|= 0.993
+    sigma = 0.00734986  Optimized mu = 3.52498315702  entropy = 0
+nelec by numeric integration = 143.99999999929943
+    Total E(T) = 5770.8289256374  Free energy = 5770.8289256374  E0 = 5770.8289256374
+cycle= 14 E= 5770.8289256374  delta_E= 6.39e+03  |g|=  245  |ddm|= 2.58e+03
+    sigma = 0.00734986  Optimized mu = -41.3281184882  entropy = 0
+nelec by numeric integration = 143.99999999917287
+    Total E(T) = 5503.08999933393  Free energy = 5503.08999933393  E0 = 5503.08999933393
+cycle= 15 E= 5503.08999933393  delta_E= -268  |g|=  242  |ddm|= 4.57e+03
+    sigma = 0.00734986  Optimized mu = -21.3892851854  entropy = 0.115529692032
+nelec by numeric integration = 143.9999999999577
+    Total E(T) = 4673.4456035667  Free energy = 4673.44475443913  E0 = 4673.44517900292
+cycle= 16 E= 4673.4456035667  delta_E= -830  |g|=  569  |ddm|= 2.91e+03
+    sigma = 0.00734986  Optimized mu = -20.3255008063  entropy = 0.179820595452
+nelec by numeric integration = 144.0000000004146
+    Total E(T) = 4340.7086557084  Free energy = 4340.7073340514  E0 = 4340.7079948799
+cycle= 17 E= 4340.7086557084  delta_E= -333  |g|=  597  |ddm|= 1.31e+03
+    sigma = 0.00734986  Optimized mu = -20.3319806851  entropy = 0.169718965529
+nelec by numeric integration = 144.0000000003967
+    Total E(T) = 4177.8735283669  Free energy = 4177.87228095551  E0 = 4177.8729046612
+cycle= 18 E= 4177.8735283669  delta_E= -163  |g|=  628  |ddm|=  339
+    sigma = 0.00734986  Optimized mu = -20.1776418672  entropy = 0.205229634268
+nelec by numeric integration = 144.00000000038165
+    Total E(T) = 4124.66020228843  Free energy = 4124.65869387844  E0 = 4124.65944808344
+cycle= 19 E= 4124.66020228843  delta_E= -53.2  |g|=  606  |ddm|= 92.2
+    sigma = 0.00734986  Optimized mu = -20.1221259937  entropy = 0.287976454865
+nelec by numeric integration = 144.00000000036985
+    Total E(T) = 4104.57439569378  Free energy = 4104.57227910588  E0 = 4104.57333739983
+cycle= 20 E= 4104.57439569378  delta_E= -20.1  |g|=  609  |ddm|= 52.4
+    sigma = 0.00734986  Optimized mu = -20.0907283957  entropy = 0.442256600975
+nelec by numeric integration = 144.0000000003563
+    Total E(T) = 4075.99374541894  Free energy = 4075.99049489288  E0 = 4075.99212015591
+cycle= 21 E= 4075.99374541894  delta_E= -28.6  |g|=  622  |ddm|= 56.2
+    sigma = 0.00734986  Optimized mu = -20.0543372217  entropy = 0.530664961649
+nelec by numeric integration = 144.00000000033478
+    Total E(T) = 4065.11655588696  Free energy = 4065.11265557143  E0 = 4065.11460572919
+cycle= 22 E= 4065.11655588696  delta_E= -10.9  |g|=  620  |ddm|=  117
+    sigma = 0.00734986  Optimized mu = -20.0351579479  entropy = 0.51767258264
+nelec by numeric integration = 144.0000000003385
+    Total E(T) = 4062.93781584049  Free energy = 4062.93401101718  E0 = 4062.93591342883
+cycle= 23 E= 4062.93781584049  delta_E= -2.18  |g|=  622  |ddm|= 44.4
+    sigma = 0.00734986  Optimized mu = -20.0007944375  entropy = 0.482018294066
+nelec by numeric integration = 144.00000000032296
+    Total E(T) = 4043.16407540698  Free energy = 4043.16053263786  E0 = 4043.16230402242
+cycle= 24 E= 4043.16407540698  delta_E= -19.8  |g|=  616  |ddm|= 97.8
+    sigma = 0.00734986  Optimized mu = -20.011558496  entropy = 0.373209681632
+nelec by numeric integration = 144.00000000033788
+    Total E(T) = 4047.38670299009  Free energy = 4047.38395994952  E0 = 4047.3853314698
+cycle= 25 E= 4047.38670299009  delta_E= 4.22  |g|=  622  |ddm|=  105
+    sigma = 0.00734986  Optimized mu = -25.8866746312  entropy = 0.132503489597
+nelec by numeric integration = 143.99999999927357
+    Total E(T) = 2443.52721489559  Free energy = 2443.52624101291  E0 = 2443.52672795425
+cycle= 26 E= 2443.52721489559  delta_E= -1.6e+03  |g|=  392  |ddm|= 2.66e+03
+    sigma = 0.00734986  Optimized mu = -9.76908023414  entropy = 0
+nelec by numeric integration = 143.99999999932328
+    Total E(T) = 5790.98224922501  Free energy = 5790.98224922501  E0 = 5790.98224922501
+cycle= 27 E= 5790.98224922501  delta_E= 3.35e+03  |g|=  177  |ddm|= 3.82e+03
+    sigma = 0.00734986  Optimized mu = -52.1960880325  entropy = 0
+nelec by numeric integration = 143.99999999915934
+    Total E(T) = 5522.15388276594  Free energy = 5522.15388276594  E0 = 5522.15388276594
+cycle= 28 E= 5522.15388276594  delta_E= -269  |g|=  214  |ddm|= 4.6e+03
+    sigma = 0.00734986  Optimized mu = -13.7768752475  entropy = 0.227724997043
+nelec by numeric integration = 143.9999999996425
+    Total E(T) = 792.360401667046  Free energy = 792.358727919189  E0 = 792.359564793117
+cycle= 29 E= 792.360401667046  delta_E= -4.73e+03  |g|=  304  |ddm|= 3.98e+03
+    sigma = 0.00734986  Optimized mu = -14.1011160106  entropy = 0.235117144995
+nelec by numeric integration = 143.99999999919467
+    Total E(T) = 4947.38943793881  Free energy = 4947.38770985966  E0 = 4947.38857389923
+cycle= 30 E= 4947.38943793881  delta_E= 4.16e+03  |g|=  545  |ddm|= 3.7e+03
+    sigma = 0.00734986  Optimized mu = -14.1056238624  entropy = 0.230768936539
+nelec by numeric integration = 143.99999999919464
+    Total E(T) = 4943.82190542174  Free energy = 4943.82020930134  E0 = 4943.82105736154
+cycle= 31 E= 4943.82190542174  delta_E= -3.57  |g|=  545  |ddm|= 14.9
+    sigma = 0.00734986  Optimized mu = -13.9521793331  entropy = 0.212534275777
+nelec by numeric integration = 143.99999999916878
+    Total E(T) = 4914.82024907433  Free energy = 4914.81868697621  E0 = 4914.81946802527
+cycle= 32 E= 4914.82024907433  delta_E=  -29  |g|=  554  |ddm|=  144
+    sigma = 0.00734986  Optimized mu = -13.9196208309  entropy = 0.216302994424
+nelec by numeric integration = 143.9999999991677
+    Total E(T) = 4910.49378818244  Free energy = 4910.49219838476  E0 = 4910.4929932836
+cycle= 33 E= 4910.49378818244  delta_E= -4.33  |g|=  548  |ddm|= 19.9
+    sigma = 0.00734986  Optimized mu = -13.961757638  entropy = 0.214388220072
+nelec by numeric integration = 143.99999999917048
+    Total E(T) = 4915.2654272667  Free energy = 4915.26385154235  E0 = 4915.26463940453
+cycle= 34 E= 4915.2654272667  delta_E= 4.77  |g|=  553  |ddm|= 26.7
+    sigma = 0.00734986  Optimized mu = -13.9431121381  entropy = 0.212239896706
+nelec by numeric integration = 143.99999999916898
+    Total E(T) = 4911.59727125689  Free energy = 4911.59571132242  E0 = 4911.59649128966
+cycle= 35 E= 4911.59727125689  delta_E= -3.67  |g|=  550  |ddm|= 16.8
+    sigma = 0.00734986  Optimized mu = -13.958968739  entropy = 0.308961335322
+nelec by numeric integration = 143.9999999991775
+    Total E(T) = 4914.8453546399  Free energy = 4914.84308381597  E0 = 4914.84421922793
+cycle= 36 E= 4914.8453546399  delta_E= 3.25  |g|=  551  |ddm|= 33.1
+    sigma = 0.00734986  Optimized mu = -13.9561475015  entropy = 0.258130868105
+nelec by numeric integration = 143.99999999917324
+    Total E(T) = 4912.96757004095  Free energy = 4912.96567281406  E0 = 4912.9666214275
+cycle= 37 E= 4912.96757004095  delta_E= -1.88  |g|=  550  |ddm|= 16.5
+    sigma = 0.00734986  Optimized mu = -13.9389845886  entropy = 0.427818324293
+nelec by numeric integration = 143.99999999918305
+    Total E(T) = 4883.37140252719  Free energy = 4883.3682581205  E0 = 4883.36983032385
+cycle= 38 E= 4883.37140252719  delta_E= -29.6  |g|=  560  |ddm|= 53.8
+    sigma = 0.00734986  Optimized mu = -17.1355853177  entropy = 0.021762598704
+nelec by numeric integration = 143.9999999992494
+    Total E(T) = 5028.86874304781  Free energy = 5028.86858309566  E0 = 5028.86866307174
+cycle= 39 E= 5028.86874304781  delta_E=  145  |g|=  494  |ddm|=  410
+    sigma = 0.00734986  Optimized mu = -4.60208226622  entropy = 0
+nelec by numeric integration = 143.99999999931606
+    Total E(T) = 5796.45518932702  Free energy = 5796.45518932702  E0 = 5796.45518932702
+cycle= 40 E= 5796.45518932702  delta_E=  768  |g|=  171  |ddm|= 4.11e+03
+    sigma = 0.00734986  Optimized mu = -47.0930260302  entropy = 0
+nelec by numeric integration = 143.99999999914
+    Total E(T) = 5537.11626597759  Free energy = 5537.11626597759  E0 = 5537.11626597759
+cycle= 41 E= 5537.11626597759  delta_E= -259  |g|=  197  |ddm|= 4.65e+03
+    sigma = 0.00734986  Optimized mu = -14.1205755884  entropy = 0.19287495862
+nelec by numeric integration = 143.99999999914684
+    Total E(T) = 950.314385298736  Free energy = 950.312967693938  E0 = 950.313676496337
+cycle= 42 E= 950.314385298736  delta_E= -4.59e+03  |g|=  241  |ddm|= 4.34e+03
+    sigma = 0.00734986  Optimized mu = -13.0275030171  entropy = 0.287778385276
+nelec by numeric integration = 143.9999999991883
+    Total E(T) = 5349.3227227516  Free energy = 5349.32060761948  E0 = 5349.32166518554
+cycle= 43 E= 5349.3227227516  delta_E= 4.4e+03  |g|=  390  |ddm|= 4.54e+03
+    sigma = 0.00734986  Optimized mu = -9.43675793855  entropy = 0.132519584377
+nelec by numeric integration = 143.99999999918847
+    Total E(T) = 4866.25225313798  Free energy = 4866.251279137  E0 = 4866.25176613749
+cycle= 44 E= 4866.25225313798  delta_E= -483  |g|=  555  |ddm|=  423
+    sigma = 0.00734986  Optimized mu = -8.91555727148  entropy = 0.412858745074
+nelec by numeric integration = 143.99999999930913
+    Total E(T) = 4683.68381399634  Free energy = 4683.68077954053  E0 = 4683.68229676843
+cycle= 45 E= 4683.68381399634  delta_E= -183  |g|=  576  |ddm|=  587
+    sigma = 0.00734986  Optimized mu = -8.65446983979  entropy = 0.3791350258
+nelec by numeric integration = 143.99999999931327
+    Total E(T) = 4648.65689006632  Free energy = 4648.65410347528  E0 = 4648.6554967708
+cycle= 46 E= 4648.65689006632  delta_E=  -35  |g|=  593  |ddm|=  189
+    sigma = 0.00734986  Optimized mu = -8.56481742327  entropy = 0.333072969731
+nelec by numeric integration = 143.99999999931063
+    Total E(T) = 4637.70262844174  Free energy = 4637.70018040057  E0 = 4637.70140442115
+cycle= 47 E= 4637.70262844174  delta_E=  -11  |g|=  607  |ddm|= 44.7
+    sigma = 0.00734986  Optimized mu = -8.5375827658  entropy = 0.326663808203
+nelec by numeric integration = 143.99999999930947
+    Total E(T) = 4632.5076521873  Free energy = 4632.50525125259  E0 = 4632.50645171994
+cycle= 48 E= 4632.5076521873  delta_E= -5.19  |g|=  597  |ddm|= 28.8
+    sigma = 0.00734986  Optimized mu = -8.53259895496  entropy = 0.32485009119
+nelec by numeric integration = 143.99999999930918
+    Total E(T) = 4631.56580293744  Free energy = 4631.56341533331  E0 = 4631.56460913537
+cycle= 49 E= 4631.56580293744  delta_E= -0.942  |g|=  599  |ddm|= 5.51
+    sigma = 0.00734986  Optimized mu = -8.4607593765  entropy = 0.27781238171
+nelec by numeric integration = 143.9999999994737
+    Total E(T) = 4622.63396205974  Free energy = 4622.6319201764  E0 = 4622.63294111807
+cycle= 50 E= 4622.63396205974  delta_E= -8.93  |g|=  588  |ddm|= 36.4
+    sigma = 0.00734986  Optimized mu = -8.46276441407  entropy = 0.285932720822
+nelec by numeric integration = 143.99999999892106
+    Total E(T) = 4623.85572742726  Free energy = 4623.85362586052  E0 = 4623.85467664389
+cycle= 51 E= 4623.85572742726  delta_E= 1.22  |g|=  592  |ddm|= 4.77
+    sigma = 0.00734986  Optimized mu = -8.50659679785  entropy = 0.2625080398
+nelec by numeric integration = 143.99999999927925
+    Total E(T) = 4673.15736480151  Free energy = 4673.155435403  E0 = 4673.15640010225
+cycle= 52 E= 4673.15736480151  delta_E= 49.3  |g|=  599  |ddm|=  293
+    sigma = 0.00734986  Optimized mu = -2.15496052803  entropy = 5.62209566535e-120
+nelec by numeric integration = 143.99999999931322
+    Total E(T) = 5798.19245259731  Free energy = 5798.19245259731  E0 = 5798.19245259731
+cycle= 53 E= 5798.19245259731  delta_E= 1.13e+03  |g|=  171  |ddm|= 4.21e+03
+    sigma = 0.00734986  Optimized mu = -30.7757448872  entropy = 0
+nelec by numeric integration = 143.99999999912913
+    Total E(T) = 5538.29905871276  Free energy = 5538.29905871276  E0 = 5538.29905871276
+cycle= 54 E= 5538.29905871276  delta_E= -260  |g|=  211  |ddm|= 4.7e+03
+    sigma = 0.00734986  Optimized mu = -7.76127744559  entropy = 0.236062818827
+nelec by numeric integration = 143.99999999916102
+    Total E(T) = 831.72714270828  Free energy = 831.725407678564  E0 = 831.726275193422
+cycle= 55 E= 831.72714270828  delta_E= -4.71e+03  |g|=  215  |ddm|= 4.8e+03
+    sigma = 0.00734986  Optimized mu = 1.13589260002  entropy = 0.9386728463
+nelec by numeric integration = 143.99999999940783
+    Total E(T) = 4205.41705913744  Free energy = 4205.41016001927  E0 = 4205.41360957835
+cycle= 56 E= 4205.41705913744  delta_E= 3.37e+03  |g|=  711  |ddm|= 3.68e+03
+    sigma = 0.00734986  Optimized mu = 1.45177059688  entropy = 0.266260872808
+nelec by numeric integration = 143.99999999942173
+    Total E(T) = 5155.95797096888  Free energy = 5155.95601398756  E0 = 5155.95699247822
+cycle= 57 E= 5155.95797096888  delta_E=  951  |g|=  562  |ddm|=  294
+    sigma = 0.00734986  Optimized mu = 0.650140465346  entropy = 0.47100906443
+nelec by numeric integration = 143.99999999943475
+    Total E(T) = 4426.93522935319  Free energy = 4426.93176750041  E0 = 4426.9334984268
+cycle= 58 E= 4426.93522935319  delta_E= -729  |g|=  677  |ddm|=  246
+    sigma = 0.00734986  Optimized mu = 0.277828991742  entropy = 0.318846187075
+nelec by numeric integration = 143.99999999939828
+    Total E(T) = 4670.09503603457  Free energy = 4670.09269255832  E0 = 4670.09386429645
+cycle= 59 E= 4670.09503603457  delta_E=  243  |g|=  688  |ddm|=  308
+    sigma = 0.00734986  Optimized mu = 0.313917765365  entropy = 0.117752300282
+nelec by numeric integration = 143.99999999945695
+    Total E(T) = 4670.35117813651  Free energy = 4670.35031267306  E0 = 4670.35074540478
+cycle= 60 E= 4670.35117813651  delta_E= 0.256  |g|=  721  |ddm|=  498
+    sigma = 0.00734986  Optimized mu = 0.27422009563  entropy = 0.00279125412868
+nelec by numeric integration = 143.9999999994621
+    Total E(T) = 4672.64857092818  Free energy = 4672.64855041284  E0 = 4672.64856067051
+cycle= 61 E= 4672.64857092818  delta_E=  2.3  |g|=  731  |ddm|=  289
+    sigma = 0.00734986  Optimized mu = 0.268048971587  entropy = 4.1811701661e-07
+nelec by numeric integration = 143.99999999946385
+    Total E(T) = 4667.82558115948  Free energy = 4667.8255811564  E0 = 4667.82558115794
+cycle= 62 E= 4667.82558115948  delta_E= -4.82  |g|=  744  |ddm|= 9.95
+    sigma = 0.00734986  Optimized mu = 0.265836515729  entropy = 3.38596847105e-06
+nelec by numeric integration = 143.99999999946425
+    Total E(T) = 4665.57649919768  Free energy = 4665.57649917279  E0 = 4665.57649918523
+cycle= 63 E= 4665.57649919768  delta_E= -2.25  |g|=  735  |ddm|= 2.94
+    sigma = 0.00734986  Optimized mu = 0.272316256515  entropy = 0.00021782626577
+nelec by numeric integration = 143.99999999946854
+    Total E(T) = 4657.41477418898  Free energy = 4657.41477258798  E0 = 4657.41477338848
+cycle= 64 E= 4657.41477418898  delta_E= -8.16  |g|=  750  |ddm|= 22.2
+    sigma = 0.00734986  Optimized mu = 0.0736706523816  entropy = 0.00334526153558
+nelec by numeric integration = 143.99999999947485
+    Total E(T) = 4657.9469933488  Free energy = 4657.94696876158  E0 = 4657.94698105519
+cycle= 65 E= 4657.9469933488  delta_E= 0.532  |g|=  700  |ddm|= 27.4
+    sigma = 0.00734986  Optimized mu = 3.04311806124  entropy = 2.2934877271e-299
+nelec by numeric integration = 143.99999999930986
+    Total E(T) = 5773.13750193047  Free energy = 5773.13750193047  E0 = 5773.13750193047
+cycle= 66 E= 5773.13750193047  delta_E= 1.12e+03  |g|=  251  |ddm|= 1.23e+03
+    sigma = 0.00734986  Optimized mu = -44.4865022906  entropy = 0.132503470796
+nelec by numeric integration = 143.99999999905768
+    Total E(T) = 5572.70615770351  Free energy = 5572.70518382097  E0 = 5572.70567076224
+cycle= 67 E= 5572.70615770351  delta_E= -200  |g|=  167  |ddm|= 4.7e+03
+    sigma = 0.00734986  Optimized mu = -11.0288301647  entropy = 0.192833709987
+nelec by numeric integration = 143.99999999949847
+    Total E(T) = 5613.56189944828  Free energy = 5613.56048214665  E0 = 5613.56119079746
+cycle= 68 E= 5613.56189944828  delta_E= 40.9  |g|=  643  |ddm|= 4.49e+03
+    sigma = 0.00734986  Optimized mu = -10.8211311673  entropy = 0.192827899733
+[2026-11-21T19:59:17.871] error: *** JOB 6384387 ON r19ch01b02 CANCELLED AT 2026-11-21T19:59:17 DUE to SIGNAL Terminated ***

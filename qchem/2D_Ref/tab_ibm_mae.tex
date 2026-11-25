@@ -1,0 +1,12 @@
+\begin{tabular}{@{}llrrrrrr@{}}
+\toprule
+ & & \multicolumn{2}{c}{exchange} & \multicolumn{2}{c}{correlation} & \multicolumn{2}{c}{XC} \\
+\cmidrule(lr){3-4}\cmidrule(lr){5-6}\cmidrule(lr){7-8}
+Widths & functional & jana\_ref & PySCF & jana\_ref & PySCF & jana\_ref & PySCF \\
+\midrule
+$L \geq 1$ bohr (13) & scalar Q2D & 0.026433 & \textcolor{pyscfred}{0.026433} & 0.008969 & \textcolor{pyscfred}{0.008906} & 0.017464 & \textcolor{pyscfred}{0.017527} \\
+$L \geq 1$ bohr (13) & r$^2$SCAN & -- & \textcolor{pyscfred}{0.042524} & -- & \textcolor{pyscfred}{0.013934} & -- & \textcolor{pyscfred}{0.028590} \\
+$L < 1$ bohr (6) & scalar Q2D & 0.035057 & \textcolor{pyscfred}{0.035057} & 0.005234 & \textcolor{pyscfred}{0.005653} & 0.037071 & \textcolor{pyscfred}{0.037165} \\
+$L < 1$ bohr (6) & r$^2$SCAN & -- & \textcolor{pyscfred}{0.384891} & -- & \textcolor{pyscfred}{0.037360} & -- & \textcolor{pyscfred}{0.347531} \\
+\bottomrule
+\end{tabular}

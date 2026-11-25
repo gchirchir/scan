@@ -1,0 +1,51 @@
+H       E(r2SCAN@PBE)=-0.50003705  W=0 check -5.7e-10 Ha
+C       E(r2SCAN@PBE)=-37.83346847  W=0 check -4.2e-12 Ha
+O       E(r2SCAN@PBE)=-75.06174572  W=0 check -1.2e-13 Ha
+Si      E(r2SCAN@PBE)=-289.34945504  W=0 check -8.2e-12 Ha
+S       E(r2SCAN@PBE)=-398.09446327  W=0 check -2.8e-13 Ha
+SiH4    E(r2SCAN@PBE)=-291.86190809  W=0 check +0.0e+00 Ha
+SiO     E(r2SCAN@PBE)=-364.70971299  W=0 check +0.0e+00 Ha
+S2      E(r2SCAN@PBE)=-796.36447655  W=0 check -8.5e-14 Ha
+C3H4    E(r2SCAN@PBE)=-116.62719015  W=0 check +0.0e+00 Ha
+C2H2O2  E(r2SCAN@PBE)=-227.80774473  W=0 check +0.0e+00 Ha
+C4H8    E(r2SCAN@PBE)=-157.17287797  W=0 check +3.6e-15 Ha
+OH      E(r2SCAN@PBE)=-75.73485580  W=0 check -3.0e-14 Ha
+CH4     E(r2SCAN@PBE)=-40.50325682  W=0 check +0.0e+00 Ha
+CH3     E(r2SCAN@PBE)=-39.83096120  W=0 check -4.7e-13 Ha
+molecule                     label     ref     pbe  r2scan  orig_SS  orig_TD  new_SS_SS  new_SS_TD  new_TD_SS  new_TD_TD  newJ_SS  newJ_TD
+    SiH4                   SiH$_4$  324.59  312.43  321.48   240.80   220.75     322.36     317.37     322.65     318.52   322.65   318.52
+     SiO                       SiO  193.40  194.93  187.32   262.99   184.88     192.66     185.81     191.63     186.12   191.63   186.12
+      S2                     S$_2$  103.90  113.71  110.16   125.79   111.56     113.58     110.62     112.81     110.38   112.81   110.38
+    C3H4      C$_3$H$_4$ (propyne)  705.28  721.17  706.98  2730.08   889.49     704.88     704.91     709.03     705.32   716.25   705.32
+  C2H2O2 C$_2$H$_2$O$_2$ (glyoxal)  635.33  663.41  638.33  2096.06   752.85     641.30     637.61     642.86     637.63   647.67   637.63
+    C4H8  C$_4$H$_8$ (cyclobutane) 1150.12 1167.71 1153.81  3837.62  1383.49    1149.88    1149.92    1155.78    1150.83  1165.41  1150.83
+pbe        ME=   +10.12 MAE=    14.18
+r2scan     ME=    +0.91 MAE=     3.97
+orig_SS    ME= +1030.12 MAE=  1058.05
+orig_TD    ME=   +71.73 MAE=   109.19
+new_SS_SS  ME=    +2.01 MAE=     3.21
+new_SS_TD  ME=    -1.06 MAE=     4.07
+new_TD_SS  ME=    +3.69 MAE=     4.93
+new_TD_TD  ME=    -0.64 MAE=     3.81
+newJ_SS    ME=    +7.30 MAE=     8.54
+newJ_TD    ME=    -0.64 MAE=     3.81
+max |W=0 check| = 5.652125989463741e-10
+                         reaction direction   ref   pbe  r2scan  orig_SS  orig_TD  new_SS_SS  new_SS_TD  new_TD_SS  new_TD_TD  newJ_SS  newJ_TD
+OH + CH$_4$ $\to$ CH$_3$ + H$_2$O   forward  6.14 -5.25   -0.57    -0.70    -3.75      -1.69      -1.44      -1.31      -1.18    -1.31    -1.18
+OH + CH$_4$ $\to$ CH$_3$ + H$_2$O   reverse 19.53  9.08   13.04   -19.38    13.69      12.40      13.23      12.59      13.27    12.59    13.27
+           H + OH $\to$ O + H$_2$   forward 10.83  3.72    3.39    42.32    23.52       5.05       5.15       4.63       4.72     4.63     4.72
+           H + OH $\to$ O + H$_2$   reverse 13.05 -1.53    2.51   -11.81    22.26       2.70       4.34       2.60       3.90     2.60     3.90
+      H + H$_2$S $\to$ H$_2$ + HS   forward  3.82 -1.23   -2.41    19.21    15.10      -1.68      -1.17      -1.83      -1.45    -1.83    -1.45
+      H + H$_2$S $\to$ H$_2$ + HS   reverse 17.07  9.63   11.66    33.73    31.13      12.36      13.37      12.14      12.92    12.14    12.92
+BH6 pbe        ME=    -9.34 MAE=     9.34
+BH6 r2scan     ME=    -7.14 MAE=     7.14
+BH6 orig_SS    ME=    -1.18 MAE=    22.36
+BH6 orig_TD    ME=    +5.25 MAE=    10.50
+BH6 new_SS_SS  ME=    -6.88 MAE=     6.88
+BH6 new_SS_TD  ME=    -6.16 MAE=     6.16
+BH6 new_TD_SS  ME=    -6.94 MAE=     6.94
+BH6 new_TD_TD  ME=    -6.38 MAE=     6.38
+BH6 newJ_SS    ME=    -6.94 MAE=     6.94
+BH6 newJ_TD    ME=    -6.38 MAE=     6.38
+max |W=0 check| BH6 species = 5.652125989463741e-10
+NEWJ_DONE

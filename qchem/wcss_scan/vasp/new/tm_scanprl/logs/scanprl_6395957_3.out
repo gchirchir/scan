@@ -1,0 +1,95 @@
+Loading PySCF/2.7.0-foss-2023a
+  Loading requirement: GCCcore/12.3.0 zlib/1.2.13-GCCcore-12.3.0
+    binutils/2.40-GCCcore-12.3.0 GCC/12.3.0 numactl/2.0.16-GCCcore-12.3.0
+    XZ/5.4.2-GCCcore-12.3.0 libxml2/2.11.4-GCCcore-12.3.0
+    libpciaccess/0.17-GCCcore-12.3.0 hwloc/2.9.1-GCCcore-12.3.0 OpenSSL/1.1
+    libevent/2.1.12-GCCcore-12.3.0 UCX/1.14.1-GCCcore-12.3.0
+    libfabric/1.18.0-GCCcore-12.3.0 PMIx/4.2.4-GCCcore-12.3.0
+    UCC/1.2.0-GCCcore-12.3.0 OpenMPI/4.1.5-GCC-12.3.0 OpenBLAS/0.3.23-GCC-12.3.0
+    FlexiBLAS/3.3.1-GCC-12.3.0 FFTW/3.3.10-GCC-12.3.0 gompi/2023a
+    FFTW.MPI/3.3.10-gompi-2023a ScaLAPACK/2.2.0-gompi-2023a-fb foss/2023a
+    bzip2/1.0.8-GCCcore-12.3.0 ncurses/6.4-GCCcore-12.3.0
+    libreadline/8.2-GCCcore-12.3.0 Tcl/8.6.13-GCCcore-12.3.0
+    SQLite/3.42.0-GCCcore-12.3.0 libffi/3.4.4-GCCcore-12.3.0
+    Python/3.11.3-GCCcore-12.3.0 gfbf/2023a cffi/1.15.1-GCCcore-12.3.0
+    cryptography/41.0.1-GCCcore-12.3.0 virtualenv/20.23.1-GCCcore-12.3.0
+    Python-bundle-PyPI/2023.06-GCCcore-12.3.0 pybind11/2.11.1-GCCcore-12.3.0
+    SciPy-bundle/2023.07-gfbf-2023a mpi4py/3.1.4-gompi-2023a
+    Szip/2.1.1-GCCcore-12.3.0 HDF5/1.14.0-gompi-2023a h5py/3.9.0-foss-2023a
+    libcint/5.4.0-gfbf-2023a libxc/6.2.2-GCC-12.3.0 XCFun/2.1.1-GCCcore-12.3.0
+    CPPE/0.3.1-GCC-12.3.0 PyBerny/0.6.3-foss-2023a CheMPS2/1.8.12-foss-2023a
+    PyCheMPS2/1.8.12-foss-2023a gzip/1.12-GCCcore-12.3.0
+    lz4/1.9.4-GCCcore-12.3.0 zstd/1.5.5-GCCcore-12.3.0 ICU/73.2-GCCcore-12.3.0
+    Boost.MPI/1.82.0-gompi-2023a Block/1.5.3-20200525-foss-2023a
+    NECI/20230620-foss-2023a Dice/20240702-foss-2023a tblis/20230422-foss-2023a
+task=3 Au 4.10 host=r19ch08b02.lem.kdm.wcss.pl date=2026-11-22T15:02:40+01:00
+/usr/local/easybuild/software/PySCF/2.7.0-foss-2023a/lib/python3.11/site-packages/pyscf/pbc/gto/cell.py:1153: UserWarning: Electron number 33 and spin 0 are not consistent in cell
+
+  warnings.warn('Electron number %d and spin %d are not consistent '
+WARNING!
+  Very diffused basis functions are found in the basis set. They may lead to severe
+  linear dependence and numerical instability.  You can set  cell.exp_to_discard=0.1
+  to remove the diffused Gaussians whose exponents are less than 0.1.
+
+/usr/local/easybuild/software/PySCF/2.7.0-foss-2023a/lib/python3.11/site-packages/pyscf/gto/mole.py:1294: UserWarning: Function mol.dumps drops attribute _mesh because it is not JSON-serializable
+  warnings.warn(msg)
+rhokerker it    1 rms(rho_out-rho_in) = 1.888e-02  N_in = 33.000000
+rhokerker it    2 rms(rho_out-rho_in) = 8.910e-03  N_in = 33.000000
+rhokerker it    3 rms(rho_out-rho_in) = 1.245e-03  N_in = 33.000000
+rhokerker it    4 rms(rho_out-rho_in) = 2.121e-04  N_in = 33.000000
+rhokerker it    5 rms(rho_out-rho_in) = 4.126e-05  N_in = 33.000000
+rhokerker it    6 rms(rho_out-rho_in) = 1.393e-05  N_in = 33.000000
+rhokerker it    7 rms(rho_out-rho_in) = 2.368e-06  N_in = 33.000000
+rhokerker it    8 rms(rho_out-rho_in) = 2.746e-07  N_in = 33.000000
+Kerker SCF: converged=True iterations=8 rms=2.75e-07 E=-98.9170395821 |g|/sqrt(n)=4.07e-08
+bulk: E=-98.91703958 Ha, N_grid=33.000000/33, FFT-grad rel.err 2.74e-07
+/usr/local/easybuild/software/PySCF/2.7.0-foss-2023a/lib/python3.11/site-packages/pyscf/pbc/gto/cell.py:1153: UserWarning: Electron number 121 and spin 0 are not consistent in cell
+
+  warnings.warn('Electron number %d and spin %d are not consistent '
+WARNING!
+  Very diffused basis functions are found in the basis set. They may lead to severe
+  linear dependence and numerical instability.  You can set  cell.exp_to_discard=0.1
+  to remove the diffused Gaussians whose exponents are less than 0.1.
+
+rhokerker it    1 rms(rho_out-rho_in) = 1.601e-02  N_in = 121.000000
+rhokerker it    2 rms(rho_out-rho_in) = 7.413e-03  N_in = 121.000000
+rhokerker it    3 rms(rho_out-rho_in) = 1.129e-03  N_in = 121.000000
+rhokerker it    4 rms(rho_out-rho_in) = 6.705e-04  N_in = 121.000000
+rhokerker it    5 rms(rho_out-rho_in) = 1.437e-04  N_in = 121.000000
+rhokerker it    6 rms(rho_out-rho_in) = 4.541e-05  N_in = 121.000000
+rhokerker it    7 rms(rho_out-rho_in) = 3.450e-05  N_in = 121.000000
+rhokerker it    8 rms(rho_out-rho_in) = 3.190e-05  N_in = 121.000000
+rhokerker it    9 rms(rho_out-rho_in) = 3.773e-05  N_in = 121.000000
+rhokerker it   10 rms(rho_out-rho_in) = 2.698e-05  N_in = 121.000000
+rhokerker it   11 rms(rho_out-rho_in) = 2.723e-05  N_in = 121.000000
+rhokerker it   12 rms(rho_out-rho_in) = 2.546e-05  N_in = 121.000000
+rhokerker it   13 rms(rho_out-rho_in) = 3.844e-05  N_in = 121.000000
+rhokerker it   14 rms(rho_out-rho_in) = 5.691e-05  N_in = 121.000000
+rhokerker it   15 rms(rho_out-rho_in) = 6.690e-05  N_in = 121.000000
+rhokerker it   16 rms(rho_out-rho_in) = 4.582e-05  N_in = 121.000000
+rhokerker it   17 rms(rho_out-rho_in) = 1.340e-05  N_in = 121.000000
+rhokerker it   18 rms(rho_out-rho_in) = 4.030e-05  N_in = 121.000000
+rhokerker it   19 rms(rho_out-rho_in) = 5.701e-06  N_in = 121.000000
+rhokerker it   20 rms(rho_out-rho_in) = 1.046e-05  N_in = 121.000000
+rhokerker it   21 rms(rho_out-rho_in) = 7.598e-06  N_in = 121.000000
+rhokerker it   22 rms(rho_out-rho_in) = 6.315e-06  N_in = 121.000000
+rhokerker it   23 rms(rho_out-rho_in) = 2.280e-06  N_in = 121.000000
+rhokerker it   24 rms(rho_out-rho_in) = 8.567e-07  N_in = 121.000000
+Kerker SCF: converged=True iterations=24 rms=8.57e-07 E=-362.6678971505 |g|/sqrt(n)=8.21e-07
+slab: E=-362.66789715 Ha, N_grid=121.000000/121, FFT-grad rel.err 2.84e-07
+{
+ "scf_SCAN": 0.8359781218483386,
+ "x_LDA": 2.4719072365814165,
+ "xc_LDA": 2.727039444957368,
+ "x_PBE": 1.1672880984652552,
+ "xc_PBE": 2.2334112905636325,
+ "x_PBEsol": 1.6202241388418133,
+ "xc_PBEsol": 2.5751706263143603,
+ "x_Q2D-GGA": 1.952866093663876,
+ "xc_Q2D-GGA": 3.0189483271583795,
+ "x_SCAN": 1.7155687184260051,
+ "xc_SCAN": 2.509470996350346,
+ "x_DC-SCAN": 2.111456830627118,
+ "xc_DC-SCAN": 2.9053591085512465
+}
+done date=2026-11-22T20:58:34+01:00

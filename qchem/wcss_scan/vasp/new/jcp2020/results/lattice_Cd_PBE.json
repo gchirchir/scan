@@ -1,0 +1,95 @@
+{
+ "system": "Cd",
+ "structure": "hcp",
+ "functional": "PBE",
+ "a0_ang": 3.0510645722892216,
+ "a_center": 2.979,
+ "B0_GPa": 44.23689546884569,
+ "fit_rms_meV": 0.2680327614571938,
+ "minimum_near_edge": false,
+ "a_exp": 2.979,
+ "c_over_a_fixed": 1.8862034239677743,
+ "k": [
+  12,
+  12,
+  6
+ ],
+ "sigma_ev": 0.05,
+ "cutoff_ha": 350.0,
+ "spin": false,
+ "points": [
+  {
+   "a_ang": 2.83005,
+   "volume_ang3": 18.51277361769667,
+   "energy": -92.121633280182,
+   "converged": true,
+   "iterations": 7,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 2.8672875,
+   "volume_ang3": 19.25319853023382,
+   "energy": -92.12737756700047,
+   "converged": true,
+   "iterations": 7,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 2.904525,
+   "volume_ang3": 20.013107199084228,
+   "energy": -92.1316438566037,
+   "converged": true,
+   "iterations": 7,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 2.9417625000000003,
+   "volume_ang3": 20.79275266004419,
+   "energy": -92.13466171106158,
+   "converged": true,
+   "iterations": 7,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 2.979,
+   "volume_ang3": 21.59238794890997,
+   "energy": -92.13662079579662,
+   "converged": true,
+   "iterations": 7,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.0162375,
+   "volume_ang3": 22.412266101477847,
+   "energy": -92.13766170777421,
+   "converged": true,
+   "iterations": 7,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.0534749999999997,
+   "volume_ang3": 23.252640153544107,
+   "energy": -92.13793132627241,
+   "converged": true,
+   "iterations": 7,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.0907125000000004,
+   "volume_ang3": 24.113763140905057,
+   "energy": -92.13755824569584,
+   "converged": true,
+   "iterations": 7,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.1279500000000002,
+   "volume_ang3": 24.995888099356915,
+   "energy": -92.13677554222085,
+   "converged": true,
+   "iterations": 7,
+   "solver": "KRKS-kerker"
+  }
+ ],
+ "seconds": 42148.94364738464
+}

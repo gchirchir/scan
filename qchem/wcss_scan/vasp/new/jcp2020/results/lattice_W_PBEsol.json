@@ -1,0 +1,95 @@
+{
+ "system": "W",
+ "structure": "bcc",
+ "functional": "PBEsol",
+ "a0_ang": 3.154157096947239,
+ "a_center": 3.165,
+ "B0_GPa": 316.9175847680145,
+ "fit_rms_meV": 0.3111378365814024,
+ "minimum_near_edge": false,
+ "a_exp": 3.165,
+ "c_over_a_fixed": null,
+ "k": [
+  12,
+  12,
+  12
+ ],
+ "sigma_ev": 0.05,
+ "cutoff_ha": 450.0,
+ "spin": false,
+ "points": [
+  {
+   "a_ang": 3.00675,
+   "volume_ang3": 13.591330185023438,
+   "energy": -68.1616594101498,
+   "converged": true,
+   "iterations": 8,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.0463125,
+   "volume_ang3": 14.134920231081667,
+   "energy": -68.16780463786483,
+   "converged": true,
+   "iterations": 8,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.085875,
+   "volume_ang3": 14.692814463577148,
+   "energy": -68.17184550704958,
+   "converged": true,
+   "iterations": 8,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.1254375000000003,
+   "volume_ang3": 15.265198651164932,
+   "energy": -68.17394605733867,
+   "converged": true,
+   "iterations": 8,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.165,
+   "volume_ang3": 15.852258562499998,
+   "energy": -68.17434494143636,
+   "converged": true,
+   "iterations": 8,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.2045624999999998,
+   "volume_ang3": 16.454179966237433,
+   "energy": -68.17315501135323,
+   "converged": true,
+   "iterations": 8,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.244125,
+   "volume_ang3": 17.071148631032226,
+   "energy": -68.17051429008187,
+   "converged": true,
+   "iterations": 8,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.2836875000000005,
+   "volume_ang3": 17.703350325539432,
+   "energy": -68.16660468082911,
+   "converged": true,
+   "iterations": 8,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.3232500000000003,
+   "volume_ang3": 18.35097081841405,
+   "energy": -68.16158451927572,
+   "converged": true,
+   "iterations": 8,
+   "solver": "KRKS-kerker"
+  }
+ ],
+ "seconds": 32809.80219602585
+}

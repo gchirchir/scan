@@ -1,0 +1,22 @@
+OH      E(r2SCAN@PBE)=-75.73485491  W=0 check -2.8e-14 Ha
+CH4     E(r2SCAN@PBE)=-40.50325682  W=0 check -8.9e-16 Ha
+CH3     E(r2SCAN@PBE)=-39.83096120  W=0 check -4.7e-13 Ha
+H2O     E(r2SCAN@PBE)=-76.42884188  W=0 check +0.0e+00 Ha
+H2      E(r2SCAN@PBE)=-1.17175695  W=0 check +1.1e-16 Ha
+H2S     E(r2SCAN@PBE)=-399.38482361  W=0 check +0.0e+00 Ha
+HS      E(r2SCAN@PBE)=-398.73552317  W=0 check -5.7e-14 Ha
+TS_OH_CH4 E(r2SCAN@PBE)=-116.23902115  W=0 check -2.1e-14 Ha
+TS_H_OH E(r2SCAN@PBE)=-76.22949538  W=0 check -4.9e-13 Ha
+TS_H_H2S E(r2SCAN@PBE)=-399.88870323  W=0 check -5.4e-13 Ha
+Traceback (most recent call last):
+  File "/home/gabriel/restored-home/Documents/modules/SCAN_1D_2D/upload/JCIM/subrata/codes/2D_Ref/pbe_nonscf_ae6/run_pbe_new.py", line 104, in <module>
+    species(sys.argv[2]) if sys.argv[1] == "species" else assemble()
+                                                          ~~~~~~~~^^
+  File "/home/gabriel/restored-home/Documents/modules/SCAN_1D_2D/upload/JCIM/subrata/codes/2D_Ref/pbe_nonscf_ae6/run_pbe_new.py", line 77, in assemble
+    **{k[2:]: (sum(sp[a][k] for a in at) - sp[m][k]) * HA2KCAL for k in keys}))
+               ~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/gabriel/restored-home/Documents/modules/SCAN_1D_2D/upload/JCIM/subrata/codes/2D_Ref/pbe_nonscf_ae6/run_pbe_new.py", line 77, in <genexpr>
+    **{k[2:]: (sum(sp[a][k] for a in at) - sp[m][k]) * HA2KCAL for k in keys}))
+                   ~~~~~^^^
+KeyError: 'e_newJ_SS'
+BH6_DONE

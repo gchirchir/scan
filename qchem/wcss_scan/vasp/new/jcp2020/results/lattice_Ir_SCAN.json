@@ -1,0 +1,106 @@
+{
+ "system": "Ir",
+ "structure": "fcc",
+ "functional": "SCAN",
+ "a0_ang": 3.8169955352610963,
+ "B0_GPa": 409.9776492934136,
+ "fit_rms_meV": 0.15634716880627672,
+ "minimum_near_edge": false,
+ "a_exp": 3.839,
+ "c_over_a_fixed": null,
+ "k": [
+  12,
+  12,
+  12
+ ],
+ "sigma_ev": 0.05,
+ "cutoff_ha": 350.0,
+ "spin": false,
+ "points": [
+  {
+   "a_ang": 3.6470499999999997,
+   "volume_ang3": 12.127329035425653,
+   "energy": -105.47696237371926,
+   "converged": true,
+   "iterations": 9,
+   "solver": "KRKS-kerker",
+   "energy_dcscan": -105.41704949282969
+  },
+  {
+   "a_ang": 3.6950375,
+   "volume_ang3": 12.612365838975206,
+   "energy": -105.48413386605971,
+   "converged": true,
+   "iterations": 9,
+   "solver": "KRKS-kerker",
+   "energy_dcscan": -105.42394049113058
+  },
+  {
+   "a_ang": 3.743025,
+   "volume_ang3": 13.110166041923284,
+   "energy": -105.48860730901575,
+   "converged": true,
+   "iterations": 10,
+   "solver": "KRKS-kerker",
+   "energy_dcscan": -105.4279090437596
+  },
+  {
+   "a_ang": 3.7910125000000003,
+   "volume_ang3": 13.620895402703633,
+   "energy": -105.4907182838486,
+   "converged": true,
+   "iterations": 10,
+   "solver": "KRKS-kerker",
+   "energy_dcscan": -105.42973344930172
+  },
+  {
+   "a_ang": 3.839,
+   "volume_ang3": 14.144719679749993,
+   "energy": -105.49080954372133,
+   "converged": true,
+   "iterations": 10,
+   "solver": "KRKS-kerker",
+   "energy_dcscan": -105.42949689325224
+  },
+  {
+   "a_ang": 3.8869874999999996,
+   "volume_ang3": 14.68180463149612,
+   "energy": -105.48916276306838,
+   "converged": true,
+   "iterations": 10,
+   "solver": "KRKS-kerker",
+   "energy_dcscan": -105.4274918255086
+  },
+  {
+   "a_ang": 3.9349749999999997,
+   "volume_ang3": 15.232316016375773,
+   "energy": -105.48602023533184,
+   "converged": true,
+   "iterations": 10,
+   "solver": "KRKS-kerker",
+   "energy_dcscan": -105.42372066479027
+  },
+  {
+   "a_ang": 3.9829625,
+   "volume_ang3": 15.796419592822682,
+   "energy": -105.48160860111453,
+   "converged": true,
+   "iterations": 11,
+   "solver": "KRKS-kerker",
+   "energy_dcscan": -105.41889234957829
+  },
+  {
+   "a_ang": 4.03095,
+   "volume_ang3": 16.374281119270595,
+   "energy": -105.47613943602167,
+   "converged": true,
+   "iterations": 10,
+   "solver": "KRKS-kerker",
+   "energy_dcscan": -105.41296971334926
+  }
+ ],
+ "seconds": 38963.51154732704,
+ "a0_dcscan_ang": 3.80733364018049,
+ "B0_dcscan_GPa": 428.83456297562844,
+ "fit_rms_dcscan_meV": 1.6859626897009279
+}

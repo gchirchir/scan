@@ -1,0 +1,95 @@
+{
+ "system": "Cd",
+ "structure": "hcp",
+ "functional": "PBEsol",
+ "a0_ang": 2.9757133036870873,
+ "a_center": 2.979,
+ "B0_GPa": 61.10850714988637,
+ "fit_rms_meV": 0.22352265082212797,
+ "minimum_near_edge": false,
+ "a_exp": 2.979,
+ "c_over_a_fixed": 1.8862034239677743,
+ "k": [
+  12,
+  12,
+  6
+ ],
+ "sigma_ev": 0.05,
+ "cutoff_ha": 350.0,
+ "spin": false,
+ "points": [
+  {
+   "a_ang": 2.83005,
+   "volume_ang3": 18.51277361769667,
+   "energy": -91.96465011883738,
+   "converged": true,
+   "iterations": 7,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 2.8672875,
+   "volume_ang3": 19.25319853023382,
+   "energy": -91.96863360166073,
+   "converged": true,
+   "iterations": 7,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 2.904525,
+   "volume_ang3": 20.013107199084228,
+   "energy": -91.97120463858533,
+   "converged": true,
+   "iterations": 7,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 2.9417625000000003,
+   "volume_ang3": 20.79275266004419,
+   "energy": -91.97258768231487,
+   "converged": true,
+   "iterations": 7,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 2.979,
+   "volume_ang3": 21.59238794890997,
+   "energy": -91.97297564590346,
+   "converged": true,
+   "iterations": 7,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.0162375,
+   "volume_ang3": 22.412266101477847,
+   "energy": -91.9725084334068,
+   "converged": true,
+   "iterations": 7,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.0534749999999997,
+   "volume_ang3": 23.252640153544107,
+   "energy": -91.97132619278483,
+   "converged": true,
+   "iterations": 7,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.0907125000000004,
+   "volume_ang3": 24.113763140905057,
+   "energy": -91.96955653217265,
+   "converged": true,
+   "iterations": 7,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.1279500000000002,
+   "volume_ang3": 24.995888099356915,
+   "energy": -91.9674103936215,
+   "converged": true,
+   "iterations": 7,
+   "solver": "KRKS-kerker"
+  }
+ ],
+ "seconds": 40308.96185016632
+}
