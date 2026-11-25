@@ -1,0 +1,7 @@
+# label system a layers kxy cutoff sigma_eV damp shift diis_start guess diis_space   (Pt 8-layer slab, 14 A vacuum)
+s05_d5      Pt 3.95 8 4  150 0.05 0.5 0.2 6 atom 12
+s10_d3      Pt 3.95 8 4  150 0.10 0.3 0.2 1 minao 8
+s20_d3      Pt 3.95 8 4  150 0.20 0.3 0.2 1 minao 8
+s20_plain   Pt 3.95 8 4  150 0.20 0   0   1 minao 8
+s10_atom    Pt 3.95 8 4  150 0.10 0   0   1 atom 12
+s05_k10_d3  Pt 3.95 8 10 150 0.05 0.3 0.2 1 minao 8

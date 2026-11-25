@@ -1,0 +1,56 @@
+Loading PySCF/2.7.0-foss-2023a
+  Loading requirement: GCCcore/12.3.0 zlib/1.2.13-GCCcore-12.3.0
+    binutils/2.40-GCCcore-12.3.0 GCC/12.3.0 numactl/2.0.16-GCCcore-12.3.0
+    XZ/5.4.2-GCCcore-12.3.0 libxml2/2.11.4-GCCcore-12.3.0
+    libpciaccess/0.17-GCCcore-12.3.0 hwloc/2.9.1-GCCcore-12.3.0 OpenSSL/1.1
+    libevent/2.1.12-GCCcore-12.3.0 UCX/1.14.1-GCCcore-12.3.0
+    libfabric/1.18.0-GCCcore-12.3.0 PMIx/4.2.4-GCCcore-12.3.0
+    UCC/1.2.0-GCCcore-12.3.0 OpenMPI/4.1.5-GCC-12.3.0 OpenBLAS/0.3.23-GCC-12.3.0
+    FlexiBLAS/3.3.1-GCC-12.3.0 FFTW/3.3.10-GCC-12.3.0 gompi/2023a
+    FFTW.MPI/3.3.10-gompi-2023a ScaLAPACK/2.2.0-gompi-2023a-fb foss/2023a
+    bzip2/1.0.8-GCCcore-12.3.0 ncurses/6.4-GCCcore-12.3.0
+    libreadline/8.2-GCCcore-12.3.0 Tcl/8.6.13-GCCcore-12.3.0
+    SQLite/3.42.0-GCCcore-12.3.0 libffi/3.4.4-GCCcore-12.3.0
+    Python/3.11.3-GCCcore-12.3.0 gfbf/2023a cffi/1.15.1-GCCcore-12.3.0
+    cryptography/41.0.1-GCCcore-12.3.0 virtualenv/20.23.1-GCCcore-12.3.0
+    Python-bundle-PyPI/2023.06-GCCcore-12.3.0 pybind11/2.11.1-GCCcore-12.3.0
+    SciPy-bundle/2023.07-gfbf-2023a mpi4py/3.1.4-gompi-2023a
+    Szip/2.1.1-GCCcore-12.3.0 HDF5/1.14.0-gompi-2023a h5py/3.9.0-foss-2023a
+    libcint/5.4.0-gfbf-2023a libxc/6.2.2-GCC-12.3.0 XCFun/2.1.1-GCCcore-12.3.0
+    CPPE/0.3.1-GCC-12.3.0 PyBerny/0.6.3-foss-2023a CheMPS2/1.8.12-foss-2023a
+    PyCheMPS2/1.8.12-foss-2023a gzip/1.12-GCCcore-12.3.0
+    lz4/1.9.4-GCCcore-12.3.0 zstd/1.5.5-GCCcore-12.3.0 ICU/73.2-GCCcore-12.3.0
+    Boost.MPI/1.82.0-gompi-2023a Block/1.5.3-20200525-foss-2023a
+    NECI/20230620-foss-2023a Dice/20240702-foss-2023a tblis/20230422-foss-2023a
+task=0 [lattice --system Fe --functional LDA --a-center 2.761] host=r17ch05b03.lem.kdm.wcss.pl date=2026-11-23T03:15:22+01:00
+/usr/local/easybuild/software/PySCF/2.7.0-foss-2023a/lib/python3.11/site-packages/pyscf/gto/mole.py:1294: UserWarning: Function mol.dumps drops attribute _mesh because it is not JSON-serializable
+  warnings.warn(msg)
+converged SCF energy = -123.339606830897
+KUKS SCF: converged=True cycles=10 E=-123.3396068309 moment=2.0839 muB/atom
+a = 2.7610 A  E = -123.3396068309 Ha  converged=True
+converged SCF energy = -123.339149108262
+KUKS SCF: converged=True cycles=9 E=-123.3391491083 moment=2.0491 muB/atom
+a = 2.7265 A  E = -123.3391491083 Ha  converged=True
+converged SCF energy = -123.337699947729
+KUKS SCF: converged=True cycles=10 E=-123.3376999477 moment=1.9538 muB/atom
+a = 2.6920 A  E = -123.3376999477 Ha  converged=True
+converged SCF energy = -123.335135033598
+KUKS SCF: converged=True cycles=8 E=-123.3351350336 moment=1.9271 muB/atom
+a = 2.6575 A  E = -123.3351350336 Ha  converged=True
+converged SCF energy = -123.331184923077
+KUKS SCF: converged=True cycles=7 E=-123.3311849231 moment=1.9086 muB/atom
+a = 2.6229 A  E = -123.3311849231 Ha  converged=True
+converged SCF energy = -123.339125722494
+KUKS SCF: converged=True cycles=10 E=-123.3391257225 moment=2.1419 muB/atom
+a = 2.7955 A  E = -123.3391257225 Ha  converged=True
+converged SCF energy = -123.338086699144
+KUKS SCF: converged=True cycles=10 E=-123.3380866991 moment=2.3071 muB/atom
+a = 2.8300 A  E = -123.3380866991 Ha  converged=True
+converged SCF energy = -123.336442139826
+KUKS SCF: converged=True cycles=8 E=-123.3364421398 moment=2.3418 muB/atom
+a = 2.8645 A  E = -123.3364421398 Ha  converged=True
+converged SCF energy = -123.334181947653
+KUKS SCF: converged=True cycles=9 E=-123.3341819477 moment=2.4064 muB/atom
+a = 2.8991 A  E = -123.3341819477 Ha  converged=True
+RESULT Fe LDA: a0 = 2.7610 A (exp 2.867), B0 = 245.5 GPa, rms 0.788 meV
+done date=2026-11-23T09:00:15+01:00

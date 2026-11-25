@@ -1,0 +1,95 @@
+{
+ "system": "W",
+ "structure": "bcc",
+ "functional": "LDA",
+ "a0_ang": 3.1420170181665266,
+ "a_center": 3.165,
+ "B0_GPa": 323.5064963015512,
+ "fit_rms_meV": 0.2476759684167783,
+ "minimum_near_edge": false,
+ "a_exp": 3.165,
+ "c_over_a_fixed": null,
+ "k": [
+  12,
+  12,
+  12
+ ],
+ "sigma_ev": 0.05,
+ "cutoff_ha": 450.0,
+ "spin": false,
+ "points": [
+  {
+   "a_ang": 3.00675,
+   "volume_ang3": 13.591330185023438,
+   "energy": -68.14504716547981,
+   "converged": true,
+   "iterations": 8,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.0463125,
+   "volume_ang3": 14.134920231081667,
+   "energy": -68.15068458763443,
+   "converged": true,
+   "iterations": 8,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.085875,
+   "volume_ang3": 14.692814463577148,
+   "energy": -68.15416648478279,
+   "converged": true,
+   "iterations": 8,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.1254375000000003,
+   "volume_ang3": 15.265198651164932,
+   "energy": -68.15575620538222,
+   "converged": true,
+   "iterations": 8,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.165,
+   "volume_ang3": 15.852258562499998,
+   "energy": -68.15562326563783,
+   "converged": true,
+   "iterations": 9,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.2045624999999998,
+   "volume_ang3": 16.454179966237433,
+   "energy": -68.15397779453376,
+   "converged": true,
+   "iterations": 8,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.244125,
+   "volume_ang3": 17.071148631032226,
+   "energy": -68.15091422029911,
+   "converged": true,
+   "iterations": 8,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.2836875000000005,
+   "volume_ang3": 17.703350325539432,
+   "energy": -68.14659236038308,
+   "converged": true,
+   "iterations": 7,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.3232500000000003,
+   "volume_ang3": 18.35097081841405,
+   "energy": -68.14117553466252,
+   "converged": true,
+   "iterations": 8,
+   "solver": "KRKS-kerker"
+  }
+ ],
+ "seconds": 14124.18608212471
+}

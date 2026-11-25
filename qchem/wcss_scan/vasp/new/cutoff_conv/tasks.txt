@@ -1,0 +1,11 @@
+# system a_ang kind layers kxy kz cutoff damp shift   (bulk: 3-layer periodic fcc(111); slab: 8 layers, 14 A vacuum)
+Au 4.10 bulk 3 8 4 30 0 0
+Au 4.10 bulk 3 8 4 80 0 0
+Au 4.10 bulk 3 8 4 150 0 0
+Au 4.10 bulk 3 8 4 250 0 0
+Pt 3.95 bulk 3 8 4 30 0 0
+Pt 3.95 bulk 3 8 4 80 0 0
+Pt 3.95 bulk 3 8 4 150 0 0
+Pt 3.95 bulk 3 8 4 250 0 0
+Pt 3.95 slab 8 4 1 150 0 0
+Pt 3.95 slab 8 4 1 150 0.3 0.2

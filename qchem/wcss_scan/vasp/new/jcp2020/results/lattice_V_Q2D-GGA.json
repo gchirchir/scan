@@ -1,0 +1,95 @@
+{
+ "system": "V",
+ "structure": "bcc",
+ "functional": "Q2D-GGA",
+ "a0_ang": 2.9416904397265013,
+ "a_center": 3.028,
+ "B0_GPa": 196.74181577736013,
+ "fit_rms_meV": 0.9476443005972345,
+ "minimum_near_edge": false,
+ "a_exp": 3.028,
+ "c_over_a_fixed": null,
+ "k": [
+  12,
+  12,
+  12
+ ],
+ "sigma_ev": 0.05,
+ "cutoff_ha": 600.0,
+ "spin": false,
+ "points": [
+  {
+   "a_ang": 2.8766,
+   "volume_ang3": 11.901684479547997,
+   "energy": -71.37973502451327,
+   "converged": true,
+   "iterations": 6,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 2.91445,
+   "volume_ang3": 12.37769654947306,
+   "energy": -71.38076184523204,
+   "converged": true,
+   "iterations": 6,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 2.9523,
+   "volume_ang3": 12.866234539333506,
+   "energy": -71.3809722854507,
+   "converged": true,
+   "iterations": 7,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 2.9901500000000003,
+   "volume_ang3": 13.367461123414197,
+   "energy": -71.38039342840847,
+   "converged": true,
+   "iterations": 6,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.028,
+   "volume_ang3": 13.881538975999991,
+   "energy": -71.37897931368184,
+   "converged": true,
+   "iterations": 6,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.0658499999999997,
+   "volume_ang3": 14.408630771375812,
+   "energy": -71.3768423248519,
+   "converged": true,
+   "iterations": 6,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.1037,
+   "volume_ang3": 14.948899183826478,
+   "energy": -71.37401338512515,
+   "converged": true,
+   "iterations": 6,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.1415500000000005,
+   "volume_ang3": 15.50250688763695,
+   "energy": -71.37066543688309,
+   "converged": true,
+   "iterations": 7,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.1794000000000002,
+   "volume_ang3": 16.069616557091997,
+   "energy": -71.36683697735009,
+   "converged": true,
+   "iterations": 8,
+   "solver": "KRKS-kerker"
+  }
+ ],
+ "seconds": 41840.39750146866
+}

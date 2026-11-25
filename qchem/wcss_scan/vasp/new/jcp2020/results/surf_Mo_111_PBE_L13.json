@@ -1,0 +1,129 @@
+{
+ "system": "Mo",
+ "structure": "bcc",
+ "facet": "111",
+ "functional": "PBE",
+ "layers": 13,
+ "a_ang": 3.158245932785576,
+ "a_source": "own PBE lattice scan",
+ "c_over_a": null,
+ "cutoff_ha": 350.0,
+ "sigma_ev": 0.05,
+ "vacuum_request_ang": 12.0,
+ "spin": false,
+ "geometry": {
+  "v1": [
+   4.466434231455028,
+   -4.253544743220897e-17,
+   -5.387493150112512e-17
+  ],
+  "v2": [
+   -2.233217115727514,
+   3.868045508772479,
+   5.387493150112512e-17
+  ],
+  "w": [
+   6.339102759193448e-19,
+   2.1267723716104485e-17,
+   2.735121209191189
+  ],
+  "area_ang2": 17.27637086920728,
+  "planes_per_period": 3,
+  "atoms_per_period": 3,
+  "bulk_reps": 1,
+  "nat_bulk": 3,
+  "nat_slab": 13,
+  "zplanes_ang": [
+   5.983077645105726,
+   6.894784645105726,
+   7.8064916451057265,
+   8.718198645105726,
+   9.629905645105726,
+   10.541612645105726,
+   11.453319645105726,
+   12.365026645105726,
+   13.276734645105726,
+   14.188441645105726,
+   15.100148645105726,
+   16.011855645105726,
+   16.923562645105726
+  ],
+  "zfirst_in_bulk_cell_ang": 0.0,
+  "spacings_ang": [
+   0.9117,
+   0.9117,
+   0.9117,
+   0.9117,
+   0.9117,
+   0.9117,
+   0.9117,
+   0.9117,
+   0.9117,
+   0.9117,
+   0.9117,
+   0.9117
+  ],
+  "symmetric": true,
+  "hz_ang": 0.056981691858149774,
+  "mesh_bulk": [
+   78,
+   78,
+   48
+  ],
+  "mesh_slab": [
+   78,
+   78,
+   404
+  ],
+  "vacuum_ang": 12.08011851069251
+ },
+ "res": {
+  "bulk": {
+   "energy": -204.71047586218944,
+   "converged": true,
+   "iterations": 8,
+   "solver": "KRKS-kerker",
+   "kmesh": [
+    7,
+    7,
+    12
+   ],
+   "nat": 3,
+   "nelectron": 42,
+   "mesh": [
+    78,
+    78,
+    48
+   ],
+   "stalled_rms": null,
+   "grad_fft_relerr": 1.4593717693922444e-13,
+   "nelec_err": 1.5063505998114124e-12
+  },
+  "slab": {
+   "energy": -886.8116790961835,
+   "converged": true,
+   "iterations": 23,
+   "solver": "KRKS-kerker",
+   "kmesh": [
+    7,
+    7,
+    1
+   ],
+   "nat": 13,
+   "nelectron": 182,
+   "mesh": [
+    78,
+    78,
+    404
+   ],
+   "stalled_rms": null,
+   "grad_fft_relerr": 3.414960618690491e-13,
+   "nelec_err": 1.5916157281026244e-12
+  }
+ },
+ "seconds": 43800.79910778999,
+ "basis": "gth-dzvp-molopt-sr",
+ "pseudo": "gth-pbe",
+ "relaxed": false,
+ "sigma_J_m2": 3.3695389953280497
+}

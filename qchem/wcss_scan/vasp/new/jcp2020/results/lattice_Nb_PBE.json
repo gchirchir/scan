@@ -1,0 +1,94 @@
+{
+ "system": "Nb",
+ "structure": "bcc",
+ "functional": "PBE",
+ "a0_ang": 3.305825263551121,
+ "B0_GPa": 177.48349596981623,
+ "fit_rms_meV": 0.13100230626465229,
+ "minimum_near_edge": false,
+ "a_exp": 3.301,
+ "c_over_a_fixed": null,
+ "k": [
+  12,
+  12,
+  12
+ ],
+ "sigma_ev": 0.05,
+ "cutoff_ha": 350.0,
+ "spin": false,
+ "points": [
+  {
+   "a_ang": 3.13595,
+   "volume_ang3": 15.419752152559926,
+   "energy": -57.097178400089895,
+   "converged": true,
+   "iterations": 6,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.1772125000000004,
+   "volume_ang3": 16.036470580315658,
+   "energy": -57.10174129119454,
+   "converged": true,
+   "iterations": 6,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.218475,
+   "volume_ang3": 16.669417515995463,
+   "energy": -57.104878812591075,
+   "converged": true,
+   "iterations": 6,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.2597375000000004,
+   "volume_ang3": 17.31880371944252,
+   "energy": -57.10671669295368,
+   "converged": true,
+   "iterations": 6,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.301,
+   "volume_ang3": 17.984839950499996,
+   "energy": -57.107366851320194,
+   "converged": true,
+   "iterations": 6,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.3422625,
+   "volume_ang3": 18.667736969011067,
+   "energy": -57.10698435810579,
+   "converged": true,
+   "iterations": 6,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.3835249999999997,
+   "volume_ang3": 19.367705534818914,
+   "energy": -57.105668007619336,
+   "converged": true,
+   "iterations": 7,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.4247875000000003,
+   "volume_ang3": 20.084956407766693,
+   "energy": -57.1035141554845,
+   "converged": true,
+   "iterations": 7,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.4660500000000005,
+   "volume_ang3": 20.81970034769757,
+   "energy": -57.10060640253488,
+   "converged": true,
+   "iterations": 7,
+   "solver": "KRKS-kerker"
+  }
+ ],
+ "seconds": 30762.232176542282
+}

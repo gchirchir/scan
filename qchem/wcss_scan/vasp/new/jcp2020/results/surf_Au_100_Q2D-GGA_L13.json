@@ -1,0 +1,129 @@
+{
+ "system": "Au",
+ "structure": "fcc",
+ "facet": "100",
+ "functional": "Q2D-GGA",
+ "layers": 13,
+ "a_ang": 4.116976766900519,
+ "a_source": "own Q2D-GGA lattice scan",
+ "c_over_a": null,
+ "cutoff_ha": 250.0,
+ "sigma_ev": 0.05,
+ "vacuum_request_ang": 12.0,
+ "spin": false,
+ "geometry": {
+  "v1": [
+   2.9111421898628254,
+   1.0014089704811427e-16,
+   0.0
+  ],
+  "v2": [
+   1.0014089704811427e-16,
+   2.9111421898628254,
+   0.0
+  ],
+  "w": [
+   0.0,
+   0.0,
+   4.116976766900519
+  ],
+  "area_ang2": 8.474748849599326,
+  "planes_per_period": 2,
+  "atoms_per_period": 2,
+  "bulk_reps": 2,
+  "nat_bulk": 4,
+  "nat_slab": 13,
+  "zplanes_ang": [
+   5.969616312005753,
+   8.028104312005754,
+   10.086593312005753,
+   12.145081312005754,
+   14.203570312005754,
+   16.262058312005752,
+   18.320546312005753,
+   20.379035312005755,
+   22.43752331200575,
+   24.496011312005756,
+   26.55450031200575,
+   28.612988312005754,
+   30.671477312005756
+  ],
+  "zfirst_in_bulk_cell_ang": 0.0,
+  "spacings_ang": [
+   2.0585,
+   2.0585,
+   2.0585,
+   2.0585,
+   2.0585,
+   2.0585,
+   2.0585,
+   2.0585,
+   2.0585,
+   2.0585,
+   2.0585,
+   2.0585
+  ],
+  "symmetric": true,
+  "hz_ang": 0.06861627944834199,
+  "mesh_bulk": [
+   42,
+   42,
+   120
+  ],
+  "mesh_slab": [
+   42,
+   42,
+   536
+  ],
+  "vacuum_ang": 12.076464784311305
+ },
+ "res": {
+  "bulk": {
+   "energy": -132.5910113243441,
+   "converged": true,
+   "iterations": 7,
+   "solver": "KRKS-kerker",
+   "kmesh": [
+    11,
+    11,
+    4
+   ],
+   "nat": 4,
+   "nelectron": 44,
+   "mesh": [
+    42,
+    42,
+    120
+   ],
+   "stalled_rms": null,
+   "grad_fft_relerr": 2.065660529989073e-11,
+   "nelec_err": -9.551825996823027e-11
+  },
+  "slab": {
+   "energy": -430.8573962610528,
+   "converged": true,
+   "iterations": 14,
+   "solver": "KRKS-kerker",
+   "kmesh": [
+    11,
+    11,
+    1
+   ],
+   "nat": 13,
+   "nelectron": 143,
+   "mesh": [
+    42,
+    42,
+    536
+   ],
+   "stalled_rms": 3.93e-06,
+   "grad_fft_relerr": 4.20776386989104e-11,
+   "nelec_err": 0.00826446293740446
+  }
+ },
+ "seconds": 27247.24221920967,
+ "basis": "gth-dzvp-molopt-sr",
+ "pseudo": "gth-pbe",
+ "relaxed": false,
+ "sigma_J_m2": 1.6305294380200495
+}

@@ -1,0 +1,119 @@
+Loading PySCF/2.7.0-foss-2023a
+  Loading requirement: GCCcore/12.3.0 zlib/1.2.13-GCCcore-12.3.0
+    binutils/2.40-GCCcore-12.3.0 GCC/12.3.0 numactl/2.0.16-GCCcore-12.3.0
+    XZ/5.4.2-GCCcore-12.3.0 libxml2/2.11.4-GCCcore-12.3.0
+    libpciaccess/0.17-GCCcore-12.3.0 hwloc/2.9.1-GCCcore-12.3.0 OpenSSL/1.1
+    libevent/2.1.12-GCCcore-12.3.0 UCX/1.14.1-GCCcore-12.3.0
+    libfabric/1.18.0-GCCcore-12.3.0 PMIx/4.2.4-GCCcore-12.3.0
+    UCC/1.2.0-GCCcore-12.3.0 OpenMPI/4.1.5-GCC-12.3.0 OpenBLAS/0.3.23-GCC-12.3.0
+    FlexiBLAS/3.3.1-GCC-12.3.0 FFTW/3.3.10-GCC-12.3.0 gompi/2023a
+    FFTW.MPI/3.3.10-gompi-2023a ScaLAPACK/2.2.0-gompi-2023a-fb foss/2023a
+    bzip2/1.0.8-GCCcore-12.3.0 ncurses/6.4-GCCcore-12.3.0
+    libreadline/8.2-GCCcore-12.3.0 Tcl/8.6.13-GCCcore-12.3.0
+    SQLite/3.42.0-GCCcore-12.3.0 libffi/3.4.4-GCCcore-12.3.0
+    Python/3.11.3-GCCcore-12.3.0 gfbf/2023a cffi/1.15.1-GCCcore-12.3.0
+    cryptography/41.0.1-GCCcore-12.3.0 virtualenv/20.23.1-GCCcore-12.3.0
+    Python-bundle-PyPI/2023.06-GCCcore-12.3.0 pybind11/2.11.1-GCCcore-12.3.0
+    SciPy-bundle/2023.07-gfbf-2023a mpi4py/3.1.4-gompi-2023a
+    Szip/2.1.1-GCCcore-12.3.0 HDF5/1.14.0-gompi-2023a h5py/3.9.0-foss-2023a
+    libcint/5.4.0-gfbf-2023a libxc/6.2.2-GCC-12.3.0 XCFun/2.1.1-GCCcore-12.3.0
+    CPPE/0.3.1-GCC-12.3.0 PyBerny/0.6.3-foss-2023a CheMPS2/1.8.12-foss-2023a
+    PyCheMPS2/1.8.12-foss-2023a gzip/1.12-GCCcore-12.3.0
+    lz4/1.9.4-GCCcore-12.3.0 zstd/1.5.5-GCCcore-12.3.0 ICU/73.2-GCCcore-12.3.0
+    Boost.MPI/1.82.0-gompi-2023a Block/1.5.3-20200525-foss-2023a
+    NECI/20230620-foss-2023a Dice/20240702-foss-2023a tblis/20230422-foss-2023a
+task=19 Pt Q2D-GGA host=r11ch07b02.lem.kdm.wcss.pl date=2026-11-22T11:26:00+01:00
+/usr/local/easybuild/software/PySCF/2.7.0-foss-2023a/lib/python3.11/site-packages/pyscf/gto/mole.py:1294: UserWarning: Function mol.dumps drops attribute _mesh because it is not JSON-serializable
+  warnings.warn(msg)
+rhokerker it    1 rms(rho_out-rho_in) = 3.031e-02  N_in = 18.000000
+rhokerker it    2 rms(rho_out-rho_in) = 1.707e-02  N_in = 18.000000
+rhokerker it    3 rms(rho_out-rho_in) = 3.455e-03  N_in = 18.000000
+rhokerker it    4 rms(rho_out-rho_in) = 1.096e-03  N_in = 18.000000
+rhokerker it    5 rms(rho_out-rho_in) = 1.159e-04  N_in = 18.000000
+rhokerker it    6 rms(rho_out-rho_in) = 4.015e-05  N_in = 18.000000
+rhokerker it    7 rms(rho_out-rho_in) = 1.175e-05  N_in = 18.000000
+rhokerker it    8 rms(rho_out-rho_in) = 1.127e-06  N_in = 18.000000
+rhokerker it    9 rms(rho_out-rho_in) = 2.845e-07  N_in = 18.000000
+a = 3.7335 A  E = -119.9687533537 Ha  converged=True it=9
+rhokerker it    1 rms(rho_out-rho_in) = 3.047e-02  N_in = 18.000000
+rhokerker it    2 rms(rho_out-rho_in) = 1.689e-02  N_in = 18.000000
+rhokerker it    3 rms(rho_out-rho_in) = 3.457e-03  N_in = 18.000000
+rhokerker it    4 rms(rho_out-rho_in) = 1.104e-03  N_in = 18.000000
+rhokerker it    5 rms(rho_out-rho_in) = 1.265e-04  N_in = 18.000000
+rhokerker it    6 rms(rho_out-rho_in) = 5.763e-05  N_in = 18.000000
+rhokerker it    7 rms(rho_out-rho_in) = 4.460e-06  N_in = 18.000000
+rhokerker it    8 rms(rho_out-rho_in) = 1.412e-06  N_in = 18.000000
+rhokerker it    9 rms(rho_out-rho_in) = 2.761e-07  N_in = 18.000000
+a = 3.7826 A  E = -119.9744734136 Ha  converged=True it=9
+rhokerker it    1 rms(rho_out-rho_in) = 3.058e-02  N_in = 18.000000
+rhokerker it    2 rms(rho_out-rho_in) = 1.669e-02  N_in = 18.000000
+rhokerker it    3 rms(rho_out-rho_in) = 3.450e-03  N_in = 18.000000
+rhokerker it    4 rms(rho_out-rho_in) = 1.088e-03  N_in = 18.000000
+rhokerker it    5 rms(rho_out-rho_in) = 1.466e-04  N_in = 18.000000
+rhokerker it    6 rms(rho_out-rho_in) = 8.256e-05  N_in = 18.000000
+rhokerker it    7 rms(rho_out-rho_in) = 1.277e-05  N_in = 18.000000
+rhokerker it    8 rms(rho_out-rho_in) = 1.655e-06  N_in = 18.000000
+rhokerker it    9 rms(rho_out-rho_in) = 2.049e-07  N_in = 18.000000
+a = 3.8317 A  E = -119.9782418863 Ha  converged=True it=9
+rhokerker it    1 rms(rho_out-rho_in) = 3.065e-02  N_in = 18.000000
+rhokerker it    2 rms(rho_out-rho_in) = 1.645e-02  N_in = 18.000000
+rhokerker it    3 rms(rho_out-rho_in) = 3.431e-03  N_in = 18.000000
+rhokerker it    4 rms(rho_out-rho_in) = 1.050e-03  N_in = 18.000000
+rhokerker it    5 rms(rho_out-rho_in) = 1.996e-04  N_in = 18.000000
+rhokerker it    6 rms(rho_out-rho_in) = 1.225e-04  N_in = 18.000000
+rhokerker it    7 rms(rho_out-rho_in) = 2.190e-05  N_in = 18.000000
+rhokerker it    8 rms(rho_out-rho_in) = 1.884e-06  N_in = 18.000000
+rhokerker it    9 rms(rho_out-rho_in) = 1.217e-07  N_in = 18.000000
+a = 3.8809 A  E = -119.9798054944 Ha  converged=True it=9
+rhokerker it    1 rms(rho_out-rho_in) = 3.067e-02  N_in = 18.000000
+rhokerker it    2 rms(rho_out-rho_in) = 1.619e-02  N_in = 18.000000
+rhokerker it    3 rms(rho_out-rho_in) = 3.404e-03  N_in = 18.000000
+rhokerker it    4 rms(rho_out-rho_in) = 9.964e-04  N_in = 18.000000
+rhokerker it    5 rms(rho_out-rho_in) = 3.457e-04  N_in = 18.000000
+rhokerker it    6 rms(rho_out-rho_in) = 1.787e-04  N_in = 18.000000
+rhokerker it    7 rms(rho_out-rho_in) = 2.765e-05  N_in = 18.000000
+rhokerker it    8 rms(rho_out-rho_in) = 2.110e-06  N_in = 18.000000
+rhokerker it    9 rms(rho_out-rho_in) = 1.592e-07  N_in = 18.000000
+a = 3.9300 A  E = -119.9796967664 Ha  converged=True it=9
+rhokerker it    1 rms(rho_out-rho_in) = 3.066e-02  N_in = 18.000000
+rhokerker it    2 rms(rho_out-rho_in) = 1.590e-02  N_in = 18.000000
+rhokerker it    3 rms(rho_out-rho_in) = 3.370e-03  N_in = 18.000000
+rhokerker it    4 rms(rho_out-rho_in) = 9.351e-04  N_in = 18.000000
+rhokerker it    5 rms(rho_out-rho_in) = 5.597e-04  N_in = 18.000000
+rhokerker it    6 rms(rho_out-rho_in) = 6.873e-05  N_in = 18.000000
+rhokerker it    7 rms(rho_out-rho_in) = 3.192e-05  N_in = 18.000000
+rhokerker it    8 rms(rho_out-rho_in) = 2.379e-06  N_in = 18.000000
+rhokerker it    9 rms(rho_out-rho_in) = 1.967e-07  N_in = 18.000000
+a = 3.9791 A  E = -119.9781591712 Ha  converged=True it=9
+rhokerker it    1 rms(rho_out-rho_in) = 3.061e-02  N_in = 18.000000
+rhokerker it    2 rms(rho_out-rho_in) = 1.560e-02  N_in = 18.000000
+rhokerker it    3 rms(rho_out-rho_in) = 3.330e-03  N_in = 18.000000
+rhokerker it    4 rms(rho_out-rho_in) = 8.734e-04  N_in = 18.000000
+rhokerker it    5 rms(rho_out-rho_in) = 5.151e-04  N_in = 18.000000
+rhokerker it    6 rms(rho_out-rho_in) = 1.179e-04  N_in = 18.000000
+rhokerker it    7 rms(rho_out-rho_in) = 3.540e-05  N_in = 18.000000
+rhokerker it    8 rms(rho_out-rho_in) = 2.637e-06  N_in = 18.000000
+rhokerker it    9 rms(rho_out-rho_in) = 2.344e-07  N_in = 18.000000
+a = 4.0282 A  E = -119.9754089951 Ha  converged=True it=9
+rhokerker it    1 rms(rho_out-rho_in) = 3.053e-02  N_in = 18.000000
+rhokerker it    2 rms(rho_out-rho_in) = 1.528e-02  N_in = 18.000000
+rhokerker it    3 rms(rho_out-rho_in) = 3.286e-03  N_in = 18.000000
+rhokerker it    4 rms(rho_out-rho_in) = 8.158e-04  N_in = 18.000000
+rhokerker it    5 rms(rho_out-rho_in) = 3.684e-04  N_in = 18.000000
+rhokerker it    6 rms(rho_out-rho_in) = 7.741e-05  N_in = 18.000000
+rhokerker it    7 rms(rho_out-rho_in) = 3.713e-05  N_in = 18.000000
+rhokerker it    8 rms(rho_out-rho_in) = 2.913e-06  N_in = 18.000000
+rhokerker it    9 rms(rho_out-rho_in) = 1.523e-07  N_in = 18.000000
+a = 4.0774 A  E = -119.9719146612 Ha  converged=True it=9
+rhokerker it    1 rms(rho_out-rho_in) = 3.042e-02  N_in = 18.000000
+rhokerker it    2 rms(rho_out-rho_in) = 1.494e-02  N_in = 18.000000
+rhokerker it    3 rms(rho_out-rho_in) = 3.235e-03  N_in = 18.000000
+rhokerker it    4 rms(rho_out-rho_in) = 7.645e-04  N_in = 18.000000
+rhokerker it    5 rms(rho_out-rho_in) = 2.834e-04  N_in = 18.000000
+rhokerker it    6 rms(rho_out-rho_in) = 4.071e-05  N_in = 18.000000
+rhokerker it    7 rms(rho_out-rho_in) = 3.650e-05  N_in = 18.000000
+rhokerker it    8 rms(rho_out-rho_in) = 3.092e-06  N_in = 18.000000
+rhokerker it    9 rms(rho_out-rho_in) = 1.473e-07  N_in = 18.000000
+a = 4.1265 A  E = -119.9673519962 Ha  converged=True it=9
+RESULT Pt Q2D-GGA: a0 = 3.9023 A (PRL 3.93), B0 = 319 GPa
+done date=2026-11-22T12:33:52+01:00

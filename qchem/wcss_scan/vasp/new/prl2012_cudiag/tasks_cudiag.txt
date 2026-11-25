@@ -1,0 +1,4 @@
+# system functional pseudo cutoff_Ha   Cu Q2D-GGA diagnostic: at 300 Ha sigma = 1.50 J/m2 < PBEsol 1.68 (all other metals:
+# Q2D-GGA > PBEsol by 0.24-0.56; PRL 2.06, JCP 1.98). Cutoff dependence test.
+Cu Q2D-GGA gth-pbe 150
+Cu Q2D-GGA gth-pbe 250

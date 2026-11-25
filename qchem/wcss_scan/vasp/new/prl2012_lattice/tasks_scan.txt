@@ -1,0 +1,8 @@
+# system functional  Table 4 SCAN/DC-SCAN columns (SCAN scan also yields DC-SCAN)
+Al SCAN
+Cu SCAN
+Rh SCAN
+Au SCAN
+Pt SCAN
+Pd SCAN
+Ti SCAN

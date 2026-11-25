@@ -1,0 +1,127 @@
+{
+ "system": "Pd",
+ "structure": "fcc",
+ "facet": "100",
+ "functional": "LDA",
+ "layers": 13,
+ "a_ang": 3.8515507472724186,
+ "a_source": "own LDA lattice scan",
+ "c_over_a": null,
+ "cutoff_ha": 350.0,
+ "sigma_ev": 0.05,
+ "vacuum_request_ang": 12.0,
+ "spin": false,
+ "geometry": {
+  "v1": [
+   2.7234576514804414,
+   5.095113755189064e-17,
+   0.0
+  ],
+  "v2": [
+   5.095113755189064e-17,
+   2.7234576514804414,
+   0.0
+  ],
+  "w": [
+   0.0,
+   0.0,
+   3.8515507472724186
+  ],
+  "area_ang2": 7.417221579407362,
+  "planes_per_period": 2,
+  "atoms_per_period": 2,
+  "bulk_reps": 2,
+  "nat_bulk": 4,
+  "nat_slab": 13,
+  "zplanes_ang": [
+   6.010753438925138,
+   7.936528438925138,
+   9.862304438925138,
+   11.788079438925138,
+   13.71385443892514,
+   15.639630438925138,
+   17.56540543892514,
+   19.49118143892514,
+   21.416956438925137,
+   23.34273143892514,
+   25.268507438925138,
+   27.19428243892514,
+   29.12005743892514
+  ],
+  "zfirst_in_bulk_cell_ang": 0.0,
+  "spacings_ang": [
+   1.9258,
+   1.9258,
+   1.9258,
+   1.9258,
+   1.9258,
+   1.9258,
+   1.9258,
+   1.9258,
+   1.9258,
+   1.9258,
+   1.9258,
+   1.9258
+  ],
+  "symmetric": true,
+  "hz_ang": 0.05835682950412756,
+  "mesh_bulk": [
+   48,
+   48,
+   132
+  ],
+  "mesh_slab": [
+   48,
+   48,
+   602
+  ],
+  "vacuum_ang": 12.021507361484787
+ },
+ "res": {
+  "bulk": {
+   "energy": -508.30875915123636,
+   "converged": true,
+   "iterations": 9,
+   "solver": "KRKS-kerker",
+   "kmesh": [
+    12,
+    12,
+    4
+   ],
+   "nat": 4,
+   "nelectron": 72,
+   "mesh": [
+    48,
+    48,
+    132
+   ],
+   "grad_fft_relerr": 4.5413936330903076e-11,
+   "nelec_err": -1.8047785488306545e-12
+  },
+  "slab": {
+   "energy": -1651.9276272309517,
+   "converged": true,
+   "iterations": 39,
+   "solver": "KRKS-kerker",
+   "kmesh": [
+    12,
+    12,
+    1
+   ],
+   "nat": 13,
+   "nelectron": 234,
+   "mesh": [
+    48,
+    48,
+    602
+   ],
+   "grad_fft_relerr": 1.1012670890832448e-10,
+   "nelec_err": -3.467448550509289e-12
+  }
+ },
+ "seconds": 55441.170867204666,
+ "basis": "gth-dzvp-molopt-sr",
+ "pseudo": "gth-pbe",
+ "relaxed": false,
+ "sigma_J_m2": 2.2288874560828384
+}

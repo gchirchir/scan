@@ -1,0 +1,104 @@
+{
+ "system": "Co",
+ "structure": "hcp",
+ "functional": "LDA",
+ "a0_ang": 2.428017206031052,
+ "a_center": 2.507,
+ "B0_GPa": 271.6569278046834,
+ "fit_rms_meV": 0.3632936309074004,
+ "minimum_near_edge": false,
+ "a_exp": 2.507,
+ "c_over_a_fixed": 1.6234543278819307,
+ "k": [
+  12,
+  12,
+  7
+ ],
+ "sigma_ev": 0.05,
+ "cutoff_ha": 600.0,
+ "spin": true,
+ "points": [
+  {
+   "a_ang": 2.38165,
+   "volume_ang3": 9.496739582511108,
+   "energy": -290.3847482437658,
+   "converged": true,
+   "iterations": 9,
+   "solver": "KUKS-diis",
+   "moment_muB": 1.4900919544513618
+  },
+  {
+   "a_ang": 2.4129875000000003,
+   "volume_ang3": 9.876565032763859,
+   "energy": -290.3866776079198,
+   "converged": true,
+   "iterations": 13,
+   "solver": "KUKS-diis",
+   "moment_muB": 1.5098923607865873
+  },
+  {
+   "a_ang": 2.444325,
+   "volume_ang3": 10.266385320290427,
+   "energy": -290.38667846067915,
+   "converged": true,
+   "iterations": 11,
+   "solver": "KUKS-diis",
+   "moment_muB": 1.586775192522236
+  },
+  {
+   "a_ang": 2.4756625000000003,
+   "volume_ang3": 10.666330248172333,
+   "energy": -290.38491981819345,
+   "converged": true,
+   "iterations": 10,
+   "solver": "KUKS-diis",
+   "moment_muB": 1.6286274386684065
+  },
+  {
+   "a_ang": 2.507,
+   "volume_ang3": 11.07652961949102,
+   "energy": -290.38165133299026,
+   "converged": true,
+   "iterations": 15,
+   "solver": "KUKS-diis",
+   "moment_muB": 1.6674325623146449
+  },
+  {
+   "a_ang": 2.5383375,
+   "volume_ang3": 11.497113237327978,
+   "energy": -290.37703420888073,
+   "converged": true,
+   "iterations": 9,
+   "solver": "KUKS-diis",
+   "moment_muB": 1.6865668141339247
+  },
+  {
+   "a_ang": 2.5696749999999997,
+   "volume_ang3": 11.928210904764688,
+   "energy": -290.37124507989694,
+   "converged": true,
+   "iterations": 12,
+   "solver": "KUKS-diis",
+   "moment_muB": 1.7168571049572252
+  },
+  {
+   "a_ang": 2.6010125000000004,
+   "volume_ang3": 12.369952424882635,
+   "energy": -290.36453703694576,
+   "converged": true,
+   "iterations": 13,
+   "solver": "KUKS-diis",
+   "moment_muB": 1.777463622731144
+  },
+  {
+   "a_ang": 2.63235,
+   "volume_ang3": 12.822467600763286,
+   "energy": -290.3570564317274,
+   "converged": true,
+   "iterations": 9,
+   "solver": "KUKS-diis",
+   "moment_muB": 1.7934642550091364
+  }
+ ],
+ "seconds": 50101.87857723236
+}

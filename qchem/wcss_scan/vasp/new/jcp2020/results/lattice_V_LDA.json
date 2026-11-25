@@ -1,0 +1,95 @@
+{
+ "system": "V",
+ "structure": "bcc",
+ "functional": "LDA",
+ "a0_ang": 2.926072609982299,
+ "a_center": 3.028,
+ "B0_GPa": 187.13445542259421,
+ "fit_rms_meV": 0.4697647472088523,
+ "minimum_near_edge": false,
+ "a_exp": 3.028,
+ "c_over_a_fixed": null,
+ "k": [
+  12,
+  12,
+  12
+ ],
+ "sigma_ev": 0.05,
+ "cutoff_ha": 600.0,
+ "spin": false,
+ "points": [
+  {
+   "a_ang": 2.8766,
+   "volume_ang3": 11.901684479547997,
+   "energy": -71.41616989781485,
+   "converged": true,
+   "iterations": 6,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 2.91445,
+   "volume_ang3": 12.37769654947306,
+   "energy": -71.41689083944105,
+   "converged": true,
+   "iterations": 6,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 2.9523,
+   "volume_ang3": 12.866234539333506,
+   "energy": -71.41668854085322,
+   "converged": true,
+   "iterations": 6,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 2.9901500000000003,
+   "volume_ang3": 13.367461123414197,
+   "energy": -71.41575578818541,
+   "converged": true,
+   "iterations": 7,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.028,
+   "volume_ang3": 13.881538975999991,
+   "energy": -71.41414809958711,
+   "converged": true,
+   "iterations": 8,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.0658499999999997,
+   "volume_ang3": 14.408630771375812,
+   "energy": -71.41185519101208,
+   "converged": true,
+   "iterations": 8,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.1037,
+   "volume_ang3": 14.948899183826478,
+   "energy": -71.40892239885784,
+   "converged": true,
+   "iterations": 8,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.1415500000000005,
+   "volume_ang3": 15.50250688763695,
+   "energy": -71.40542938671211,
+   "converged": true,
+   "iterations": 8,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.1794000000000002,
+   "volume_ang3": 16.069616557091997,
+   "energy": -71.40144632898563,
+   "converged": true,
+   "iterations": 8,
+   "solver": "KRKS-kerker"
+  }
+ ],
+ "seconds": 23863.454874753952
+}

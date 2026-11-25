@@ -1,0 +1,97 @@
+{
+ "system": "Ti",
+ "functional": "LDA",
+ "a0_ang": 4.019344700852679,
+ "B0_GPa": 126.73853481412743,
+ "fit_rms_meV": 0.3064222457208423,
+ "minimum_near_edge": false,
+ "a_prl": 4.0,
+ "a_exp": 4.1,
+ "k": 10,
+ "sigma_ev": 0.1,
+ "cutoff_ha": 250.0,
+ "points": [
+  {
+   "a_ang": 3.8,
+   "volume_ang3": 13.717999999999996,
+   "energy": -58.05016877660932,
+   "converged": true,
+   "iterations": 7,
+   "rms": 6.416888317907149e-07,
+   "grad": 3.679216267503487e-08
+  },
+  {
+   "a_ang": 3.85,
+   "volume_ang3": 14.266656249999997,
+   "energy": -58.053186098378156,
+   "converged": true,
+   "iterations": 8,
+   "rms": 1.5230251826507383e-07,
+   "grad": 1.1566214763234115e-07
+  },
+  {
+   "a_ang": 3.9,
+   "volume_ang3": 14.829749999999995,
+   "energy": -58.0553586202965,
+   "converged": true,
+   "iterations": 7,
+   "rms": 8.936282032186298e-07,
+   "grad": 6.925687052034124e-07
+  },
+  {
+   "a_ang": 3.95,
+   "volume_ang3": 15.407468749999998,
+   "energy": -58.05672651337344,
+   "converged": true,
+   "iterations": 8,
+   "rms": 6.34828624779981e-08,
+   "grad": 3.7818360217037665e-08
+  },
+  {
+   "a_ang": 4.0,
+   "volume_ang3": 15.999999999999991,
+   "energy": -58.05733990934373,
+   "converged": true,
+   "iterations": 8,
+   "rms": 7.46969565518625e-08,
+   "grad": 4.0751034907420596e-08
+  },
+  {
+   "a_ang": 4.05,
+   "volume_ang3": 16.60753125,
+   "energy": -58.05725762443415,
+   "converged": true,
+   "iterations": 8,
+   "rms": 7.848293127737935e-08,
+   "grad": 4.121262849157162e-08
+  },
+  {
+   "a_ang": 4.1,
+   "volume_ang3": 17.230249999999995,
+   "energy": -58.05654875887679,
+   "converged": true,
+   "iterations": 8,
+   "rms": 8.145377122545051e-08,
+   "grad": 4.250371861953841e-08
+  },
+  {
+   "a_ang": 4.15,
+   "volume_ang3": 17.868343749999998,
+   "energy": -58.05528457311323,
+   "converged": true,
+   "iterations": 8,
+   "rms": 8.389766640443518e-08,
+   "grad": 4.297151410450085e-08
+  },
+  {
+   "a_ang": 4.2,
+   "volume_ang3": 18.522,
+   "energy": -58.05352768320169,
+   "converged": true,
+   "iterations": 8,
+   "rms": 9.044075121905468e-08,
+   "grad": 4.766357232510632e-08
+  }
+ ],
+ "seconds": 4635.9382383823395
+}

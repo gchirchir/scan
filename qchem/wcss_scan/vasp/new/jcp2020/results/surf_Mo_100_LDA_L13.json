@@ -1,0 +1,127 @@
+{
+ "system": "Mo",
+ "structure": "bcc",
+ "facet": "100",
+ "functional": "LDA",
+ "layers": 13,
+ "a_ang": 3.117744162234618,
+ "a_source": "own LDA lattice scan",
+ "c_over_a": null,
+ "cutoff_ha": 350.0,
+ "sigma_ev": 0.05,
+ "vacuum_request_ang": 12.0,
+ "spin": false,
+ "geometry": {
+  "v1": [
+   3.117744162234618,
+   0.0,
+   0.0
+  ],
+  "v2": [
+   0.0,
+   3.117744162234618,
+   0.0
+  ],
+  "w": [
+   0.0,
+   0.0,
+   3.117744162234618
+  ],
+  "area_ang2": 9.72032866114804,
+  "planes_per_period": 2,
+  "atoms_per_period": 2,
+  "bulk_reps": 2,
+  "nat_bulk": 4,
+  "nat_slab": 13,
+  "zplanes_ang": [
+   5.946808309447512,
+   7.505680309447512,
+   9.064552309447512,
+   10.623424309447511,
+   12.182296309447512,
+   13.741168309447513,
+   15.300040309447512,
+   16.858913309447512,
+   18.41778530944751,
+   19.97665730944751,
+   21.53552930944751,
+   23.094401309447512,
+   24.653273309447513
+  ],
+  "zfirst_in_bulk_cell_ang": 0.0,
+  "spacings_ang": [
+   1.5589,
+   1.5589,
+   1.5589,
+   1.5589,
+   1.5589,
+   1.5589,
+   1.5589,
+   1.5589,
+   1.5589,
+   1.5589,
+   1.5589,
+   1.5589
+  ],
+  "symmetric": true,
+  "hz_ang": 0.057736003004344776,
+  "mesh_bulk": [
+   54,
+   54,
+   108
+  ],
+  "mesh_slab": [
+   54,
+   54,
+   532
+  ],
+  "vacuum_ang": 12.009088598311418
+ },
+ "res": {
+  "bulk": {
+   "energy": -272.55081819297465,
+   "converged": true,
+   "iterations": 8,
+   "solver": "KRKS-kerker",
+   "kmesh": [
+    11,
+    11,
+    5
+   ],
+   "nat": 4,
+   "nelectron": 56,
+   "mesh": [
+    54,
+    54,
+    108
+   ],
+   "grad_fft_relerr": 2.154770744660326e-13,
+   "nelec_err": 1.6342482922482304e-13
+  },
+  "slab": {
+   "energy": -885.6080788801974,
+   "converged": true,
+   "iterations": 24,
+   "solver": "KRKS-kerker",
+   "kmesh": [
+    11,
+    11,
+    1
+   ],
+   "nat": 13,
+   "nelectron": 182,
+   "mesh": [
+    54,
+    54,
+    532
+   ],
+   "grad_fft_relerr": 2.527378623384007e-13,
+   "nelec_err": -6.821210263296962e-13
+  }
+ },
+ "seconds": 34585.89514875412,
+ "basis": "gth-dzvp-molopt-sr",
+ "pseudo": "gth-pbe",
+ "relaxed": false,
+ "sigma_J_m2": 4.083315081497743
+}

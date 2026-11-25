@@ -1,0 +1,143 @@
+{
+ "system": "Co",
+ "cutoff_ha": 600.0,
+ "passed": true,
+ "criteria": "gerr<1%, |dN|<1e-4, |dE vs 600 Ha|<1 meV/atom, Q2D-GGA and SCAN",
+ "k": [
+  6,
+  6,
+  4
+ ],
+ "rows": [
+  {
+   "functional": "Q2D-GGA",
+   "cutoff_ha": 150.0,
+   "converged": true,
+   "e_atom_ha": -145.1612387095476,
+   "grad_fft_relerr": NaN,
+   "nelec_err": NaN,
+   "mesh": [
+    29,
+    29,
+    45
+   ]
+  },
+  {
+   "functional": "Q2D-GGA",
+   "cutoff_ha": 250.0,
+   "converged": true,
+   "e_atom_ha": -145.16193946247,
+   "grad_fft_relerr": NaN,
+   "nelec_err": NaN,
+   "mesh": [
+    35,
+    35,
+    57
+   ]
+  },
+  {
+   "functional": "Q2D-GGA",
+   "cutoff_ha": 350.0,
+   "converged": true,
+   "e_atom_ha": -145.16153030394142,
+   "grad_fft_relerr": NaN,
+   "nelec_err": NaN,
+   "mesh": [
+    41,
+    41,
+    67
+   ]
+  },
+  {
+   "functional": "Q2D-GGA",
+   "cutoff_ha": 450.0,
+   "converged": true,
+   "e_atom_ha": -145.16180016359098,
+   "grad_fft_relerr": NaN,
+   "nelec_err": NaN,
+   "mesh": [
+    47,
+    47,
+    75
+   ]
+  },
+  {
+   "functional": "Q2D-GGA",
+   "cutoff_ha": 600.0,
+   "converged": true,
+   "e_atom_ha": -145.1616214446837,
+   "grad_fft_relerr": NaN,
+   "nelec_err": NaN,
+   "mesh": [
+    55,
+    55,
+    87
+   ]
+  },
+  {
+   "functional": "SCAN",
+   "cutoff_ha": 150.0,
+   "converged": true,
+   "e_atom_ha": -145.37890783772949,
+   "grad_fft_relerr": NaN,
+   "nelec_err": NaN,
+   "mesh": [
+    29,
+    29,
+    45
+   ]
+  },
+  {
+   "functional": "SCAN",
+   "cutoff_ha": 250.0,
+   "converged": true,
+   "e_atom_ha": -145.37985276121967,
+   "grad_fft_relerr": NaN,
+   "nelec_err": NaN,
+   "mesh": [
+    35,
+    35,
+    57
+   ]
+  },
+  {
+   "functional": "SCAN",
+   "cutoff_ha": 350.0,
+   "converged": true,
+   "e_atom_ha": -145.3806964048655,
+   "grad_fft_relerr": NaN,
+   "nelec_err": NaN,
+   "mesh": [
+    41,
+    41,
+    67
+   ]
+  },
+  {
+   "functional": "SCAN",
+   "cutoff_ha": 450.0,
+   "converged": true,
+   "e_atom_ha": -145.38062189989967,
+   "grad_fft_relerr": NaN,
+   "nelec_err": NaN,
+   "mesh": [
+    47,
+    47,
+    75
+   ]
+  },
+  {
+   "functional": "SCAN",
+   "cutoff_ha": 600.0,
+   "converged": true,
+   "e_atom_ha": -145.3804700647429,
+   "grad_fft_relerr": NaN,
+   "nelec_err": NaN,
+   "mesh": [
+    55,
+    55,
+    87
+   ]
+  }
+ ]
+}

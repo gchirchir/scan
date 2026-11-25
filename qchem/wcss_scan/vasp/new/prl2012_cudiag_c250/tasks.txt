@@ -1,0 +1,2 @@
+# Cu Q2D-GGA cutoff diagnostic (own folder: result names do not contain the cutoff)
+Cu Q2D-GGA gth-pbe 250

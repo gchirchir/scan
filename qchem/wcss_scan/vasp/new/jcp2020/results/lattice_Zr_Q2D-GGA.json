@@ -1,0 +1,95 @@
+{
+ "system": "Zr",
+ "structure": "hcp",
+ "functional": "Q2D-GGA",
+ "a0_ang": 3.1833523816111025,
+ "a_center": 3.232,
+ "B0_GPa": 102.19194110931402,
+ "fit_rms_meV": 0.23299663774572443,
+ "minimum_near_edge": false,
+ "a_exp": 3.232,
+ "c_over_a_fixed": 1.5925123762376237,
+ "k": [
+  12,
+  12,
+  8
+ ],
+ "sigma_ev": 0.05,
+ "cutoff_ha": 150.0,
+ "spin": false,
+ "points": [
+  {
+   "a_ang": 3.0704000000000002,
+   "volume_ang3": 19.96035790909279,
+   "energy": -93.97328060658334,
+   "converged": true,
+   "iterations": 6,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.1108000000000002,
+   "volume_ang3": 20.758679466102627,
+   "energy": -93.97701354248318,
+   "converged": true,
+   "iterations": 6,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.1512000000000002,
+   "volume_ang3": 21.578008288552926,
+   "energy": -93.97909220543886,
+   "converged": true,
+   "iterations": 6,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.1916,
+   "volume_ang3": 22.41861719807281,
+   "energy": -93.97957481955832,
+   "converged": true,
+   "iterations": 6,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.232,
+   "volume_ang3": 23.280779016291355,
+   "energy": -93.97854815390434,
+   "converged": true,
+   "iterations": 6,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.2724,
+   "volume_ang3": 24.164766564837674,
+   "energy": -93.97610431583595,
+   "converged": true,
+   "iterations": 7,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.3127999999999997,
+   "volume_ang3": 25.070852665340865,
+   "energy": -93.97240667111566,
+   "converged": true,
+   "iterations": 7,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.3532000000000006,
+   "volume_ang3": 25.99931013943006,
+   "energy": -93.96753053224245,
+   "converged": true,
+   "iterations": 7,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.3936,
+   "volume_ang3": 26.95041180873427,
+   "energy": -93.96160456874586,
+   "converged": true,
+   "iterations": 7,
+   "solver": "KRKS-kerker"
+  }
+ ],
+ "seconds": 19669.456637859344
+}

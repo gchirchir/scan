@@ -1,0 +1,30 @@
+[    11.1s] exact iso lam=1: N=20,30,40 -> 3.730512465 3.730333889 3.730258977  p=1.49  E_inf=3.730119522  (11s)
+[    32.4s] exact wire lam=2: N=20,30,40 -> 10.087082512 10.086728473 10.086577709  p=1.45  E_inf=10.086287028  (21s)
+[    48.9s] exact sheet lam=2: N=20,30,40 -> 6.868473693 6.868205777 6.868092577  p=1.47  E_inf=6.867878297  (16s)
+[    52.0s] iso_1: nb=84  E_HF=3.7714669628  E_FCI=3.7320327871  Ec=-39.4342 mHa  (3.1s)
+[    70.2s]    HF: J=1.49340148 W0=-0.74670074 W0p=-0.09348902 W1=-0.81896591 (Lieb lambda=1, |drho|=1.0e-05) Winf=-1.07741642 Wpinf=0.36388497 eps_H(check)=-4.7e-11 |drho_KS|=2.3e-09 N=2.00000000
+[    70.2s]       AC1=+0.207  AC6=-0.010  KHAN=+0.027  SPL=+2.538  genISI2=+0.346  (mHa vs FCI)
+[    76.7s]    FCI: J=1.49201358 W0=-0.74600679 W0p=-0.09385215 W1=-0.81860058 (FCI 2-RDM, |drho|=0.0e+00) Winf=-1.07636349 Wpinf=0.36316006 eps_H(check)=5.5e-07 |drho_KS|=7.2e-05 N=2.00000000
+[    76.7s]       AC1=+0.107  AC6=-0.110  KHAN=-0.075  SPL=+2.502  genISI2=+0.333  (mHa vs FCI)
+[    79.7s] wire_2: nb=85  E_HF=10.1675184328  E_FCI=10.0884123371  Ec=-79.1061 mHa  (3.0s)
+[   299.8s]    HF: J=2.24762124 W0=-1.12381062 W0p=-0.19056075 W1=-1.26038369 (Lieb lambda=1, |drho|=3.4e-05) Winf=-1.65783788 Wpinf=0.64158274 eps_H(check)=-2.1e-10 |drho_KS|=1.3e-07 N=2.00000000
+[   299.8s]       AC1=+3.265  AC6=+2.561  KHAN=+3.192  SPL=+7.626  genISI2=+10.538  (mHa vs FCI)
+[   307.1s]    FCI: J=2.22025930 W0=-1.11012965 W0p=-0.20602844 W1=-1.25518591 (FCI 2-RDM, |drho|=0.0e+00) Winf=-1.64113570 Wpinf=0.62358781 eps_H(check)=8.1e-07 |drho_KS|=2.0e-04 N=2.00000000
+[   307.1s]       AC1=+0.911  AC6=+0.077  KHAN=+0.889  SPL=+6.160  genISI2=+10.101  (mHa vs FCI)
+[   310.0s] sheet_2: nb=86  E_HF=6.9279286827  E_FCI=6.8697948044  Ec=-58.1339 mHa  (2.9s)
+[   371.2s]    HF: J=1.78663652 W0=-0.89331826 W0p=-0.14075663 W1=-0.99782156 (Lieb lambda=1, |drho|=4.5e-05) Winf=-1.30714732 Wpinf=0.46025331 eps_H(check)=-1.4e-10 |drho_KS|=3.6e-08 N=2.00000000
+[   371.2s]       AC1=+0.710  AC6=+0.285  KHAN=+0.566  SPL=+4.744  genISI2=+4.322  (mHa vs FCI)
+[   378.8s]    FCI: J=1.77898773 W0=-0.88949386 W0p=-0.14293319 W1=-0.99543228 (FCI 2-RDM, |drho|=0.0e+00) Winf=-1.30185125 Wpinf=0.45617184 eps_H(check)=2.9e-06 |drho_KS|=3.1e-04 N=2.00000000
+[   378.8s]       AC1=+0.280  AC6=-0.157  KHAN=+0.138  SPL=+4.541  genISI2=+4.239  (mHa vs FCI)
+[   379.2s] convergence iso lam=1 ecut=0 nb=35 E_FCI=3.733757567
+[   379.7s] convergence iso lam=1 ecut=5 nb=56 E_FCI=3.732687039
+[   382.0s] convergence iso lam=1 ecut=6 nb=84 E_FCI=3.732032787
+[   391.3s] convergence iso lam=1 ecut=7 nb=120 E_FCI=3.731614696
+[   391.5s] convergence wire lam=2 ecut=0 nb=35 E_FCI=10.092015936
+[   392.6s] convergence wire lam=2 ecut=12 nb=59 E_FCI=10.088948327
+[   396.0s] convergence wire lam=2 ecut=15 nb=85 E_FCI=10.088412337
+[   408.9s] convergence wire lam=2 ecut=18 nb=125 E_FCI=10.088008177
+[   409.2s] convergence sheet lam=2 ecut=0 nb=35 E_FCI=6.872686878
+[   409.8s] convergence sheet lam=2 ecut=7 nb=56 E_FCI=6.870406558
+[   412.6s] convergence sheet lam=2 ecut=9 nb=86 E_FCI=6.869794804
+[   428.7s] convergence sheet lam=2 ecut=11 nb=128 E_FCI=6.869379995

@@ -1,0 +1,6 @@
+# label system a layers kxy cutoff sigma_eV damp shift diis_start guess diis_space   (Pt 8-layer slab; NO level shift: shift+smearing biases occupations)
+s05_d5a     Pt 3.95 8 4  150 0.05 0.5 0 3 atom 12
+s10_d7a     Pt 3.95 8 4  150 0.10 0.7 0 1 atom 12
+s20_d5a     Pt 3.95 8 4  150 0.20 0.5 0 1 atom 12
+s05_k10_d5a Pt 3.95 8 10 150 0.05 0.5 0 3 atom 12
+s10_k10_d5a Pt 3.95 8 10 150 0.10 0.5 0 3 atom 12

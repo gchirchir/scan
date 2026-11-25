@@ -1,0 +1,97 @@
+== validation V1, V2, V5, V7
+V1 dyall-v4z/grid 9                r2SCAN    AE6 MAE      3.34  BH6 MAE   7.24
+V1 dyall-v4z/grid 9                original  AE6 MAE   1078.38  BH6 MAE  23.03
+V1 dyall-v4z/grid 9                original TD AE6 MAE    101.15  BH6 MAE  11.14
+V1 dyall-v4z/grid 9                new G3    AE6 MAE      9.25  BH6 MAE   7.04
+V1 dyall-v4z/grid 9                new TD    AE6 MAE      4.06  BH6 MAE   6.48
+V2 dyall-v4z/grid 9 (independent SCF rerun) r2SCAN    AE6 MAE      3.34  BH6 MAE   7.24
+V2 dyall-v4z/grid 9 (independent SCF rerun) original  AE6 MAE   1078.38  BH6 MAE  23.03
+V2 dyall-v4z/grid 9 (independent SCF rerun) original TD AE6 MAE    101.15  BH6 MAE  11.14
+V2 dyall-v4z/grid 9 (independent SCF rerun) new G3    AE6 MAE      9.25  BH6 MAE   7.04
+V2 dyall-v4z/grid 9 (independent SCF rerun) new TD    AE6 MAE      4.06  BH6 MAE   6.48
+V5 IBM direct  original  MAE_x 0.0264/0.0351  MAE_xc 0.0175/0.0372
+V5 IBM direct  new G3    MAE_x 0.0328/0.0755  MAE_xc 0.0219/0.0724
+
+V7 sensitivity:
+ p0  k  SS_AE6  TD_AE6  BH6_SS  ibm_x_ge1  ibm_x_lt1
+  4  6 14.7516  5.1449  6.7969     0.0302     0.0642
+  5  6 11.2020  4.5244  6.9481     0.0316     0.0704
+  6  6  9.5132  4.0973  7.0211     0.0327     0.0757
+  7  6  8.3407  3.7733  7.0638     0.0337     0.0804
+  8  6  7.4635  3.5230  7.0932     0.0345     0.0846
+  4 12 13.3920  5.0147  6.8740     0.0301     0.0639
+  5 12 10.6379  4.4613  6.9912     0.0316     0.0701
+  6 12  9.2459  4.0579  7.0435     0.0328     0.0755
+  7 12  8.1099  3.7207  7.0752     0.0337     0.0802
+  8 12  7.2287  3.4529  7.0997     0.0345     0.0844
+== tables
+AE6 MAE {'r2scan': np.float64(3.34), 'orig_SS': np.float64(1078.38), 'orig_TD': np.float64(101.15), 'new_SS': np.float64(9.25), 'new_TD': np.float64(4.06)}
+BH6 MAE {'r2scan': np.float64(7.24), 'orig_SS': np.float64(23.03), 'orig_TD': np.float64(11.14), 'new_SS': np.float64(7.04), 'new_TD': np.float64(6.48)}
+W3: $t{=}10^{-3}$, $p_0{=}5$     r$^2$SCAN  AE6 MAE      3.33  BH6 6.99  IBM (np.float64(0.03156267080358001), np.float64(0.07017880282211837))
+$W^{\rm new}$, SS: $p_0{=}6$     r$^2$SCAN  AE6 MAE      9.25  BH6 7.04  IBM (np.float64(0.032757915754181806), np.float64(0.07548641298048987))
+$W^{\rm new}$, TD: $p_0{=}6$     r$^2$SCAN  AE6 MAE      4.06  BH6 6.48  IBM (np.float64(0.032757915754181806), np.float64(0.07548641298048987))
+ &  & BH6 MAE & {7.24} & {23.03} & {11.14} & {7.04} & {6.48} \\
+\addlinespace
+V3 & PBE orbitals, non-SCF & AE6 MAE & {3.97} & {1058.05} & {109.19} & {8.54} & {3.81} \\
+ &  & BH6 MAE & {7.14} & {22.36} & {10.50} & {6.94} & {6.38} \\
+\addlinespace
+V5 & IBM well, $r_s^{2D}=4$ & MAE $E_x$, $L\geq1$ (Ha) & {0.0425} & {0.0264} & {0.0264} & {0.0328} & {0.0328} \\
+ &  & MAE $E_x$, $L<1$ (Ha) & {0.3849} & {0.0351} & {0.0351} & {0.0755} & {0.0755} \\
+\addlinespace
+V6 & Mg, HF density & $E_x-E_x^{\rm HF}$ (mHa) & {-12.23} & {+53.91} & {+53.91} & {-3.74} & {-3.74} \\
+\bottomrule
+\end{tabular}
+\begin{tabular}{@{}cc rrr rr@{}}
+\toprule
+ & & \multicolumn{2}{c}{AE6 MAE (kcal/mol)} & BH6 MAE & \multicolumn{2}{c}{IBM MAE $E_x$ (Ha)} \\
+\cmidrule(lr){3-4}\cmidrule(lr){6-7}
+$k$ & $p_0$ & SS & TD & SS (kcal/mol) & $L\geq1$ & $L<1$ \\
+\midrule
+6 & 4 & {14.75} & {5.14} & {6.80} & {0.0302} & {0.0642} \\
+6 & 5 & {11.20} & {4.52} & {6.95} & {0.0316} & {0.0704} \\
+6 & 6 & {9.51} & {4.10} & {7.02} & {0.0327} & {0.0757} \\
+6 & 7 & {8.34} & {3.77} & {7.06} & {0.0337} & {0.0804} \\
+6 & 8 & {7.46} & {3.52} & {7.09} & {0.0345} & {0.0846} \\
+\midrule
+12 & 4 & {13.39} & {5.01} & {6.87} & {0.0301} & {0.0639} \\
+12 & 5 & {10.64} & {4.46} & {6.99} & {0.0316} & {0.0701} \\
+12 & 6 & {9.25} & {4.06} & {7.04} & {0.0328} & {0.0755} \\
+12 & 7 & {8.11} & {3.72} & {7.08} & {0.0337} & {0.0802} \\
+12 & 8 & {7.23} & {3.45} & {7.10} & {0.0345} & {0.0844} \\
+\bottomrule
+\end{tabular}
+\begin{tabular}{@{}l r rr rr rr@{}}
+\toprule
+ & & & & \multicolumn{2}{c}{$W^{\rm orig}_{\rm jana\_ref}$} & \multicolumn{2}{c}{$W^{\rm new}$} \\
+\cmidrule(lr){5-6}\cmidrule(lr){7-8}
+Molecule & $E^{\rm ref}$ & PBE & r$^2$SCAN & SS & TD & SS & TD \\
+\midrule
+SiH$_4$ & 324.59 & {-12.16} & {-3.12} & {-83.80} & {-103.84} & {-1.94} & {-6.07} \\
+SiO & 193.40 & {+1.53} & {-6.08} & {+69.59} & {-8.52} & {-1.77} & {-7.28} \\
+S$_2$ & 103.90 & {+9.81} & {+6.26} & {+21.90} & {+7.66} & {+8.91} & {+6.49} \\
+C$_3$H$_4$ (propyne) & 705.28 & {+15.89} & {+1.69} & {+2024.80} & {+184.21} & {+10.97} & {+0.04} \\
+C$_2$H$_2$O$_2$ (glyoxal) & 635.33 & {+28.08} & {+3.00} & {+1460.73} & {+117.53} & {+12.35} & {+2.30} \\
+C$_4$H$_8$ (cyclobutane) & 1150.12 & {+17.59} & {+3.69} & {+2687.50} & {+233.37} & {+15.29} & {+0.71} \\
+\midrule
+ME & & {+10.12} & {+0.91} & {+1030.12} & {+71.73} & {+7.30} & {-0.64} \\
+MAE & & {14.18} & {3.97} & {1058.05} & {109.19} & {8.54} & {3.81} \\
+\bottomrule
+\end{tabular}
+\begin{tabular}{@{}l r rr rr rr@{}}
+\toprule
+ & & & & \multicolumn{2}{c}{$W^{\rm orig}_{\rm jana\_ref}$} & \multicolumn{2}{c}{$W^{\rm new}$} \\
+\cmidrule(lr){5-6}\cmidrule(lr){7-8}
+Reaction & $E^{\rm ref}$ & PBE & r$^2$SCAN & SS & TD & SS & TD \\
+\midrule
+OH + CH$_4$ $\to$ CH$_3$ + H$_2$O & 6.14 & {-11.40} & {-6.71} & {-6.85} & {-9.90} & {-7.45} & {-7.33} \\
+CH$_3$ + H$_2$O $\to$ OH + CH$_4$ & 19.53 & {-10.44} & {-6.49} & {-38.91} & {-5.83} & {-6.94} & {-6.26} \\
+H + OH $\to$ O + H$_2$ & 10.83 & {-7.11} & {-7.44} & {+31.49} & {+12.69} & {-6.20} & {-6.11} \\
+O + H$_2$ $\to$ H + OH & 13.05 & {-14.58} & {-10.54} & {-24.86} & {+9.21} & {-10.45} & {-9.15} \\
+H + H$_2$S $\to$ H$_2$ + SH & 3.82 & {-5.05} & {-6.24} & {+15.39} & {+11.28} & {-5.65} & {-5.28} \\
+H$_2$ + SH $\to$ H + H$_2$S & 17.07 & {-7.44} & {-5.41} & {+16.67} & {+14.06} & {-4.92} & {-4.15} \\
+\midrule
+ME & & {-9.34} & {-7.14} & {-1.18} & {+5.25} & {-6.94} & {-6.38} \\
+MAE & & {9.34} & {7.14} & {22.36} & {10.50} & {6.94} & {6.38} \\
+\bottomrule
+\end{tabular}
+FINAL_DONE

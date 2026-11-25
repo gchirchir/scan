@@ -1,0 +1,203 @@
+Loading PySCF/2.7.0-foss-2023a
+  Loading requirement: GCCcore/12.3.0 zlib/1.2.13-GCCcore-12.3.0
+    binutils/2.40-GCCcore-12.3.0 GCC/12.3.0 numactl/2.0.16-GCCcore-12.3.0
+    XZ/5.4.2-GCCcore-12.3.0 libxml2/2.11.4-GCCcore-12.3.0
+    libpciaccess/0.17-GCCcore-12.3.0 hwloc/2.9.1-GCCcore-12.3.0 OpenSSL/1.1
+    libevent/2.1.12-GCCcore-12.3.0 UCX/1.14.1-GCCcore-12.3.0
+    libfabric/1.18.0-GCCcore-12.3.0 PMIx/4.2.4-GCCcore-12.3.0
+    UCC/1.2.0-GCCcore-12.3.0 OpenMPI/4.1.5-GCC-12.3.0 OpenBLAS/0.3.23-GCC-12.3.0
+    FlexiBLAS/3.3.1-GCC-12.3.0 FFTW/3.3.10-GCC-12.3.0 gompi/2023a
+    FFTW.MPI/3.3.10-gompi-2023a ScaLAPACK/2.2.0-gompi-2023a-fb foss/2023a
+    bzip2/1.0.8-GCCcore-12.3.0 ncurses/6.4-GCCcore-12.3.0
+    libreadline/8.2-GCCcore-12.3.0 Tcl/8.6.13-GCCcore-12.3.0
+    SQLite/3.42.0-GCCcore-12.3.0 libffi/3.4.4-GCCcore-12.3.0
+    Python/3.11.3-GCCcore-12.3.0 gfbf/2023a cffi/1.15.1-GCCcore-12.3.0
+    cryptography/41.0.1-GCCcore-12.3.0 virtualenv/20.23.1-GCCcore-12.3.0
+    Python-bundle-PyPI/2023.06-GCCcore-12.3.0 pybind11/2.11.1-GCCcore-12.3.0
+    SciPy-bundle/2023.07-gfbf-2023a mpi4py/3.1.4-gompi-2023a
+    Szip/2.1.1-GCCcore-12.3.0 HDF5/1.14.0-gompi-2023a h5py/3.9.0-foss-2023a
+    libcint/5.4.0-gfbf-2023a libxc/6.2.2-GCC-12.3.0 XCFun/2.1.1-GCCcore-12.3.0
+    CPPE/0.3.1-GCC-12.3.0 PyBerny/0.6.3-foss-2023a CheMPS2/1.8.12-foss-2023a
+    PyCheMPS2/1.8.12-foss-2023a gzip/1.12-GCCcore-12.3.0
+    lz4/1.9.4-GCCcore-12.3.0 zstd/1.5.5-GCCcore-12.3.0 ICU/73.2-GCCcore-12.3.0
+    Boost.MPI/1.82.0-gompi-2023a Block/1.5.3-20200525-foss-2023a
+    NECI/20230620-foss-2023a Dice/20240702-foss-2023a tblis/20230422-foss-2023a
+task=2 [gate --system Cu --functional PBE] host=r11ch11b02.lem.kdm.wcss.pl date=2026-11-22T15:01:21+01:00
+/usr/local/easybuild/software/PySCF/2.7.0-foss-2023a/lib/python3.11/site-packages/pyscf/pbc/gto/cell.py:1153: UserWarning: Electron number 11 and spin 0 are not consistent in cell
+
+  warnings.warn('Electron number %d and spin %d are not consistent '
+WARNING!
+  Very diffused basis functions are found in the basis set. They may lead to severe
+  linear dependence and numerical instability.  You can set  cell.exp_to_discard=0.1
+  to remove the diffused Gaussians whose exponents are less than 0.1.
+
+rhokerker it    1 rms(rho_out-rho_in) = 2.383e-02  N_in = 11.000000
+rhokerker it    2 rms(rho_out-rho_in) = 3.028e-03  N_in = 11.000000
+rhokerker it    3 rms(rho_out-rho_in) = 2.313e-03  N_in = 11.000000
+rhokerker it    4 rms(rho_out-rho_in) = 1.687e-04  N_in = 11.000000
+rhokerker it    5 rms(rho_out-rho_in) = 2.425e-04  N_in = 11.000000
+rhokerker it    6 rms(rho_out-rho_in) = 1.015e-05  N_in = 11.000000
+rhokerker it    7 rms(rho_out-rho_in) = 2.670e-06  N_in = 11.000000
+rhokerker it    8 rms(rho_out-rho_in) = 1.020e-06  N_in = 11.000000
+rhokerker it    9 rms(rho_out-rho_in) = 9.454e-09  N_in = 11.000000
+Kerker SCF: converged=True it=9 rms=9.45e-09 E=-47.9317348566 |g|=5.94e-09
+gate Cu Q2D-GGA 150 Ha: conv=True E/atom=-47.93173486 gerr=3.34e-02
+WARNING!
+  Very diffused basis functions are found in the basis set. They may lead to severe
+  linear dependence and numerical instability.  You can set  cell.exp_to_discard=0.1
+  to remove the diffused Gaussians whose exponents are less than 0.1.
+
+rhokerker it    1 rms(rho_out-rho_in) = 2.396e-02  N_in = 11.000000
+rhokerker it    2 rms(rho_out-rho_in) = 3.040e-03  N_in = 11.000000
+rhokerker it    3 rms(rho_out-rho_in) = 2.319e-03  N_in = 11.000000
+rhokerker it    4 rms(rho_out-rho_in) = 1.668e-04  N_in = 11.000000
+rhokerker it    5 rms(rho_out-rho_in) = 2.315e-04  N_in = 11.000000
+rhokerker it    6 rms(rho_out-rho_in) = 5.711e-06  N_in = 11.000000
+rhokerker it    7 rms(rho_out-rho_in) = 3.654e-06  N_in = 11.000000
+rhokerker it    8 rms(rho_out-rho_in) = 1.063e-06  N_in = 11.000000
+rhokerker it    9 rms(rho_out-rho_in) = 3.800e-08  N_in = 11.000000
+Kerker SCF: converged=True it=9 rms=3.80e-08 E=-47.9269417324 |g|=2.55e-08
+gate Cu Q2D-GGA 250 Ha: conv=True E/atom=-47.92694173 gerr=6.35e-04
+WARNING!
+  Very diffused basis functions are found in the basis set. They may lead to severe
+  linear dependence and numerical instability.  You can set  cell.exp_to_discard=0.1
+  to remove the diffused Gaussians whose exponents are less than 0.1.
+
+rhokerker it    1 rms(rho_out-rho_in) = 2.395e-02  N_in = 11.000000
+rhokerker it    2 rms(rho_out-rho_in) = 3.048e-03  N_in = 11.000000
+rhokerker it    3 rms(rho_out-rho_in) = 2.325e-03  N_in = 11.000000
+rhokerker it    4 rms(rho_out-rho_in) = 1.680e-04  N_in = 11.000000
+rhokerker it    5 rms(rho_out-rho_in) = 2.431e-04  N_in = 11.000000
+rhokerker it    6 rms(rho_out-rho_in) = 7.201e-06  N_in = 11.000000
+rhokerker it    7 rms(rho_out-rho_in) = 3.046e-06  N_in = 11.000000
+rhokerker it    8 rms(rho_out-rho_in) = 8.667e-07  N_in = 11.000000
+Kerker SCF: converged=True it=8 rms=8.67e-07 E=-47.9284308688 |g|=5.77e-07
+gate Cu Q2D-GGA 350 Ha: conv=True E/atom=-47.92843087 gerr=1.40e-05
+WARNING!
+  Very diffused basis functions are found in the basis set. They may lead to severe
+  linear dependence and numerical instability.  You can set  cell.exp_to_discard=0.1
+  to remove the diffused Gaussians whose exponents are less than 0.1.
+
+rhokerker it    1 rms(rho_out-rho_in) = 2.387e-02  N_in = 11.000000
+rhokerker it    2 rms(rho_out-rho_in) = 3.028e-03  N_in = 11.000000
+rhokerker it    3 rms(rho_out-rho_in) = 2.312e-03  N_in = 11.000000
+rhokerker it    4 rms(rho_out-rho_in) = 1.684e-04  N_in = 11.000000
+rhokerker it    5 rms(rho_out-rho_in) = 2.407e-04  N_in = 11.000000
+rhokerker it    6 rms(rho_out-rho_in) = 8.601e-06  N_in = 11.000000
+rhokerker it    7 rms(rho_out-rho_in) = 3.415e-06  N_in = 11.000000
+rhokerker it    8 rms(rho_out-rho_in) = 1.280e-06  N_in = 11.000000
+rhokerker it    9 rms(rho_out-rho_in) = 2.400e-08  N_in = 11.000000
+Kerker SCF: converged=True it=9 rms=2.40e-08 E=-47.9284680843 |g|=1.61e-08
+gate Cu Q2D-GGA 450 Ha: conv=True E/atom=-47.92846808 gerr=1.58e-07
+WARNING!
+  Very diffused basis functions are found in the basis set. They may lead to severe
+  linear dependence and numerical instability.  You can set  cell.exp_to_discard=0.1
+  to remove the diffused Gaussians whose exponents are less than 0.1.
+
+rhokerker it    1 rms(rho_out-rho_in) = 2.392e-02  N_in = 11.000000
+rhokerker it    2 rms(rho_out-rho_in) = 3.041e-03  N_in = 11.000000
+rhokerker it    3 rms(rho_out-rho_in) = 2.320e-03  N_in = 11.000000
+rhokerker it    4 rms(rho_out-rho_in) = 1.671e-04  N_in = 11.000000
+rhokerker it    5 rms(rho_out-rho_in) = 2.344e-04  N_in = 11.000000
+rhokerker it    6 rms(rho_out-rho_in) = 6.336e-06  N_in = 11.000000
+rhokerker it    7 rms(rho_out-rho_in) = 3.371e-06  N_in = 11.000000
+rhokerker it    8 rms(rho_out-rho_in) = 9.678e-07  N_in = 11.000000
+Kerker SCF: converged=True it=8 rms=9.68e-07 E=-47.9280600996 |g|=6.48e-07
+gate Cu Q2D-GGA 600 Ha: conv=True E/atom=-47.92806010 gerr=8.48e-10
+WARNING!
+  Very diffused basis functions are found in the basis set. They may lead to severe
+  linear dependence and numerical instability.  You can set  cell.exp_to_discard=0.1
+  to remove the diffused Gaussians whose exponents are less than 0.1.
+
+rhokerker it    1 rms(rho_out-rho_in) = 2.273e-01  N_in = 11.000000
+rhokerker it    2 rms(rho_out-rho_in) = 1.291e-02  N_in = 11.000000
+rhokerker it    3 rms(rho_out-rho_in) = 2.126e-02  N_in = 11.000000
+rhokerker it    4 rms(rho_out-rho_in) = 3.585e-03  N_in = 11.000000
+rhokerker it    5 rms(rho_out-rho_in) = 3.481e-03  N_in = 11.000000
+rhokerker it    6 rms(rho_out-rho_in) = 5.053e-05  N_in = 11.000000
+rhokerker it    7 rms(rho_out-rho_in) = 2.365e-04  N_in = 11.000000
+rhokerker it    8 rms(rho_out-rho_in) = 3.290e-06  N_in = 11.000000
+rhokerker it    9 rms(rho_out-rho_in) = 3.177e-06  N_in = 11.000000
+rhokerker it   10 rms(rho_out-rho_in) = 1.281e-06  N_in = 11.000000
+rhokerker it   11 rms(rho_out-rho_in) = 1.062e-06  N_in = 11.000000
+rhokerker it   12 rms(rho_out-rho_in) = 4.931e-07  N_in = 11.000000
+Kerker SCF: converged=True it=12 rms=4.93e-07 E=-47.5038499491 |g|=2.85e-08
+gate Cu SCAN 150 Ha: conv=True E/atom=-47.50384995 gerr=3.30e-02
+WARNING!
+  Very diffused basis functions are found in the basis set. They may lead to severe
+  linear dependence and numerical instability.  You can set  cell.exp_to_discard=0.1
+  to remove the diffused Gaussians whose exponents are less than 0.1.
+
+rhokerker it    1 rms(rho_out-rho_in) = 2.269e-01  N_in = 11.000000
+rhokerker it    2 rms(rho_out-rho_in) = 1.264e-02  N_in = 11.000000
+rhokerker it    3 rms(rho_out-rho_in) = 2.120e-02  N_in = 11.000000
+rhokerker it    4 rms(rho_out-rho_in) = 3.562e-03  N_in = 11.000000
+rhokerker it    5 rms(rho_out-rho_in) = 3.534e-03  N_in = 11.000000
+rhokerker it    6 rms(rho_out-rho_in) = 5.318e-05  N_in = 11.000000
+rhokerker it    7 rms(rho_out-rho_in) = 2.416e-04  N_in = 11.000000
+rhokerker it    8 rms(rho_out-rho_in) = 5.154e-06  N_in = 11.000000
+rhokerker it    9 rms(rho_out-rho_in) = 3.508e-06  N_in = 11.000000
+rhokerker it   10 rms(rho_out-rho_in) = 1.308e-06  N_in = 11.000000
+rhokerker it   11 rms(rho_out-rho_in) = 1.077e-06  N_in = 11.000000
+rhokerker it   12 rms(rho_out-rho_in) = 5.713e-07  N_in = 11.000000
+Kerker SCF: converged=True it=12 rms=5.71e-07 E=-47.5042079311 |g|=3.32e-08
+gate Cu SCAN 250 Ha: conv=True E/atom=-47.50420793 gerr=6.29e-04
+WARNING!
+  Very diffused basis functions are found in the basis set. They may lead to severe
+  linear dependence and numerical instability.  You can set  cell.exp_to_discard=0.1
+  to remove the diffused Gaussians whose exponents are less than 0.1.
+
+rhokerker it    1 rms(rho_out-rho_in) = 2.270e-01  N_in = 11.000000
+rhokerker it    2 rms(rho_out-rho_in) = 1.252e-02  N_in = 11.000000
+rhokerker it    3 rms(rho_out-rho_in) = 2.119e-02  N_in = 11.000000
+rhokerker it    4 rms(rho_out-rho_in) = 3.490e-03  N_in = 11.000000
+rhokerker it    5 rms(rho_out-rho_in) = 3.576e-03  N_in = 11.000000
+rhokerker it    6 rms(rho_out-rho_in) = 4.891e-05  N_in = 11.000000
+rhokerker it    7 rms(rho_out-rho_in) = 2.429e-04  N_in = 11.000000
+rhokerker it    8 rms(rho_out-rho_in) = 6.710e-06  N_in = 11.000000
+rhokerker it    9 rms(rho_out-rho_in) = 3.992e-06  N_in = 11.000000
+rhokerker it   10 rms(rho_out-rho_in) = 1.344e-06  N_in = 11.000000
+rhokerker it   11 rms(rho_out-rho_in) = 1.096e-06  N_in = 11.000000
+rhokerker it   12 rms(rho_out-rho_in) = 6.762e-07  N_in = 11.000000
+Kerker SCF: converged=True it=12 rms=6.76e-07 E=-47.5042014467 |g|=3.97e-08
+gate Cu SCAN 350 Ha: conv=True E/atom=-47.50420145 gerr=1.39e-05
+WARNING!
+  Very diffused basis functions are found in the basis set. They may lead to severe
+  linear dependence and numerical instability.  You can set  cell.exp_to_discard=0.1
+  to remove the diffused Gaussians whose exponents are less than 0.1.
+
+rhokerker it    1 rms(rho_out-rho_in) = 2.272e-01  N_in = 11.000000
+rhokerker it    2 rms(rho_out-rho_in) = 1.264e-02  N_in = 11.000000
+rhokerker it    3 rms(rho_out-rho_in) = 2.123e-02  N_in = 11.000000
+rhokerker it    4 rms(rho_out-rho_in) = 3.538e-03  N_in = 11.000000
+rhokerker it    5 rms(rho_out-rho_in) = 3.568e-03  N_in = 11.000000
+rhokerker it    6 rms(rho_out-rho_in) = 4.510e-05  N_in = 11.000000
+rhokerker it    7 rms(rho_out-rho_in) = 2.404e-04  N_in = 11.000000
+rhokerker it    8 rms(rho_out-rho_in) = 5.406e-06  N_in = 11.000000
+rhokerker it    9 rms(rho_out-rho_in) = 3.762e-06  N_in = 11.000000
+rhokerker it   10 rms(rho_out-rho_in) = 1.290e-06  N_in = 11.000000
+rhokerker it   11 rms(rho_out-rho_in) = 1.055e-06  N_in = 11.000000
+rhokerker it   12 rms(rho_out-rho_in) = 6.300e-07  N_in = 11.000000
+Kerker SCF: converged=True it=12 rms=6.30e-07 E=-47.5041710788 |g|=3.68e-08
+gate Cu SCAN 450 Ha: conv=True E/atom=-47.50417108 gerr=1.57e-07
+WARNING!
+  Very diffused basis functions are found in the basis set. They may lead to severe
+  linear dependence and numerical instability.  You can set  cell.exp_to_discard=0.1
+  to remove the diffused Gaussians whose exponents are less than 0.1.
+
+rhokerker it    1 rms(rho_out-rho_in) = 2.270e-01  N_in = 11.000000
+rhokerker it    2 rms(rho_out-rho_in) = 1.261e-02  N_in = 11.000000
+rhokerker it    3 rms(rho_out-rho_in) = 2.121e-02  N_in = 11.000000
+rhokerker it    4 rms(rho_out-rho_in) = 3.553e-03  N_in = 11.000000
+rhokerker it    5 rms(rho_out-rho_in) = 3.559e-03  N_in = 11.000000
+rhokerker it    6 rms(rho_out-rho_in) = 4.756e-05  N_in = 11.000000
+rhokerker it    7 rms(rho_out-rho_in) = 2.412e-04  N_in = 11.000000
+rhokerker it    8 rms(rho_out-rho_in) = 5.416e-06  N_in = 11.000000
+rhokerker it    9 rms(rho_out-rho_in) = 3.712e-06  N_in = 11.000000
+rhokerker it   10 rms(rho_out-rho_in) = 1.295e-06  N_in = 11.000000
+rhokerker it   11 rms(rho_out-rho_in) = 1.060e-06  N_in = 11.000000
+rhokerker it   12 rms(rho_out-rho_in) = 6.229e-07  N_in = 11.000000
+Kerker SCF: converged=True it=12 rms=6.23e-07 E=-47.5041756388 |g|=3.64e-08
+gate Cu SCAN 600 Ha: conv=True E/atom=-47.50417564 gerr=8.40e-10
+RESULT gate Cu: cutoff 600 Ha
+done date=2026-11-22T16:28:10+01:00

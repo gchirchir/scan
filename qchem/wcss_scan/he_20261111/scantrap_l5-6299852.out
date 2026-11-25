@@ -1,0 +1,24 @@
+PySCF 2.7.0 numba 0.63.1
+[    47.3s] exact wire lam=5: N=20,30,40 -> 52.417986856 52.416987000 52.416550330  p=1.38  E_inf=52.415655509  (47s)
+[    82.7s] exact sheet lam=5: N=20,30,40 -> 27.954778409 27.954265243 27.954045252  p=1.43  E_inf=27.953614324  (35s)
+[    90.3s] wire_5: nb=85  E_HF=52.7183292658  E_FCI=52.4174439327  Ec=-300.8853 mHa  (7.6s)
+[  3334.4s]    HF: J=3.17784310 W0=-1.58892155 W0p=-0.91075437 W1=-2.03601161 (Lieb lambda=1, |drho|=1.5e-04) Winf=-2.51931466 Wpinf=0.84609569 eps_H(check)=-1.0e-09 |drho_KS|=2.7e-07 N=2.00000000
+[  3334.4s]       AC1=+25.201  AC6=+13.372  KHAN=+26.768  SPL=+54.650  genISI2=+96.063  (mHa vs FCI)
+[  3341.4s]    FCI: J=3.06483630 W0=-1.53241815 W0p=-1.12084507 W1=-2.03440888 (FCI 2-RDM, |drho|=0.0e+00) Winf=-2.44903920 Wpinf=0.75120991 eps_H(check)=9.7e-07 |drho_KS|=4.9e-04 N=2.00000000
+[  3341.4s]       AC1=+8.818  AC6=-8.585  KHAN=+10.681  SPL=+50.824  genISI2=+97.044  (mHa vs FCI)
+/home/gabchi5762/pyscf/gpu/scan/he_20261111/12_trap_ac_benchmark_traps.py:889: RuntimeWarning: invalid value encountered in sqrt
+  return (W0-W_inf)*((np.sqrt(1.0+2.0*chi)-1.0-chi)/chi)
+[  3344.3s] sheet_5: nb=86  E_HF=28.0549724570  E_FCI=27.9557279322  Ec=-99.2445 mHa  (2.9s)
+[  3469.9s]    HF: J=2.00073248 W0=-1.00036624 W0p=-0.26004498 W1=-1.17267274 (Lieb lambda=1, |drho|=5.0e-05) Winf=-1.50417052 Wpinf=0.49952082 eps_H(check)=-5.7e-10 |drho_KS|=1.7e-07 N=2.00000000
+[  3469.9s]       AC1=+1.338  AC6=-0.052  KHAN=+1.507  SPL=+10.847  genISI2=+14.879  (mHa vs FCI)
+[  3477.3s]    FCI: J=1.99085608 W0=-0.99542804 W0p=-0.26460379 W1=-1.16986435 (FCI 2-RDM, |drho|=0.0e+00) Winf=-1.49698116 Wpinf=0.49386188 eps_H(check)=1.8e-06 |drho_KS|=1.8e-04 N=2.00000000
+[  3477.3s]       AC1=+0.703  AC6=-0.741  KHAN=+0.888  SPL=+10.607  genISI2=+14.893  (mHa vs FCI)
+[  3477.5s] convergence wire lam=5 ecut=0 nb=35 E_FCI=52.428008644
+[  3480.2s] convergence wire lam=5 ecut=31 nb=57 E_FCI=52.417632947
+[  3484.7s] convergence wire lam=5 ecut=45 nb=85 E_FCI=52.417443933
+[  3496.4s] convergence wire lam=5 ecut=64 nb=121 E_FCI=52.417090301
+[  3496.6s] convergence sheet lam=5 ecut=0 nb=35 E_FCI=27.961723410
+[  3497.2s] convergence sheet lam=5 ecut=7 nb=56 E_FCI=27.957152890
+[  3500.2s] convergence sheet lam=5 ecut=10 nb=86 E_FCI=27.955727932
+[  3511.8s] convergence sheet lam=5 ecut=13 nb=125 E_FCI=27.955090837
+[  3511.8s] done

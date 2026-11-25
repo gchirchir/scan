@@ -1,0 +1,4 @@
+# system functional pseudo   remaining metals for LDA with GTH-LDA pseudopotentials (Al +0.05, Au +0.10 J/m2 vs GTH-PBE)
+Cu LDA gth-lda
+Pd LDA gth-lda
+Ti LDA gth-lda

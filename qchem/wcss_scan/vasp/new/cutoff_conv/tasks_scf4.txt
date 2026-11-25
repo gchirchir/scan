@@ -1,0 +1,10 @@
+# label system a layers kxy cutoff sigma_eV damp shift diis_start guess diis_space max_cycle pulay_alpha pulay_hist
+# Pt 8-layer slab, 14 A vacuum. Pulay mixing of the input density matrix (cutoff_conv.py --pulay-alpha); damp/shift/
+# diis_start are unused when pulay_alpha > 0. Local Pt 3L/6 A/2x2/80 Ha test: alpha 0.1 converged (75 it, rms 8e-9),
+# alpha 0.3 did not; DIIS and held Fock damping 0.95-0.99 diverge on the 8L slab (jobs 6384181-6386194).
+p10_s10       Pt 3.95 8 4 150 0.10 0 0 1 atom 8 500 0.10 8
+p05_s10       Pt 3.95 8 4 150 0.10 0 0 1 atom 8 600 0.05 8
+p20_s10       Pt 3.95 8 4 150 0.10 0 0 1 atom 8 500 0.20 8
+p10_s05       Pt 3.95 8 4 150 0.05 0 0 1 atom 8 500 0.10 8
+p10_s20       Pt 3.95 8 4 150 0.20 0 0 1 atom 8 500 0.10 8
+p10_s10_h16   Pt 3.95 8 4 150 0.10 0 0 1 atom 8 500 0.10 16

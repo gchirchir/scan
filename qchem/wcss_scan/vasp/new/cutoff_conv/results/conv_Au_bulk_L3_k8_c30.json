@@ -1,0 +1,38 @@
+{
+ "system": "Au",
+ "a": 4.1,
+ "kind": "bulk",
+ "layers": 3,
+ "vacuum": 14.0,
+ "kxy": 8,
+ "kz": 4,
+ "cutoff": 30.0,
+ "sigma": 0.05,
+ "damp": 0.0,
+ "shift": 0.0,
+ "diis_start": null,
+ "max_cycle": 150,
+ "tag": "conv_Au_bulk_L3_k8_c30",
+ "kmesh": [
+  8,
+  8,
+  4
+ ],
+ "scf_type": "KUKS-common-mu",
+ "nelectron": 33,
+ "energy": -99.5951578151668,
+ "energy_per_atom": -33.19838593838893,
+ "converged": true,
+ "cycles": 9,
+ "scf_seconds": 183.29080367088318,
+ "grad_fft_relerr": 0.11652639547774601,
+ "nelec_grid": 33.00000003512066,
+ "nelec_err": 3.512065660515873e-08,
+ "mesh": [
+  15,
+  15,
+  35
+ ],
+ "rho_min": 0.00012053333096635131,
+ "seconds": 186.59426021575928
+}

@@ -1,0 +1,33 @@
+{
+ "system": "Pd",
+ "functional": "LDA",
+ "xc": "LDA_X,LDA_C_PW",
+ "kind": "bulk",
+ "a_ang": 3.88,
+ "layers": 3,
+ "vacuum_ang": 0.0,
+ "kmesh": [
+  10,
+  10,
+  4
+ ],
+ "cutoff_ha": 150.0,
+ "sigma_ev": 0.05,
+ "kerker_alpha": 0.3,
+ "scf_type": "KRKS-kerker",
+ "nelectron": 54,
+ "energy": -381.2315846071052,
+ "converged": true,
+ "cycles": 10,
+ "basis": "gth-dzvp-molopt-sr",
+ "pseudo": "gth-pbe",
+ "area_bohr2": 23.278866046923586,
+ "grad_fft_relerr": 2.9292160498971616e-05,
+ "nelec_err": 1.6981971384666394e-12,
+ "mesh": [
+  31,
+  31,
+  73
+ ],
+ "seconds": 560.440972328186
+}

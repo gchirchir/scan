@@ -1,0 +1,3528 @@
+Loading PySCF/2.7.0-foss-2023a
+  Loading requirement: GCCcore/12.3.0 zlib/1.2.13-GCCcore-12.3.0
+    binutils/2.40-GCCcore-12.3.0 GCC/12.3.0 numactl/2.0.16-GCCcore-12.3.0
+    XZ/5.4.2-GCCcore-12.3.0 libxml2/2.11.4-GCCcore-12.3.0
+    libpciaccess/0.17-GCCcore-12.3.0 hwloc/2.9.1-GCCcore-12.3.0 OpenSSL/1.1
+    libevent/2.1.12-GCCcore-12.3.0 UCX/1.14.1-GCCcore-12.3.0
+    libfabric/1.18.0-GCCcore-12.3.0 PMIx/4.2.4-GCCcore-12.3.0
+    UCC/1.2.0-GCCcore-12.3.0 OpenMPI/4.1.5-GCC-12.3.0 OpenBLAS/0.3.23-GCC-12.3.0
+    FlexiBLAS/3.3.1-GCC-12.3.0 FFTW/3.3.10-GCC-12.3.0 gompi/2023a
+    FFTW.MPI/3.3.10-gompi-2023a ScaLAPACK/2.2.0-gompi-2023a-fb foss/2023a
+    bzip2/1.0.8-GCCcore-12.3.0 ncurses/6.4-GCCcore-12.3.0
+    libreadline/8.2-GCCcore-12.3.0 Tcl/8.6.13-GCCcore-12.3.0
+    SQLite/3.42.0-GCCcore-12.3.0 libffi/3.4.4-GCCcore-12.3.0
+    Python/3.11.3-GCCcore-12.3.0 gfbf/2023a cffi/1.15.1-GCCcore-12.3.0
+    cryptography/41.0.1-GCCcore-12.3.0 virtualenv/20.23.1-GCCcore-12.3.0
+    Python-bundle-PyPI/2023.06-GCCcore-12.3.0 pybind11/2.11.1-GCCcore-12.3.0
+    SciPy-bundle/2023.07-gfbf-2023a mpi4py/3.1.4-gompi-2023a
+    Szip/2.1.1-GCCcore-12.3.0 HDF5/1.14.0-gompi-2023a h5py/3.9.0-foss-2023a
+    libcint/5.4.0-gfbf-2023a libxc/6.2.2-GCC-12.3.0 XCFun/2.1.1-GCCcore-12.3.0
+    CPPE/0.3.1-GCC-12.3.0 PyBerny/0.6.3-foss-2023a CheMPS2/1.8.12-foss-2023a
+    PyCheMPS2/1.8.12-foss-2023a gzip/1.12-GCCcore-12.3.0
+    lz4/1.9.4-GCCcore-12.3.0 zstd/1.5.5-GCCcore-12.3.0 ICU/73.2-GCCcore-12.3.0
+    Boost.MPI/1.82.0-gompi-2023a Block/1.5.3-20200525-foss-2023a
+    NECI/20230620-foss-2023a Dice/20240702-foss-2023a tblis/20230422-foss-2023a
+task=51 [surface --system Ir --facet 110 --functional PBE] host=r11ch05b03.lem.kdm.wcss.pl date=2026-11-23T03:44:29+01:00
+WARNING!
+  Very diffused basis functions are found in the basis set. They may lead to severe
+  linear dependence and numerical instability.  You can set  cell.exp_to_discard=0.1
+  to remove the diffused Gaussians whose exponents are less than 0.1.
+
+#INFO: **** input file is /home/gabchi5762/pyscf/gpu/scan/vasp/new/jcp2020/jcp2020_scf.py ****
+#!/usr/bin/env python3
+"""Self-consistent PySCF reproduction of J. Chem. Phys. 152, 151101 (2020) (Patra, Jana, Constantin, Chiodo, Samal),
+"Improved transition metal surface energies from a GGA developed for quasi-2D systems", extended with SCAN and DC-SCAN
+(Claude Code, 2026-11-22).
+
+STANDALONE: numpy + scipy + pyscf (+ matplotlib for `figures`).  Copied verbatim, marked below:
+  DC-SCAN switch functions, fields_on_grid, descriptors, eps, dcscan_delta, rho_kerker_scf, finish_pulay,
+  birch_murnaghan  <- codes/PRL2012_scf/lattice_scf.py;   grid_check <- codes/PRL2012_scf/prl2012_scf.py;
+  plane_profile    <- codes/Al/22_surface_density_dcscan.py  (delta_n adapted from the same script).
+
+What the paper contains and how it is reproduced here
+  Table I   surface energies of fcc (100)/(110)/(111), bcc (100)/(110)/(111), hcp (0001)/(10-10)/(11-20) of 21
+            transition metals, LDA/PBE/PBEsol/Q2D-GGA          -> `surface` runs, `table`  (+ SCAN, DC-SCAN columns)
+  Table II  ME/MAE/MARE vs experiment of the most stable facet and of the Wulff-weighted surface energy
+                                                                -> `table` (own Wulff construction, scipy)
+  Fig. 1    sigma vs number of layers N, Pt and Ta, all three facets, Q2D-GGA   -> `surface --layers N`, `figures`
+            (+ DC-SCAN curves from the SCAN runs)
+  Fig. 2    Delta n(z) = n_surf,l + n_surf,r - n_bulk for fcc(111) Pt/Pd/Rh/Al, bcc(110) W/Na, hcp(0001) Ru/Hf/Mg
+                                                                -> plane profiles saved by every `surface` run, `figures`
+  Lattice constants: the paper uses each functional's own equilibrium lattice constant (not tabulated)
+                                                                -> `lattice` (BM3 fit, as lattice_scf.py)
+
+Protocol (paper -> this work)
+  VASP PAW 800 eV          -> GTH-PBE pseudopotentials + gth-dzvp-molopt-sr, FFT density cutoff (3d metals 300 Ha,
+                              others 150 Ha; the cutoff gates of codes/SurfaceMetals_cutoff)
+  13 layers, relaxed       -> 13 atomic planes (14 where the stacking needs an even number for a symmetric slab),
+                              NOT relaxed (bulk-terminated)
+  >20 A vacuum, 16x16x1    -> --vacuum (default 12 A), --kxy (default 12); Gaussian smearing 0.05 eV as in the paper
+  Fe, Co spin-polarised    -> KUKS (PySCF DIIS, ferromagnetic start); DC-SCAN not evaluated for spin-polarised runs
+  Eq. (4) sigma = (E_N^slab - N eps_atom^bulk) / (2 alpha)
+                           -> bulk reference = the oriented bulk cell of the same facet (same in-plane cell, same FFT
+                              grid spacing in all three directions, slab atoms = bulk atoms translated by whole grid
+                              steps), so FFT-grid ("egg-box") errors cancel between slab and bulk (cf. the Cu Q2D-GGA
+                              cutoff diagnostic, codes/PRL2012_scf/results/cudiag)
+  SCAN / DC-SCAN (this work only): SCAN self-consistent; DC-SCAN exchange evaluated post-SCF on the SCAN density
+                              (DC-SCAN needs the density Hessian), E_DC = E_SCAN + Ex^DC-SCAN - Ex^SCAN, for slab and
+                              bulk and for every lattice-scan point.
+
+Usage (python = an environment with PySCF; heavy runs on WCSS, see run_jcp2020.sbatch)
+  python jcp2020_scf.py geometry --system Pt --facet 110              # print the slab / bulk cells (no SCF)
+  python jcp2020_scf.py lattice  --system Pt --functional SCAN        # results/lattice_Pt_SCAN.json (+ DC-SCAN a0)
+  python jcp2020_scf.py surface  --system Pt --facet 111 --functional Q2D-GGA [--layers 13]
+  python jcp2020_scf.py tasks                                         # write tasks_*.txt for the sbatch arrays
+  python jcp2020_scf.py table                                         # results/jcp2020_table{1,2}.{csv,tex}
+  python jcp2020_scf.py figures                                       # figures/jcp2020_fig{1,2}.pdf
+  python jcp2020_scf.py report                                        # results/jcp2020_report.{tex,pdf} (standalone)
+"""
+import argparse, csv, glob, json, math, os, time
+import numpy as np
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+RES = os.path.join(HERE, "results")
+FIG = os.path.join(HERE, "figures")
+REF1 = os.path.join(HERE, "reference_jcp2020_table1.csv")
+REF2 = os.path.join(HERE, "reference_jcp2020_table2.csv")
+HA2EV = 27.211386245988
+HA_PER_BOHR2_TO_J_PER_M2 = 1556.8929
+BOHR_ANG = 0.52917721092
+EV_A3_TO_GPA = 160.21766208
+XC = {"LDA": "LDA_X,LDA_C_PW", "PBE": "GGA_X_PBE,GGA_C_PBE", "PBEsol": "GGA_X_PBE_SOL,GGA_C_PBE_SOL",
+      "Q2D-GGA": "GGA_X_Q2D,GGA_C_Q2D", "SCAN": "MGGA_X_SCAN,MGGA_C_SCAN"}
+FUNCS = ["LDA", "PBE", "PBEsol", "Q2D-GGA"]          # functionals of the paper
+EXTRA = ["SCAN", "DC-SCAN"]                          # this work only; a SCAN run also yields DC-SCAN
+SCALES = [0.95, 0.9625, 0.975, 0.9875, 1.00, 1.0125, 1.025, 1.0375, 1.05]   # lattice grid as lattice_scf.py
+
+# structure, experimental a (Angstrom), experimental c/a (hcp).  Room-temperature values (C. Kittel, Introduction
+# to Solid State Physics, 8th ed., Table 1.3/Ch. 1; Na at 5 K).  They only centre the lattice scan (Eq. eos-grid) and
+# fix c/a of the hcp metals (c/a is not optimised here); they do not enter any fitted result.
+METALS = {
+    "Ag": ("fcc", 4.086, None), "Au": ("fcc", 4.078, None), "Cu": ("fcc", 3.615, None), "Ir": ("fcc", 3.839, None),
+    "Pd": ("fcc", 3.891, None), "Pt": ("fcc", 3.924, None), "Rh": ("fcc", 3.803, None),
+    "Cr": ("bcc", 2.884, None), "Fe": ("bcc", 2.867, None), "Mo": ("bcc", 3.147, None), "Nb": ("bcc", 3.301, None),
+    "Ta": ("bcc", 3.303, None), "V": ("bcc", 3.028, None), "W": ("bcc", 3.165, None),
+    "Co": ("hcp", 2.507, 4.070 / 2.507), "Cd": ("hcp", 2.979, 5.619 / 2.979), "Hf": ("hcp", 3.195, 5.051 / 3.195),
+    "Ru": ("hcp", 2.706, 4.282 / 2.706), "Ti": ("hcp", 2.951, 4.686 / 2.951), "Zn": ("hcp", 2.665, 4.947 / 2.665),
+    "Zr": ("hcp", 3.232, 5.147 / 3.232),
+    # simple metals of Fig. 2 only
+    "Al": ("fcc", 4.050, None), "Na": ("bcc", 4.225, None), "Mg": ("hcp", 3.209, 5.211 / 3.209),
+}
+TABLE_METALS = [m for m in METALS if m not in ("Al", "Na", "Mg")]
+FACETS = {"fcc": ["100", "110", "111"], "bcc": ["100", "110", "111"], "hcp": ["0001", "10-10", "11-20"]}
+MILLER3 = {"100": (1, 0, 0), "110": (1, 1, 0), "111": (1, 1, 1),            # cubic: conventional-cell indices
+           "0001": (0, 0, 1), "10-10": (1, 0, 0), "11-20": (1, 1, 0)}       # hcp (hkil) -> (hkl) in the a1,a2,c basis
+MOST_STABLE = {"fcc": "111", "bcc": "110", "hcp": "0001"}                # facets with an experimental value
+SPIN = {"Fe", "Co"}                                                      # spin-polarised as in the paper
+FIG1 = {"Pt": [5, 7, 9, 11, 13, 15], "Ta": [5, 7, 9, 11, 13, 15]}        # layer series of Fig. 1
+FIG2 = {"fcc": (["Pt", "Pd", "Rh", "Al"], "111"), "bcc": (["W", "Na"], "110"), "hcp": (["Ru", "Hf", "Mg"], "0001")}
+THREE_D = {"Ti", "V", "Cr", "Fe", "Co", "Cu", "Zn"}
+
+
+GATE_CUTS = [150.0, 250.0, 350.0, 450.0, 600.0]   # Ha, cutoff gate (cmd_gate)
+GATE_FUNCS = ["Q2D-GGA", "SCAN"]                 # the most grid-sensitive functionals of this work
+
+
+def default_cutoff(m):
+    """Cutoff chosen by `gate` (results/cutoff_<M>.json) if available; otherwise the PRL-recreation defaults.
+    (Local test 2026-11-22: Mg at 150 Ha has a 50 % FFT-gradient error, at 300 Ha 10 %: semicore GTH needs the gate.)"""
+    p = os.path.join(RES, f"cutoff_{m}.json")
+    if os.path.exists(p):
+        return float(json.load(open(p))["cutoff_ha"])
+    return 300.0 if m in THREE_D else (80.0 if m == "Al" else 150.0)
+
+
+# ============================================================================ geometry (new, this script)
+def primitive(m, a, c_over_a=None):
+    """Primitive lattice vectors (rows, Angstrom), Cartesian basis positions and the conventional reciprocal basis
+    used to turn Miller indices into a Cartesian surface normal."""
+    st = METALS[m][0]
+    if st == "fcc":
+        P = 0.5 * a * np.array([[0.0, 1.0, 1.0], [1.0, 0.0, 1.0], [1.0, 1.0, 0.0]])
+        basis = np.zeros((1, 3))
+        conv = a * np.eye(3)
+    elif st == "bcc":
+        P = 0.5 * a * np.array([[-1.0, 1.0, 1.0], [1.0, -1.0, 1.0], [1.0, 1.0, -1.0]])
+        basis = np.zeros((1, 3))
+        conv = a * np.eye(3)
+    else:
+        c = (c_over_a or METALS[m][2]) * a
+        P = np.array([[a, 0.0, 0.0], [-0.5 * a, 0.5 * math.sqrt(3.0) * a, 0.0], [0.0, 0.0, c]])
+        basis = np.array([[0.0, 0.0, 0.0], [1.0 / 3.0, 2.0 / 3.0, 0.5]]) @ P
+        conv = P
+    return P, basis, 2.0 * np.pi * np.linalg.inv(conv).T
+
+
+def lattice_points(P, nmax):
+    r = np.arange(-nmax, nmax + 1)
+    m = np.array(np.meshgrid(r, r, r, indexing="ij")).reshape(3, -1).T
+    return m @ P
+
+
+def oriented_cells(m, a, facet, c_over_a=None, nmax=6):
+    """In-plane primitive vectors v1, v2 (shortest pair of minimal area) and the shortest lattice vector w parallel
+    to the surface normal; rotated so that v1 || x and w || z.  Returns the vertical bulk cell (v1, v2, w) with all
+    its atoms and the distinct plane heights inside one period."""
+    P, basis, B = primitive(m, a, c_over_a)
+    h = np.array(MILLER3[facet], float)
+    n = h @ B
+    n /= np.linalg.norm(n)
+    L = lattice_points(P, nmax)
+    L = L[np.linalg.norm(L, axis=1) > 1e-8]
+    tol = 1e-6 * a
+    inpl = L[np.abs(L @ n) < tol]
+    inpl = inpl[np.argsort(np.linalg.norm(inpl, axis=1), kind="stable")]
+    v1 = inpl[0]
+    best = None
+    for v in inpl[1:]:
+        area = np.linalg.norm(np.cross(v1, v))
+        if area < tol:
+            continue
+        key = (round(area, 6), round(float(np.linalg.norm(v)), 6), round(abs(float(v1 @ v)), 6))
+        if best is None or key < best[0]:
+            best = (key, v)
+    v2 = best[1]
+    if np.cross(v1, v2) @ n < 0:
+        v2 = -v2
+    par = L[(np.linalg.norm(np.cross(L, n), axis=1) < tol) & (L @ n > tol)]
+    w = par[np.argmin(np.linalg.norm(par, axis=1))]
+    ex = v1 / np.linalg.norm(v1)
+    ez = n
+    ey = np.cross(ez, ex)
+    R = np.array([ex, ey, ez])                       # rows: new axes
+    V = np.array([v1, v2, w])
+    nat = int(round(abs(np.linalg.det(V)) / abs(np.linalg.det(P)))) * len(basis)
+    Vinv = np.linalg.inv(V)
+    pts = (L[:, None, :] + basis[None, :, :]).reshape(-1, 3)
+    pts = np.vstack([basis, pts])
+    f = pts @ Vinv
+    keep = np.all((f > -1e-7) & (f < 1 - 1e-7), axis=1)
+    f = f[keep]
+    f = np.unique(np.round(f, 7) % 1.0, axis=0)
+    if len(f) != nat:
+        raise SystemExit(f"oriented cell: found {len(f)} atoms, expected {nat} ({m} {facet})")
+    Vr = V @ R.T
+    atoms = f @ Vr
+    zs = np.sort(np.unique(np.round(atoms[:, 2], 6)))
+    return dict(v1=Vr[0], v2=Vr[1], w=Vr[2], frac=f, atoms=atoms, planes=zs, nat=nat,
+                area_ang2=float(np.linalg.norm(np.cross(Vr[0], Vr[1]))))
+
+
+def slab_atoms(oc, layers):
+    """Atoms of `layers` consecutive planes, built from repetitions of the vertical bulk cell (so every slab atom is a
+    bulk atom translated by a multiple of w).  For a two-plane period with unequal spacings the slab starts with the
+    shortest spacing (for hcp(10-10) the termination that cuts the long, weak spacing)."""
+    wz = oc["w"][2]
+    planes = oc["planes"]
+    gaps = np.diff(np.append(planes, planes[0] + wz))   # spacings within one period, cyclic
+    start = int(np.argmin(np.round(gaps, 4)))            # begin at the first plane of the shortest spacing
+    reps = (start + layers) // len(planes) + 2
+    pos = np.vstack([oc["atoms"] + r * oc["w"] for r in range(reps)])
+    zr = np.round(pos[:, 2], 6)
+    uz = np.unique(zr)[start:start + layers]
+    sel = np.isin(zr, uz)
+    return pos[sel], uz
+
+
+def plane_spacings(z):
+    return np.round(np.diff(np.sort(z)), 4)
+
+
+def symmetric(z):
+    d = plane_spacings(z)
+    return bool(np.allclose(d, d[::-1], atol=1e-3))
+
+
+def build_cells(m, a, facet, layers, vacuum, cutoff, c_over_a=None, bulk_reps=None, verbose=4):
+    """PySCF cells for the slab and the oriented bulk with identical FFT grid spacing (explicit cell.mesh)."""
+    from pyscf.pbc import gto
+    oc = oriented_cells(m, a, facet, c_over_a)
+    if bulk_reps is None:
+        bulk_reps = max(1, int(math.ceil(3 / len(oc["planes"]))))   # >= 3 planes in the bulk reference
+    wb = bulk_reps * oc["w"]
+    bat = np.vstack([oc["atoms"] + r * oc["w"] for r in range(bulk_reps)])
+
+    def mk(avec, atoms):
+        c = gto.Cell()
+        c.a = avec
+        c.atom = [[m, tuple(p)] for p in atoms]
+        c.unit = "Angstrom"
+        c.basis = "gth-dzvp-molopt-sr"
+        c.pseudo = "gth-pbe"
+        c.ke_cutoff = cutoff
+        c.verbose = verbose
+        return c
+
+    bulk = mk(np.array([oc["v1"], oc["v2"], wb]), bat)
+    bulk.build()
+    mb = [int(x) for x in bulk.mesh]
+    # make the in-plane mesh divisible by 6 and the z mesh of one period w divisible by 6: every slab atom is then a
+    # bulk atom shifted by whole grid steps in x, y and z (w has no in-plane component by construction)
+    mb[0] = int(6 * math.ceil(mb[0] / 6)); mb[1] = int(6 * math.ceil(mb[1] / 6))
+    mzw = int(6 * math.ceil(mb[2] / bulk_reps / 6))
+    mb[2] = mzw * bulk_reps
+    bulk.mesh = mb
+    bulk.build()
+    hz = oc["w"][2] / mzw                                   # z grid step (Angstrom), identical in slab and bulk
+    sat, zpl = slab_atoms(oc, layers)
+    thick = float(zpl[-1] - zpl[0])
+    nz = int(math.ceil((thick + vacuum) / hz))
+    nz += nz % 2
+    shift = math.floor((0.5 * (nz * hz - thick) - zpl[0]) / hz) * hz   # whole grid steps
+    sat = sat + np.array([0.0, 0.0, shift])
+    slab = mk(np.array([oc["v1"], oc["v2"], [0.0, 0.0, nz * hz]]), sat)
+    slab.build()
+    slab.mesh = [mb[0], mb[1], nz]
+    slab.build()
+    info = dict(v1=oc["v1"].tolist(), v2=oc["v2"].tolist(), w=oc["w"].tolist(), area_ang2=oc["area_ang2"],
+                planes_per_period=len(oc["planes"]), atoms_per_period=oc["nat"], bulk_reps=bulk_reps,
+                nat_bulk=len(bat), nat_slab=len(sat), zplanes_ang=(zpl + shift).tolist(),
+                zfirst_in_bulk_cell_ang=float(zpl[0] % oc["w"][2]),
+                spacings_ang=plane_spacings(zpl).tolist(), symmetric=symmetric(zpl), hz_ang=hz,
+                mesh_bulk=mb, mesh_slab=[mb[0], mb[1], nz], vacuum_ang=float(nz * hz - thick))
+    return slab, bulk, info
+
+
+def bulk_cell(m, a, cutoff, c_over_a=None, verbose=3):
+    """Primitive bulk cell for the lattice scan (1 atom fcc/bcc, 2 atoms hcp at fixed c/a)."""
+    from pyscf.pbc import gto
+    P, basis, _ = primitive(m, a, c_over_a)
+    c = gto.Cell()
+    c.a = P
+    c.atom = [[m, tuple(p)] for p in basis]
+    c.unit = "Angstrom"
+    c.basis = "gth-dzvp-molopt-sr"
+    c.pseudo = "gth-pbe"
+    c.ke_cutoff = cutoff
+    c.verbose = verbose
+    c.build()
+    return c
+
+
+# ============================================================================ copied verbatim from codes/PRL2012_scf/lattice_scf.py
+# ==================================================== copied verbatim from codes/20_trap_dc_exchange.py
+# (its copy of codes/01_wire_benchmark.py: constants, m2d, A2D) and its DC-SCAN switch functions
+from scipy.special import gamma
+
+CX = 0.75 * (3.0 / np.pi) ** (1.0 / 3.0)        # LDA exchange constant, E_x^LDA = -CX int n^(4/3)
+
+KF = (3.0 * np.pi ** 2) ** (1.0 / 3.0)            # k_F = KF n^(1/3)
+
+C_NORM = 2.0 / np.pi ** 1.5                       # n = lam^k C_NORM exp(-(u + t^2)) in reduced coordinates
+
+A1D = 1.0 / 3.0
+
+def m2d():
+    """M2D of Eq. (28): the sheet integral of n^(4/3) s^(-1/2) in the lam -> infinity limit."""
+    # E_x -> -A2D M2D with  M2D = 2 pi CX c^(4/3) int du dt e^{-4/3(u+t^2)} (K n^{1/3})^{1/2} / |t|^{1/2}
+    # (s -> lam^{2/3} |t| / (K n^{1/3}) with lam^{1/3} prefactor cancelling).  Closed form:
+    # u and t integrals in closed form:
+    a = 4.0 / 3.0 + 1.0 / 6.0                    # s^{-1/2} carries n^{1/6}: exp(-(u+t^2)/6)
+    iu = 1.0 / a
+    it = 0.5 * gamma(0.25) * a ** (-0.25)        # int_0^inf t^{-1/2} e^{-a t^2} dt
+    return 2.0 * np.pi * CX * C_NORM ** (4.0 / 3.0) * np.sqrt(KF) * C_NORM ** (1.0 / 6.0) * iu * it
+
+A2D = np.sqrt(np.pi / 2.0) / m2d()
+
+def f2d(s):
+    return A2D / (1.0 + s * s) ** 0.25
+
+def f1d(s):
+    return A1D / (1.0 + s * s)
+
+def geometry_weights(D):
+    """Eqs. (23)-(24): Lagrange-type selectors of the 2D (D=1), 1D (D=2) and SCAN (D=3) branches."""
+    l2 = 0.5 * (D - 2.0) * (D - 3.0)
+    l1 = (D - 1.0) * (3.0 - D)
+    l3 = 0.5 * (D - 1.0) * (D - 2.0)
+    den = l2 * l2 + l1 * l1 + l3 * l3
+    return l2 * l2 / den, l1 * l1 / den, l3 * l3 / den
+
+def omega_switch(s, Z, variant='full'):
+    """Eq. (25) ('full') or the minimal-information Eq. (37) ('min')."""
+    s8 = s ** 8
+    g = s8 / (1.0 + s8)
+    g = np.where(np.isfinite(s8), g, 1.0)
+    if variant == 'min':
+        return g
+    z3 = Z ** 3
+    return z3 / (1.0 + z3) * g
+
+def fx_dcscan(s, D, Z, fx_base, variant='full'):
+    w2, w1, _ = geometry_weights(D)
+    om = omega_switch(s, Z, variant)
+    return (1.0 - om * (w2 + w1)) * fx_base + om * (w2 * f2d(s) + w1 * f1d(s))
+
+TAU_UNIF_X = 0.3 * KF ** 2                 # tau_unif = TAU_UNIF_X n^{5/3}
+# ==================================================== end of copy (20)
+
+
+def fields_on_grid(mf):
+    """n, grad n, tau (KS orbitals, smeared occupations) and the FFT Hessian of n on the uniform grid."""
+    cell = mf.cell
+    ni = mf._numint
+    grids = mf.grids
+    dm = mf.make_rdm1()
+    nao = cell.nao_nr()
+    rows = []
+    for ao_k1, ao_k2, mask, weight, coords in ni.block_loop(cell, grids, nao, deriv=1, kpts=mf.kpts):
+        r = ni.eval_rho(cell, ao_k1, dm, xctype="MGGA", hermi=1, with_lapl=False)
+        rows.append(np.asarray(r).real)
+    R = np.concatenate(rows, axis=1)
+    rho, grad, tau = R[0], R[1:4], R[-1]
+    mesh = np.asarray(grids.mesh) if hasattr(grids, "mesh") else np.asarray(cell.mesh)
+    if rho.size != np.prod(mesh):
+        raise SystemExit("grid is not the uniform FFT mesh")
+    n3 = rho.reshape(mesh)
+    Gv = cell.get_Gv(mesh)                                  # reciprocal vectors in the C-order of the mesh
+    nG = np.fft.fftn(n3).ravel()
+    gradF = np.array([np.fft.ifftn((1j * Gv[:, i] * nG).reshape(mesh)).real.ravel() for i in range(3)])
+    hess = np.empty((3, 3, rho.size))
+    for i in range(3):
+        for j in range(i, 3):
+            h = np.fft.ifftn((-Gv[:, i] * Gv[:, j] * nG).reshape(mesh)).real.ravel()
+            hess[i, j] = hess[j, i] = h
+    w = cell.vol / rho.size
+    return dict(rho=rho, grad=grad, tau=tau, hess=hess, gradF=gradF, mesh=mesh, w=w,
+                coords=np.asarray(grids.coords), nelec_grid=float(rho.sum() * w))
+
+
+def descriptors(F, nmin=1e-8):
+    rho, grad, hess, tau = F["rho"], F["grad"], F["hess"], F["tau"]
+    ok = rho > nmin
+    nn = np.where(ok, rho, 1.0)
+    C = -0.5 * (hess / nn - np.einsum("ig,jg->ijg", grad, grad) / nn ** 2)
+    trc2 = np.einsum("ijg,ijg->g", C, C)
+    Cg = np.einsum("ijg,jg->ig", C, grad)
+    gc2g = np.einsum("ig,ig->g", Cg, Cg)
+    gg = np.einsum("ig,ig->g", grad, grad)
+    with np.errstate(divide="ignore", invalid="ignore"):
+        Dd = np.clip(np.where(gc2g > 0, gg * trc2 / np.where(gc2g > 0, gc2g, 1.0), 3.0), 1.0, 3.0)
+    kf = KF * np.cbrt(nn)
+    s = np.sqrt(gg) / (2.0 * kf * nn)
+    tauw = gg / (8.0 * nn)
+    tau_c = np.maximum(tau, tauw)                         # tau >= tau_W (numerical floor)
+    return dict(ok=ok, n=np.where(ok, rho, 0.0), g=np.where(ok, grad, 0.0), tau=np.where(ok, tau_c, 0.0), s=s, D=Dd,
+                Z=np.sqrt(trc2) / kf ** 2)
+
+
+def eps(code, f):
+    from pyscf.dft import libxc
+    n = np.where(f["ok"], f["n"], 1.0)
+    if code.startswith("LDA"):
+        inp = n
+    elif code.startswith("GGA"):
+        inp = np.vstack((n, np.where(f["ok"], f["g"], 0.0)))
+    else:
+        inp = np.vstack((n, np.where(f["ok"], f["g"], 0.0), np.zeros_like(n), np.where(f["ok"], f["tau"], 1.0)))
+    key = code + "," if ("_X_" in code or code == "LDA_X") else "," + code
+    return np.where(f["ok"], np.asarray(libxc.eval_xc(key, inp, spin=0, deriv=0)[0]), 0.0)
+
+
+def dcscan_delta(mf):
+    """E_x^DC-SCAN - E_x^SCAN (Ha) on the current (SCAN) density: same descriptors and switch as script 22 xc_energies
+    (DC-SCAN depends on the density Hessian, so it is evaluated post-SCF on the self-consistent SCAN density)."""
+    F = fields_on_grid(mf)
+    f = descriptors(F)
+    n, w = f["n"], F["w"]
+    ex_lda, ex_scan = eps("LDA_X", f), eps("MGGA_X_SCAN", f)
+    with np.errstate(divide="ignore", invalid="ignore"):
+        fs = np.where(f["ok"], ex_scan / np.where(f["ok"], ex_lda, 1.0), 1.0)
+    ex_dc = fx_dcscan(f["s"], f["D"], f["Z"], fs, "full") * ex_lda
+    return float(np.sum(n * (ex_dc - ex_scan)) * w)
+
+
+def rho_kerker_scf(mf, dm0, alpha=0.3, q0=0.8, nhist=8, max_cycle=300, tol_rho=1e-6, log=print):
+    """Pulay mixing of the grid density with Kerker preconditioning (plane-wave style; Claude Code 2026-11-21).
+
+    KRKS + FFTDF + LDA/GGA/meta-GGA (MGGA: tau mixed like the gradient and included in the residual metric and
+    the convergence test; 2026-11-22).  The Kohn-Sham matrix is built from the mixed input density rho_in(r): Hartree from
+    rho_in(G), xc from [rho_in, grad rho_in] (libxc via eval_xc_eff).  The analytic gradient of each output density
+    (PySCF GGA density evaluator) is mixed with the same Pulay coefficients and Kerker filter (the filter commutes
+    with the gradient), so the fixed point is exactly the standard PySCF KS solution (2026-11-22; the 2026-11-21
+    version used the FFT gradient and needed a density-matrix Pulay finish, which stalls for d-metal slabs).  Output density rho_out(r) from the
+    smeared occupations; residual R = rho_out - rho_in.  Pulay combination of the last nhist pairs, then
+    rho_in <- rho_opt + P R_opt with P(G) = alpha G^2/(G^2+q0^2) (G = 0 has R = 0 by charge conservation).
+    Returns (converged, iterations, rms residual); mf.mo_* hold the last orbitals (dm_out = mf.make_rdm1()).
+    """
+    from pyscf.pbc import tools
+    from pyscf import lib
+    cell, mydf = mf.cell, mf.with_df
+    ni = mf._numint
+    mesh = np.asarray(mydf.mesh)
+    grids = mydf.grids
+    coulG = tools.get_coulG(cell, mesh=mesh)
+    Gv = cell.get_Gv(mesh)
+    G2 = np.einsum("gx,gx->g", Gv, Gv)
+    P = alpha * G2 / (G2 + q0 * q0)
+    ng = len(coulG)
+    w = cell.vol / ng
+    kpts = mf.kpts
+    xctype = ni._xc_type(mf.xc)
+    assert xctype in ("LDA", "GGA", "MGGA"), xctype
+    deriv = 0 if xctype == "LDA" else 1
+    nrow = {"LDA": 1, "GGA": 4, "MGGA": 5}[xctype]
+    h1e, s1e = mf.get_hcore(cell), mf.get_ovlp(cell)
+    cplx = not np.allclose(kpts, 0)
+
+    def rho_of(dm):
+        """Density, (GGA) its analytic gradient, (MGGA) tau on the FFT grid: array (1, 4 or 5, ng)."""
+        dms = np.asarray(dm)
+        make_rho, nset, nao = ni._gen_rho_evaluator(cell, dms, 1)
+        out = np.zeros((nrow, ng))
+        for etc, p0, p1 in mydf.aoR_loop(grids, kpts, deriv=deriv):
+            r = np.array(make_rho(0, etc[0], etc[2], xctype), ndmin=2).real
+            out[:, p0:p1] += r[[0, 1, 2, 3, r.shape[0] - 1]] if nrow == 5 else r[:nrow]   # MGGA: rho, grad, tau
+        return out
+
+    def fock_of(x):
+        rG = tools.fft(x[0], mesh)
+        vH = tools.ifft(coulG * rG, mesh).real
+        rho4 = x if deriv else x[0]
+        vxc = ni.eval_xc_eff(mf.xc, rho4, deriv=1, xctype=xctype)[1]
+        wv = np.array(vxc, ndmin=2) * w
+        wv[0] += vH * w
+        wv[0] *= 0.5
+        wtau = wv[4] * 0.25 if nrow == 5 else None     # PySCF: 1/2 (tau) x 1/2 (V + V^H below)
+        wv = wv[:4] if nrow == 5 else wv
+        nk, nao = len(kpts), cell.nao_nr()
+        V = np.zeros((nk, nao, nao), dtype=np.complex128 if cplx else float)
+        for etc, p0, p1 in mydf.aoR_loop(grids, kpts, deriv=deriv):
+            for k in range(nk):
+                ao = np.asarray(etc[0][k])
+                ao = ao if ao.ndim == 3 else ao[None]
+                aow = np.einsum("xgi,xg->gi", ao[:wv.shape[0]], wv[:, p0:p1])
+                V[k] += lib.dot(ao[0].conj().T, aow)
+                if wtau is not None:
+                    for x in (1, 2, 3):
+                        V[k] += lib.dot(ao[x].conj().T, ao[x] * wtau[p0:p1, None])
+        V = V + V.conj().transpose(0, 2, 1)
+        return np.asarray(h1e) + V
+
+    if np.asarray(dm0).ndim != 3:
+        raise SystemExit("rho_kerker_scf supports KRKS (even electron count) only")
+    x_in = rho_of(dm0)
+    # Kerker filter for the density and its gradient; plain linear mixing (alpha) for tau, which is not a charge
+    # and whose long-wavelength part must be updated (the Kerker filter would freeze it)
+    filt = lambda r: np.array([alpha * c if i == 4 else tools.ifft(P * tools.fft(c, mesh), mesh).real
+                               for i, c in enumerate(r)])
+    hist_x, hist_r = [], []
+    conv, rnorm = False, None
+    for it in range(1, max_cycle + 1):
+        F = fock_of(x_in)
+        mo_e, mo_c = mf.eig(F, s1e)
+        mo_occ = mf.get_occ(mo_e, mo_c)
+        mf.mo_energy, mf.mo_coeff, mf.mo_occ = mo_e, mo_c, mo_occ
+        R = rho_of(mf.make_rdm1(mo_c, mo_occ)) - x_in
+        mrows = [0, 4] if nrow == 5 else [0]          # residual metric: density (+ tau for meta-GGAs)
+        rnorm = float(np.sqrt(np.sum(R[mrows] * R[mrows]) * w / cell.vol))
+        log(f"rhokerker it {it:4d} rms(rho_out-rho_in) = {rnorm:.3e}  N_in = {x_in[0].sum() * w:.6f}", flush=True)
+        if rnorm < tol_rho:
+            conv = True
+            break
+        hist_x.append(x_in.copy()); hist_r.append(R.copy())
+        hist_x, hist_r = hist_x[-nhist:], hist_r[-nhist:]
+        n = len(hist_r)
+        B = np.empty((n + 1, n + 1))
+        for i in range(n):
+            for j in range(i, n):
+                B[i, j] = B[j, i] = float(np.sum(hist_r[i][mrows] * hist_r[j][mrows]))
+        B[n, :n] = B[:n, n] = -1.0
+        B[n, n] = 0.0
+        sc = np.max(np.abs(np.diag(B)[:n])); B[:n, :n] /= sc
+        rhs = np.zeros(n + 1); rhs[n] = -1.0
+        c = np.linalg.lstsq(B, rhs, rcond=None)[0][:n]
+        x_opt = sum(ci * x for ci, x in zip(c, hist_x))
+        r_opt = sum(ci * r for ci, r in zip(c, hist_r))
+        x_in = x_opt + filt(r_opt)
+    return conv, it, rnorm
+
+
+def finish_pulay(mf):
+    """Energy and orbital gradient of the standard functional at the Pulay-converged density (no further iteration:
+    for d-metal slabs a plain diagonalisation step amplifies residual differences, so PySCF's extra cycle is skipped)."""
+    cell = mf.cell
+    h1e, s1e = mf.get_hcore(cell), mf.get_ovlp(cell)
+    dm = mf.make_rdm1(mf.mo_coeff, mf.mo_occ)
+    veff = mf.get_veff(cell, dm)
+    e = float(mf.energy_tot(dm, h1e, veff))
+    fock = mf.get_fock(h1e, s1e, veff, dm)
+    g = np.asarray(mf.get_grad(mf.mo_coeff, mf.mo_occ, fock))
+    return e, float(np.linalg.norm(g) / np.sqrt(g.size))
+
+
+# ============================================================================ copied verbatim from codes/PRL2012_scf/lattice_scf.py
+def birch_murnaghan(V, E):
+    """E = sum_k c_k x^k, x = V^(-2/3), k = 0..3 (third-order Birch-Murnaghan); returns V0, E0, B0 (eV/A^3)."""
+    x = V ** (-2.0 / 3.0)
+    c = np.polyfit(x, E, 3)
+    p, dp, d2p = np.poly1d(c), np.poly1d(c).deriv(), np.poly1d(c).deriv(2)
+    roots = [r.real for r in dp.roots if abs(r.imag) < 1e-12 and x.min() * 0.95 < r.real < x.max() * 1.05]
+    if not roots:
+        raise SystemExit("no minimum inside the scanned range")
+    x0 = min(roots, key=lambda r: p(r))
+    V0 = x0 ** (-1.5)
+    # B = V d2E/dV2 ; dE/dV = p'(x) dx/dV, dx/dV = -2/3 V^(-5/3)
+    dxdV, d2xdV2 = -2.0 / 3.0 * V0 ** (-5.0 / 3.0), 10.0 / 9.0 * V0 ** (-8.0 / 3.0)
+    B0 = V0 * (d2p(x0) * dxdV ** 2 + dp(x0) * d2xdV2)
+    resid = float(np.sqrt(np.mean((p(x) - E) ** 2)))
+    return float(V0), float(p(x0)), float(B0), resid
+
+
+# ============================================================================ copied verbatim from codes/PRL2012_scf/prl2012_scf.py
+def grid_check(mf):
+    """Electron count on the FFT grid and analytic-vs-FFT gradient error (same metric as script 22)."""
+    cell, ni, grids = mf.cell, mf._numint, mf.grids
+    dm = np.asarray(mf.make_rdm1())
+    unrestricted = dm.ndim == 4 and dm.shape[0] == 2
+    rows = []
+    for ao_k1, ao_k2, mask, weight, coords in ni.block_loop(cell, grids, cell.nao_nr(), deriv=1, kpts=mf.kpts):
+        if unrestricted:
+            r = np.asarray(ni.eval_rho(cell, ao_k1, dm[0], xctype="GGA", hermi=1)) + \
+                np.asarray(ni.eval_rho(cell, ao_k1, dm[1], xctype="GGA", hermi=1))
+        else:
+            r = ni.eval_rho(cell, ao_k1, dm, xctype="GGA", hermi=1)
+        rows.append(np.asarray(r).real)
+    R = np.concatenate(rows, axis=1)
+    rho, grad = R[0], R[1:4]
+    mesh = np.asarray(grids.mesh) if hasattr(grids, "mesh") else np.asarray(cell.mesh)
+    Gv = cell.get_Gv(mesh)
+    nG = np.fft.fftn(rho.reshape(mesh)).ravel()
+    gradF = np.array([np.fft.ifftn((1j * Gv[:, i] * nG).reshape(mesh)).real.ravel() for i in range(3)])
+    gerr = float(np.max(np.abs(grad - gradF)) / max(np.max(np.abs(grad)), 1e-30))
+    return gerr, float(rho.sum() * cell.vol / rho.size), [int(m) for m in mesh]
+
+
+# ============================================================================ copied verbatim from codes/Al/22_surface_density_dcscan.py
+def plane_profile(F, f):
+    mesh = F["mesh"]
+    n3 = F["rho"].reshape(mesh)
+    nz = n3.mean(axis=(0, 1))
+    s3 = np.where(f["ok"], f["s"], 0.0).reshape(mesh)
+    nzw = np.where(nz > 0, nz, 1.0)
+    s_av = (n3 * s3).mean(axis=(0, 1)) / nzw              # density-weighted plane average of s
+    D3 = np.where(f["ok"], f["D"], 3.0).reshape(mesh)
+    D_av = (n3 * D3).mean(axis=(0, 1)) / nzw
+    return nz, s_av, D_av
+
+
+# ============================================================================ end of copies
+
+
+# ============================================================================ SCF driver (new, this script)
+def density_z(mf):
+    """Plane-averaged total density n(z) on the FFT mesh (restricted or unrestricted)."""
+    cell, ni, grids = mf.cell, mf._numint, mf.grids
+    dm = np.asarray(mf.make_rdm1())
+    rows = []
+    for ao_k1, ao_k2, mask, weight, coords in ni.block_loop(cell, grids, cell.nao_nr(), deriv=0, kpts=mf.kpts):
+        if dm.ndim == 4:
+            r = np.asarray(ni.eval_rho(cell, ao_k1, dm[0], xctype="LDA", hermi=1)) + \
+                np.asarray(ni.eval_rho(cell, ao_k1, dm[1], xctype="LDA", hermi=1))
+        else:
+            r = ni.eval_rho(cell, ao_k1, dm, xctype="LDA", hermi=1)
+        rows.append(np.asarray(r).real.ravel())
+    rho = np.concatenate(rows)
+    mesh = np.asarray(cell.mesh)
+    return rho.reshape(mesh).mean(axis=(0, 1))
+
+
+def spin_moment(mf):
+    """Magnetic moment per atom (Bohr magnetons) of a KUKS solution."""
+    na = sum(float(np.sum(o)) for o in mf.mo_occ[0])
+    nb = sum(float(np.sum(o)) for o in mf.mo_occ[1])
+    return (na - nb) / len(mf.kpts) / len(mf.cell.atom)
+
+
+def scf(cell, kmesh, functional, a, spin=False, dm0=None):
+    """Restricted: KRKS + Gaussian smearing + Kerker-preconditioned Pulay density mixing (rho_kerker_scf, the solver
+    of the PRL recreation).  Spin-polarised (Fe, Co): KUKS + smearing, PySCF DIIS, conv_tol 1e-10 Ha, started from
+    dm0 (the converged density of a neighbouring lattice point / cutoff, so that a scan follows ONE magnetic solution;
+    2026-11-22: independent ferromagnetic starts gave energies scattered by 1-7 mHa/atom) or, without dm0, from a
+    ferromagnetic atomic guess.  mf.moment = magnetic moment per atom.
+    Returns mf, energy (Ha), converged, iterations, solver, dEx(DC-SCAN - SCAN) or None."""
+    from pyscf.pbc import dft
+    from pyscf.pbc.scf.addons import smearing_
+    kpts = cell.make_kpts(kmesh, wrap_around=True)
+    xc = XC["SCAN" if functional in EXTRA else functional]
+    if spin:
+        mf = dft.KUKS(cell, kpts)
+        mf.xc = xc
+        mf = smearing_(mf, sigma=a.sigma / HA2EV, method="gaussian")
+        mf.conv_tol, mf.max_cycle = 1e-10, max(a.max_cycle, 300)
+        if dm0 is None:
+            dm = mf.get_init_guess(cell, "atom")
+            dm = np.array([dm[0] * 1.2, dm[1] * 0.8]) if np.asarray(dm).ndim == 4 else dm   # ferromagnetic start
+        else:
+            dm = dm0
+        ncyc = [0]
+        mf.callback = lambda env: ncyc.__setitem__(0, ncyc[0] + 1)
+        e = float(mf.kernel(dm0=dm))
+        mf.moment = spin_moment(mf)
+        print(f"KUKS SCF: converged={mf.converged} cycles={ncyc[0]} E={e:.10f} moment={mf.moment:.4f} muB/atom",
+              flush=True)
+        return mf, e, bool(mf.converged), ncyc[0], "KUKS-diis", None
+    mf = dft.KRKS(cell, kpts)
+    mf.xc = xc
+    mf = smearing_(mf, sigma=a.sigma / HA2EV, method="gaussian")
+    conv, it, res = rho_kerker_scf(mf, mf.get_init_guess(cell, "atom"), a.kerker_alpha, a.kerker_q0,
+                                   a.kerker_hist, a.max_cycle)
+    e, g = finish_pulay(mf)
+    ok = bool(conv and g < 1e-4)
+    dex = dcscan_delta(mf) if (ok and functional in EXTRA) else None
+    print(f"Kerker SCF: converged={conv} it={it} rms={res:.2e} E={e:.10f} |g|={g:.2e}", flush=True)
+    return mf, float(e), ok, it, "KRKS-kerker", dex
+
+
+def lattice_json(m, f):
+    return os.path.join(RES, f"lattice_{m}_{f}.json")
+
+
+def lattice_constant(m, f, source):
+    """a0 for the surface run: own lattice scan of functional f (default), or the experimental value."""
+    if source == "exp":
+        return METALS[m][1], "experimental (Kittel)"
+    fl = "SCAN" if f == "DC-SCAN" else f
+    p = lattice_json(m, fl)
+    if not os.path.exists(p):
+        raise SystemExit(f"{p} missing: run `lattice --system {m} --functional {fl}` first (or --a-source exp)")
+    d = json.load(open(p))
+    if f == "DC-SCAN":
+        return d["a0_dcscan_ang"], "own DC-SCAN lattice scan"
+    return d["a0_ang"], f"own {fl} lattice scan"
+
+
+# ============================================================================ commands
+def cmd_geometry(a):
+    st, aexp, ca = METALS[a.system]
+    for facet in ([a.facet] if a.facet else FACETS[st]):
+        oc = oriented_cells(a.system, aexp, facet)
+        at, z = slab_atoms(oc, a.layers)
+        print(f"{a.system} {st}({facet}) a={aexp}: v1={np.round(oc['v1'], 4)} v2={np.round(oc['v2'], 4)} "
+              f"w={np.round(oc['w'], 4)}; {oc['nat']} atoms / {len(oc['planes'])} planes per period; "
+              f"area {oc['area_ang2']:.3f} A^2; slab {a.layers} planes, {len(at)} atoms, spacings "
+              f"{sorted(set(plane_spacings(z).tolist()))}, symmetric={symmetric(z)}")
+
+
+def cmd_lattice(a):
+    os.makedirs(RES, exist_ok=True)
+    m, f = a.system, a.functional
+    if f == "DC-SCAN":
+        raise SystemExit("DC-SCAN lattice constants come from the SCAN scan (--functional SCAN)")
+    st, aexp, ca = METALS[m]
+    cut = a.cutoff or default_cutoff(m)
+    km = [a.k, a.k, a.k] if st != "hcp" else [a.k, a.k, max(1, int(round(a.k / ca)))]
+    spin = m in SPIN and not a.no_spin
+    # spin-polarised: start at the centre of the grid and walk outwards, each point from its neighbour's density
+    order = [4, 3, 2, 1, 0, 5, 6, 7, 8] if spin else list(range(len(SCALES)))
+    pts, dms = [None] * len(SCALES), {}
+    t0 = time.time()
+    acen = a.a_center or aexp                      # grid centre (re-centred scan after a minimum-near-edge flag)
+    for i in order:
+        s = SCALES[i]
+        cell = bulk_cell(m, acen * s, cut)
+        nb = i + 1 if i < 4 else i - 1
+        mf, e, ok, it, solver, dex = scf(cell, km, f, a, spin=spin, dm0=dms.get(nb) if spin else None)
+        if spin:
+            dms[i] = mf.make_rdm1()
+        d = dict(a_ang=acen * s, volume_ang3=float(cell.vol) * BOHR_ANG ** 3 / len(cell.atom), energy=e,
+                 converged=ok, iterations=it, solver=solver)
+        if spin:
+            d["moment_muB"] = mf.moment
+        if dex is not None:
+            d["energy_dcscan"] = e + dex
+        print(f"a = {d['a_ang']:.4f} A  E = {e:.10f} Ha  converged={ok}", flush=True)
+        pts[i] = d
+    if not all(p["converged"] for p in pts):
+        raise SystemExit("not all lattice points converged")
+    V = np.array([p["volume_ang3"] for p in pts])
+    nat = len(primitive(m, aexp)[1])
+    E = np.array([p["energy"] for p in pts]) * HA2EV / nat                       # eV per atom
+    V0, E0, B0, rms = birch_murnaghan(V, E)
+    a_of_V = lambda v: (4.0 * v) ** (1 / 3) if st == "fcc" else ((2.0 * v) ** (1 / 3) if st == "bcc" else
+                                                                (4.0 * v / (math.sqrt(3.0) * ca)) ** (1 / 3))
+    a0 = a_of_V(V0)
+    lo, hi = pts[0]["a_ang"], pts[-1]["a_ang"]
+    edge = not (lo + 0.15 * (hi - lo) < a0 < hi - 0.15 * (hi - lo))
+    out = dict(system=m, structure=st, functional=f, a0_ang=a0, a_center=acen, B0_GPa=B0 * EV_A3_TO_GPA, fit_rms_meV=rms * 1000,
+               minimum_near_edge=edge, a_exp=aexp, c_over_a_fixed=ca, k=km, sigma_ev=a.sigma, cutoff_ha=cut,
+               spin=m in SPIN and not a.no_spin, points=pts, seconds=time.time() - t0)
+    if f == "SCAN" and all("energy_dcscan" in p for p in pts):
+        Ed = np.array([p["energy_dcscan"] for p in pts]) * HA2EV / nat
+        V0d, _, B0d, rd = birch_murnaghan(V, Ed)
+        out.update(a0_dcscan_ang=a_of_V(V0d), B0_dcscan_GPa=B0d * EV_A3_TO_GPA, fit_rms_dcscan_meV=rd * 1000)
+    json.dump(out, open(lattice_json(m, f), "w"), indent=1)
+    print(f"RESULT {m} {f}: a0 = {a0:.4f} A (exp {aexp}), B0 = {out['B0_GPa']:.1f} GPa, rms {rms * 1000:.3f} meV"
+          + (f"; DC-SCAN a0 = {out['a0_dcscan_ang']:.4f} A" if "a0_dcscan_ang" in out else "")
+          + (" [MINIMUM NEAR EDGE]" if edge else ""))
+
+
+def surf_tag(m, facet, f, layers):
+    return f"surf_{m}_{facet}_{f}_L{layers}"
+
+
+def cmd_surface(a):
+    os.makedirs(RES, exist_ok=True)
+    m, facet, f = a.system, a.facet, a.functional
+    st, aexp, ca = METALS[m]
+    if facet not in FACETS[st]:
+        raise SystemExit(f"{m} is {st}: facets {FACETS[st]}")
+    layers = a.layers
+    oc = oriented_cells(m, aexp, facet)
+    if not symmetric(slab_atoms(oc, layers)[1]):
+        layers += 1
+        print(f"note: {layers - 1} planes give an asymmetric {st}({facet}) slab; using {layers}")
+    alat, asrc = (a.a, "command line") if a.a else lattice_constant(m, f, a.a_source)
+    cut = a.cutoff or default_cutoff(m)
+    tag = surf_tag(m, facet, f, layers)
+    slab, bulk, info = build_cells(m, alat, facet, layers, a.vacuum, cut, ca)
+    hb = np.linalg.norm(info["w"]) * info["bulk_reps"]
+    kx = a.kxy or max(1, int(round(a.kdens / np.linalg.norm(info["v1"]))))
+    ky = a.kxy or max(1, int(round(a.kdens / np.linalg.norm(info["v2"]))))
+    kz = a.kz or max(1, int(round(a.kdens / hb)))
+    spin = m in SPIN and not a.no_spin
+    res = {}
+    t0 = time.time()
+    for kind, cell, km in (("bulk", bulk, [kx, ky, kz]), ("slab", slab, [kx, ky, 1])):
+        mf, e, ok, it, solver, dex = scf(cell, km, f, a, spin)
+        r = dict(energy=e, converged=ok, iterations=it, solver=solver, kmesh=km, nat=len(cell.atom),
+                 nelectron=int(cell.nelectron), mesh=[int(x) for x in cell.mesh])
+        if dex is not None:
+            r["dEx_dcscan_minus_scan"] = dex
+        if ok:
+            gerr, ng, _ = grid_check(mf) if not spin else (float("nan"), float("nan"), None)
+            r.update(grad_fft_relerr=gerr, nelec_err=ng - cell.nelectron)
+            nz = density_z(mf)
+            zgrid = np.arange(cell.mesh[2]) / cell.mesh[2] * cell.lattice_vectors()[2, 2] * BOHR_ANG
+            np.savez(os.path.join(RES, f"{tag}_{kind}.npz"), z_ang=zgrid, n_z=nz)
+            if spin:
+                na = sum(float(np.sum(o)) for o in mf.mo_occ[0])
+                nb = sum(float(np.sum(o)) for o in mf.mo_occ[1])
+                r["magnetic_moment_per_atom"] = (na - nb) / len(mf.kpts) / len(cell.atom)
+        res[kind] = r
+        print(f"{kind}: converged={ok} E={e:.8f} Ha ({len(cell.atom)} atoms)", flush=True)
+        if not ok:
+            break
+    out = dict(system=m, structure=st, facet=facet, functional=f, layers=layers, a_ang=alat, a_source=asrc,
+               c_over_a=ca, cutoff_ha=cut, sigma_ev=a.sigma, vacuum_request_ang=a.vacuum, spin=spin, geometry=info,
+               res=res, seconds=time.time() - t0, basis="gth-dzvp-molopt-sr", pseudo="gth-pbe",
+               relaxed=False)
+    if all(res.get(k, {}).get("converged") for k in ("bulk", "slab")):
+        A = info["area_ang2"] / BOHR_ANG ** 2
+        ratio = info["nat_slab"] / info["nat_bulk"]
+        sig = (res["slab"]["energy"] - ratio * res["bulk"]["energy"]) / (2 * A) * HA_PER_BOHR2_TO_J_PER_M2
+        out["sigma_J_m2"] = sig
+        if f in EXTRA and "dEx_dcscan_minus_scan" in res["slab"]:
+            ds = res["slab"]["dEx_dcscan_minus_scan"] - ratio * res["bulk"]["dEx_dcscan_minus_scan"]
+            out["sigma_dcscan_J_m2"] = sig + ds / (2 * A) * HA_PER_BOHR2_TO_J_PER_M2
+            if f == "DC-SCAN":
+                out["sigma_scan_at_this_a_J_m2"], out["sigma_J_m2"] = sig, out["sigma_dcscan_J_m2"]
+        print(f"RESULT {m}({facet}) {f} N={layers}: sigma = {out['sigma_J_m2']:.4f} J/m2"
+              + (f", DC-SCAN {out['sigma_dcscan_J_m2']:.4f}" if f == "SCAN" and "sigma_dcscan_J_m2" in out else ""))
+    json.dump(out, open(os.path.join(RES, tag + ".json"), "w"), indent=1)
+
+
+def cmd_gate(a):
+    """Cutoff gate for one metal (primitive bulk at the experimental a, k 6, Q2D-GGA and SCAN): smallest cutoff of
+    GATE_CUTS with FFT-gradient error < 1 %, |N_grid - N| < 1e-4 and |E - E(600 Ha)| < 1 meV/atom for both
+    functionals -- the criteria of the cutoff gate of codes/SurfaceMetals_cutoff.  Spin-polarised metals: energy
+    criterion only (grid_check is restricted-only)."""
+    os.makedirs(RES, exist_ok=True)
+    m = a.system
+    st, aexp, ca = METALS[m]
+    spin = m in SPIN and not a.no_spin
+    km = [6, 6, 6] if st != "hcp" else [6, 6, max(1, int(round(6 / ca)))]
+    rows = []
+    for f in GATE_FUNCS:
+        dm_prev = None
+        for cut in GATE_CUTS:
+            cell = bulk_cell(m, aexp, cut)
+            mf, e, ok, it, solver, _ = scf(cell, km, f, a, spin=spin, dm0=dm_prev)
+            if spin:
+                dm_prev = mf.make_rdm1()
+            g, ng = float("nan"), float("nan")
+            if ok and not spin:
+                g, ng, _ = grid_check(mf)
+            rows.append(dict(functional=f, cutoff_ha=cut, converged=ok, e_atom_ha=e / len(cell.atom),
+                             grad_fft_relerr=g, nelec_err=ng - cell.nelectron, mesh=[int(x) for x in cell.mesh]))
+            print(f"gate {m} {f} {cut:.0f} Ha: conv={ok} E/atom={e / len(cell.atom):.8f} gerr={g:.2e}", flush=True)
+    chosen, passed = GATE_CUTS[-1], False
+    for cut in GATE_CUTS:
+        good = True
+        for f in GATE_FUNCS:
+            r = next(x for x in rows if x["functional"] == f and x["cutoff_ha"] == cut)
+            top = next(x for x in rows if x["functional"] == f and x["cutoff_ha"] == GATE_CUTS[-1])
+            dE = abs(r["e_atom_ha"] - top["e_atom_ha"]) * HA2EV * 1000
+            grid_ok = spin or (r["grad_fft_relerr"] < 0.01 and abs(r["nelec_err"]) < 1e-4)
+            good = good and bool(r["converged"]) and dE < 1.0 and grid_ok
+        if good:
+            chosen, passed = cut, True
+            break
+    out = dict(system=m, cutoff_ha=chosen, passed=passed,
+               criteria="gerr<1%, |dN|<1e-4, |dE vs 600 Ha|<1 meV/atom, Q2D-GGA and SCAN", k=km, rows=rows)
+    json.dump(out, open(os.path.join(RES, f"cutoff_{m}.json"), "w"), indent=1)
+    print(f"RESULT gate {m}: cutoff {chosen:.0f} Ha" + ("" if passed else " (NO cutoff passed; highest used)"))
+
+
+def cmd_tasks(a):
+    """Task lists for the sbatch arrays (one line = one python call)."""
+    lat = [f"lattice --system {m} --functional {f}" for m in TABLE_METALS + ["Al", "Na", "Mg"]
+           for f in FUNCS + ["SCAN"]]
+    surf = [f"surface --system {m} --facet {fc} --functional {f}" for m in TABLE_METALS
+            for fc in FACETS[METALS[m][0]] for f in FUNCS + ["SCAN"]]
+    surf += [f"surface --system {m} --facet {FIG2[METALS[m][0]][1]} --functional {f}" for m in ("Al", "Na", "Mg")
+             for f in FUNCS + ["SCAN"]]
+    fig1 = [f"surface --system {m} --facet {fc} --functional {f} --layers {n}" for m, ns in FIG1.items()
+            for fc in FACETS[METALS[m][0]] for f in ("Q2D-GGA", "SCAN") for n in ns if n != 13]
+    gate = [f"gate --system {m} --functional PBE" for m in TABLE_METALS + ["Al", "Na", "Mg"]]
+    for name, rows in (("gate", gate), ("lattice", lat), ("surface", surf), ("fig1", fig1)):
+        p = os.path.join(HERE, f"tasks_{name}.txt")
+        open(p, "w").write("".join(r + "\n" for r in rows))
+        print(f"{p}: {len(rows)} tasks")
+
+
+# ---------------------------------------------------------------------------- analysis
+def ref_table1():
+    out = {}
+    for r in csv.DictReader(l for l in open(REF1) if not l.startswith("#")):
+        for f in FUNCS + ["Exp"]:
+            if r[f]:
+                out[(r["system"], r["surface"], f)] = float(r[f])
+    return out
+
+
+def sigma(m, facet, f, layers=13):
+    """Own surface energy (J/m2) of the default-thickness slab; DC-SCAN from the SCAN run if no DC-SCAN run."""
+    for L in (layers, layers + 1):
+        p = os.path.join(RES, surf_tag(m, facet, f, L) + ".json")
+        if os.path.exists(p):
+            d = json.load(open(p))
+            if "sigma_J_m2" in d:
+                return d["sigma_J_m2"]
+    if f == "DC-SCAN":
+        for L in (layers, layers + 1):
+            p = os.path.join(RES, surf_tag(m, facet, "SCAN", L) + ".json")
+            if os.path.exists(p) and "sigma_dcscan_J_m2" in json.load(open(p)):
+                return json.load(open(p))["sigma_dcscan_J_m2"]
+    return None
+
+
+def wulff_fractions(structure, sig):
+    """Area fractions of the facet families on the Wulff shape {x : n.x <= sigma_family for all normals n}."""
+    from scipy.spatial import HalfspaceIntersection, ConvexHull
+    from itertools import permutations, product
+    fam = {}
+    if structure in ("fcc", "bcc"):
+        for key, v in (("100", (1, 0, 0)), ("110", (1, 1, 0)), ("111", (1, 1, 1))):
+            ns = set()
+            for p in permutations(v):
+                for sgn in product((1, -1), repeat=3):
+                    ns.add(tuple(s * c for s, c in zip(sgn, p)))
+            fam[key] = [np.array(n, float) / np.linalg.norm(n) for n in ns]
+    else:
+        fam["0001"] = [np.array([0, 0, 1.0]), np.array([0, 0, -1.0])]
+        fam["10-10"] = [np.array([math.cos(t), math.sin(t), 0]) for t in np.radians(30 + 60 * np.arange(6))]
+        fam["11-20"] = [np.array([math.cos(t), math.sin(t), 0]) for t in np.radians(60 * np.arange(6))]
+    H, lab = [], []
+    for k, ns in fam.items():
+        for n in ns:
+            H.append(np.append(n, -sig[k]))
+            lab.append(k)
+    H = np.array(H)
+    hs = HalfspaceIntersection(H, np.zeros(3))
+    hull = ConvexHull(hs.intersections)
+    area = {k: 0.0 for k in fam}
+    for simp, eq in zip(hull.simplices, hull.equations):
+        p = hs.intersections[simp]
+        tri = 0.5 * np.linalg.norm(np.cross(p[1] - p[0], p[2] - p[0]))
+        j = int(np.argmax(H[:, :3] @ eq[:3]))          # the half-space whose plane holds this facet
+        area[lab[j]] += tri
+    tot = sum(area.values())
+    return {k: v / tot for k, v in area.items()}
+
+
+def stats(pairs):
+    pairs = [(c, e) for c, e in pairs if c is not None and e is not None]
+    if not pairs:
+        return None
+    d = np.array([c - e for c, e in pairs])
+    e = np.array([e for _, e in pairs])
+    return dict(ME=float(d.mean()), MAE=float(np.abs(d).mean()), MARE=float(100 * np.mean(np.abs(d) / e)), n=len(d))
+
+
+def fmt(x, nd=2):
+    return "--" if x is None else f"{x:.{nd}f}"
+
+
+def cmd_table(_a):
+    ref = ref_table1()
+    cols = FUNCS + EXTRA
+    rows = []
+    for m in TABLE_METALS:
+        st = METALS[m][0]
+        for fc in FACETS[st]:
+            r = dict(structure=st, system=m, surface=fc, Exp=ref.get((m, fc, "Exp")))
+            for f in cols:
+                r[f] = sigma(m, fc, f)
+                if f in FUNCS:
+                    r[f + "_JCP"] = ref.get((m, fc, f))
+            rows.append(r)
+    with open(os.path.join(RES, "jcp2020_table1.csv"), "w", newline="") as fh:
+        w = csv.writer(fh)
+        head = ["structure", "system", "surface"] + [x for f in FUNCS for x in (f, f + "_JCP")] + EXTRA + ["Exp"]
+        w.writerow(head)
+        for r in rows:
+            w.writerow([r[h] if not isinstance(r[h], float) else f"{r[h]:.4f}" for h in head])
+    for name, sub in [("", rows)] + [("_" + st, [r for r in rows if r["structure"] == st]) for st in FACETS]:
+        L = ["% generated by codes/JCP2020_Patra/jcp2020_scf.py table -- do not edit by hand",
+             "\\begin{tabular}{@{}llrrrrrrrrrrr@{}}", "\\toprule",
+             " & & \\multicolumn{2}{c}{LDA} & \\multicolumn{2}{c}{PBE} & \\multicolumn{2}{c}{PBEsol} & "
+             "\\multicolumn{2}{c}{Q2D-GGA} & SCAN & DC-SCAN & \\textcolor{red}{Exp.} \\\\",
+             "Metal & Surface & This work & \\textcolor{red}{JCP} & This work & \\textcolor{red}{JCP} & This work & "
+             "\\textcolor{red}{JCP} & This work & \\textcolor{red}{JCP} & This work & This work & \\\\", "\\midrule"]
+        last = None
+        for r in sub:
+            if r["structure"] != last:
+                L.append(f"\\multicolumn{{13}}{{c}}{{\\emph{{{r['structure']}}}}} \\\\")
+                last = r["structure"]
+            fc = r["surface"].replace("-1", "\\bar{1}").replace("-2", "\\bar{2}")
+            cells = [r["system"] if r["surface"] == FACETS[r["structure"]][0] else "", f"$({fc})$"]
+            for f in FUNCS:
+                cells += [fmt(r[f]), "\\textcolor{red}{" + fmt(r[f + "_JCP"]) + "}"]
+            cells += [fmt(r["SCAN"]), fmt(r["DC-SCAN"]), "\\textcolor{red}{" + fmt(r["Exp"]) + "}" if r["Exp"] else ""]
+            L.append(" & ".join(cells) + " \\\\")
+        L += ["\\bottomrule", "\\end{tabular}"]
+        open(os.path.join(RES, f"jcp2020_table1{name}.tex"), "w").write("\n".join(L) + "\n")
+    # Table II: most stable facet and Wulff-weighted surface energy vs experiment
+    t2 = []
+    for kind in ("stable", "wulff"):
+        for grp in ("fcc", "bcc", "hcp", "Overall"):
+            line = dict(kind=kind, group=grp)
+            for f in cols:
+                pairs = []
+                for m in TABLE_METALS:
+                    st = METALS[m][0]
+                    if grp != "Overall" and st != grp:
+                        continue
+                    e = ref.get((m, MOST_STABLE[st], "Exp"))
+                    if kind == "stable":
+                        pairs.append((sigma(m, MOST_STABLE[st], f), e))
+                    else:
+                        sg = {fc: sigma(m, fc, f) for fc in FACETS[st]}
+                        if None in sg.values():
+                            continue
+                        fr = wulff_fractions(st, sg)
+                        pairs.append((sum(fr[k] * sg[k] for k in sg), e))
+                line[f] = stats(pairs)
+            t2.append(line)
+    with open(os.path.join(RES, "jcp2020_table2.csv"), "w", newline="") as fh:
+        w = csv.writer(fh)
+        w.writerow(["kind", "group", "functional", "ME", "MAE", "MARE_percent", "n"])
+        for line in t2:
+            for f in cols:
+                s = line[f]
+                w.writerow([line["kind"], line["group"], f] + (["", "", "", 0] if s is None else
+                           [f"{s['ME']:.3f}", f"{s['MAE']:.3f}", f"{s['MARE']:.2f}", s["n"]]))
+    ref2 = {}
+    if os.path.exists(REF2):
+        for r in csv.DictReader(l for l in open(REF2) if not l.startswith("#")):
+            ref2[(r["kind"], r["group"], r["stat"], r["functional"])] = float(r["value"])
+    L = ["% generated by codes/JCP2020_Patra/jcp2020_scf.py table -- do not edit by hand",
+         "\\begin{tabular}{@{}llrrrrrrrrrr@{}}", "\\toprule",
+         " & & \\multicolumn{2}{c}{LDA} & \\multicolumn{2}{c}{PBE} & \\multicolumn{2}{c}{PBEsol} & "
+         "\\multicolumn{2}{c}{Q2D-GGA} & SCAN & DC-SCAN \\\\",
+         " & & This work & \\textcolor{red}{JCP} & This work & \\textcolor{red}{JCP} & This work & "
+         "\\textcolor{red}{JCP} & This work & \\textcolor{red}{JCP} & This work & This work \\\\", "\\midrule"]
+    for line in t2:
+        if line["group"] == "fcc":
+            L.append("\\multicolumn{12}{c}{" + ("most stable facet, $\\gamma_{\\rm calc}$" if line["kind"] == "stable"
+                     else "Wulff-weighted, $\\gamma^{\\rm Wulff}_{\\rm calc}$") + "} \\\\")
+        for stat, nd in (("ME", 2), ("MAE", 2), ("MARE", 1)):
+            cells = [line["group"] if stat == "ME" else "", stat + (" (\\%)" if stat == "MARE" else " (J\\,m$^{-2}$)")]
+            for f in cols:
+                s = line[f]
+                cells.append(fmt(None if s is None else s[stat], nd) + ("" if s is None else f"$^{{({s['n']})}}$"))
+                if f in FUNCS:
+                    v = ref2.get((line["kind"], line["group"], stat, f))
+                    cells.append("\\textcolor{red}{" + fmt(v, nd) + "}")
+            L.append(" & ".join(cells) + " \\\\")
+    L += ["\\bottomrule", "\\end{tabular}"]
+    open(os.path.join(RES, "jcp2020_table2.tex"), "w").write("\n".join(L) + "\n")
+    n_done = sum(1 for r in rows for f in cols if r[f] is not None)
+    print(f"table 1: {n_done}/{len(rows) * len(cols)} entries; results/jcp2020_table{{1,2}}.{{csv,tex}} written")
+    reference_tables(ref, ref2)
+    return n_done, len(rows) * len(cols)
+
+
+def reference_tables(ref, ref2):
+    """Generated from the paper's data alone: (a) Table II recomputed from the paper's Table I with this script's
+    wulff_fractions + stats, against the printed Table II; (b) Wulff area fractions of every metal and functional."""
+    L = ["% generated by codes/JCP2020_Patra/jcp2020_scf.py table -- do not edit by hand",
+         "\\begin{tabular}{@{}llrrrrrrrr@{}}", "\\toprule",
+         " & & \\multicolumn{2}{c}{LDA} & \\multicolumn{2}{c}{PBE} & \\multicolumn{2}{c}{PBEsol} & "
+         "\\multicolumn{2}{c}{Q2D-GGA} \\\\",
+         " & & This work & \\textcolor{red}{JCP} & This work & \\textcolor{red}{JCP} & This work & "
+         "\\textcolor{red}{JCP} & This work & \\textcolor{red}{JCP} \\\\", "\\midrule"]
+    maxdev = {}
+    for kind in ("stable", "wulff"):
+        L.append("\\multicolumn{10}{c}{" + ("most stable facet, $\\gamma_{\\rm calc}$" if kind == "stable"
+                 else "Wulff-weighted, $\\gamma^{\\rm Wulff}_{\\rm calc}$") + "} \\\\")
+        for grp in ("fcc", "bcc", "hcp", "Overall"):
+            st_ = {}
+            for f in FUNCS:
+                pairs = []
+                for m in TABLE_METALS:
+                    s = METALS[m][0]
+                    if grp != "Overall" and s != grp:
+                        continue
+                    e = ref[(m, MOST_STABLE[s], "Exp")]
+                    if kind == "stable":
+                        pairs.append((ref[(m, MOST_STABLE[s], f)], e))
+                    else:
+                        sg = {fc: ref[(m, fc, f)] for fc in FACETS[s]}
+                        fr = wulff_fractions(s, sg)
+                        pairs.append((sum(fr[k] * sg[k] for k in sg), e))
+                st_[f] = stats(pairs)
+            for stat, nd in (("ME", 2), ("MAE", 2), ("MARE", 1)):
+                cells = [grp if stat == "ME" else "", stat + (" (\\%)" if stat == "MARE" else " (J\\,m$^{-2}$)")]
+                for f in FUNCS:
+                    v, p = st_[f][stat], ref2.get((kind, grp, stat, f))
+                    cells += [fmt(v, nd), "\\textcolor{red}{" + fmt(p, nd) + "}"]
+                    if p is not None:
+                        maxdev[(kind, grp, stat, f)] = abs(round(v, nd) - p)
+                L.append(" & ".join(cells) + " \\\\")
+    L += ["\\bottomrule", "\\end{tabular}"]
+    open(os.path.join(RES, "jcp2020_table2_check.tex"), "w").write("\n".join(L) + "\n")
+    with open(os.path.join(RES, "jcp2020_table2_check.csv"), "w", newline="") as fh:
+        w = csv.writer(fh)
+        w.writerow(["kind", "group", "stat", "functional", "abs_dev_recomputed_vs_printed"])
+        for k, v in maxdev.items():
+            w.writerow(list(k) + [f"{v:.3f}"])
+    L = ["% generated by codes/JCP2020_Patra/jcp2020_scf.py table -- do not edit by hand",
+         "\\begin{tabular}{@{}llrrrrrrrrrrrrr@{}}", "\\toprule",
+         " & & \\multicolumn{3}{c}{LDA} & \\multicolumn{3}{c}{PBE} & \\multicolumn{3}{c}{PBEsol} & "
+         "\\multicolumn{3}{c}{Q2D-GGA} \\\\"]
+    for s in FACETS:
+        fl = [x.replace("-1", "\\bar{1}").replace("-2", "\\bar{2}") for x in FACETS[s]]
+        L += ["\\midrule", f"\\emph{{{s}}} & & " + " & ".join(f"$({x})$" for x in fl * 4) + " & \\\\", "\\midrule"]
+        for m in [x for x in TABLE_METALS if METALS[x][0] == s]:
+            cells = [m, ""]
+            for f in FUNCS:
+                sg = {fc: ref[(m, fc, f)] for fc in FACETS[s]}
+                fr = wulff_fractions(s, sg)
+                cells += [f"{100 * fr[fc]:.0f}" for fc in FACETS[s]]
+            L.append(" & ".join(cells) + " & \\\\")
+    L += ["\\bottomrule", "\\end{tabular}"]
+    open(os.path.join(RES, "jcp2020_wulff_ref.tex"), "w").write("\n".join(L) + "\n")
+    print(f"reference tables: max |recomputed - printed| = {max(maxdev.values()):.3f} "
+          f"(MARE in %, ME/MAE in J/m2); results/jcp2020_table2_check.tex, jcp2020_wulff_ref.tex")
+
+
+def status_rows():
+    """Completed / total runs per task list (for the report)."""
+    out = []
+    for name in ("lattice", "surface", "fig1"):
+        p = os.path.join(HERE, f"tasks_{name}.txt")
+        if not os.path.exists(p):
+            continue
+        tot = done = 0
+        for line in open(p):
+            w = line.split()
+            if not w:
+                continue
+            tot += 1
+            g = dict(zip(w[1::2], w[2::2]))
+            if w[0] == "lattice":
+                done += os.path.exists(lattice_json(g["--system"], g["--functional"]))
+            else:
+                L = int(g.get("--layers", 13))
+                done += any(os.path.exists(os.path.join(RES, surf_tag(g["--system"], g["--facet"], g["--functional"],
+                                                                     LL) + ".json")) for LL in (L, L + 1))
+        out.append((name, done, tot))
+    return out
+
+
+PRL_DIR = os.path.join(HERE, "..", "PRL2012_scf", "results")
+S22_CSV = os.path.join(HERE, "..", "Al", "results", "surface22_summary.csv")
+EXISTING = ["Cu", "Rh", "Au", "Pt", "Pd"]        # fcc(111) metals common to the PRL recreation and this paper
+
+
+def existing_results(ref):
+    """Tables of results our codes already produced for fcc(111) (PRL 2012 protocol), compared with this paper:
+    self-consistent sigma (codes/PRL2012_scf/prl2012_scf.py), first-order SCAN / DC-SCAN on the PBEsol density
+    (codes/Al/22_surface_density_dcscan.py), lattice constants (codes/PRL2012_scf/lattice_scf.py)."""
+    scf = {}
+    p = os.path.join(PRL_DIR, "prl2012_scf_table.csv")
+    if os.path.exists(p):
+        for r in csv.DictReader(open(p)):
+            if r["sigma_pyscf"]:
+                scf[(r["system"], r["functional"])] = float(r["sigma_pyscf"])
+    fo = {}
+    if os.path.exists(S22_CSV):
+        for r in csv.DictReader(open(S22_CSV)):
+            if r["layers"] == "8" and r["system"] in EXISTING:
+                b = float(r["sigma_scf_PBEsol"])
+                for f in ("SCAN", "DC-SCAN"):
+                    fo[(r["system"], f)] = b + float(r[f"dxc_{f}_minus_PBEsol"])
+    lat = {}
+    p = os.path.join(PRL_DIR, "lattice_table.csv")
+    if os.path.exists(p):
+        for r in csv.DictReader(open(p)):
+            lat[(r["system"], r["functional"])] = (float(r["a0_this_work"]), float(r["a_prl"]), float(r["a_exp"]))
+    flagged = {("Cu", "Q2D-GGA")}
+    L = ["% generated by codes/JCP2020_Patra/jcp2020_scf.py report -- do not edit by hand",
+         "\\begin{tabular}{@{}lrrrrrrrrrrr@{}}", "\\toprule",
+         " & \\multicolumn{2}{c}{LDA} & \\multicolumn{2}{c}{PBE} & \\multicolumn{2}{c}{PBEsol} & "
+         "\\multicolumn{2}{c}{Q2D-GGA} & SCAN$^c$ & DC-SCAN$^c$ & \\textcolor{red}{Exp.} \\\\",
+         "Metal & This work & \\textcolor{red}{JCP} & This work & \\textcolor{red}{JCP} & This work & "
+         "\\textcolor{red}{JCP} & This work & \\textcolor{red}{JCP} & This work & This work & \\\\", "\\midrule"]
+    cols = FUNCS + ["SCAN", "DC-SCAN"]
+    vs_j, vs_e = {f: [] for f in cols}, {f: [] for f in cols}
+    for m in EXISTING:
+        e = ref.get((m, "111", "Exp"))
+        cells = [f"{m}(111)"]
+        for f in FUNCS:
+            v, j = scf.get((m, f)), ref.get((m, "111", f))
+            cells += [fmt(v) + ("$^b$" if (m, f) in flagged and v is not None else ""),
+                      "\\textcolor{red}{" + fmt(j) + "}"]
+            if v is not None and (m, f) not in flagged:
+                vs_j[f].append((v, j)); vs_e[f].append((v, e))
+        for f in ("SCAN", "DC-SCAN"):
+            v = fo.get((m, f))
+            cells.append(fmt(v))
+            if v is not None:
+                vs_e[f].append((v, e))
+        cells.append("\\textcolor{red}{" + fmt(e) + "}")
+        L.append(" & ".join(cells) + " \\\\")
+    L.append("\\midrule")
+    for lab, d, keys in (("MAE vs JCP", vs_j, FUNCS), ("MAE vs Exp.", vs_e, cols)):
+        cells = [lab]
+        for f in cols:
+            s_ = stats(d[f]) if f in keys else None
+            cell = "" if s_ is None else f"{s_['MAE']:.2f}"
+            if f in FUNCS:
+                je = stats([(ref.get((m, '111', f)), ref.get((m, '111', 'Exp'))) for m in EXISTING
+                            if (m, f) not in flagged or True])
+                cells += [cell, "" if lab == "MAE vs JCP" else "\\textcolor{red}{" + f"{je['MAE']:.2f}" + "}"]
+            else:
+                cells.append(cell)
+        cells.append("")
+        L.append(" & ".join(cells) + " \\\\")
+    L += ["\\bottomrule", "\\end{tabular}"]
+    open(os.path.join(RES, "jcp2020_existing_sigma.tex"), "w").write("\n".join(L) + "\n")
+    L = ["% generated by codes/JCP2020_Patra/jcp2020_scf.py report -- do not edit by hand",
+         "\\begin{tabular}{@{}lrrrrr@{}}", "\\toprule",
+         "Metal & LDA & PBE & PBEsol & Q2D-GGA & \\textcolor{red}{Exp.} \\\\", "\\midrule"]
+    for m in EXISTING:
+        ex = next((lat[k][2] for k in lat if k[0] == m), None)
+        L.append(" & ".join([m] + [fmt(lat[(m, f)][0], 3) if (m, f) in lat else "--" for f in FUNCS] +
+                            ["\\textcolor{red}{" + fmt(ex, 2) + "}"]) + " \\\\")
+    L += ["\\bottomrule", "\\end{tabular}"]
+    open(os.path.join(RES, "jcp2020_existing_lattice.tex"), "w").write("\n".join(L) + "\n")
+    return len(scf), len(fo), len(lat)
+
+
+def lattice_table():
+    """Own equilibrium lattice constants (results/lattice_<M>_<F>.json) of every metal and functional; DC-SCAN from
+    the SCAN scan.  Returns (tex, number of completed scans, total)."""
+    L = ["\\begin{tabular}{@{}llrrrrrrrr@{}}", "\\toprule",
+         "Metal & lattice & LDA & PBE & PBEsol & Q2D-GGA & SCAN & DC-SCAN & \\textcolor{red}{Exp.} & cutoff (Ha) \\\\",
+         "\\midrule"]
+    done, tot, last = 0, 0, None
+    for m in TABLE_METALS + ["Al", "Na", "Mg"]:
+        st, aexp, ca = METALS[m]
+        if last is not None and st != last:
+            L.append("\\midrule")
+        last = st
+        cells = [m, st if st != "hcp" else f"hcp ($c/a$ {ca:.3f})"]
+        cut = None
+        for f in FUNCS + ["SCAN", "DC-SCAN"]:
+            p = lattice_json(m, "SCAN" if f == "DC-SCAN" else f)
+            if f != "DC-SCAN":
+                tot += 1
+            if os.path.exists(p):
+                d = json.load(open(p))
+                cut = d.get("cutoff_ha", cut)
+                key, rk = ("a0_dcscan_ang", "fit_rms_dcscan_meV") if f == "DC-SCAN" else ("a0_ang", "fit_rms_meV")
+                if key in d:
+                    flag = "$^e$" if d.get("minimum_near_edge") and f != "DC-SCAN" else ""
+                    cells.append(f"{d[key]:.3f}{flag}")
+                    done += f != "DC-SCAN"
+                    continue
+            cells.append("--")
+        cells += ["\\textcolor{red}{" + f"{aexp:.3f}" + "}", f"{cut or default_cutoff(m):.0f}"]
+        L.append(" & ".join(cells) + " \\\\")
+    L += ["\\bottomrule", "\\end{tabular}"]
+    return "\n".join(L) + "\n", done, tot
+
+
+def gate_table():
+    """Cutoff-gate table (results/cutoff_<M>.json): chosen cutoff, FFT-gradient error and energy change vs 600 Ha
+    at the chosen cutoff for Q2D-GGA and SCAN.  Returns (tex, number of metals)."""
+    rows = []
+    for m in TABLE_METALS + ["Al", "Na", "Mg"]:
+        p = os.path.join(RES, f"cutoff_{m}.json")
+        if not os.path.exists(p):
+            continue
+        d = json.load(open(p))
+        cells = [m, METALS[m][0], f"{d['cutoff_ha']:.0f}"]
+        for fn in GATE_FUNCS:
+            rs = [r for r in d["rows"] if r["functional"] == fn]
+            top = rs[-1]["e_atom_ha"]
+            r = next(x for x in rs if x["cutoff_ha"] == d["cutoff_ha"])
+            g = r["grad_fft_relerr"]
+            cells += ["--" if g != g else f"{g:.0e}", f"{(r['e_atom_ha'] - top) * HA2EV * 1000:+.2f}"]
+        cells.append("yes" if d["passed"] else "no")
+        rows.append(" & ".join(cells) + " \\\\")
+    L = ["\\begin{tabular}{@{}llrrrrrl@{}}", "\\toprule",
+         " & & & \\multicolumn{2}{c}{Q2D-GGA} & \\multicolumn{2}{c}{SCAN} & \\\\",
+         "Metal & lattice & cutoff (Ha) & grad.\\ err. & $\\Delta E$ (meV) & grad.\\ err. & $\\Delta E$ (meV) & passed \\\\",
+         "\\midrule"] + rows + ["\\bottomrule", "\\end{tabular}"]
+    return "\n".join(L) + "\n", len(rows)
+
+
+REPORT_TEX = r"""\documentclass[10pt]{article}
+\usepackage[margin=13mm]{geometry}
+\usepackage{graphicx,booktabs,xcolor,amsmath}
+\usepackage[T1]{fontenc}
+\pagestyle{plain}
+\begin{document}
+\sloppy
+\begin{center}
+ {\Large\bfseries Transition-metal surface energies: self-consistent PySCF reproduction of\\
+ J.~Chem.~Phys.~152, 151101 (2020), extended with SCAN and DC-SCAN}\par\vspace{0.4em}
+ {\small Generated by \texttt{codes/JCP2020\_Patra/jcp2020\_scf.py report} on @DATE@ --- do not edit by hand}
+\end{center}
+
+\section*{Reference and scope}
+Ref.~\cite{Patra2020} reports surface energies of 21 transition metals (7 fcc, 7 bcc, 7 hcp) (fcc (100)/(110)/(111), bcc (100)/(110)/(111),
+hcp (0001)/$(10\bar{1}0)$/$(11\bar{2}0)$) with LDA, PBE, PBEsol and Q2D-GGA (Table~I), error statistics against
+experiment for the most stable facet and for the Wulff-weighted surface energy (Table~II), the convergence with slab
+thickness for Pt and Ta (Fig.~1) and the surface density difference $\Delta n(z)$ (Fig.~2). This report recomputes
+all of it self-consistently in PySCF and adds two columns, SCAN and DC-SCAN, to every table. Values of this work are
+black; values of the reference are \textcolor{red}{red}. Dashes: calculation not yet done.
+
+\section*{Equations}
+Surface energy, Eq.~(4) of Ref.~\cite{Patra2020},
+\begin{equation}
+ \sigma=\frac{1}{2\alpha}\Bigl(E^{\rm slab}_{N}-\frac{N_{\rm slab}}{N_{\rm bulk}}E^{\rm bulk}\Bigr),
+ \label{eq:sigma}
+\end{equation}
+with $\alpha$ the area of the surface cell, $N_{\rm slab}$ and $N_{\rm bulk}$ the numbers of atoms in the slab and in
+the bulk reference cell, and the factor $1/2$ for the two faces of the symmetric slab. No fit enters $\sigma$.
+The bulk reference of each facet is the oriented bulk cell with the in-plane cell of the slab and a lattice vector
+normal to the surface; every slab atom is a bulk atom shifted by whole FFT-grid steps, and the slab cell height is a
+whole number of grid steps, so slab and bulk are evaluated on identical grids and the grid error cancels in
+Eq.~(\ref{eq:sigma}).
+
+DC-SCAN: SCAN is solved self-consistently, and the DC-SCAN exchange (which depends on the density Hessian) is
+evaluated on the self-consistent SCAN density,
+\begin{equation}
+ E^{\rm DC\text{-}SCAN}=E^{\rm SCAN}+E_x^{\rm DC\text{-}SCAN}[n^{\rm SCAN}]-E_x^{\rm SCAN}[n^{\rm SCAN}],
+ \label{eq:dcscan}
+\end{equation}
+for slab and bulk alike, so $\sigma^{\rm DC\text{-}SCAN}$ follows from Eq.~(\ref{eq:sigma}) with these energies.
+
+Wulff construction: the equilibrium crystal shape is
+$W=\{\mathbf{x}:\hat{\mathbf{n}}_j\cdot\mathbf{x}\le\sigma_{F(j)}\ \forall j\}$, where $j$ runs over all symmetry-equivalent
+facet normals of the families $F$ in Table~I. With $A_F$ the area of $W$ exposed by family $F$, the area fractions
+and the Wulff-weighted surface energy are
+\begin{equation}
+ f_F=\frac{A_F}{\sum_{F'}A_{F'}},\qquad \gamma^{\rm Wulff}=\sum_F f_F\,\sigma_F ,
+ \label{eq:wulff}
+\end{equation}
+computed with a half-space intersection and convex hull (\texttt{scipy.spatial}). Error statistics over $n$ metals,
+$\Delta_i=\gamma_i^{\rm calc}-\gamma_i^{\rm exp}$:
+\begin{equation}
+ {\rm ME}=\frac1n\sum_i\Delta_i,\quad {\rm MAE}=\frac1n\sum_i|\Delta_i|,\quad
+ {\rm MARE}=\frac{100\%}{n}\sum_i\frac{|\Delta_i|}{\gamma_i^{\rm exp}} .
+ \label{eq:stats}
+\end{equation}
+Lattice constants: each functional at its own equilibrium lattice constant, from a third-order Birch--Murnaghan fit of
+nine self-consistent bulk energies within $\pm5\%$ of the experimental value (same procedure and equations as the
+lattice table of the Al(111) report); hcp at the experimental $c/a$. The DC-SCAN lattice constant comes from the same
+nine SCAN densities with Eq.~(\ref{eq:dcscan}).
+
+\section*{Protocol}
+\begin{center}\small
+\begin{tabular}{@{}lll@{}}
+\toprule
+ & Ref.~\cite{Patra2020} & this work \\
+\midrule
+code / basis & VASP, PAW, 800 eV & PySCF, GTH-PBE + gth-dzvp-molopt-sr; FFT cutoff per metal \\
+ & & from a gate (Q2D-GGA, SCAN: gradient error $<1\%$, $|\Delta N|<10^{-4}$, $|\Delta E|<1$~meV/atom) \\
+slab & 13 layers, fully relaxed & 13 planes (14 where needed for a symmetric\\
+ & & slab), not relaxed \\
+vacuum, $k$ points & $>20$~\AA, $16\times16\times1$ & 12~\AA; $k_i={\rm round}(33\,{\rm \AA}/|\mathbf{a}_i|)$, $12\times12\times1$ for fcc(111) \\
+smearing & Gaussian 0.05~eV & Gaussian 0.05~eV \\
+spin & Fe, Co spin-polarised & Fe, Co spin-polarised (KUKS); no DC-SCAN for these two \\
+lattice constant & own, each functional & own, each functional (BM3 fit); hcp $c/a$ experimental \\
+SCF & -- & Kerker-preconditioned Pulay density mixing (as the PRL recreation) \\
+\bottomrule
+\end{tabular}\end{center}
+
+\section*{Validation of the analysis code against the reference}
+Table~\ref{tab:check} (``This work'') reproduces Table~II of Ref.~\cite{Patra2020} with our own code: our Wulff
+construction and error statistics, Eqs.~(\ref{eq:wulff})--(\ref{eq:stats}), applied to the surface energies of its
+Table~I. Largest deviation from the printed values: @MAXDEV@.
+Table~\ref{tab:wulffref} gives the Wulff area fractions behind the Wulff-weighted rows (from the reference
+$\sigma$ values; the reference gives its fractions only in its supplementary material).
+
+\begin{table}[htbp]\centering
+\caption{Table~II of Ref.~\cite{Patra2020}. This work: computed with the Wulff construction and error statistics of
+this work's code (\texttt{jcp2020\_scf.py}: \texttt{wulff\_fractions}, \texttt{stats}; Eqs.~(\ref{eq:wulff})--(\ref{eq:stats}))
+from the surface energies of Table~I of Ref.~\cite{Patra2020} and the experimental values quoted there.
+\textcolor{red}{JCP}: Table~II as printed in Ref.~\cite{Patra2020}. ME, MAE in J\,m$^{-2}$, MARE in \%. Agreement shows
+that our analysis code reproduces the published statistics; the same code is applied to our own surface energies in
+Table~\ref{tab:t2}.}\label{tab:check}
+\scriptsize\setlength{\tabcolsep}{4pt}
+@TAB2CHECK@
+\end{table}
+
+\begin{table}[htbp]\centering
+\caption{Wulff area fractions $f_F$ (\%) of Eq.~(\ref{eq:wulff}) from the surface energies of Table~I of
+Ref.~\cite{Patra2020}.}\label{tab:wulffref}
+\scriptsize\setlength{\tabcolsep}{3.5pt}
+@WULFF@
+\end{table}
+
+\section*{Results}
+\subsection*{Results already available from our codes (fcc(111), PRL 2012 protocol)}
+Five fcc(111) surfaces of this paper (Cu, Rh, Au, Pt, Pd) were already computed with our codes for the recreation of
+PRL 108, 126402 (2012) (Al(111) report, Tables~2--4). Table~\ref{tab:exist} compares them with
+Ref.~\cite{Patra2020}. Protocol of these runs (differs from Ref.~\cite{Patra2020} and from the full runs below):
+self-consistent LDA, PBE, PBEsol, Q2D-GGA at the PRL lattice constants, 11-layer unrelaxed slabs, 10~\AA\ vacuum,
+$10\times10\times1$ $k$ points, three-layer bulk (\texttt{codes/PRL2012\_scf/prl2012\_scf.py}); SCAN and DC-SCAN to
+first order on the self-consistent PBEsol density, $\sigma^{F}\approx\sigma^{\rm PBEsol}+\Delta\sigma_{xc}^{F-{\rm PBEsol}}$,
+8-layer slabs, 14~\AA\ vacuum (\texttt{codes/Al/22\_surface\_density\_dcscan.py}). Table~\ref{tab:existlat} gives the
+lattice constants of the same metals (\texttt{codes/PRL2012\_scf/lattice\_scf.py}, Birch--Murnaghan fit).
+Data sources: @EXISTSRC@.
+
+\begin{table}[htbp]\centering
+\caption{fcc(111) surface energies (J\,m$^{-2}$) from our codes (black) and Ref.~\cite{Patra2020} (\textcolor{red}{red});
+Exp.\ as quoted in Ref.~\cite{Patra2020}. MAE in J\,m$^{-2}$; the red MAE is that of Ref.~\cite{Patra2020} for the same
+five metals. $^b$Cu Q2D-GGA: not converged with the density cutoff (1.88/2.13/1.50~J\,m$^{-2}$ at 150/250/300~Ha),
+excluded from the MAE. $^c$First order on the PBEsol density.}\label{tab:exist}
+\scriptsize\setlength{\tabcolsep}{4pt}
+@EXISTSIGMA@
+\end{table}
+
+\begin{table}[htbp]\centering
+\caption{Equilibrium lattice constants (\AA) of the same metals from our self-consistent lattice scans
+(9 points, third-order Birch--Murnaghan fit); dashes: still running. \textcolor{red}{Exp.}: zero-point corrected values
+quoted in PRL 108, 126402. Ref.~\cite{Patra2020} does not tabulate its lattice constants.}\label{tab:existlat}
+\small
+@EXISTLAT@
+\end{table}
+
+\subsection*{Full reproduction of Ref.~\cite{Patra2020} (protocol above)}
+\paragraph{Density cutoff per metal (completed for @NGATE@ metals).} Primitive bulk at the experimental lattice
+constant, $6\times6\times6$ $k$ points, cutoffs 150, 250, 350, 450 and 600~Ha, Q2D-GGA and SCAN (the most
+grid-sensitive functionals of this work). The chosen cutoff is the smallest with FFT-gradient error $<1\%$,
+$|N_{\rm grid}-N|<10^{-4}$ and $|E-E(600~{\rm Ha})|<1$~meV/atom for both functionals (the criteria of the cutoff gate
+of the PRL recreation); Table~\ref{tab:gate} lists the error measures at the chosen cutoff. Fe and Co (spin-polarised):
+energy criterion only; their gate ran with independent ferromagnetic starts, whose energies scatter by 1--7~mHa/atom,
+so the conservative 600~Ha is used (lattice and surface runs follow one magnetic solution, see the code).
+
+\paragraph{Equilibrium lattice constants (@NLAT@ of @NLATTOT@ scans complete).} Each functional at its own
+equilibrium lattice constant (as in Ref.~\cite{Patra2020}), from nine self-consistent bulk energies within
+$\pm5\%$ of the experimental value and a third-order Birch--Murnaghan fit (equations as in the lattice section of the
+Al(111) report); DC-SCAN from the same nine SCAN densities with Eq.~(\ref{eq:dcscan}); hcp at the experimental $c/a$.
+The surface calculations of each metal and functional start as soon as its lattice constant is available.
+
+\begin{table}[htbp]\centering
+\caption{Equilibrium lattice constants (\AA) of this work (black); dashes: still running. \textcolor{red}{Exp.}:
+room-temperature experimental values used to centre the scans (Na at 5~K). Ref.~\cite{Patra2020} does not tabulate
+its lattice constants. $^e$minimum near the edge of the scanned interval.}\label{tab:lat}
+\small\setlength{\tabcolsep}{4pt}
+@LATTAB@
+\end{table}
+
+\begin{table}[htbp]\centering
+\caption{Cutoff gate. grad.\ err.: relative FFT-gradient error of the density; $\Delta E$: energy per atom relative to
+600~Ha, both at the chosen cutoff.}\label{tab:gate}
+\small
+@GATETAB@
+\end{table}
+
+Status: @STATUS@.
+
+@TABLE1@
+
+\begin{table}[htbp]\centering
+\caption{Error statistics of the most stable facet and of the Wulff-weighted surface energy against experiment
+(Table~II of Ref.~\cite{Patra2020}), Eq.~(\ref{eq:stats}). Superscript: number of metals included so far.}
+\label{tab:t2}\scriptsize\setlength{\tabcolsep}{3.5pt}
+@TABLE2@
+\end{table}
+
+@FIGURES@
+
+\begin{thebibliography}{9}
+\bibitem{Patra2020} A. Patra, S. Jana, L. A. Constantin, L. Chiodo, and P. Samal, ``Improved transition metal surface
+energies from a generalized gradient approximation developed for quasi two-dimensional systems,'' J. Chem. Phys.
+\textbf{152}, 151101 (2020), doi:10.1063/1.5145367.
+\end{thebibliography}
+\end{document}
+"""
+
+
+def cmd_report(_a):
+    """Self-contained report: all generated tables pasted in (no \\input), then pdflatex (three passes)."""
+    import subprocess
+    n_done, n_tot = cmd_table(_a)
+    rd = lambda n: open(os.path.join(RES, n)).read()
+    box = lambda t: "\\resizebox{\\textwidth}{!}{%\n" + t + "}\n"
+    dev = [float(r["abs_dev_recomputed_vs_printed"]) for r in csv.DictReader(open(os.path.join(RES,
+                                                                                      "jcp2020_table2_check.csv")))]
+    chk = list(csv.DictReader(open(os.path.join(RES, "jcp2020_table2_check.csv"))))
+    dj = max(float(r["abs_dev_recomputed_vs_printed"]) for r in chk if r["stat"] != "MARE")
+    mare = sorted(((float(r["abs_dev_recomputed_vs_printed"]), r) for r in chk if r["stat"] == "MARE"), key=lambda t: t[0])
+    out = [(d, r) for d, r in mare if d > 0.5]
+    inl = max(d for d, r in mare if d <= 0.5)
+    maxdev = (f"{dj:.2f}~J\\,m$^{{-2}}$ for all ME and MAE entries (rounding of the printed $\\sigma$ to two "
+              f"decimals); MARE within {inl:.2f}\\% (the same rounding, amplified by the division by "
+              f"$\\gamma^{{\\rm exp}}$ and by its effect on the Wulff fractions)" +
+              ("".join(f", except {r['kind']}/{r['group']}/{r['functional']} ({d:.2f}\\%)" for d, r in out)))
+    ns, nf, nl = existing_results(ref_table1())
+    gtex, ngate = gate_table()
+    ltex, nlat, nlattot = lattice_table()
+    st = status_rows()
+    status = "; ".join(f"{n}: {d}/{t} runs" for n, d, t in st) + f"; Table~I: {n_done}/{n_tot} entries"
+    t1 = []
+    for s in FACETS:
+        t1.append("\\begin{table}[htbp]\\centering\n\\caption{Surface energies (J\\,m$^{-2}$) of the " + s +
+                  " metals (Table~I of Ref.~\\cite{Patra2020}). This work: self-consistent PySCF, Eq.~(\\ref{eq:sigma}); "
+                  "DC-SCAN by Eq.~(\\ref{eq:dcscan}). \\textcolor{red}{JCP}: Ref.~\\cite{Patra2020}; "
+                  "\\textcolor{red}{Exp.}: experiment for the most stable facet as quoted there.}\\label{tab:t1" + s +
+                  "}\n\\scriptsize\\setlength{\\tabcolsep}{3.5pt}\n" + box(rd(f"jcp2020_table1_{s}.tex")) + "\\end{table}\n")
+    figs = []
+    for n, cap in (("jcp2020_fig1.pdf", "Surface energy against the number of layers (Fig.~1 of Ref.~\\cite{Patra2020}), "
+                    "Q2D-GGA and DC-SCAN."),
+                   ("jcp2020_fig2.pdf", "Surface density difference $\\Delta n(z)=n_{\\rm surf,l}+n_{\\rm surf,r}-n_{\\rm bulk}$ "
+                    "(Fig.~2 of Ref.~\\cite{Patra2020}).")):
+        if os.path.exists(os.path.join(FIG, n)):
+            figs.append("\\begin{figure}[htbp]\\centering\\includegraphics[width=0.8\\textwidth]{../figures/" + n +
+                        "}\\caption{" + cap + "}\\end{figure}")
+    tex = (REPORT_TEX.replace("@DATE@", time.strftime("%Y-%m-%d %H:%M")).replace("@MAXDEV@", maxdev)
+           .replace("@EXISTSIGMA@", box(rd("jcp2020_existing_sigma.tex")))
+           .replace("@EXISTLAT@", rd("jcp2020_existing_lattice.tex"))
+           .replace("@GATETAB@", gtex).replace("@NGATE@", str(ngate))
+           .replace("@LATTAB@", ltex).replace("@NLAT@", str(nlat)).replace("@NLATTOT@", str(nlattot))
+           .replace("@EXISTSRC@", f"{ns} self-consistent PRL-protocol surface energies, {nf} first-order SCAN/DC-SCAN "
+                    f"values, {nl} lattice constants")
+           .replace("@TAB2CHECK@", box(rd("jcp2020_table2_check.tex"))).replace("@WULFF@", box(rd("jcp2020_wulff_ref.tex")))
+           .replace("@STATUS@", status).replace("@TABLE1@", "\n".join(t1))
+           .replace("@TABLE2@", box(rd("jcp2020_table2.tex")))
+           .replace("@FIGURES@", "\n".join(figs) if figs else "Figures 1 and 2: no runs yet."))
+    path = os.path.join(RES, "jcp2020_report.tex")
+    open(path, "w").write(tex)
+    for _ in range(3):
+        r = subprocess.run(["pdflatex", "-interaction=nonstopmode", "jcp2020_report.tex"], cwd=RES,
+                           capture_output=True, text=True, errors="replace")
+    log = open(os.path.join(RES, "jcp2020_report.log"), errors="replace").read()
+    print(f"{path} -> jcp2020_report.pdf: errors {log.count(chr(10) + '!')}, undefined "
+          f"{log.lower().count('undefined')}, overfull {log.count('Overfull')}")
+
+
+def delta_n(m, facet, f, layers):
+    """Fig. 2 construction (adapted from script 22 delta_n): z/d0 from the broken-bond centre half a spacing outside
+    the first plane; n(z) = plane average x cell area; left surface = mirror image; bulk profile phased so that
+    plane k of the slab matches the bulk plane of the same stacking position."""
+    tag = surf_tag(m, facet, f, layers)
+    d = json.load(open(os.path.join(RES, tag + ".json")))
+    b = np.load(os.path.join(RES, tag + "_bulk.npz"))
+    s = np.load(os.path.join(RES, tag + "_slab.npz"))
+    g = d["geometry"]
+    d0 = float(np.mean(g["spacings_ang"]))
+    zc = float(g["zplanes_ang"][0]) - 0.5 * d0
+    zs, ns = s["z_ang"], s["n_z"]
+    period = zs[1] - zs[0] + zs[-1]
+    zb, nb = b["z_ang"], b["n_z"]
+    pb = zb[1] - zb[0] + zb[-1]
+    zb0 = float(g["zfirst_in_bulk_cell_ang"]) - 0.5 * d0     # same stacking position in the bulk cell
+    area = g["area_ang2"] / BOHR_ANG ** 2
+    x = np.linspace(-2.5, 1.0, 351)
+    z = -x * d0
+
+    def per(zq, zz, nn, p):
+        return np.interp(np.mod(zq, p), np.append(zz, p), np.append(nn, nn[0]))
+
+    n_r = per(zc + z, zs, ns, period)
+    n_l = per(zc - z, zs, ns, period)
+    n_b = per(zb0 + z, zb, nb, pb)
+    return x, area * (n_r + n_l - n_b)
+
+
+def cmd_figures(a):
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    os.makedirs(FIG, exist_ok=True)
+    fig, axs = plt.subplots(2, 1, figsize=(5, 6), sharex=True)
+    for ax, m in zip(axs, FIG1):
+        for fc, col in zip(FACETS[METALS[m][0]], ("C0", "C1", "C2")):
+            for f, ls in (("Q2D-GGA", "-o"), ("DC-SCAN", "--s")):
+                xs, ys = [], []
+                for n in FIG1[m]:
+                    v = None
+                    for L in (n, n + 1):
+                        p = os.path.join(RES, surf_tag(m, fc, "SCAN" if f == "DC-SCAN" else f, L) + ".json")
+                        if os.path.exists(p):
+                            dd = json.load(open(p))
+                            v = dd.get("sigma_dcscan_J_m2" if f == "DC-SCAN" else "sigma_J_m2")
+                    if v is not None:
+                        xs.append(n); ys.append(v)
+                if xs:
+                    ax.plot(xs, ys, ls, color=col, ms=4, label=f"({fc}) {f}")
+        ax.set_ylabel(r"$\sigma$ (J m$^{-2}$)")
+        ax.set_title(f"{m} ({METALS[m][0]})", fontsize=10)
+        ax.legend(fontsize=7, ncol=2)
+    axs[-1].set_xlabel("number of layers $N$")
+    fig.tight_layout()
+    fig.savefig(os.path.join(FIG, "jcp2020_fig1.pdf"))
+    fig, axs = plt.subplots(1, 3, figsize=(11, 3.4), sharey=True)
+    for ax, (st, (ms, fc)) in zip(axs, FIG2.items()):
+        for m in ms:
+            try:
+                x, dn = delta_n(m, fc, a.functional, 13)
+            except (FileNotFoundError, KeyError):
+                continue
+            ax.plot(x, dn, label=f"{m}({fc})")
+        ax.axhline(0, color="k", lw=0.5)
+        ax.set_xlabel("$z/d_0$")
+        ax.set_title(f"{st}, {a.functional} density", fontsize=10)
+        ax.legend(fontsize=8)
+    axs[0].set_ylabel(r"$\Delta n(z)$ (bohr$^{-1}$)")
+    fig.tight_layout()
+    fig.savefig(os.path.join(FIG, "jcp2020_fig2.pdf"))
+    print("figures/jcp2020_fig1.pdf, figures/jcp2020_fig2.pdf written (missing runs are left out)")
+
+
+def main():
+    p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    sub = p.add_subparsers(dest="cmd", required=True)
+
+    def common(q):
+        q.add_argument("--system", choices=list(METALS), required=True)
+        q.add_argument("--functional", choices=FUNCS + EXTRA, required=True)
+        q.add_argument("--cutoff", type=float, default=None, help="Ha (default: 3d 300, Al 80, others 150)")
+        q.add_argument("--sigma", type=float, default=0.05, help="Gaussian smearing (eV); paper: 0.05")
+        q.add_argument("--max-cycle", type=int, default=200)
+        q.add_argument("--kerker-alpha", type=float, default=0.3)
+        q.add_argument("--kerker-q0", type=float, default=0.8)
+        q.add_argument("--kerker-hist", type=int, default=12)
+        q.add_argument("--no-spin", action="store_true", help="Fe/Co non-magnetic (paper: spin-polarised)")
+
+    g = sub.add_parser("geometry")
+    g.add_argument("--system", choices=list(METALS), required=True)
+    g.add_argument("--facet", default=None)
+    g.add_argument("--layers", type=int, default=13)
+    q = sub.add_parser("gate")
+    common(q)
+    q = sub.add_parser("lattice")
+    common(q)
+    q.add_argument("--k", type=int, default=12, help="k mesh per direction (hcp: k x k x k/(c/a))")
+    q.add_argument("--a-center", type=float, default=None,
+                   help="centre of the +-5%% grid (Angstrom; default: experimental a); used to repeat a scan whose "
+                        "minimum fell near the edge")
+    q = sub.add_parser("surface")
+    common(q)
+    q.add_argument("--facet", required=True)
+    q.add_argument("--layers", type=int, default=13, help="atomic planes (paper: 13)")
+    q.add_argument("--vacuum", type=float, default=12.0, help="Angstrom (paper: > 20)")
+    q.add_argument("--kdens", type=float, default=33.0,
+                   help="k points per direction = round(kdens/|a_i|) (Angstrom); 33 = 12x12 for fcc(111) Pt")
+    q.add_argument("--kxy", type=int, default=None, help="fixed in-plane k mesh (overrides --kdens; paper: 16)")
+    q.add_argument("--kz", type=int, default=None, help="bulk k_z (default: from --kdens)")
+    q.add_argument("--a", type=float, default=None, help="lattice constant (Angstrom), overrides --a-source")
+    q.add_argument("--a-source", choices=["own", "exp"], default="own")
+    sub.add_parser("tasks")
+    sub.add_parser("table")
+    sub.add_parser("report")
+    q = sub.add_parser("figures")
+    q.add_argument("--functional", default="PBEsol", help="density used for Fig. 2")
+    a = p.parse_args()
+    dict(geometry=cmd_geometry, lattice=cmd_lattice, surface=cmd_surface, tasks=cmd_tasks, table=cmd_table,
+         figures=cmd_figures, report=cmd_report, gate=cmd_gate)[a.cmd](a)
+
+
+if __name__ == "__main__":
+    main()
+#INFO: ******************** input file end ********************
+
+
+System: uname_result(system='Linux', node='r11ch05b03.lem.kdm.wcss.pl', release='5.14.0-687.46.1.el9_8.x86_64', version='#1 SMP PREEMPT_DYNAMIC Fri Sep 11 09:03:19 EDT 2026', machine='x86_64')  Threads 16
+Python 3.11.3 (main, Dec  9 2024, 15:01:57) [GCC 12.3.0]
+numpy 1.25.1  scipy 1.11.1  h5py 3.9.0
+Date: Mon Nov 23 03:44:30 2026
+PySCF version 2.7.0
+PySCF path  /usr/local/easybuild/software/PySCF/2.7.0-foss-2023a/lib/python3.11/site-packages/pyscf
+
+[ENV] PYSCF_TMPDIR /lustre/pd03/hpc-gabchi5762-1768308766/jcp2020_tmp/6395955_51
+[ENV] PYSCF_MAX_MEMORY 147456
+[ENV] EBDEVELPYSCF /usr/local/easybuild/software/PySCF/2.7.0-foss-2023a/easybuild/PySCF-2.7.0-foss-2023a-easybuild-devel
+[ENV] EBVERSIONPYSCF 2.7.0
+[ENV] EBROOTPYSCF /usr/local/easybuild/software/PySCF/2.7.0-foss-2023a
+[ENV] EBEXTSLISTPYSCF dftd3-94091d8,doci-08079a9,icmpspt-50c386e,properties-8b94d8d,qsdopt-3ad2c02,semiempirical-470d716,shciscf-7edb54d,nptyping-2.5.0,MCfun-0.2.3,pyqmc-0.6.0,dmrgscf-a03f7b6,fciqmc-ee98fb4,mbd-485c18c,naive-hci-0c28d6e,tblis-c67c8af,zquatev-4eb41b1
+[CONFIG] conf_file None
+[INPUT] verbose = 4
+[INPUT] num. atoms = 4
+[INPUT] num. electrons = 68
+[INPUT] charge = 0
+[INPUT] spin (= nelec alpha-beta = 2S) = 0
+[INPUT] symmetry False subgroup None
+[INPUT] Mole.unit = Angstrom
+[INPUT] Symbol           X                Y                Z      unit          X                Y                Z       unit  Magmom
+[INPUT]  1 Ir     0.000000000000   0.000000000000   0.000000000000 AA    0.000000000000   0.000000000000   0.000000000000 Bohr   0.0
+[INPUT]  2 Ir     1.365394566064   1.930959513318   1.365394566064 AA    2.580221781830   3.648984637794   2.580221781830 Bohr   0.0
+[INPUT]  3 Ir     0.000000000000   0.000000000000   2.730789132128 AA    0.000000000000   0.000000000000   5.160443563660 Bohr   0.0
+[INPUT]  4 Ir     1.365394566064   1.930959513318   4.096183698191 AA    2.580221781830   3.648984637794   7.740665345490 Bohr   0.0
+
+nuclear repulsion = -363.121599826694
+number of shells = 16
+number of NR pGTOs = 384
+number of NR cGTOs = 104
+basis = gth-dzvp-molopt-sr
+ecp = {}
+CPU time:         1.36
+lattice vectors  a1 [5.160443564, 0.000000000, 0.000000000]
+                 a2 [0.000000000, 7.297969276, 0.000000000]
+                 a3 [0.000000000, 0.000000000, 10.320887127]
+dimension = 3
+low_dim_ft_type = None
+Cell volume = 388.692
+rcut = 29.696669295988645 (nimgs = [6 5 3])
+lattice sum = 1093 cells
+precision = 1e-08
+pseudo = gth-pbe
+ke_cutoff = 350.0
+    = [45 63 89] mesh (252315 PWs)
+WARNING!
+  Very diffused basis functions are found in the basis set. They may lead to severe
+  linear dependence and numerical instability.  You can set  cell.exp_to_discard=0.1
+  to remove the diffused Gaussians whose exponents are less than 0.1.
+
+/usr/local/easybuild/software/PySCF/2.7.0-foss-2023a/lib/python3.11/site-packages/pyscf/pbc/gto/cell.py:1153: UserWarning: Electron number 221 and spin 0 are not consistent in cell
+
+  warnings.warn('Electron number %d and spin %d are not consistent '
+WARNING!
+  Very diffused basis functions are found in the basis set. They may lead to severe
+  linear dependence and numerical instability.  You can set  cell.exp_to_discard=0.1
+  to remove the diffused Gaussians whose exponents are less than 0.1.
+
+#INFO: **** input file is /home/gabchi5762/pyscf/gpu/scan/vasp/new/jcp2020/jcp2020_scf.py ****
+#!/usr/bin/env python3
+"""Self-consistent PySCF reproduction of J. Chem. Phys. 152, 151101 (2020) (Patra, Jana, Constantin, Chiodo, Samal),
+"Improved transition metal surface energies from a GGA developed for quasi-2D systems", extended with SCAN and DC-SCAN
+(Claude Code, 2026-11-22).
+
+STANDALONE: numpy + scipy + pyscf (+ matplotlib for `figures`).  Copied verbatim, marked below:
+  DC-SCAN switch functions, fields_on_grid, descriptors, eps, dcscan_delta, rho_kerker_scf, finish_pulay,
+  birch_murnaghan  <- codes/PRL2012_scf/lattice_scf.py;   grid_check <- codes/PRL2012_scf/prl2012_scf.py;
+  plane_profile    <- codes/Al/22_surface_density_dcscan.py  (delta_n adapted from the same script).
+
+What the paper contains and how it is reproduced here
+  Table I   surface energies of fcc (100)/(110)/(111), bcc (100)/(110)/(111), hcp (0001)/(10-10)/(11-20) of 21
+            transition metals, LDA/PBE/PBEsol/Q2D-GGA          -> `surface` runs, `table`  (+ SCAN, DC-SCAN columns)
+  Table II  ME/MAE/MARE vs experiment of the most stable facet and of the Wulff-weighted surface energy
+                                                                -> `table` (own Wulff construction, scipy)
+  Fig. 1    sigma vs number of layers N, Pt and Ta, all three facets, Q2D-GGA   -> `surface --layers N`, `figures`
+            (+ DC-SCAN curves from the SCAN runs)
+  Fig. 2    Delta n(z) = n_surf,l + n_surf,r - n_bulk for fcc(111) Pt/Pd/Rh/Al, bcc(110) W/Na, hcp(0001) Ru/Hf/Mg
+                                                                -> plane profiles saved by every `surface` run, `figures`
+  Lattice constants: the paper uses each functional's own equilibrium lattice constant (not tabulated)
+                                                                -> `lattice` (BM3 fit, as lattice_scf.py)
+
+Protocol (paper -> this work)
+  VASP PAW 800 eV          -> GTH-PBE pseudopotentials + gth-dzvp-molopt-sr, FFT density cutoff (3d metals 300 Ha,
+                              others 150 Ha; the cutoff gates of codes/SurfaceMetals_cutoff)
+  13 layers, relaxed       -> 13 atomic planes (14 where the stacking needs an even number for a symmetric slab),
+                              NOT relaxed (bulk-terminated)
+  >20 A vacuum, 16x16x1    -> --vacuum (default 12 A), --kxy (default 12); Gaussian smearing 0.05 eV as in the paper
+  Fe, Co spin-polarised    -> KUKS (PySCF DIIS, ferromagnetic start); DC-SCAN not evaluated for spin-polarised runs
+  Eq. (4) sigma = (E_N^slab - N eps_atom^bulk) / (2 alpha)
+                           -> bulk reference = the oriented bulk cell of the same facet (same in-plane cell, same FFT
+                              grid spacing in all three directions, slab atoms = bulk atoms translated by whole grid
+                              steps), so FFT-grid ("egg-box") errors cancel between slab and bulk (cf. the Cu Q2D-GGA
+                              cutoff diagnostic, codes/PRL2012_scf/results/cudiag)
+  SCAN / DC-SCAN (this work only): SCAN self-consistent; DC-SCAN exchange evaluated post-SCF on the SCAN density
+                              (DC-SCAN needs the density Hessian), E_DC = E_SCAN + Ex^DC-SCAN - Ex^SCAN, for slab and
+                              bulk and for every lattice-scan point.
+
+Usage (python = an environment with PySCF; heavy runs on WCSS, see run_jcp2020.sbatch)
+  python jcp2020_scf.py geometry --system Pt --facet 110              # print the slab / bulk cells (no SCF)
+  python jcp2020_scf.py lattice  --system Pt --functional SCAN        # results/lattice_Pt_SCAN.json (+ DC-SCAN a0)
+  python jcp2020_scf.py surface  --system Pt --facet 111 --functional Q2D-GGA [--layers 13]
+  python jcp2020_scf.py tasks                                         # write tasks_*.txt for the sbatch arrays
+  python jcp2020_scf.py table                                         # results/jcp2020_table{1,2}.{csv,tex}
+  python jcp2020_scf.py figures                                       # figures/jcp2020_fig{1,2}.pdf
+  python jcp2020_scf.py report                                        # results/jcp2020_report.{tex,pdf} (standalone)
+"""
+import argparse, csv, glob, json, math, os, time
+import numpy as np
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+RES = os.path.join(HERE, "results")
+FIG = os.path.join(HERE, "figures")
+REF1 = os.path.join(HERE, "reference_jcp2020_table1.csv")
+REF2 = os.path.join(HERE, "reference_jcp2020_table2.csv")
+HA2EV = 27.211386245988
+HA_PER_BOHR2_TO_J_PER_M2 = 1556.8929
+BOHR_ANG = 0.52917721092
+EV_A3_TO_GPA = 160.21766208
+XC = {"LDA": "LDA_X,LDA_C_PW", "PBE": "GGA_X_PBE,GGA_C_PBE", "PBEsol": "GGA_X_PBE_SOL,GGA_C_PBE_SOL",
+      "Q2D-GGA": "GGA_X_Q2D,GGA_C_Q2D", "SCAN": "MGGA_X_SCAN,MGGA_C_SCAN"}
+FUNCS = ["LDA", "PBE", "PBEsol", "Q2D-GGA"]          # functionals of the paper
+EXTRA = ["SCAN", "DC-SCAN"]                          # this work only; a SCAN run also yields DC-SCAN
+SCALES = [0.95, 0.9625, 0.975, 0.9875, 1.00, 1.0125, 1.025, 1.0375, 1.05]   # lattice grid as lattice_scf.py
+
+# structure, experimental a (Angstrom), experimental c/a (hcp).  Room-temperature values (C. Kittel, Introduction
+# to Solid State Physics, 8th ed., Table 1.3/Ch. 1; Na at 5 K).  They only centre the lattice scan (Eq. eos-grid) and
+# fix c/a of the hcp metals (c/a is not optimised here); they do not enter any fitted result.
+METALS = {
+    "Ag": ("fcc", 4.086, None), "Au": ("fcc", 4.078, None), "Cu": ("fcc", 3.615, None), "Ir": ("fcc", 3.839, None),
+    "Pd": ("fcc", 3.891, None), "Pt": ("fcc", 3.924, None), "Rh": ("fcc", 3.803, None),
+    "Cr": ("bcc", 2.884, None), "Fe": ("bcc", 2.867, None), "Mo": ("bcc", 3.147, None), "Nb": ("bcc", 3.301, None),
+    "Ta": ("bcc", 3.303, None), "V": ("bcc", 3.028, None), "W": ("bcc", 3.165, None),
+    "Co": ("hcp", 2.507, 4.070 / 2.507), "Cd": ("hcp", 2.979, 5.619 / 2.979), "Hf": ("hcp", 3.195, 5.051 / 3.195),
+    "Ru": ("hcp", 2.706, 4.282 / 2.706), "Ti": ("hcp", 2.951, 4.686 / 2.951), "Zn": ("hcp", 2.665, 4.947 / 2.665),
+    "Zr": ("hcp", 3.232, 5.147 / 3.232),
+    # simple metals of Fig. 2 only
+    "Al": ("fcc", 4.050, None), "Na": ("bcc", 4.225, None), "Mg": ("hcp", 3.209, 5.211 / 3.209),
+}
+TABLE_METALS = [m for m in METALS if m not in ("Al", "Na", "Mg")]
+FACETS = {"fcc": ["100", "110", "111"], "bcc": ["100", "110", "111"], "hcp": ["0001", "10-10", "11-20"]}
+MILLER3 = {"100": (1, 0, 0), "110": (1, 1, 0), "111": (1, 1, 1),            # cubic: conventional-cell indices
+           "0001": (0, 0, 1), "10-10": (1, 0, 0), "11-20": (1, 1, 0)}       # hcp (hkil) -> (hkl) in the a1,a2,c basis
+MOST_STABLE = {"fcc": "111", "bcc": "110", "hcp": "0001"}                # facets with an experimental value
+SPIN = {"Fe", "Co"}                                                      # spin-polarised as in the paper
+FIG1 = {"Pt": [5, 7, 9, 11, 13, 15], "Ta": [5, 7, 9, 11, 13, 15]}        # layer series of Fig. 1
+FIG2 = {"fcc": (["Pt", "Pd", "Rh", "Al"], "111"), "bcc": (["W", "Na"], "110"), "hcp": (["Ru", "Hf", "Mg"], "0001")}
+THREE_D = {"Ti", "V", "Cr", "Fe", "Co", "Cu", "Zn"}
+
+
+GATE_CUTS = [150.0, 250.0, 350.0, 450.0, 600.0]   # Ha, cutoff gate (cmd_gate)
+GATE_FUNCS = ["Q2D-GGA", "SCAN"]                 # the most grid-sensitive functionals of this work
+
+
+def default_cutoff(m):
+    """Cutoff chosen by `gate` (results/cutoff_<M>.json) if available; otherwise the PRL-recreation defaults.
+    (Local test 2026-11-22: Mg at 150 Ha has a 50 % FFT-gradient error, at 300 Ha 10 %: semicore GTH needs the gate.)"""
+    p = os.path.join(RES, f"cutoff_{m}.json")
+    if os.path.exists(p):
+        return float(json.load(open(p))["cutoff_ha"])
+    return 300.0 if m in THREE_D else (80.0 if m == "Al" else 150.0)
+
+
+# ============================================================================ geometry (new, this script)
+def primitive(m, a, c_over_a=None):
+    """Primitive lattice vectors (rows, Angstrom), Cartesian basis positions and the conventional reciprocal basis
+    used to turn Miller indices into a Cartesian surface normal."""
+    st = METALS[m][0]
+    if st == "fcc":
+        P = 0.5 * a * np.array([[0.0, 1.0, 1.0], [1.0, 0.0, 1.0], [1.0, 1.0, 0.0]])
+        basis = np.zeros((1, 3))
+        conv = a * np.eye(3)
+    elif st == "bcc":
+        P = 0.5 * a * np.array([[-1.0, 1.0, 1.0], [1.0, -1.0, 1.0], [1.0, 1.0, -1.0]])
+        basis = np.zeros((1, 3))
+        conv = a * np.eye(3)
+    else:
+        c = (c_over_a or METALS[m][2]) * a
+        P = np.array([[a, 0.0, 0.0], [-0.5 * a, 0.5 * math.sqrt(3.0) * a, 0.0], [0.0, 0.0, c]])
+        basis = np.array([[0.0, 0.0, 0.0], [1.0 / 3.0, 2.0 / 3.0, 0.5]]) @ P
+        conv = P
+    return P, basis, 2.0 * np.pi * np.linalg.inv(conv).T
+
+
+def lattice_points(P, nmax):
+    r = np.arange(-nmax, nmax + 1)
+    m = np.array(np.meshgrid(r, r, r, indexing="ij")).reshape(3, -1).T
+    return m @ P
+
+
+def oriented_cells(m, a, facet, c_over_a=None, nmax=6):
+    """In-plane primitive vectors v1, v2 (shortest pair of minimal area) and the shortest lattice vector w parallel
+    to the surface normal; rotated so that v1 || x and w || z.  Returns the vertical bulk cell (v1, v2, w) with all
+    its atoms and the distinct plane heights inside one period."""
+    P, basis, B = primitive(m, a, c_over_a)
+    h = np.array(MILLER3[facet], float)
+    n = h @ B
+    n /= np.linalg.norm(n)
+    L = lattice_points(P, nmax)
+    L = L[np.linalg.norm(L, axis=1) > 1e-8]
+    tol = 1e-6 * a
+    inpl = L[np.abs(L @ n) < tol]
+    inpl = inpl[np.argsort(np.linalg.norm(inpl, axis=1), kind="stable")]
+    v1 = inpl[0]
+    best = None
+    for v in inpl[1:]:
+        area = np.linalg.norm(np.cross(v1, v))
+        if area < tol:
+            continue
+        key = (round(area, 6), round(float(np.linalg.norm(v)), 6), round(abs(float(v1 @ v)), 6))
+        if best is None or key < best[0]:
+            best = (key, v)
+    v2 = best[1]
+    if np.cross(v1, v2) @ n < 0:
+        v2 = -v2
+    par = L[(np.linalg.norm(np.cross(L, n), axis=1) < tol) & (L @ n > tol)]
+    w = par[np.argmin(np.linalg.norm(par, axis=1))]
+    ex = v1 / np.linalg.norm(v1)
+    ez = n
+    ey = np.cross(ez, ex)
+    R = np.array([ex, ey, ez])                       # rows: new axes
+    V = np.array([v1, v2, w])
+    nat = int(round(abs(np.linalg.det(V)) / abs(np.linalg.det(P)))) * len(basis)
+    Vinv = np.linalg.inv(V)
+    pts = (L[:, None, :] + basis[None, :, :]).reshape(-1, 3)
+    pts = np.vstack([basis, pts])
+    f = pts @ Vinv
+    keep = np.all((f > -1e-7) & (f < 1 - 1e-7), axis=1)
+    f = f[keep]
+    f = np.unique(np.round(f, 7) % 1.0, axis=0)
+    if len(f) != nat:
+        raise SystemExit(f"oriented cell: found {len(f)} atoms, expected {nat} ({m} {facet})")
+    Vr = V @ R.T
+    atoms = f @ Vr
+    zs = np.sort(np.unique(np.round(atoms[:, 2], 6)))
+    return dict(v1=Vr[0], v2=Vr[1], w=Vr[2], frac=f, atoms=atoms, planes=zs, nat=nat,
+                area_ang2=float(np.linalg.norm(np.cross(Vr[0], Vr[1]))))
+
+
+def slab_atoms(oc, layers):
+    """Atoms of `layers` consecutive planes, built from repetitions of the vertical bulk cell (so every slab atom is a
+    bulk atom translated by a multiple of w).  For a two-plane period with unequal spacings the slab starts with the
+    shortest spacing (for hcp(10-10) the termination that cuts the long, weak spacing)."""
+    wz = oc["w"][2]
+    planes = oc["planes"]
+    gaps = np.diff(np.append(planes, planes[0] + wz))   # spacings within one period, cyclic
+    start = int(np.argmin(np.round(gaps, 4)))            # begin at the first plane of the shortest spacing
+    reps = (start + layers) // len(planes) + 2
+    pos = np.vstack([oc["atoms"] + r * oc["w"] for r in range(reps)])
+    zr = np.round(pos[:, 2], 6)
+    uz = np.unique(zr)[start:start + layers]
+    sel = np.isin(zr, uz)
+    return pos[sel], uz
+
+
+def plane_spacings(z):
+    return np.round(np.diff(np.sort(z)), 4)
+
+
+def symmetric(z):
+    d = plane_spacings(z)
+    return bool(np.allclose(d, d[::-1], atol=1e-3))
+
+
+def build_cells(m, a, facet, layers, vacuum, cutoff, c_over_a=None, bulk_reps=None, verbose=4):
+    """PySCF cells for the slab and the oriented bulk with identical FFT grid spacing (explicit cell.mesh)."""
+    from pyscf.pbc import gto
+    oc = oriented_cells(m, a, facet, c_over_a)
+    if bulk_reps is None:
+        bulk_reps = max(1, int(math.ceil(3 / len(oc["planes"]))))   # >= 3 planes in the bulk reference
+    wb = bulk_reps * oc["w"]
+    bat = np.vstack([oc["atoms"] + r * oc["w"] for r in range(bulk_reps)])
+
+    def mk(avec, atoms):
+        c = gto.Cell()
+        c.a = avec
+        c.atom = [[m, tuple(p)] for p in atoms]
+        c.unit = "Angstrom"
+        c.basis = "gth-dzvp-molopt-sr"
+        c.pseudo = "gth-pbe"
+        c.ke_cutoff = cutoff
+        c.verbose = verbose
+        return c
+
+    bulk = mk(np.array([oc["v1"], oc["v2"], wb]), bat)
+    bulk.build()
+    mb = [int(x) for x in bulk.mesh]
+    # make the in-plane mesh divisible by 6 and the z mesh of one period w divisible by 6: every slab atom is then a
+    # bulk atom shifted by whole grid steps in x, y and z (w has no in-plane component by construction)
+    mb[0] = int(6 * math.ceil(mb[0] / 6)); mb[1] = int(6 * math.ceil(mb[1] / 6))
+    mzw = int(6 * math.ceil(mb[2] / bulk_reps / 6))
+    mb[2] = mzw * bulk_reps
+    bulk.mesh = mb
+    bulk.build()
+    hz = oc["w"][2] / mzw                                   # z grid step (Angstrom), identical in slab and bulk
+    sat, zpl = slab_atoms(oc, layers)
+    thick = float(zpl[-1] - zpl[0])
+    nz = int(math.ceil((thick + vacuum) / hz))
+    nz += nz % 2
+    shift = math.floor((0.5 * (nz * hz - thick) - zpl[0]) / hz) * hz   # whole grid steps
+    sat = sat + np.array([0.0, 0.0, shift])
+    slab = mk(np.array([oc["v1"], oc["v2"], [0.0, 0.0, nz * hz]]), sat)
+    slab.build()
+    slab.mesh = [mb[0], mb[1], nz]
+    slab.build()
+    info = dict(v1=oc["v1"].tolist(), v2=oc["v2"].tolist(), w=oc["w"].tolist(), area_ang2=oc["area_ang2"],
+                planes_per_period=len(oc["planes"]), atoms_per_period=oc["nat"], bulk_reps=bulk_reps,
+                nat_bulk=len(bat), nat_slab=len(sat), zplanes_ang=(zpl + shift).tolist(),
+                zfirst_in_bulk_cell_ang=float(zpl[0] % oc["w"][2]),
+                spacings_ang=plane_spacings(zpl).tolist(), symmetric=symmetric(zpl), hz_ang=hz,
+                mesh_bulk=mb, mesh_slab=[mb[0], mb[1], nz], vacuum_ang=float(nz * hz - thick))
+    return slab, bulk, info
+
+
+def bulk_cell(m, a, cutoff, c_over_a=None, verbose=3):
+    """Primitive bulk cell for the lattice scan (1 atom fcc/bcc, 2 atoms hcp at fixed c/a)."""
+    from pyscf.pbc import gto
+    P, basis, _ = primitive(m, a, c_over_a)
+    c = gto.Cell()
+    c.a = P
+    c.atom = [[m, tuple(p)] for p in basis]
+    c.unit = "Angstrom"
+    c.basis = "gth-dzvp-molopt-sr"
+    c.pseudo = "gth-pbe"
+    c.ke_cutoff = cutoff
+    c.verbose = verbose
+    c.build()
+    return c
+
+
+# ============================================================================ copied verbatim from codes/PRL2012_scf/lattice_scf.py
+# ==================================================== copied verbatim from codes/20_trap_dc_exchange.py
+# (its copy of codes/01_wire_benchmark.py: constants, m2d, A2D) and its DC-SCAN switch functions
+from scipy.special import gamma
+
+CX = 0.75 * (3.0 / np.pi) ** (1.0 / 3.0)        # LDA exchange constant, E_x^LDA = -CX int n^(4/3)
+
+KF = (3.0 * np.pi ** 2) ** (1.0 / 3.0)            # k_F = KF n^(1/3)
+
+C_NORM = 2.0 / np.pi ** 1.5                       # n = lam^k C_NORM exp(-(u + t^2)) in reduced coordinates
+
+A1D = 1.0 / 3.0
+
+def m2d():
+    """M2D of Eq. (28): the sheet integral of n^(4/3) s^(-1/2) in the lam -> infinity limit."""
+    # E_x -> -A2D M2D with  M2D = 2 pi CX c^(4/3) int du dt e^{-4/3(u+t^2)} (K n^{1/3})^{1/2} / |t|^{1/2}
+    # (s -> lam^{2/3} |t| / (K n^{1/3}) with lam^{1/3} prefactor cancelling).  Closed form:
+    # u and t integrals in closed form:
+    a = 4.0 / 3.0 + 1.0 / 6.0                    # s^{-1/2} carries n^{1/6}: exp(-(u+t^2)/6)
+    iu = 1.0 / a
+    it = 0.5 * gamma(0.25) * a ** (-0.25)        # int_0^inf t^{-1/2} e^{-a t^2} dt
+    return 2.0 * np.pi * CX * C_NORM ** (4.0 / 3.0) * np.sqrt(KF) * C_NORM ** (1.0 / 6.0) * iu * it
+
+A2D = np.sqrt(np.pi / 2.0) / m2d()
+
+def f2d(s):
+    return A2D / (1.0 + s * s) ** 0.25
+
+def f1d(s):
+    return A1D / (1.0 + s * s)
+
+def geometry_weights(D):
+    """Eqs. (23)-(24): Lagrange-type selectors of the 2D (D=1), 1D (D=2) and SCAN (D=3) branches."""
+    l2 = 0.5 * (D - 2.0) * (D - 3.0)
+    l1 = (D - 1.0) * (3.0 - D)
+    l3 = 0.5 * (D - 1.0) * (D - 2.0)
+    den = l2 * l2 + l1 * l1 + l3 * l3
+    return l2 * l2 / den, l1 * l1 / den, l3 * l3 / den
+
+def omega_switch(s, Z, variant='full'):
+    """Eq. (25) ('full') or the minimal-information Eq. (37) ('min')."""
+    s8 = s ** 8
+    g = s8 / (1.0 + s8)
+    g = np.where(np.isfinite(s8), g, 1.0)
+    if variant == 'min':
+        return g
+    z3 = Z ** 3
+    return z3 / (1.0 + z3) * g
+
+def fx_dcscan(s, D, Z, fx_base, variant='full'):
+    w2, w1, _ = geometry_weights(D)
+    om = omega_switch(s, Z, variant)
+    return (1.0 - om * (w2 + w1)) * fx_base + om * (w2 * f2d(s) + w1 * f1d(s))
+
+TAU_UNIF_X = 0.3 * KF ** 2                 # tau_unif = TAU_UNIF_X n^{5/3}
+# ==================================================== end of copy (20)
+
+
+def fields_on_grid(mf):
+    """n, grad n, tau (KS orbitals, smeared occupations) and the FFT Hessian of n on the uniform grid."""
+    cell = mf.cell
+    ni = mf._numint
+    grids = mf.grids
+    dm = mf.make_rdm1()
+    nao = cell.nao_nr()
+    rows = []
+    for ao_k1, ao_k2, mask, weight, coords in ni.block_loop(cell, grids, nao, deriv=1, kpts=mf.kpts):
+        r = ni.eval_rho(cell, ao_k1, dm, xctype="MGGA", hermi=1, with_lapl=False)
+        rows.append(np.asarray(r).real)
+    R = np.concatenate(rows, axis=1)
+    rho, grad, tau = R[0], R[1:4], R[-1]
+    mesh = np.asarray(grids.mesh) if hasattr(grids, "mesh") else np.asarray(cell.mesh)
+    if rho.size != np.prod(mesh):
+        raise SystemExit("grid is not the uniform FFT mesh")
+    n3 = rho.reshape(mesh)
+    Gv = cell.get_Gv(mesh)                                  # reciprocal vectors in the C-order of the mesh
+    nG = np.fft.fftn(n3).ravel()
+    gradF = np.array([np.fft.ifftn((1j * Gv[:, i] * nG).reshape(mesh)).real.ravel() for i in range(3)])
+    hess = np.empty((3, 3, rho.size))
+    for i in range(3):
+        for j in range(i, 3):
+            h = np.fft.ifftn((-Gv[:, i] * Gv[:, j] * nG).reshape(mesh)).real.ravel()
+            hess[i, j] = hess[j, i] = h
+    w = cell.vol / rho.size
+    return dict(rho=rho, grad=grad, tau=tau, hess=hess, gradF=gradF, mesh=mesh, w=w,
+                coords=np.asarray(grids.coords), nelec_grid=float(rho.sum() * w))
+
+
+def descriptors(F, nmin=1e-8):
+    rho, grad, hess, tau = F["rho"], F["grad"], F["hess"], F["tau"]
+    ok = rho > nmin
+    nn = np.where(ok, rho, 1.0)
+    C = -0.5 * (hess / nn - np.einsum("ig,jg->ijg", grad, grad) / nn ** 2)
+    trc2 = np.einsum("ijg,ijg->g", C, C)
+    Cg = np.einsum("ijg,jg->ig", C, grad)
+    gc2g = np.einsum("ig,ig->g", Cg, Cg)
+    gg = np.einsum("ig,ig->g", grad, grad)
+    with np.errstate(divide="ignore", invalid="ignore"):
+        Dd = np.clip(np.where(gc2g > 0, gg * trc2 / np.where(gc2g > 0, gc2g, 1.0), 3.0), 1.0, 3.0)
+    kf = KF * np.cbrt(nn)
+    s = np.sqrt(gg) / (2.0 * kf * nn)
+    tauw = gg / (8.0 * nn)
+    tau_c = np.maximum(tau, tauw)                         # tau >= tau_W (numerical floor)
+    return dict(ok=ok, n=np.where(ok, rho, 0.0), g=np.where(ok, grad, 0.0), tau=np.where(ok, tau_c, 0.0), s=s, D=Dd,
+                Z=np.sqrt(trc2) / kf ** 2)
+
+
+def eps(code, f):
+    from pyscf.dft import libxc
+    n = np.where(f["ok"], f["n"], 1.0)
+    if code.startswith("LDA"):
+        inp = n
+    elif code.startswith("GGA"):
+        inp = np.vstack((n, np.where(f["ok"], f["g"], 0.0)))
+    else:
+        inp = np.vstack((n, np.where(f["ok"], f["g"], 0.0), np.zeros_like(n), np.where(f["ok"], f["tau"], 1.0)))
+    key = code + "," if ("_X_" in code or code == "LDA_X") else "," + code
+    return np.where(f["ok"], np.asarray(libxc.eval_xc(key, inp, spin=0, deriv=0)[0]), 0.0)
+
+
+def dcscan_delta(mf):
+    """E_x^DC-SCAN - E_x^SCAN (Ha) on the current (SCAN) density: same descriptors and switch as script 22 xc_energies
+    (DC-SCAN depends on the density Hessian, so it is evaluated post-SCF on the self-consistent SCAN density)."""
+    F = fields_on_grid(mf)
+    f = descriptors(F)
+    n, w = f["n"], F["w"]
+    ex_lda, ex_scan = eps("LDA_X", f), eps("MGGA_X_SCAN", f)
+    with np.errstate(divide="ignore", invalid="ignore"):
+        fs = np.where(f["ok"], ex_scan / np.where(f["ok"], ex_lda, 1.0), 1.0)
+    ex_dc = fx_dcscan(f["s"], f["D"], f["Z"], fs, "full") * ex_lda
+    return float(np.sum(n * (ex_dc - ex_scan)) * w)
+
+
+def rho_kerker_scf(mf, dm0, alpha=0.3, q0=0.8, nhist=8, max_cycle=300, tol_rho=1e-6, log=print):
+    """Pulay mixing of the grid density with Kerker preconditioning (plane-wave style; Claude Code 2026-11-21).
+
+    KRKS + FFTDF + LDA/GGA/meta-GGA (MGGA: tau mixed like the gradient and included in the residual metric and
+    the convergence test; 2026-11-22).  The Kohn-Sham matrix is built from the mixed input density rho_in(r): Hartree from
+    rho_in(G), xc from [rho_in, grad rho_in] (libxc via eval_xc_eff).  The analytic gradient of each output density
+    (PySCF GGA density evaluator) is mixed with the same Pulay coefficients and Kerker filter (the filter commutes
+    with the gradient), so the fixed point is exactly the standard PySCF KS solution (2026-11-22; the 2026-11-21
+    version used the FFT gradient and needed a density-matrix Pulay finish, which stalls for d-metal slabs).  Output density rho_out(r) from the
+    smeared occupations; residual R = rho_out - rho_in.  Pulay combination of the last nhist pairs, then
+    rho_in <- rho_opt + P R_opt with P(G) = alpha G^2/(G^2+q0^2) (G = 0 has R = 0 by charge conservation).
+    Returns (converged, iterations, rms residual); mf.mo_* hold the last orbitals (dm_out = mf.make_rdm1()).
+    """
+    from pyscf.pbc import tools
+    from pyscf import lib
+    cell, mydf = mf.cell, mf.with_df
+    ni = mf._numint
+    mesh = np.asarray(mydf.mesh)
+    grids = mydf.grids
+    coulG = tools.get_coulG(cell, mesh=mesh)
+    Gv = cell.get_Gv(mesh)
+    G2 = np.einsum("gx,gx->g", Gv, Gv)
+    P = alpha * G2 / (G2 + q0 * q0)
+    ng = len(coulG)
+    w = cell.vol / ng
+    kpts = mf.kpts
+    xctype = ni._xc_type(mf.xc)
+    assert xctype in ("LDA", "GGA", "MGGA"), xctype
+    deriv = 0 if xctype == "LDA" else 1
+    nrow = {"LDA": 1, "GGA": 4, "MGGA": 5}[xctype]
+    h1e, s1e = mf.get_hcore(cell), mf.get_ovlp(cell)
+    cplx = not np.allclose(kpts, 0)
+
+    def rho_of(dm):
+        """Density, (GGA) its analytic gradient, (MGGA) tau on the FFT grid: array (1, 4 or 5, ng)."""
+        dms = np.asarray(dm)
+        make_rho, nset, nao = ni._gen_rho_evaluator(cell, dms, 1)
+        out = np.zeros((nrow, ng))
+        for etc, p0, p1 in mydf.aoR_loop(grids, kpts, deriv=deriv):
+            r = np.array(make_rho(0, etc[0], etc[2], xctype), ndmin=2).real
+            out[:, p0:p1] += r[[0, 1, 2, 3, r.shape[0] - 1]] if nrow == 5 else r[:nrow]   # MGGA: rho, grad, tau
+        return out
+
+    def fock_of(x):
+        rG = tools.fft(x[0], mesh)
+        vH = tools.ifft(coulG * rG, mesh).real
+        rho4 = x if deriv else x[0]
+        vxc = ni.eval_xc_eff(mf.xc, rho4, deriv=1, xctype=xctype)[1]
+        wv = np.array(vxc, ndmin=2) * w
+        wv[0] += vH * w
+        wv[0] *= 0.5
+        wtau = wv[4] * 0.25 if nrow == 5 else None     # PySCF: 1/2 (tau) x 1/2 (V + V^H below)
+        wv = wv[:4] if nrow == 5 else wv
+        nk, nao = len(kpts), cell.nao_nr()
+        V = np.zeros((nk, nao, nao), dtype=np.complex128 if cplx else float)
+        for etc, p0, p1 in mydf.aoR_loop(grids, kpts, deriv=deriv):
+            for k in range(nk):
+                ao = np.asarray(etc[0][k])
+                ao = ao if ao.ndim == 3 else ao[None]
+                aow = np.einsum("xgi,xg->gi", ao[:wv.shape[0]], wv[:, p0:p1])
+                V[k] += lib.dot(ao[0].conj().T, aow)
+                if wtau is not None:
+                    for x in (1, 2, 3):
+                        V[k] += lib.dot(ao[x].conj().T, ao[x] * wtau[p0:p1, None])
+        V = V + V.conj().transpose(0, 2, 1)
+        return np.asarray(h1e) + V
+
+    if np.asarray(dm0).ndim != 3:
+        raise SystemExit("rho_kerker_scf supports KRKS (even electron count) only")
+    x_in = rho_of(dm0)
+    # Kerker filter for the density and its gradient; plain linear mixing (alpha) for tau, which is not a charge
+    # and whose long-wavelength part must be updated (the Kerker filter would freeze it)
+    filt = lambda r: np.array([alpha * c if i == 4 else tools.ifft(P * tools.fft(c, mesh), mesh).real
+                               for i, c in enumerate(r)])
+    hist_x, hist_r = [], []
+    conv, rnorm = False, None
+    for it in range(1, max_cycle + 1):
+        F = fock_of(x_in)
+        mo_e, mo_c = mf.eig(F, s1e)
+        mo_occ = mf.get_occ(mo_e, mo_c)
+        mf.mo_energy, mf.mo_coeff, mf.mo_occ = mo_e, mo_c, mo_occ
+        R = rho_of(mf.make_rdm1(mo_c, mo_occ)) - x_in
+        mrows = [0, 4] if nrow == 5 else [0]          # residual metric: density (+ tau for meta-GGAs)
+        rnorm = float(np.sqrt(np.sum(R[mrows] * R[mrows]) * w / cell.vol))
+        log(f"rhokerker it {it:4d} rms(rho_out-rho_in) = {rnorm:.3e}  N_in = {x_in[0].sum() * w:.6f}", flush=True)
+        if rnorm < tol_rho:
+            conv = True
+            break
+        hist_x.append(x_in.copy()); hist_r.append(R.copy())
+        hist_x, hist_r = hist_x[-nhist:], hist_r[-nhist:]
+        n = len(hist_r)
+        B = np.empty((n + 1, n + 1))
+        for i in range(n):
+            for j in range(i, n):
+                B[i, j] = B[j, i] = float(np.sum(hist_r[i][mrows] * hist_r[j][mrows]))
+        B[n, :n] = B[:n, n] = -1.0
+        B[n, n] = 0.0
+        sc = np.max(np.abs(np.diag(B)[:n])); B[:n, :n] /= sc
+        rhs = np.zeros(n + 1); rhs[n] = -1.0
+        c = np.linalg.lstsq(B, rhs, rcond=None)[0][:n]
+        x_opt = sum(ci * x for ci, x in zip(c, hist_x))
+        r_opt = sum(ci * r for ci, r in zip(c, hist_r))
+        x_in = x_opt + filt(r_opt)
+    return conv, it, rnorm
+
+
+def finish_pulay(mf):
+    """Energy and orbital gradient of the standard functional at the Pulay-converged density (no further iteration:
+    for d-metal slabs a plain diagonalisation step amplifies residual differences, so PySCF's extra cycle is skipped)."""
+    cell = mf.cell
+    h1e, s1e = mf.get_hcore(cell), mf.get_ovlp(cell)
+    dm = mf.make_rdm1(mf.mo_coeff, mf.mo_occ)
+    veff = mf.get_veff(cell, dm)
+    e = float(mf.energy_tot(dm, h1e, veff))
+    fock = mf.get_fock(h1e, s1e, veff, dm)
+    g = np.asarray(mf.get_grad(mf.mo_coeff, mf.mo_occ, fock))
+    return e, float(np.linalg.norm(g) / np.sqrt(g.size))
+
+
+# ============================================================================ copied verbatim from codes/PRL2012_scf/lattice_scf.py
+def birch_murnaghan(V, E):
+    """E = sum_k c_k x^k, x = V^(-2/3), k = 0..3 (third-order Birch-Murnaghan); returns V0, E0, B0 (eV/A^3)."""
+    x = V ** (-2.0 / 3.0)
+    c = np.polyfit(x, E, 3)
+    p, dp, d2p = np.poly1d(c), np.poly1d(c).deriv(), np.poly1d(c).deriv(2)
+    roots = [r.real for r in dp.roots if abs(r.imag) < 1e-12 and x.min() * 0.95 < r.real < x.max() * 1.05]
+    if not roots:
+        raise SystemExit("no minimum inside the scanned range")
+    x0 = min(roots, key=lambda r: p(r))
+    V0 = x0 ** (-1.5)
+    # B = V d2E/dV2 ; dE/dV = p'(x) dx/dV, dx/dV = -2/3 V^(-5/3)
+    dxdV, d2xdV2 = -2.0 / 3.0 * V0 ** (-5.0 / 3.0), 10.0 / 9.0 * V0 ** (-8.0 / 3.0)
+    B0 = V0 * (d2p(x0) * dxdV ** 2 + dp(x0) * d2xdV2)
+    resid = float(np.sqrt(np.mean((p(x) - E) ** 2)))
+    return float(V0), float(p(x0)), float(B0), resid
+
+
+# ============================================================================ copied verbatim from codes/PRL2012_scf/prl2012_scf.py
+def grid_check(mf):
+    """Electron count on the FFT grid and analytic-vs-FFT gradient error (same metric as script 22)."""
+    cell, ni, grids = mf.cell, mf._numint, mf.grids
+    dm = np.asarray(mf.make_rdm1())
+    unrestricted = dm.ndim == 4 and dm.shape[0] == 2
+    rows = []
+    for ao_k1, ao_k2, mask, weight, coords in ni.block_loop(cell, grids, cell.nao_nr(), deriv=1, kpts=mf.kpts):
+        if unrestricted:
+            r = np.asarray(ni.eval_rho(cell, ao_k1, dm[0], xctype="GGA", hermi=1)) + \
+                np.asarray(ni.eval_rho(cell, ao_k1, dm[1], xctype="GGA", hermi=1))
+        else:
+            r = ni.eval_rho(cell, ao_k1, dm, xctype="GGA", hermi=1)
+        rows.append(np.asarray(r).real)
+    R = np.concatenate(rows, axis=1)
+    rho, grad = R[0], R[1:4]
+    mesh = np.asarray(grids.mesh) if hasattr(grids, "mesh") else np.asarray(cell.mesh)
+    Gv = cell.get_Gv(mesh)
+    nG = np.fft.fftn(rho.reshape(mesh)).ravel()
+    gradF = np.array([np.fft.ifftn((1j * Gv[:, i] * nG).reshape(mesh)).real.ravel() for i in range(3)])
+    gerr = float(np.max(np.abs(grad - gradF)) / max(np.max(np.abs(grad)), 1e-30))
+    return gerr, float(rho.sum() * cell.vol / rho.size), [int(m) for m in mesh]
+
+
+# ============================================================================ copied verbatim from codes/Al/22_surface_density_dcscan.py
+def plane_profile(F, f):
+    mesh = F["mesh"]
+    n3 = F["rho"].reshape(mesh)
+    nz = n3.mean(axis=(0, 1))
+    s3 = np.where(f["ok"], f["s"], 0.0).reshape(mesh)
+    nzw = np.where(nz > 0, nz, 1.0)
+    s_av = (n3 * s3).mean(axis=(0, 1)) / nzw              # density-weighted plane average of s
+    D3 = np.where(f["ok"], f["D"], 3.0).reshape(mesh)
+    D_av = (n3 * D3).mean(axis=(0, 1)) / nzw
+    return nz, s_av, D_av
+
+
+# ============================================================================ end of copies
+
+
+# ============================================================================ SCF driver (new, this script)
+def density_z(mf):
+    """Plane-averaged total density n(z) on the FFT mesh (restricted or unrestricted)."""
+    cell, ni, grids = mf.cell, mf._numint, mf.grids
+    dm = np.asarray(mf.make_rdm1())
+    rows = []
+    for ao_k1, ao_k2, mask, weight, coords in ni.block_loop(cell, grids, cell.nao_nr(), deriv=0, kpts=mf.kpts):
+        if dm.ndim == 4:
+            r = np.asarray(ni.eval_rho(cell, ao_k1, dm[0], xctype="LDA", hermi=1)) + \
+                np.asarray(ni.eval_rho(cell, ao_k1, dm[1], xctype="LDA", hermi=1))
+        else:
+            r = ni.eval_rho(cell, ao_k1, dm, xctype="LDA", hermi=1)
+        rows.append(np.asarray(r).real.ravel())
+    rho = np.concatenate(rows)
+    mesh = np.asarray(cell.mesh)
+    return rho.reshape(mesh).mean(axis=(0, 1))
+
+
+def spin_moment(mf):
+    """Magnetic moment per atom (Bohr magnetons) of a KUKS solution."""
+    na = sum(float(np.sum(o)) for o in mf.mo_occ[0])
+    nb = sum(float(np.sum(o)) for o in mf.mo_occ[1])
+    return (na - nb) / len(mf.kpts) / len(mf.cell.atom)
+
+
+def scf(cell, kmesh, functional, a, spin=False, dm0=None):
+    """Restricted: KRKS + Gaussian smearing + Kerker-preconditioned Pulay density mixing (rho_kerker_scf, the solver
+    of the PRL recreation).  Spin-polarised (Fe, Co): KUKS + smearing, PySCF DIIS, conv_tol 1e-10 Ha, started from
+    dm0 (the converged density of a neighbouring lattice point / cutoff, so that a scan follows ONE magnetic solution;
+    2026-11-22: independent ferromagnetic starts gave energies scattered by 1-7 mHa/atom) or, without dm0, from a
+    ferromagnetic atomic guess.  mf.moment = magnetic moment per atom.
+    Returns mf, energy (Ha), converged, iterations, solver, dEx(DC-SCAN - SCAN) or None."""
+    from pyscf.pbc import dft
+    from pyscf.pbc.scf.addons import smearing_
+    kpts = cell.make_kpts(kmesh, wrap_around=True)
+    xc = XC["SCAN" if functional in EXTRA else functional]
+    if spin:
+        mf = dft.KUKS(cell, kpts)
+        mf.xc = xc
+        mf = smearing_(mf, sigma=a.sigma / HA2EV, method="gaussian")
+        mf.conv_tol, mf.max_cycle = 1e-10, max(a.max_cycle, 300)
+        if dm0 is None:
+            dm = mf.get_init_guess(cell, "atom")
+            dm = np.array([dm[0] * 1.2, dm[1] * 0.8]) if np.asarray(dm).ndim == 4 else dm   # ferromagnetic start
+        else:
+            dm = dm0
+        ncyc = [0]
+        mf.callback = lambda env: ncyc.__setitem__(0, ncyc[0] + 1)
+        e = float(mf.kernel(dm0=dm))
+        mf.moment = spin_moment(mf)
+        print(f"KUKS SCF: converged={mf.converged} cycles={ncyc[0]} E={e:.10f} moment={mf.moment:.4f} muB/atom",
+              flush=True)
+        return mf, e, bool(mf.converged), ncyc[0], "KUKS-diis", None
+    mf = dft.KRKS(cell, kpts)
+    mf.xc = xc
+    mf = smearing_(mf, sigma=a.sigma / HA2EV, method="gaussian")
+    conv, it, res = rho_kerker_scf(mf, mf.get_init_guess(cell, "atom"), a.kerker_alpha, a.kerker_q0,
+                                   a.kerker_hist, a.max_cycle)
+    e, g = finish_pulay(mf)
+    ok = bool(conv and g < 1e-4)
+    dex = dcscan_delta(mf) if (ok and functional in EXTRA) else None
+    print(f"Kerker SCF: converged={conv} it={it} rms={res:.2e} E={e:.10f} |g|={g:.2e}", flush=True)
+    return mf, float(e), ok, it, "KRKS-kerker", dex
+
+
+def lattice_json(m, f):
+    return os.path.join(RES, f"lattice_{m}_{f}.json")
+
+
+def lattice_constant(m, f, source):
+    """a0 for the surface run: own lattice scan of functional f (default), or the experimental value."""
+    if source == "exp":
+        return METALS[m][1], "experimental (Kittel)"
+    fl = "SCAN" if f == "DC-SCAN" else f
+    p = lattice_json(m, fl)
+    if not os.path.exists(p):
+        raise SystemExit(f"{p} missing: run `lattice --system {m} --functional {fl}` first (or --a-source exp)")
+    d = json.load(open(p))
+    if f == "DC-SCAN":
+        return d["a0_dcscan_ang"], "own DC-SCAN lattice scan"
+    return d["a0_ang"], f"own {fl} lattice scan"
+
+
+# ============================================================================ commands
+def cmd_geometry(a):
+    st, aexp, ca = METALS[a.system]
+    for facet in ([a.facet] if a.facet else FACETS[st]):
+        oc = oriented_cells(a.system, aexp, facet)
+        at, z = slab_atoms(oc, a.layers)
+        print(f"{a.system} {st}({facet}) a={aexp}: v1={np.round(oc['v1'], 4)} v2={np.round(oc['v2'], 4)} "
+              f"w={np.round(oc['w'], 4)}; {oc['nat']} atoms / {len(oc['planes'])} planes per period; "
+              f"area {oc['area_ang2']:.3f} A^2; slab {a.layers} planes, {len(at)} atoms, spacings "
+              f"{sorted(set(plane_spacings(z).tolist()))}, symmetric={symmetric(z)}")
+
+
+def cmd_lattice(a):
+    os.makedirs(RES, exist_ok=True)
+    m, f = a.system, a.functional
+    if f == "DC-SCAN":
+        raise SystemExit("DC-SCAN lattice constants come from the SCAN scan (--functional SCAN)")
+    st, aexp, ca = METALS[m]
+    cut = a.cutoff or default_cutoff(m)
+    km = [a.k, a.k, a.k] if st != "hcp" else [a.k, a.k, max(1, int(round(a.k / ca)))]
+    spin = m in SPIN and not a.no_spin
+    # spin-polarised: start at the centre of the grid and walk outwards, each point from its neighbour's density
+    order = [4, 3, 2, 1, 0, 5, 6, 7, 8] if spin else list(range(len(SCALES)))
+    pts, dms = [None] * len(SCALES), {}
+    t0 = time.time()
+    acen = a.a_center or aexp                      # grid centre (re-centred scan after a minimum-near-edge flag)
+    for i in order:
+        s = SCALES[i]
+        cell = bulk_cell(m, acen * s, cut)
+        nb = i + 1 if i < 4 else i - 1
+        mf, e, ok, it, solver, dex = scf(cell, km, f, a, spin=spin, dm0=dms.get(nb) if spin else None)
+        if spin:
+            dms[i] = mf.make_rdm1()
+        d = dict(a_ang=acen * s, volume_ang3=float(cell.vol) * BOHR_ANG ** 3 / len(cell.atom), energy=e,
+                 converged=ok, iterations=it, solver=solver)
+        if spin:
+            d["moment_muB"] = mf.moment
+        if dex is not None:
+            d["energy_dcscan"] = e + dex
+        print(f"a = {d['a_ang']:.4f} A  E = {e:.10f} Ha  converged={ok}", flush=True)
+        pts[i] = d
+    if not all(p["converged"] for p in pts):
+        raise SystemExit("not all lattice points converged")
+    V = np.array([p["volume_ang3"] for p in pts])
+    nat = len(primitive(m, aexp)[1])
+    E = np.array([p["energy"] for p in pts]) * HA2EV / nat                       # eV per atom
+    V0, E0, B0, rms = birch_murnaghan(V, E)
+    a_of_V = lambda v: (4.0 * v) ** (1 / 3) if st == "fcc" else ((2.0 * v) ** (1 / 3) if st == "bcc" else
+                                                                (4.0 * v / (math.sqrt(3.0) * ca)) ** (1 / 3))
+    a0 = a_of_V(V0)
+    lo, hi = pts[0]["a_ang"], pts[-1]["a_ang"]
+    edge = not (lo + 0.15 * (hi - lo) < a0 < hi - 0.15 * (hi - lo))
+    out = dict(system=m, structure=st, functional=f, a0_ang=a0, a_center=acen, B0_GPa=B0 * EV_A3_TO_GPA, fit_rms_meV=rms * 1000,
+               minimum_near_edge=edge, a_exp=aexp, c_over_a_fixed=ca, k=km, sigma_ev=a.sigma, cutoff_ha=cut,
+               spin=m in SPIN and not a.no_spin, points=pts, seconds=time.time() - t0)
+    if f == "SCAN" and all("energy_dcscan" in p for p in pts):
+        Ed = np.array([p["energy_dcscan"] for p in pts]) * HA2EV / nat
+        V0d, _, B0d, rd = birch_murnaghan(V, Ed)
+        out.update(a0_dcscan_ang=a_of_V(V0d), B0_dcscan_GPa=B0d * EV_A3_TO_GPA, fit_rms_dcscan_meV=rd * 1000)
+    json.dump(out, open(lattice_json(m, f), "w"), indent=1)
+    print(f"RESULT {m} {f}: a0 = {a0:.4f} A (exp {aexp}), B0 = {out['B0_GPa']:.1f} GPa, rms {rms * 1000:.3f} meV"
+          + (f"; DC-SCAN a0 = {out['a0_dcscan_ang']:.4f} A" if "a0_dcscan_ang" in out else "")
+          + (" [MINIMUM NEAR EDGE]" if edge else ""))
+
+
+def surf_tag(m, facet, f, layers):
+    return f"surf_{m}_{facet}_{f}_L{layers}"
+
+
+def cmd_surface(a):
+    os.makedirs(RES, exist_ok=True)
+    m, facet, f = a.system, a.facet, a.functional
+    st, aexp, ca = METALS[m]
+    if facet not in FACETS[st]:
+        raise SystemExit(f"{m} is {st}: facets {FACETS[st]}")
+    layers = a.layers
+    oc = oriented_cells(m, aexp, facet)
+    if not symmetric(slab_atoms(oc, layers)[1]):
+        layers += 1
+        print(f"note: {layers - 1} planes give an asymmetric {st}({facet}) slab; using {layers}")
+    alat, asrc = (a.a, "command line") if a.a else lattice_constant(m, f, a.a_source)
+    cut = a.cutoff or default_cutoff(m)
+    tag = surf_tag(m, facet, f, layers)
+    slab, bulk, info = build_cells(m, alat, facet, layers, a.vacuum, cut, ca)
+    hb = np.linalg.norm(info["w"]) * info["bulk_reps"]
+    kx = a.kxy or max(1, int(round(a.kdens / np.linalg.norm(info["v1"]))))
+    ky = a.kxy or max(1, int(round(a.kdens / np.linalg.norm(info["v2"]))))
+    kz = a.kz or max(1, int(round(a.kdens / hb)))
+    spin = m in SPIN and not a.no_spin
+    res = {}
+    t0 = time.time()
+    for kind, cell, km in (("bulk", bulk, [kx, ky, kz]), ("slab", slab, [kx, ky, 1])):
+        mf, e, ok, it, solver, dex = scf(cell, km, f, a, spin)
+        r = dict(energy=e, converged=ok, iterations=it, solver=solver, kmesh=km, nat=len(cell.atom),
+                 nelectron=int(cell.nelectron), mesh=[int(x) for x in cell.mesh])
+        if dex is not None:
+            r["dEx_dcscan_minus_scan"] = dex
+        if ok:
+            gerr, ng, _ = grid_check(mf) if not spin else (float("nan"), float("nan"), None)
+            r.update(grad_fft_relerr=gerr, nelec_err=ng - cell.nelectron)
+            nz = density_z(mf)
+            zgrid = np.arange(cell.mesh[2]) / cell.mesh[2] * cell.lattice_vectors()[2, 2] * BOHR_ANG
+            np.savez(os.path.join(RES, f"{tag}_{kind}.npz"), z_ang=zgrid, n_z=nz)
+            if spin:
+                na = sum(float(np.sum(o)) for o in mf.mo_occ[0])
+                nb = sum(float(np.sum(o)) for o in mf.mo_occ[1])
+                r["magnetic_moment_per_atom"] = (na - nb) / len(mf.kpts) / len(cell.atom)
+        res[kind] = r
+        print(f"{kind}: converged={ok} E={e:.8f} Ha ({len(cell.atom)} atoms)", flush=True)
+        if not ok:
+            break
+    out = dict(system=m, structure=st, facet=facet, functional=f, layers=layers, a_ang=alat, a_source=asrc,
+               c_over_a=ca, cutoff_ha=cut, sigma_ev=a.sigma, vacuum_request_ang=a.vacuum, spin=spin, geometry=info,
+               res=res, seconds=time.time() - t0, basis="gth-dzvp-molopt-sr", pseudo="gth-pbe",
+               relaxed=False)
+    if all(res.get(k, {}).get("converged") for k in ("bulk", "slab")):
+        A = info["area_ang2"] / BOHR_ANG ** 2
+        ratio = info["nat_slab"] / info["nat_bulk"]
+        sig = (res["slab"]["energy"] - ratio * res["bulk"]["energy"]) / (2 * A) * HA_PER_BOHR2_TO_J_PER_M2
+        out["sigma_J_m2"] = sig
+        if f in EXTRA and "dEx_dcscan_minus_scan" in res["slab"]:
+            ds = res["slab"]["dEx_dcscan_minus_scan"] - ratio * res["bulk"]["dEx_dcscan_minus_scan"]
+            out["sigma_dcscan_J_m2"] = sig + ds / (2 * A) * HA_PER_BOHR2_TO_J_PER_M2
+            if f == "DC-SCAN":
+                out["sigma_scan_at_this_a_J_m2"], out["sigma_J_m2"] = sig, out["sigma_dcscan_J_m2"]
+        print(f"RESULT {m}({facet}) {f} N={layers}: sigma = {out['sigma_J_m2']:.4f} J/m2"
+              + (f", DC-SCAN {out['sigma_dcscan_J_m2']:.4f}" if f == "SCAN" and "sigma_dcscan_J_m2" in out else ""))
+    json.dump(out, open(os.path.join(RES, tag + ".json"), "w"), indent=1)
+
+
+def cmd_gate(a):
+    """Cutoff gate for one metal (primitive bulk at the experimental a, k 6, Q2D-GGA and SCAN): smallest cutoff of
+    GATE_CUTS with FFT-gradient error < 1 %, |N_grid - N| < 1e-4 and |E - E(600 Ha)| < 1 meV/atom for both
+    functionals -- the criteria of the cutoff gate of codes/SurfaceMetals_cutoff.  Spin-polarised metals: energy
+    criterion only (grid_check is restricted-only)."""
+    os.makedirs(RES, exist_ok=True)
+    m = a.system
+    st, aexp, ca = METALS[m]
+    spin = m in SPIN and not a.no_spin
+    km = [6, 6, 6] if st != "hcp" else [6, 6, max(1, int(round(6 / ca)))]
+    rows = []
+    for f in GATE_FUNCS:
+        dm_prev = None
+        for cut in GATE_CUTS:
+            cell = bulk_cell(m, aexp, cut)
+            mf, e, ok, it, solver, _ = scf(cell, km, f, a, spin=spin, dm0=dm_prev)
+            if spin:
+                dm_prev = mf.make_rdm1()
+            g, ng = float("nan"), float("nan")
+            if ok and not spin:
+                g, ng, _ = grid_check(mf)
+            rows.append(dict(functional=f, cutoff_ha=cut, converged=ok, e_atom_ha=e / len(cell.atom),
+                             grad_fft_relerr=g, nelec_err=ng - cell.nelectron, mesh=[int(x) for x in cell.mesh]))
+            print(f"gate {m} {f} {cut:.0f} Ha: conv={ok} E/atom={e / len(cell.atom):.8f} gerr={g:.2e}", flush=True)
+    chosen, passed = GATE_CUTS[-1], False
+    for cut in GATE_CUTS:
+        good = True
+        for f in GATE_FUNCS:
+            r = next(x for x in rows if x["functional"] == f and x["cutoff_ha"] == cut)
+            top = next(x for x in rows if x["functional"] == f and x["cutoff_ha"] == GATE_CUTS[-1])
+            dE = abs(r["e_atom_ha"] - top["e_atom_ha"]) * HA2EV * 1000
+            grid_ok = spin or (r["grad_fft_relerr"] < 0.01 and abs(r["nelec_err"]) < 1e-4)
+            good = good and bool(r["converged"]) and dE < 1.0 and grid_ok
+        if good:
+            chosen, passed = cut, True
+            break
+    out = dict(system=m, cutoff_ha=chosen, passed=passed,
+               criteria="gerr<1%, |dN|<1e-4, |dE vs 600 Ha|<1 meV/atom, Q2D-GGA and SCAN", k=km, rows=rows)
+    json.dump(out, open(os.path.join(RES, f"cutoff_{m}.json"), "w"), indent=1)
+    print(f"RESULT gate {m}: cutoff {chosen:.0f} Ha" + ("" if passed else " (NO cutoff passed; highest used)"))
+
+
+def cmd_tasks(a):
+    """Task lists for the sbatch arrays (one line = one python call)."""
+    lat = [f"lattice --system {m} --functional {f}" for m in TABLE_METALS + ["Al", "Na", "Mg"]
+           for f in FUNCS + ["SCAN"]]
+    surf = [f"surface --system {m} --facet {fc} --functional {f}" for m in TABLE_METALS
+            for fc in FACETS[METALS[m][0]] for f in FUNCS + ["SCAN"]]
+    surf += [f"surface --system {m} --facet {FIG2[METALS[m][0]][1]} --functional {f}" for m in ("Al", "Na", "Mg")
+             for f in FUNCS + ["SCAN"]]
+    fig1 = [f"surface --system {m} --facet {fc} --functional {f} --layers {n}" for m, ns in FIG1.items()
+            for fc in FACETS[METALS[m][0]] for f in ("Q2D-GGA", "SCAN") for n in ns if n != 13]
+    gate = [f"gate --system {m} --functional PBE" for m in TABLE_METALS + ["Al", "Na", "Mg"]]
+    for name, rows in (("gate", gate), ("lattice", lat), ("surface", surf), ("fig1", fig1)):
+        p = os.path.join(HERE, f"tasks_{name}.txt")
+        open(p, "w").write("".join(r + "\n" for r in rows))
+        print(f"{p}: {len(rows)} tasks")
+
+
+# ---------------------------------------------------------------------------- analysis
+def ref_table1():
+    out = {}
+    for r in csv.DictReader(l for l in open(REF1) if not l.startswith("#")):
+        for f in FUNCS + ["Exp"]:
+            if r[f]:
+                out[(r["system"], r["surface"], f)] = float(r[f])
+    return out
+
+
+def sigma(m, facet, f, layers=13):
+    """Own surface energy (J/m2) of the default-thickness slab; DC-SCAN from the SCAN run if no DC-SCAN run."""
+    for L in (layers, layers + 1):
+        p = os.path.join(RES, surf_tag(m, facet, f, L) + ".json")
+        if os.path.exists(p):
+            d = json.load(open(p))
+            if "sigma_J_m2" in d:
+                return d["sigma_J_m2"]
+    if f == "DC-SCAN":
+        for L in (layers, layers + 1):
+            p = os.path.join(RES, surf_tag(m, facet, "SCAN", L) + ".json")
+            if os.path.exists(p) and "sigma_dcscan_J_m2" in json.load(open(p)):
+                return json.load(open(p))["sigma_dcscan_J_m2"]
+    return None
+
+
+def wulff_fractions(structure, sig):
+    """Area fractions of the facet families on the Wulff shape {x : n.x <= sigma_family for all normals n}."""
+    from scipy.spatial import HalfspaceIntersection, ConvexHull
+    from itertools import permutations, product
+    fam = {}
+    if structure in ("fcc", "bcc"):
+        for key, v in (("100", (1, 0, 0)), ("110", (1, 1, 0)), ("111", (1, 1, 1))):
+            ns = set()
+            for p in permutations(v):
+                for sgn in product((1, -1), repeat=3):
+                    ns.add(tuple(s * c for s, c in zip(sgn, p)))
+            fam[key] = [np.array(n, float) / np.linalg.norm(n) for n in ns]
+    else:
+        fam["0001"] = [np.array([0, 0, 1.0]), np.array([0, 0, -1.0])]
+        fam["10-10"] = [np.array([math.cos(t), math.sin(t), 0]) for t in np.radians(30 + 60 * np.arange(6))]
+        fam["11-20"] = [np.array([math.cos(t), math.sin(t), 0]) for t in np.radians(60 * np.arange(6))]
+    H, lab = [], []
+    for k, ns in fam.items():
+        for n in ns:
+            H.append(np.append(n, -sig[k]))
+            lab.append(k)
+    H = np.array(H)
+    hs = HalfspaceIntersection(H, np.zeros(3))
+    hull = ConvexHull(hs.intersections)
+    area = {k: 0.0 for k in fam}
+    for simp, eq in zip(hull.simplices, hull.equations):
+        p = hs.intersections[simp]
+        tri = 0.5 * np.linalg.norm(np.cross(p[1] - p[0], p[2] - p[0]))
+        j = int(np.argmax(H[:, :3] @ eq[:3]))          # the half-space whose plane holds this facet
+        area[lab[j]] += tri
+    tot = sum(area.values())
+    return {k: v / tot for k, v in area.items()}
+
+
+def stats(pairs):
+    pairs = [(c, e) for c, e in pairs if c is not None and e is not None]
+    if not pairs:
+        return None
+    d = np.array([c - e for c, e in pairs])
+    e = np.array([e for _, e in pairs])
+    return dict(ME=float(d.mean()), MAE=float(np.abs(d).mean()), MARE=float(100 * np.mean(np.abs(d) / e)), n=len(d))
+
+
+def fmt(x, nd=2):
+    return "--" if x is None else f"{x:.{nd}f}"
+
+
+def cmd_table(_a):
+    ref = ref_table1()
+    cols = FUNCS + EXTRA
+    rows = []
+    for m in TABLE_METALS:
+        st = METALS[m][0]
+        for fc in FACETS[st]:
+            r = dict(structure=st, system=m, surface=fc, Exp=ref.get((m, fc, "Exp")))
+            for f in cols:
+                r[f] = sigma(m, fc, f)
+                if f in FUNCS:
+                    r[f + "_JCP"] = ref.get((m, fc, f))
+            rows.append(r)
+    with open(os.path.join(RES, "jcp2020_table1.csv"), "w", newline="") as fh:
+        w = csv.writer(fh)
+        head = ["structure", "system", "surface"] + [x for f in FUNCS for x in (f, f + "_JCP")] + EXTRA + ["Exp"]
+        w.writerow(head)
+        for r in rows:
+            w.writerow([r[h] if not isinstance(r[h], float) else f"{r[h]:.4f}" for h in head])
+    for name, sub in [("", rows)] + [("_" + st, [r for r in rows if r["structure"] == st]) for st in FACETS]:
+        L = ["% generated by codes/JCP2020_Patra/jcp2020_scf.py table -- do not edit by hand",
+             "\\begin{tabular}{@{}llrrrrrrrrrrr@{}}", "\\toprule",
+             " & & \\multicolumn{2}{c}{LDA} & \\multicolumn{2}{c}{PBE} & \\multicolumn{2}{c}{PBEsol} & "
+             "\\multicolumn{2}{c}{Q2D-GGA} & SCAN & DC-SCAN & \\textcolor{red}{Exp.} \\\\",
+             "Metal & Surface & This work & \\textcolor{red}{JCP} & This work & \\textcolor{red}{JCP} & This work & "
+             "\\textcolor{red}{JCP} & This work & \\textcolor{red}{JCP} & This work & This work & \\\\", "\\midrule"]
+        last = None
+        for r in sub:
+            if r["structure"] != last:
+                L.append(f"\\multicolumn{{13}}{{c}}{{\\emph{{{r['structure']}}}}} \\\\")
+                last = r["structure"]
+            fc = r["surface"].replace("-1", "\\bar{1}").replace("-2", "\\bar{2}")
+            cells = [r["system"] if r["surface"] == FACETS[r["structure"]][0] else "", f"$({fc})$"]
+            for f in FUNCS:
+                cells += [fmt(r[f]), "\\textcolor{red}{" + fmt(r[f + "_JCP"]) + "}"]
+            cells += [fmt(r["SCAN"]), fmt(r["DC-SCAN"]), "\\textcolor{red}{" + fmt(r["Exp"]) + "}" if r["Exp"] else ""]
+            L.append(" & ".join(cells) + " \\\\")
+        L += ["\\bottomrule", "\\end{tabular}"]
+        open(os.path.join(RES, f"jcp2020_table1{name}.tex"), "w").write("\n".join(L) + "\n")
+    # Table II: most stable facet and Wulff-weighted surface energy vs experiment
+    t2 = []
+    for kind in ("stable", "wulff"):
+        for grp in ("fcc", "bcc", "hcp", "Overall"):
+            line = dict(kind=kind, group=grp)
+            for f in cols:
+                pairs = []
+                for m in TABLE_METALS:
+                    st = METALS[m][0]
+                    if grp != "Overall" and st != grp:
+                        continue
+                    e = ref.get((m, MOST_STABLE[st], "Exp"))
+                    if kind == "stable":
+                        pairs.append((sigma(m, MOST_STABLE[st], f), e))
+                    else:
+                        sg = {fc: sigma(m, fc, f) for fc in FACETS[st]}
+                        if None in sg.values():
+                            continue
+                        fr = wulff_fractions(st, sg)
+                        pairs.append((sum(fr[k] * sg[k] for k in sg), e))
+                line[f] = stats(pairs)
+            t2.append(line)
+    with open(os.path.join(RES, "jcp2020_table2.csv"), "w", newline="") as fh:
+        w = csv.writer(fh)
+        w.writerow(["kind", "group", "functional", "ME", "MAE", "MARE_percent", "n"])
+        for line in t2:
+            for f in cols:
+                s = line[f]
+                w.writerow([line["kind"], line["group"], f] + (["", "", "", 0] if s is None else
+                           [f"{s['ME']:.3f}", f"{s['MAE']:.3f}", f"{s['MARE']:.2f}", s["n"]]))
+    ref2 = {}
+    if os.path.exists(REF2):
+        for r in csv.DictReader(l for l in open(REF2) if not l.startswith("#")):
+            ref2[(r["kind"], r["group"], r["stat"], r["functional"])] = float(r["value"])
+    L = ["% generated by codes/JCP2020_Patra/jcp2020_scf.py table -- do not edit by hand",
+         "\\begin{tabular}{@{}llrrrrrrrrrr@{}}", "\\toprule",
+         " & & \\multicolumn{2}{c}{LDA} & \\multicolumn{2}{c}{PBE} & \\multicolumn{2}{c}{PBEsol} & "
+         "\\multicolumn{2}{c}{Q2D-GGA} & SCAN & DC-SCAN \\\\",
+         " & & This work & \\textcolor{red}{JCP} & This work & \\textcolor{red}{JCP} & This work & "
+         "\\textcolor{red}{JCP} & This work & \\textcolor{red}{JCP} & This work & This work \\\\", "\\midrule"]
+    for line in t2:
+        if line["group"] == "fcc":
+            L.append("\\multicolumn{12}{c}{" + ("most stable facet, $\\gamma_{\\rm calc}$" if line["kind"] == "stable"
+                     else "Wulff-weighted, $\\gamma^{\\rm Wulff}_{\\rm calc}$") + "} \\\\")
+        for stat, nd in (("ME", 2), ("MAE", 2), ("MARE", 1)):
+            cells = [line["group"] if stat == "ME" else "", stat + (" (\\%)" if stat == "MARE" else " (J\\,m$^{-2}$)")]
+            for f in cols:
+                s = line[f]
+                cells.append(fmt(None if s is None else s[stat], nd) + ("" if s is None else f"$^{{({s['n']})}}$"))
+                if f in FUNCS:
+                    v = ref2.get((line["kind"], line["group"], stat, f))
+                    cells.append("\\textcolor{red}{" + fmt(v, nd) + "}")
+            L.append(" & ".join(cells) + " \\\\")
+    L += ["\\bottomrule", "\\end{tabular}"]
+    open(os.path.join(RES, "jcp2020_table2.tex"), "w").write("\n".join(L) + "\n")
+    n_done = sum(1 for r in rows for f in cols if r[f] is not None)
+    print(f"table 1: {n_done}/{len(rows) * len(cols)} entries; results/jcp2020_table{{1,2}}.{{csv,tex}} written")
+    reference_tables(ref, ref2)
+    return n_done, len(rows) * len(cols)
+
+
+def reference_tables(ref, ref2):
+    """Generated from the paper's data alone: (a) Table II recomputed from the paper's Table I with this script's
+    wulff_fractions + stats, against the printed Table II; (b) Wulff area fractions of every metal and functional."""
+    L = ["% generated by codes/JCP2020_Patra/jcp2020_scf.py table -- do not edit by hand",
+         "\\begin{tabular}{@{}llrrrrrrrr@{}}", "\\toprule",
+         " & & \\multicolumn{2}{c}{LDA} & \\multicolumn{2}{c}{PBE} & \\multicolumn{2}{c}{PBEsol} & "
+         "\\multicolumn{2}{c}{Q2D-GGA} \\\\",
+         " & & This work & \\textcolor{red}{JCP} & This work & \\textcolor{red}{JCP} & This work & "
+         "\\textcolor{red}{JCP} & This work & \\textcolor{red}{JCP} \\\\", "\\midrule"]
+    maxdev = {}
+    for kind in ("stable", "wulff"):
+        L.append("\\multicolumn{10}{c}{" + ("most stable facet, $\\gamma_{\\rm calc}$" if kind == "stable"
+                 else "Wulff-weighted, $\\gamma^{\\rm Wulff}_{\\rm calc}$") + "} \\\\")
+        for grp in ("fcc", "bcc", "hcp", "Overall"):
+            st_ = {}
+            for f in FUNCS:
+                pairs = []
+                for m in TABLE_METALS:
+                    s = METALS[m][0]
+                    if grp != "Overall" and s != grp:
+                        continue
+                    e = ref[(m, MOST_STABLE[s], "Exp")]
+                    if kind == "stable":
+                        pairs.append((ref[(m, MOST_STABLE[s], f)], e))
+                    else:
+                        sg = {fc: ref[(m, fc, f)] for fc in FACETS[s]}
+                        fr = wulff_fractions(s, sg)
+                        pairs.append((sum(fr[k] * sg[k] for k in sg), e))
+                st_[f] = stats(pairs)
+            for stat, nd in (("ME", 2), ("MAE", 2), ("MARE", 1)):
+                cells = [grp if stat == "ME" else "", stat + (" (\\%)" if stat == "MARE" else " (J\\,m$^{-2}$)")]
+                for f in FUNCS:
+                    v, p = st_[f][stat], ref2.get((kind, grp, stat, f))
+                    cells += [fmt(v, nd), "\\textcolor{red}{" + fmt(p, nd) + "}"]
+                    if p is not None:
+                        maxdev[(kind, grp, stat, f)] = abs(round(v, nd) - p)
+                L.append(" & ".join(cells) + " \\\\")
+    L += ["\\bottomrule", "\\end{tabular}"]
+    open(os.path.join(RES, "jcp2020_table2_check.tex"), "w").write("\n".join(L) + "\n")
+    with open(os.path.join(RES, "jcp2020_table2_check.csv"), "w", newline="") as fh:
+        w = csv.writer(fh)
+        w.writerow(["kind", "group", "stat", "functional", "abs_dev_recomputed_vs_printed"])
+        for k, v in maxdev.items():
+            w.writerow(list(k) + [f"{v:.3f}"])
+    L = ["% generated by codes/JCP2020_Patra/jcp2020_scf.py table -- do not edit by hand",
+         "\\begin{tabular}{@{}llrrrrrrrrrrrrr@{}}", "\\toprule",
+         " & & \\multicolumn{3}{c}{LDA} & \\multicolumn{3}{c}{PBE} & \\multicolumn{3}{c}{PBEsol} & "
+         "\\multicolumn{3}{c}{Q2D-GGA} \\\\"]
+    for s in FACETS:
+        fl = [x.replace("-1", "\\bar{1}").replace("-2", "\\bar{2}") for x in FACETS[s]]
+        L += ["\\midrule", f"\\emph{{{s}}} & & " + " & ".join(f"$({x})$" for x in fl * 4) + " & \\\\", "\\midrule"]
+        for m in [x for x in TABLE_METALS if METALS[x][0] == s]:
+            cells = [m, ""]
+            for f in FUNCS:
+                sg = {fc: ref[(m, fc, f)] for fc in FACETS[s]}
+                fr = wulff_fractions(s, sg)
+                cells += [f"{100 * fr[fc]:.0f}" for fc in FACETS[s]]
+            L.append(" & ".join(cells) + " & \\\\")
+    L += ["\\bottomrule", "\\end{tabular}"]
+    open(os.path.join(RES, "jcp2020_wulff_ref.tex"), "w").write("\n".join(L) + "\n")
+    print(f"reference tables: max |recomputed - printed| = {max(maxdev.values()):.3f} "
+          f"(MARE in %, ME/MAE in J/m2); results/jcp2020_table2_check.tex, jcp2020_wulff_ref.tex")
+
+
+def status_rows():
+    """Completed / total runs per task list (for the report)."""
+    out = []
+    for name in ("lattice", "surface", "fig1"):
+        p = os.path.join(HERE, f"tasks_{name}.txt")
+        if not os.path.exists(p):
+            continue
+        tot = done = 0
+        for line in open(p):
+            w = line.split()
+            if not w:
+                continue
+            tot += 1
+            g = dict(zip(w[1::2], w[2::2]))
+            if w[0] == "lattice":
+                done += os.path.exists(lattice_json(g["--system"], g["--functional"]))
+            else:
+                L = int(g.get("--layers", 13))
+                done += any(os.path.exists(os.path.join(RES, surf_tag(g["--system"], g["--facet"], g["--functional"],
+                                                                     LL) + ".json")) for LL in (L, L + 1))
+        out.append((name, done, tot))
+    return out
+
+
+PRL_DIR = os.path.join(HERE, "..", "PRL2012_scf", "results")
+S22_CSV = os.path.join(HERE, "..", "Al", "results", "surface22_summary.csv")
+EXISTING = ["Cu", "Rh", "Au", "Pt", "Pd"]        # fcc(111) metals common to the PRL recreation and this paper
+
+
+def existing_results(ref):
+    """Tables of results our codes already produced for fcc(111) (PRL 2012 protocol), compared with this paper:
+    self-consistent sigma (codes/PRL2012_scf/prl2012_scf.py), first-order SCAN / DC-SCAN on the PBEsol density
+    (codes/Al/22_surface_density_dcscan.py), lattice constants (codes/PRL2012_scf/lattice_scf.py)."""
+    scf = {}
+    p = os.path.join(PRL_DIR, "prl2012_scf_table.csv")
+    if os.path.exists(p):
+        for r in csv.DictReader(open(p)):
+            if r["sigma_pyscf"]:
+                scf[(r["system"], r["functional"])] = float(r["sigma_pyscf"])
+    fo = {}
+    if os.path.exists(S22_CSV):
+        for r in csv.DictReader(open(S22_CSV)):
+            if r["layers"] == "8" and r["system"] in EXISTING:
+                b = float(r["sigma_scf_PBEsol"])
+                for f in ("SCAN", "DC-SCAN"):
+                    fo[(r["system"], f)] = b + float(r[f"dxc_{f}_minus_PBEsol"])
+    lat = {}
+    p = os.path.join(PRL_DIR, "lattice_table.csv")
+    if os.path.exists(p):
+        for r in csv.DictReader(open(p)):
+            lat[(r["system"], r["functional"])] = (float(r["a0_this_work"]), float(r["a_prl"]), float(r["a_exp"]))
+    flagged = {("Cu", "Q2D-GGA")}
+    L = ["% generated by codes/JCP2020_Patra/jcp2020_scf.py report -- do not edit by hand",
+         "\\begin{tabular}{@{}lrrrrrrrrrrr@{}}", "\\toprule",
+         " & \\multicolumn{2}{c}{LDA} & \\multicolumn{2}{c}{PBE} & \\multicolumn{2}{c}{PBEsol} & "
+         "\\multicolumn{2}{c}{Q2D-GGA} & SCAN$^c$ & DC-SCAN$^c$ & \\textcolor{red}{Exp.} \\\\",
+         "Metal & This work & \\textcolor{red}{JCP} & This work & \\textcolor{red}{JCP} & This work & "
+         "\\textcolor{red}{JCP} & This work & \\textcolor{red}{JCP} & This work & This work & \\\\", "\\midrule"]
+    cols = FUNCS + ["SCAN", "DC-SCAN"]
+    vs_j, vs_e = {f: [] for f in cols}, {f: [] for f in cols}
+    for m in EXISTING:
+        e = ref.get((m, "111", "Exp"))
+        cells = [f"{m}(111)"]
+        for f in FUNCS:
+            v, j = scf.get((m, f)), ref.get((m, "111", f))
+            cells += [fmt(v) + ("$^b$" if (m, f) in flagged and v is not None else ""),
+                      "\\textcolor{red}{" + fmt(j) + "}"]
+            if v is not None and (m, f) not in flagged:
+                vs_j[f].append((v, j)); vs_e[f].append((v, e))
+        for f in ("SCAN", "DC-SCAN"):
+            v = fo.get((m, f))
+            cells.append(fmt(v))
+            if v is not None:
+                vs_e[f].append((v, e))
+        cells.append("\\textcolor{red}{" + fmt(e) + "}")
+        L.append(" & ".join(cells) + " \\\\")
+    L.append("\\midrule")
+    for lab, d, keys in (("MAE vs JCP", vs_j, FUNCS), ("MAE vs Exp.", vs_e, cols)):
+        cells = [lab]
+        for f in cols:
+            s_ = stats(d[f]) if f in keys else None
+            cell = "" if s_ is None else f"{s_['MAE']:.2f}"
+            if f in FUNCS:
+                je = stats([(ref.get((m, '111', f)), ref.get((m, '111', 'Exp'))) for m in EXISTING
+                            if (m, f) not in flagged or True])
+                cells += [cell, "" if lab == "MAE vs JCP" else "\\textcolor{red}{" + f"{je['MAE']:.2f}" + "}"]
+            else:
+                cells.append(cell)
+        cells.append("")
+        L.append(" & ".join(cells) + " \\\\")
+    L += ["\\bottomrule", "\\end{tabular}"]
+    open(os.path.join(RES, "jcp2020_existing_sigma.tex"), "w").write("\n".join(L) + "\n")
+    L = ["% generated by codes/JCP2020_Patra/jcp2020_scf.py report -- do not edit by hand",
+         "\\begin{tabular}{@{}lrrrrr@{}}", "\\toprule",
+         "Metal & LDA & PBE & PBEsol & Q2D-GGA & \\textcolor{red}{Exp.} \\\\", "\\midrule"]
+    for m in EXISTING:
+        ex = next((lat[k][2] for k in lat if k[0] == m), None)
+        L.append(" & ".join([m] + [fmt(lat[(m, f)][0], 3) if (m, f) in lat else "--" for f in FUNCS] +
+                            ["\\textcolor{red}{" + fmt(ex, 2) + "}"]) + " \\\\")
+    L += ["\\bottomrule", "\\end{tabular}"]
+    open(os.path.join(RES, "jcp2020_existing_lattice.tex"), "w").write("\n".join(L) + "\n")
+    return len(scf), len(fo), len(lat)
+
+
+def lattice_table():
+    """Own equilibrium lattice constants (results/lattice_<M>_<F>.json) of every metal and functional; DC-SCAN from
+    the SCAN scan.  Returns (tex, number of completed scans, total)."""
+    L = ["\\begin{tabular}{@{}llrrrrrrrr@{}}", "\\toprule",
+         "Metal & lattice & LDA & PBE & PBEsol & Q2D-GGA & SCAN & DC-SCAN & \\textcolor{red}{Exp.} & cutoff (Ha) \\\\",
+         "\\midrule"]
+    done, tot, last = 0, 0, None
+    for m in TABLE_METALS + ["Al", "Na", "Mg"]:
+        st, aexp, ca = METALS[m]
+        if last is not None and st != last:
+            L.append("\\midrule")
+        last = st
+        cells = [m, st if st != "hcp" else f"hcp ($c/a$ {ca:.3f})"]
+        cut = None
+        for f in FUNCS + ["SCAN", "DC-SCAN"]:
+            p = lattice_json(m, "SCAN" if f == "DC-SCAN" else f)
+            if f != "DC-SCAN":
+                tot += 1
+            if os.path.exists(p):
+                d = json.load(open(p))
+                cut = d.get("cutoff_ha", cut)
+                key, rk = ("a0_dcscan_ang", "fit_rms_dcscan_meV") if f == "DC-SCAN" else ("a0_ang", "fit_rms_meV")
+                if key in d:
+                    flag = "$^e$" if d.get("minimum_near_edge") and f != "DC-SCAN" else ""
+                    cells.append(f"{d[key]:.3f}{flag}")
+                    done += f != "DC-SCAN"
+                    continue
+            cells.append("--")
+        cells += ["\\textcolor{red}{" + f"{aexp:.3f}" + "}", f"{cut or default_cutoff(m):.0f}"]
+        L.append(" & ".join(cells) + " \\\\")
+    L += ["\\bottomrule", "\\end{tabular}"]
+    return "\n".join(L) + "\n", done, tot
+
+
+def gate_table():
+    """Cutoff-gate table (results/cutoff_<M>.json): chosen cutoff, FFT-gradient error and energy change vs 600 Ha
+    at the chosen cutoff for Q2D-GGA and SCAN.  Returns (tex, number of metals)."""
+    rows = []
+    for m in TABLE_METALS + ["Al", "Na", "Mg"]:
+        p = os.path.join(RES, f"cutoff_{m}.json")
+        if not os.path.exists(p):
+            continue
+        d = json.load(open(p))
+        cells = [m, METALS[m][0], f"{d['cutoff_ha']:.0f}"]
+        for fn in GATE_FUNCS:
+            rs = [r for r in d["rows"] if r["functional"] == fn]
+            top = rs[-1]["e_atom_ha"]
+            r = next(x for x in rs if x["cutoff_ha"] == d["cutoff_ha"])
+            g = r["grad_fft_relerr"]
+            cells += ["--" if g != g else f"{g:.0e}", f"{(r['e_atom_ha'] - top) * HA2EV * 1000:+.2f}"]
+        cells.append("yes" if d["passed"] else "no")
+        rows.append(" & ".join(cells) + " \\\\")
+    L = ["\\begin{tabular}{@{}llrrrrrl@{}}", "\\toprule",
+         " & & & \\multicolumn{2}{c}{Q2D-GGA} & \\multicolumn{2}{c}{SCAN} & \\\\",
+         "Metal & lattice & cutoff (Ha) & grad.\\ err. & $\\Delta E$ (meV) & grad.\\ err. & $\\Delta E$ (meV) & passed \\\\",
+         "\\midrule"] + rows + ["\\bottomrule", "\\end{tabular}"]
+    return "\n".join(L) + "\n", len(rows)
+
+
+REPORT_TEX = r"""\documentclass[10pt]{article}
+\usepackage[margin=13mm]{geometry}
+\usepackage{graphicx,booktabs,xcolor,amsmath}
+\usepackage[T1]{fontenc}
+\pagestyle{plain}
+\begin{document}
+\sloppy
+\begin{center}
+ {\Large\bfseries Transition-metal surface energies: self-consistent PySCF reproduction of\\
+ J.~Chem.~Phys.~152, 151101 (2020), extended with SCAN and DC-SCAN}\par\vspace{0.4em}
+ {\small Generated by \texttt{codes/JCP2020\_Patra/jcp2020\_scf.py report} on @DATE@ --- do not edit by hand}
+\end{center}
+
+\section*{Reference and scope}
+Ref.~\cite{Patra2020} reports surface energies of 21 transition metals (7 fcc, 7 bcc, 7 hcp) (fcc (100)/(110)/(111), bcc (100)/(110)/(111),
+hcp (0001)/$(10\bar{1}0)$/$(11\bar{2}0)$) with LDA, PBE, PBEsol and Q2D-GGA (Table~I), error statistics against
+experiment for the most stable facet and for the Wulff-weighted surface energy (Table~II), the convergence with slab
+thickness for Pt and Ta (Fig.~1) and the surface density difference $\Delta n(z)$ (Fig.~2). This report recomputes
+all of it self-consistently in PySCF and adds two columns, SCAN and DC-SCAN, to every table. Values of this work are
+black; values of the reference are \textcolor{red}{red}. Dashes: calculation not yet done.
+
+\section*{Equations}
+Surface energy, Eq.~(4) of Ref.~\cite{Patra2020},
+\begin{equation}
+ \sigma=\frac{1}{2\alpha}\Bigl(E^{\rm slab}_{N}-\frac{N_{\rm slab}}{N_{\rm bulk}}E^{\rm bulk}\Bigr),
+ \label{eq:sigma}
+\end{equation}
+with $\alpha$ the area of the surface cell, $N_{\rm slab}$ and $N_{\rm bulk}$ the numbers of atoms in the slab and in
+the bulk reference cell, and the factor $1/2$ for the two faces of the symmetric slab. No fit enters $\sigma$.
+The bulk reference of each facet is the oriented bulk cell with the in-plane cell of the slab and a lattice vector
+normal to the surface; every slab atom is a bulk atom shifted by whole FFT-grid steps, and the slab cell height is a
+whole number of grid steps, so slab and bulk are evaluated on identical grids and the grid error cancels in
+Eq.~(\ref{eq:sigma}).
+
+DC-SCAN: SCAN is solved self-consistently, and the DC-SCAN exchange (which depends on the density Hessian) is
+evaluated on the self-consistent SCAN density,
+\begin{equation}
+ E^{\rm DC\text{-}SCAN}=E^{\rm SCAN}+E_x^{\rm DC\text{-}SCAN}[n^{\rm SCAN}]-E_x^{\rm SCAN}[n^{\rm SCAN}],
+ \label{eq:dcscan}
+\end{equation}
+for slab and bulk alike, so $\sigma^{\rm DC\text{-}SCAN}$ follows from Eq.~(\ref{eq:sigma}) with these energies.
+
+Wulff construction: the equilibrium crystal shape is
+$W=\{\mathbf{x}:\hat{\mathbf{n}}_j\cdot\mathbf{x}\le\sigma_{F(j)}\ \forall j\}$, where $j$ runs over all symmetry-equivalent
+facet normals of the families $F$ in Table~I. With $A_F$ the area of $W$ exposed by family $F$, the area fractions
+and the Wulff-weighted surface energy are
+\begin{equation}
+ f_F=\frac{A_F}{\sum_{F'}A_{F'}},\qquad \gamma^{\rm Wulff}=\sum_F f_F\,\sigma_F ,
+ \label{eq:wulff}
+\end{equation}
+computed with a half-space intersection and convex hull (\texttt{scipy.spatial}). Error statistics over $n$ metals,
+$\Delta_i=\gamma_i^{\rm calc}-\gamma_i^{\rm exp}$:
+\begin{equation}
+ {\rm ME}=\frac1n\sum_i\Delta_i,\quad {\rm MAE}=\frac1n\sum_i|\Delta_i|,\quad
+ {\rm MARE}=\frac{100\%}{n}\sum_i\frac{|\Delta_i|}{\gamma_i^{\rm exp}} .
+ \label{eq:stats}
+\end{equation}
+Lattice constants: each functional at its own equilibrium lattice constant, from a third-order Birch--Murnaghan fit of
+nine self-consistent bulk energies within $\pm5\%$ of the experimental value (same procedure and equations as the
+lattice table of the Al(111) report); hcp at the experimental $c/a$. The DC-SCAN lattice constant comes from the same
+nine SCAN densities with Eq.~(\ref{eq:dcscan}).
+
+\section*{Protocol}
+\begin{center}\small
+\begin{tabular}{@{}lll@{}}
+\toprule
+ & Ref.~\cite{Patra2020} & this work \\
+\midrule
+code / basis & VASP, PAW, 800 eV & PySCF, GTH-PBE + gth-dzvp-molopt-sr; FFT cutoff per metal \\
+ & & from a gate (Q2D-GGA, SCAN: gradient error $<1\%$, $|\Delta N|<10^{-4}$, $|\Delta E|<1$~meV/atom) \\
+slab & 13 layers, fully relaxed & 13 planes (14 where needed for a symmetric\\
+ & & slab), not relaxed \\
+vacuum, $k$ points & $>20$~\AA, $16\times16\times1$ & 12~\AA; $k_i={\rm round}(33\,{\rm \AA}/|\mathbf{a}_i|)$, $12\times12\times1$ for fcc(111) \\
+smearing & Gaussian 0.05~eV & Gaussian 0.05~eV \\
+spin & Fe, Co spin-polarised & Fe, Co spin-polarised (KUKS); no DC-SCAN for these two \\
+lattice constant & own, each functional & own, each functional (BM3 fit); hcp $c/a$ experimental \\
+SCF & -- & Kerker-preconditioned Pulay density mixing (as the PRL recreation) \\
+\bottomrule
+\end{tabular}\end{center}
+
+\section*{Validation of the analysis code against the reference}
+Table~\ref{tab:check} (``This work'') reproduces Table~II of Ref.~\cite{Patra2020} with our own code: our Wulff
+construction and error statistics, Eqs.~(\ref{eq:wulff})--(\ref{eq:stats}), applied to the surface energies of its
+Table~I. Largest deviation from the printed values: @MAXDEV@.
+Table~\ref{tab:wulffref} gives the Wulff area fractions behind the Wulff-weighted rows (from the reference
+$\sigma$ values; the reference gives its fractions only in its supplementary material).
+
+\begin{table}[htbp]\centering
+\caption{Table~II of Ref.~\cite{Patra2020}. This work: computed with the Wulff construction and error statistics of
+this work's code (\texttt{jcp2020\_scf.py}: \texttt{wulff\_fractions}, \texttt{stats}; Eqs.~(\ref{eq:wulff})--(\ref{eq:stats}))
+from the surface energies of Table~I of Ref.~\cite{Patra2020} and the experimental values quoted there.
+\textcolor{red}{JCP}: Table~II as printed in Ref.~\cite{Patra2020}. ME, MAE in J\,m$^{-2}$, MARE in \%. Agreement shows
+that our analysis code reproduces the published statistics; the same code is applied to our own surface energies in
+Table~\ref{tab:t2}.}\label{tab:check}
+\scriptsize\setlength{\tabcolsep}{4pt}
+@TAB2CHECK@
+\end{table}
+
+\begin{table}[htbp]\centering
+\caption{Wulff area fractions $f_F$ (\%) of Eq.~(\ref{eq:wulff}) from the surface energies of Table~I of
+Ref.~\cite{Patra2020}.}\label{tab:wulffref}
+\scriptsize\setlength{\tabcolsep}{3.5pt}
+@WULFF@
+\end{table}
+
+\section*{Results}
+\subsection*{Results already available from our codes (fcc(111), PRL 2012 protocol)}
+Five fcc(111) surfaces of this paper (Cu, Rh, Au, Pt, Pd) were already computed with our codes for the recreation of
+PRL 108, 126402 (2012) (Al(111) report, Tables~2--4). Table~\ref{tab:exist} compares them with
+Ref.~\cite{Patra2020}. Protocol of these runs (differs from Ref.~\cite{Patra2020} and from the full runs below):
+self-consistent LDA, PBE, PBEsol, Q2D-GGA at the PRL lattice constants, 11-layer unrelaxed slabs, 10~\AA\ vacuum,
+$10\times10\times1$ $k$ points, three-layer bulk (\texttt{codes/PRL2012\_scf/prl2012\_scf.py}); SCAN and DC-SCAN to
+first order on the self-consistent PBEsol density, $\sigma^{F}\approx\sigma^{\rm PBEsol}+\Delta\sigma_{xc}^{F-{\rm PBEsol}}$,
+8-layer slabs, 14~\AA\ vacuum (\texttt{codes/Al/22\_surface\_density\_dcscan.py}). Table~\ref{tab:existlat} gives the
+lattice constants of the same metals (\texttt{codes/PRL2012\_scf/lattice\_scf.py}, Birch--Murnaghan fit).
+Data sources: @EXISTSRC@.
+
+\begin{table}[htbp]\centering
+\caption{fcc(111) surface energies (J\,m$^{-2}$) from our codes (black) and Ref.~\cite{Patra2020} (\textcolor{red}{red});
+Exp.\ as quoted in Ref.~\cite{Patra2020}. MAE in J\,m$^{-2}$; the red MAE is that of Ref.~\cite{Patra2020} for the same
+five metals. $^b$Cu Q2D-GGA: not converged with the density cutoff (1.88/2.13/1.50~J\,m$^{-2}$ at 150/250/300~Ha),
+excluded from the MAE. $^c$First order on the PBEsol density.}\label{tab:exist}
+\scriptsize\setlength{\tabcolsep}{4pt}
+@EXISTSIGMA@
+\end{table}
+
+\begin{table}[htbp]\centering
+\caption{Equilibrium lattice constants (\AA) of the same metals from our self-consistent lattice scans
+(9 points, third-order Birch--Murnaghan fit); dashes: still running. \textcolor{red}{Exp.}: zero-point corrected values
+quoted in PRL 108, 126402. Ref.~\cite{Patra2020} does not tabulate its lattice constants.}\label{tab:existlat}
+\small
+@EXISTLAT@
+\end{table}
+
+\subsection*{Full reproduction of Ref.~\cite{Patra2020} (protocol above)}
+\paragraph{Density cutoff per metal (completed for @NGATE@ metals).} Primitive bulk at the experimental lattice
+constant, $6\times6\times6$ $k$ points, cutoffs 150, 250, 350, 450 and 600~Ha, Q2D-GGA and SCAN (the most
+grid-sensitive functionals of this work). The chosen cutoff is the smallest with FFT-gradient error $<1\%$,
+$|N_{\rm grid}-N|<10^{-4}$ and $|E-E(600~{\rm Ha})|<1$~meV/atom for both functionals (the criteria of the cutoff gate
+of the PRL recreation); Table~\ref{tab:gate} lists the error measures at the chosen cutoff. Fe and Co (spin-polarised):
+energy criterion only; their gate ran with independent ferromagnetic starts, whose energies scatter by 1--7~mHa/atom,
+so the conservative 600~Ha is used (lattice and surface runs follow one magnetic solution, see the code).
+
+\paragraph{Equilibrium lattice constants (@NLAT@ of @NLATTOT@ scans complete).} Each functional at its own
+equilibrium lattice constant (as in Ref.~\cite{Patra2020}), from nine self-consistent bulk energies within
+$\pm5\%$ of the experimental value and a third-order Birch--Murnaghan fit (equations as in the lattice section of the
+Al(111) report); DC-SCAN from the same nine SCAN densities with Eq.~(\ref{eq:dcscan}); hcp at the experimental $c/a$.
+The surface calculations of each metal and functional start as soon as its lattice constant is available.
+
+\begin{table}[htbp]\centering
+\caption{Equilibrium lattice constants (\AA) of this work (black); dashes: still running. \textcolor{red}{Exp.}:
+room-temperature experimental values used to centre the scans (Na at 5~K). Ref.~\cite{Patra2020} does not tabulate
+its lattice constants. $^e$minimum near the edge of the scanned interval.}\label{tab:lat}
+\small\setlength{\tabcolsep}{4pt}
+@LATTAB@
+\end{table}
+
+\begin{table}[htbp]\centering
+\caption{Cutoff gate. grad.\ err.: relative FFT-gradient error of the density; $\Delta E$: energy per atom relative to
+600~Ha, both at the chosen cutoff.}\label{tab:gate}
+\small
+@GATETAB@
+\end{table}
+
+Status: @STATUS@.
+
+@TABLE1@
+
+\begin{table}[htbp]\centering
+\caption{Error statistics of the most stable facet and of the Wulff-weighted surface energy against experiment
+(Table~II of Ref.~\cite{Patra2020}), Eq.~(\ref{eq:stats}). Superscript: number of metals included so far.}
+\label{tab:t2}\scriptsize\setlength{\tabcolsep}{3.5pt}
+@TABLE2@
+\end{table}
+
+@FIGURES@
+
+\begin{thebibliography}{9}
+\bibitem{Patra2020} A. Patra, S. Jana, L. A. Constantin, L. Chiodo, and P. Samal, ``Improved transition metal surface
+energies from a generalized gradient approximation developed for quasi two-dimensional systems,'' J. Chem. Phys.
+\textbf{152}, 151101 (2020), doi:10.1063/1.5145367.
+\end{thebibliography}
+\end{document}
+"""
+
+
+def cmd_report(_a):
+    """Self-contained report: all generated tables pasted in (no \\input), then pdflatex (three passes)."""
+    import subprocess
+    n_done, n_tot = cmd_table(_a)
+    rd = lambda n: open(os.path.join(RES, n)).read()
+    box = lambda t: "\\resizebox{\\textwidth}{!}{%\n" + t + "}\n"
+    dev = [float(r["abs_dev_recomputed_vs_printed"]) for r in csv.DictReader(open(os.path.join(RES,
+                                                                                      "jcp2020_table2_check.csv")))]
+    chk = list(csv.DictReader(open(os.path.join(RES, "jcp2020_table2_check.csv"))))
+    dj = max(float(r["abs_dev_recomputed_vs_printed"]) for r in chk if r["stat"] != "MARE")
+    mare = sorted(((float(r["abs_dev_recomputed_vs_printed"]), r) for r in chk if r["stat"] == "MARE"), key=lambda t: t[0])
+    out = [(d, r) for d, r in mare if d > 0.5]
+    inl = max(d for d, r in mare if d <= 0.5)
+    maxdev = (f"{dj:.2f}~J\\,m$^{{-2}}$ for all ME and MAE entries (rounding of the printed $\\sigma$ to two "
+              f"decimals); MARE within {inl:.2f}\\% (the same rounding, amplified by the division by "
+              f"$\\gamma^{{\\rm exp}}$ and by its effect on the Wulff fractions)" +
+              ("".join(f", except {r['kind']}/{r['group']}/{r['functional']} ({d:.2f}\\%)" for d, r in out)))
+    ns, nf, nl = existing_results(ref_table1())
+    gtex, ngate = gate_table()
+    ltex, nlat, nlattot = lattice_table()
+    st = status_rows()
+    status = "; ".join(f"{n}: {d}/{t} runs" for n, d, t in st) + f"; Table~I: {n_done}/{n_tot} entries"
+    t1 = []
+    for s in FACETS:
+        t1.append("\\begin{table}[htbp]\\centering\n\\caption{Surface energies (J\\,m$^{-2}$) of the " + s +
+                  " metals (Table~I of Ref.~\\cite{Patra2020}). This work: self-consistent PySCF, Eq.~(\\ref{eq:sigma}); "
+                  "DC-SCAN by Eq.~(\\ref{eq:dcscan}). \\textcolor{red}{JCP}: Ref.~\\cite{Patra2020}; "
+                  "\\textcolor{red}{Exp.}: experiment for the most stable facet as quoted there.}\\label{tab:t1" + s +
+                  "}\n\\scriptsize\\setlength{\\tabcolsep}{3.5pt}\n" + box(rd(f"jcp2020_table1_{s}.tex")) + "\\end{table}\n")
+    figs = []
+    for n, cap in (("jcp2020_fig1.pdf", "Surface energy against the number of layers (Fig.~1 of Ref.~\\cite{Patra2020}), "
+                    "Q2D-GGA and DC-SCAN."),
+                   ("jcp2020_fig2.pdf", "Surface density difference $\\Delta n(z)=n_{\\rm surf,l}+n_{\\rm surf,r}-n_{\\rm bulk}$ "
+                    "(Fig.~2 of Ref.~\\cite{Patra2020}).")):
+        if os.path.exists(os.path.join(FIG, n)):
+            figs.append("\\begin{figure}[htbp]\\centering\\includegraphics[width=0.8\\textwidth]{../figures/" + n +
+                        "}\\caption{" + cap + "}\\end{figure}")
+    tex = (REPORT_TEX.replace("@DATE@", time.strftime("%Y-%m-%d %H:%M")).replace("@MAXDEV@", maxdev)
+           .replace("@EXISTSIGMA@", box(rd("jcp2020_existing_sigma.tex")))
+           .replace("@EXISTLAT@", rd("jcp2020_existing_lattice.tex"))
+           .replace("@GATETAB@", gtex).replace("@NGATE@", str(ngate))
+           .replace("@LATTAB@", ltex).replace("@NLAT@", str(nlat)).replace("@NLATTOT@", str(nlattot))
+           .replace("@EXISTSRC@", f"{ns} self-consistent PRL-protocol surface energies, {nf} first-order SCAN/DC-SCAN "
+                    f"values, {nl} lattice constants")
+           .replace("@TAB2CHECK@", box(rd("jcp2020_table2_check.tex"))).replace("@WULFF@", box(rd("jcp2020_wulff_ref.tex")))
+           .replace("@STATUS@", status).replace("@TABLE1@", "\n".join(t1))
+           .replace("@TABLE2@", box(rd("jcp2020_table2.tex")))
+           .replace("@FIGURES@", "\n".join(figs) if figs else "Figures 1 and 2: no runs yet."))
+    path = os.path.join(RES, "jcp2020_report.tex")
+    open(path, "w").write(tex)
+    for _ in range(3):
+        r = subprocess.run(["pdflatex", "-interaction=nonstopmode", "jcp2020_report.tex"], cwd=RES,
+                           capture_output=True, text=True, errors="replace")
+    log = open(os.path.join(RES, "jcp2020_report.log"), errors="replace").read()
+    print(f"{path} -> jcp2020_report.pdf: errors {log.count(chr(10) + '!')}, undefined "
+          f"{log.lower().count('undefined')}, overfull {log.count('Overfull')}")
+
+
+def delta_n(m, facet, f, layers):
+    """Fig. 2 construction (adapted from script 22 delta_n): z/d0 from the broken-bond centre half a spacing outside
+    the first plane; n(z) = plane average x cell area; left surface = mirror image; bulk profile phased so that
+    plane k of the slab matches the bulk plane of the same stacking position."""
+    tag = surf_tag(m, facet, f, layers)
+    d = json.load(open(os.path.join(RES, tag + ".json")))
+    b = np.load(os.path.join(RES, tag + "_bulk.npz"))
+    s = np.load(os.path.join(RES, tag + "_slab.npz"))
+    g = d["geometry"]
+    d0 = float(np.mean(g["spacings_ang"]))
+    zc = float(g["zplanes_ang"][0]) - 0.5 * d0
+    zs, ns = s["z_ang"], s["n_z"]
+    period = zs[1] - zs[0] + zs[-1]
+    zb, nb = b["z_ang"], b["n_z"]
+    pb = zb[1] - zb[0] + zb[-1]
+    zb0 = float(g["zfirst_in_bulk_cell_ang"]) - 0.5 * d0     # same stacking position in the bulk cell
+    area = g["area_ang2"] / BOHR_ANG ** 2
+    x = np.linspace(-2.5, 1.0, 351)
+    z = -x * d0
+
+    def per(zq, zz, nn, p):
+        return np.interp(np.mod(zq, p), np.append(zz, p), np.append(nn, nn[0]))
+
+    n_r = per(zc + z, zs, ns, period)
+    n_l = per(zc - z, zs, ns, period)
+    n_b = per(zb0 + z, zb, nb, pb)
+    return x, area * (n_r + n_l - n_b)
+
+
+def cmd_figures(a):
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    os.makedirs(FIG, exist_ok=True)
+    fig, axs = plt.subplots(2, 1, figsize=(5, 6), sharex=True)
+    for ax, m in zip(axs, FIG1):
+        for fc, col in zip(FACETS[METALS[m][0]], ("C0", "C1", "C2")):
+            for f, ls in (("Q2D-GGA", "-o"), ("DC-SCAN", "--s")):
+                xs, ys = [], []
+                for n in FIG1[m]:
+                    v = None
+                    for L in (n, n + 1):
+                        p = os.path.join(RES, surf_tag(m, fc, "SCAN" if f == "DC-SCAN" else f, L) + ".json")
+                        if os.path.exists(p):
+                            dd = json.load(open(p))
+                            v = dd.get("sigma_dcscan_J_m2" if f == "DC-SCAN" else "sigma_J_m2")
+                    if v is not None:
+                        xs.append(n); ys.append(v)
+                if xs:
+                    ax.plot(xs, ys, ls, color=col, ms=4, label=f"({fc}) {f}")
+        ax.set_ylabel(r"$\sigma$ (J m$^{-2}$)")
+        ax.set_title(f"{m} ({METALS[m][0]})", fontsize=10)
+        ax.legend(fontsize=7, ncol=2)
+    axs[-1].set_xlabel("number of layers $N$")
+    fig.tight_layout()
+    fig.savefig(os.path.join(FIG, "jcp2020_fig1.pdf"))
+    fig, axs = plt.subplots(1, 3, figsize=(11, 3.4), sharey=True)
+    for ax, (st, (ms, fc)) in zip(axs, FIG2.items()):
+        for m in ms:
+            try:
+                x, dn = delta_n(m, fc, a.functional, 13)
+            except (FileNotFoundError, KeyError):
+                continue
+            ax.plot(x, dn, label=f"{m}({fc})")
+        ax.axhline(0, color="k", lw=0.5)
+        ax.set_xlabel("$z/d_0$")
+        ax.set_title(f"{st}, {a.functional} density", fontsize=10)
+        ax.legend(fontsize=8)
+    axs[0].set_ylabel(r"$\Delta n(z)$ (bohr$^{-1}$)")
+    fig.tight_layout()
+    fig.savefig(os.path.join(FIG, "jcp2020_fig2.pdf"))
+    print("figures/jcp2020_fig1.pdf, figures/jcp2020_fig2.pdf written (missing runs are left out)")
+
+
+def main():
+    p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    sub = p.add_subparsers(dest="cmd", required=True)
+
+    def common(q):
+        q.add_argument("--system", choices=list(METALS), required=True)
+        q.add_argument("--functional", choices=FUNCS + EXTRA, required=True)
+        q.add_argument("--cutoff", type=float, default=None, help="Ha (default: 3d 300, Al 80, others 150)")
+        q.add_argument("--sigma", type=float, default=0.05, help="Gaussian smearing (eV); paper: 0.05")
+        q.add_argument("--max-cycle", type=int, default=200)
+        q.add_argument("--kerker-alpha", type=float, default=0.3)
+        q.add_argument("--kerker-q0", type=float, default=0.8)
+        q.add_argument("--kerker-hist", type=int, default=12)
+        q.add_argument("--no-spin", action="store_true", help="Fe/Co non-magnetic (paper: spin-polarised)")
+
+    g = sub.add_parser("geometry")
+    g.add_argument("--system", choices=list(METALS), required=True)
+    g.add_argument("--facet", default=None)
+    g.add_argument("--layers", type=int, default=13)
+    q = sub.add_parser("gate")
+    common(q)
+    q = sub.add_parser("lattice")
+    common(q)
+    q.add_argument("--k", type=int, default=12, help="k mesh per direction (hcp: k x k x k/(c/a))")
+    q.add_argument("--a-center", type=float, default=None,
+                   help="centre of the +-5%% grid (Angstrom; default: experimental a); used to repeat a scan whose "
+                        "minimum fell near the edge")
+    q = sub.add_parser("surface")
+    common(q)
+    q.add_argument("--facet", required=True)
+    q.add_argument("--layers", type=int, default=13, help="atomic planes (paper: 13)")
+    q.add_argument("--vacuum", type=float, default=12.0, help="Angstrom (paper: > 20)")
+    q.add_argument("--kdens", type=float, default=33.0,
+                   help="k points per direction = round(kdens/|a_i|) (Angstrom); 33 = 12x12 for fcc(111) Pt")
+    q.add_argument("--kxy", type=int, default=None, help="fixed in-plane k mesh (overrides --kdens; paper: 16)")
+    q.add_argument("--kz", type=int, default=None, help="bulk k_z (default: from --kdens)")
+    q.add_argument("--a", type=float, default=None, help="lattice constant (Angstrom), overrides --a-source")
+    q.add_argument("--a-source", choices=["own", "exp"], default="own")
+    sub.add_parser("tasks")
+    sub.add_parser("table")
+    sub.add_parser("report")
+    q = sub.add_parser("figures")
+    q.add_argument("--functional", default="PBEsol", help="density used for Fig. 2")
+    a = p.parse_args()
+    dict(geometry=cmd_geometry, lattice=cmd_lattice, surface=cmd_surface, tasks=cmd_tasks, table=cmd_table,
+         figures=cmd_figures, report=cmd_report, gate=cmd_gate)[a.cmd](a)
+
+
+if __name__ == "__main__":
+    main()
+#INFO: ******************** input file end ********************
+
+
+System: uname_result(system='Linux', node='r11ch05b03.lem.kdm.wcss.pl', release='5.14.0-687.46.1.el9_8.x86_64', version='#1 SMP PREEMPT_DYNAMIC Fri Sep 11 09:03:19 EDT 2026', machine='x86_64')  Threads 16
+Python 3.11.3 (main, Dec  9 2024, 15:01:57) [GCC 12.3.0]
+numpy 1.25.1  scipy 1.11.1  h5py 3.9.0
+Date: Mon Nov 23 03:44:30 2026
+PySCF version 2.7.0
+PySCF path  /usr/local/easybuild/software/PySCF/2.7.0-foss-2023a/lib/python3.11/site-packages/pyscf
+
+[ENV] PYSCF_TMPDIR /lustre/pd03/hpc-gabchi5762-1768308766/jcp2020_tmp/6395955_51
+[ENV] PYSCF_MAX_MEMORY 147456
+[ENV] EBDEVELPYSCF /usr/local/easybuild/software/PySCF/2.7.0-foss-2023a/easybuild/PySCF-2.7.0-foss-2023a-easybuild-devel
+[ENV] EBVERSIONPYSCF 2.7.0
+[ENV] EBROOTPYSCF /usr/local/easybuild/software/PySCF/2.7.0-foss-2023a
+[ENV] EBEXTSLISTPYSCF dftd3-94091d8,doci-08079a9,icmpspt-50c386e,properties-8b94d8d,qsdopt-3ad2c02,semiempirical-470d716,shciscf-7edb54d,nptyping-2.5.0,MCfun-0.2.3,pyqmc-0.6.0,dmrgscf-a03f7b6,fciqmc-ee98fb4,mbd-485c18c,naive-hci-0c28d6e,tblis-c67c8af,zquatev-4eb41b1
+[CONFIG] conf_file None
+[INPUT] verbose = 4
+[INPUT] num. atoms = 13
+[INPUT] num. electrons = 221
+[INPUT] charge = 0
+[INPUT] spin (= nelec alpha-beta = 2S) = 0
+[INPUT] symmetry False subgroup None
+[INPUT] Mole.unit = Angstrom
+[INPUT] Symbol           X                Y                Z      unit          X                Y                Z       unit  Magmom
+[INPUT]  1 Ir     0.000000000000   0.000000000000   5.973601226529 AA    0.000000000000   0.000000000000  11.288470295506 Bohr   0.0
+[INPUT]  2 Ir     1.365394566064   1.930959513318   7.338995792593 AA    2.580221781830   3.648984637794  13.868692077336 Bohr   0.0
+[INPUT]  3 Ir     0.000000000000   0.000000000000   8.704390358657 AA    0.000000000000   0.000000000000  16.448913859165 Bohr   0.0
+[INPUT]  4 Ir     1.365394566064   1.930959513318  10.069784924720 AA    2.580221781830   3.648984637794  19.029135640995 Bohr   0.0
+[INPUT]  5 Ir     0.000000000000   0.000000000000  11.435179490784 AA    0.000000000000   0.000000000000  21.609357422825 Bohr   0.0
+[INPUT]  6 Ir     1.365394566064   1.930959513318  12.800574056848 AA    2.580221781830   3.648984637794  24.189579204655 Bohr   0.0
+[INPUT]  7 Ir     0.000000000000   0.000000000000  14.165968622912 AA    0.000000000000   0.000000000000  26.769800986485 Bohr   0.0
+[INPUT]  8 Ir     1.365394566064   1.930959513318  15.531363188975 AA    2.580221781830   3.648984637794  29.350022768315 Bohr   0.0
+[INPUT]  9 Ir     0.000000000000   0.000000000000  16.896757755039 AA    0.000000000000   0.000000000000  31.930244550145 Bohr   0.0
+[INPUT] 10 Ir     1.365394566064   1.930959513318  18.262152321103 AA    2.580221781830   3.648984637794  34.510466331975 Bohr   0.0
+[INPUT] 11 Ir     0.000000000000   0.000000000000  19.627546887167 AA    0.000000000000   0.000000000000  37.090688113804 Bohr   0.0
+[INPUT] 12 Ir     1.365394566064   1.930959513318  20.992941453230 AA    2.580221781830   3.648984637794  39.670909895634 Bohr   0.0
+[INPUT] 13 Ir     0.000000000000   0.000000000000  22.358336019294 AA    0.000000000000   0.000000000000  42.251131677464 Bohr   0.0
+
+nuclear repulsion = 4040.82759548191
+number of shells = 52
+number of NR pGTOs = 1248
+number of NR cGTOs = 338
+basis = gth-dzvp-molopt-sr
+ecp = {}
+CPU time:         1.49
+lattice vectors  a1 [5.160443564, 0.000000000, 0.000000000]
+                 a2 [0.000000000, 7.297969276, 0.000000000]
+                 a3 [0.000000000, 0.000000000, 53.754620455]
+dimension = 3
+low_dim_ft_type = None
+Cell volume = 2024.44
+rcut = 29.696669295988645 (nimgs = [6 5 1])
+lattice sum = 521 cells
+precision = 1e-08
+pseudo = gth-pbe
+ke_cutoff = 350.0
+    = [ 45  63 455] mesh (1289925 PWs)
+WARNING!
+  Very diffused basis functions are found in the basis set. They may lead to severe
+  linear dependence and numerical instability.  You can set  cell.exp_to_discard=0.1
+  to remove the diffused Gaussians whose exponents are less than 0.1.
+
+Spherically averaged atomic HF for {'Ir'}
+
+
+******** <class 'pyscf.scf.atom_hf_pp.AtomSCFPP'> ********
+method = AtomSCFPP
+initial guess = minao
+damping factor = 0
+level_shift factor = 0
+DIIS = <class 'pyscf.scf.diis.CDIIS'>
+diis_start_cycle = 1
+diis_space = 8
+diis_damp = 0
+SCF conv_tol = 1e-09
+SCF conv_tol_grad = None
+SCF max_cycles = 50
+direct_scf = True
+direct_scf_tol = 1e-13
+chkfile to save SCF result = /lustre/pd03/hpc-gabchi5762-1768308766/jcp2020_tmp/6395955_51/tmp4h5tl5_0
+max_memory 147456 MB (current use 332 MB)
+atom = Ir
+Set gradient conv threshold to 3.16228e-05
+Initial guess from minao.
+tot grids = 24312
+init E= -103.974846118573
+cycle= 1 E= -104.080685267032  delta_E= -0.106  |g|=    0  |ddm|= 0.794
+cycle= 2 E= -104.093421528015  delta_E= -0.0127  |g|=    0  |ddm|= 0.433
+cycle= 3 E= -104.101394467315  delta_E= -0.00797  |g|=    0  |ddm|= 0.185
+cycle= 4 E= -104.101421774756  delta_E= -2.73e-05  |g|=    0  |ddm|= 0.00874
+cycle= 5 E= -104.101421842164  delta_E= -6.74e-08  |g|=    0  |ddm|= 0.000452
+cycle= 6 E= -104.101421842257  delta_E= -9.27e-11  |g|=    0  |ddm|= 1.67e-05
+Extra cycle  E= -104.101421842257  delta_E= -3.55e-13  |g|=    0  |ddm|= 1.83e-06
+Atomic HF for atom  Ir  converged. SCF energy = -104.101421842257
+
+    sigma = 0.00183747  Optimized mu = 1.00983554293  entropy = 0.077964946861
+rhokerker it    1 rms(rho_out-rho_in) = 2.586e-02  N_in = 68.000000
+    sigma = 0.00183747  Optimized mu = 0.978729228822  entropy = 0.0699133318451
+rhokerker it    2 rms(rho_out-rho_in) = 1.523e-02  N_in = 68.000000
+    sigma = 0.00183747  Optimized mu = 0.938728361689  entropy = 0.0614604029159
+rhokerker it    3 rms(rho_out-rho_in) = 3.789e-03  N_in = 68.000000
+    sigma = 0.00183747  Optimized mu = 0.941833658911  entropy = 0.0653582355982
+rhokerker it    4 rms(rho_out-rho_in) = 1.063e-03  N_in = 68.000000
+    sigma = 0.00183747  Optimized mu = 0.938877028602  entropy = 0.062732907725
+rhokerker it    5 rms(rho_out-rho_in) = 1.124e-04  N_in = 68.000000
+    sigma = 0.00183747  Optimized mu = 0.938781230252  entropy = 0.0626519405396
+rhokerker it    6 rms(rho_out-rho_in) = 3.451e-05  N_in = 68.000000
+    sigma = 0.00183747  Optimized mu = 0.938836681714  entropy = 0.0626928116562
+rhokerker it    7 rms(rho_out-rho_in) = 1.132e-05  N_in = 68.000000
+    sigma = 0.00183747  Optimized mu = 0.938866235389  entropy = 0.0627328183102
+rhokerker it    8 rms(rho_out-rho_in) = 1.586e-06  N_in = 68.000000
+    sigma = 0.00183747  Optimized mu = 0.938865006223  entropy = 0.062728052054
+rhokerker it    9 rms(rho_out-rho_in) = 9.782e-07  N_in = 68.000000
+nelec by numeric integration = 67.99999999999935
+    Total E(T) = -421.907973019514  Free energy = -421.908088280184  E0 = -421.908030649849
+Kerker SCF: converged=True it=9 rms=9.78e-07 E=-421.9079730195 |g|=3.39e-07
+bulk: converged=True E=-421.90797302 Ha (4 atoms)
+Spherically averaged atomic HF for {'Ir'}
+
+
+******** <class 'pyscf.scf.atom_hf_pp.AtomSCFPP'> ********
+method = AtomSCFPP
+initial guess = minao
+damping factor = 0
+level_shift factor = 0
+DIIS = <class 'pyscf.scf.diis.CDIIS'>
+diis_start_cycle = 1
+diis_space = 8
+diis_damp = 0
+SCF conv_tol = 1e-09
+SCF conv_tol_grad = None
+SCF max_cycles = 50
+direct_scf = True
+direct_scf_tol = 1e-13
+chkfile to save SCF result = /lustre/pd03/hpc-gabchi5762-1768308766/jcp2020_tmp/6395955_51/tmphme0p2s5
+max_memory 147456 MB (current use 1328 MB)
+atom = Ir
+Set gradient conv threshold to 3.16228e-05
+Initial guess from minao.
+tot grids = 24312
+init E= -103.974846118573
+cycle= 1 E= -104.080685267032  delta_E= -0.106  |g|=    0  |ddm|= 0.794
+cycle= 2 E= -104.093421528015  delta_E= -0.0127  |g|=    0  |ddm|= 0.433
+cycle= 3 E= -104.101394467315  delta_E= -0.00797  |g|=    0  |ddm|= 0.185
+cycle= 4 E= -104.101421774756  delta_E= -2.73e-05  |g|=    0  |ddm|= 0.00874
+cycle= 5 E= -104.101421842164  delta_E= -6.74e-08  |g|=    0  |ddm|= 0.000452
+cycle= 6 E= -104.101421842257  delta_E= -9.28e-11  |g|=    0  |ddm|= 1.67e-05
+Extra cycle  E= -104.101421842257  delta_E= -2.7e-13  |g|=    0  |ddm|= 1.83e-06
+Atomic HF for atom  Ir  converged. SCF energy = -104.101421842257
+
+    sigma = 0.00183747  Optimized mu = 0.593030701349  entropy = 0.283252998055
+rhokerker it    1 rms(rho_out-rho_in) = 2.105e-02  N_in = 221.000000
+    sigma = 0.00183747  Optimized mu = 0.56268730997  entropy = 0.358171382597
+rhokerker it    2 rms(rho_out-rho_in) = 1.220e-02  N_in = 221.000000
+    sigma = 0.00183747  Optimized mu = 0.529709585387  entropy = 0.291399083197
+rhokerker it    3 rms(rho_out-rho_in) = 1.010e-02  N_in = 221.000000
+    sigma = 0.00183747  Optimized mu = 0.522315517848  entropy = 0.316778955449
+rhokerker it    4 rms(rho_out-rho_in) = 3.034e-03  N_in = 221.000000
+    sigma = 0.00183747  Optimized mu = 0.521167940484  entropy = 0.374329895619
+rhokerker it    5 rms(rho_out-rho_in) = 2.102e-03  N_in = 221.000000
+    sigma = 0.00183747  Optimized mu = 0.521221656157  entropy = 0.332114617287
+rhokerker it    6 rms(rho_out-rho_in) = 1.129e-03  N_in = 221.000000
+    sigma = 0.00183747  Optimized mu = 0.520635306925  entropy = 0.339551115693
+rhokerker it    7 rms(rho_out-rho_in) = 2.588e-04  N_in = 221.000000
+    sigma = 0.00183747  Optimized mu = 0.520496416235  entropy = 0.335453858366
+rhokerker it    8 rms(rho_out-rho_in) = 1.173e-04  N_in = 221.000000
+    sigma = 0.00183747  Optimized mu = 0.520253057642  entropy = 0.334429954642
+rhokerker it    9 rms(rho_out-rho_in) = 7.538e-05  N_in = 221.000000
+    sigma = 0.00183747  Optimized mu = 0.519988121367  entropy = 0.335309370381
+rhokerker it   10 rms(rho_out-rho_in) = 5.296e-05  N_in = 221.000000
+    sigma = 0.00183747  Optimized mu = 0.51973908056  entropy = 0.336176133729
+rhokerker it   11 rms(rho_out-rho_in) = 4.337e-05  N_in = 221.000000
+    sigma = 0.00183747  Optimized mu = 0.519386945613  entropy = 0.335930624138
+rhokerker it   12 rms(rho_out-rho_in) = 3.285e-05  N_in = 221.000000
+    sigma = 0.00183747  Optimized mu = 0.519046404275  entropy = 0.335966096117
+rhokerker it   13 rms(rho_out-rho_in) = 3.058e-05  N_in = 221.000000
+    sigma = 0.00183747  Optimized mu = 0.518393552342  entropy = 0.336340347512
+rhokerker it   14 rms(rho_out-rho_in) = 2.627e-05  N_in = 221.000000
+    sigma = 0.00183747  Optimized mu = 0.517654098813  entropy = 0.336478410079
+rhokerker it   15 rms(rho_out-rho_in) = 2.289e-05  N_in = 221.000000
+    sigma = 0.00183747  Optimized mu = 0.517080742076  entropy = 0.336560519283
+rhokerker it   16 rms(rho_out-rho_in) = 2.046e-05  N_in = 221.000000
+    sigma = 0.00183747  Optimized mu = 0.516363621857  entropy = 0.336812766939
+rhokerker it   17 rms(rho_out-rho_in) = 1.719e-05  N_in = 221.000000
+    sigma = 0.00183747  Optimized mu = 0.515505488328  entropy = 0.336866799709
+rhokerker it   18 rms(rho_out-rho_in) = 1.268e-05  N_in = 221.000000
+    sigma = 0.00183747  Optimized mu = 0.515052268703  entropy = 0.336983119209
+rhokerker it   19 rms(rho_out-rho_in) = 1.031e-05  N_in = 221.000000
+    sigma = 0.00183747  Optimized mu = 0.514784639157  entropy = 0.337023950095
+rhokerker it   20 rms(rho_out-rho_in) = 1.206e-05  N_in = 221.000000
+    sigma = 0.00183747  Optimized mu = 0.514396814242  entropy = 0.337067789999
+rhokerker it   21 rms(rho_out-rho_in) = 5.458e-06  N_in = 221.000000
+[2026-11-23T19:24:09.875] error: *** JOB 6410653 ON r11ch05b03 CANCELLED AT 2026-11-23T19:24:09 DUE to SIGNAL Terminated ***

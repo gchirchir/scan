@@ -1,0 +1,20 @@
+basis def2-tzvp; dEx in mHa (alpha + beta = total SS correction)
+T1/T2: atoms, grid 6
+  C  uks   E=-37.795970  dEx(alpha)=  +14.471  dEx(beta)=+1194.990  total=+1209.461  N=6.0000
+  C  roks  E=-37.794508  dEx(alpha)=  +14.823  dEx(beta)=+1185.493  total=+1200.316  N=6.0000
+  C  frac  E=-37.790968  dEx(alpha)=  +12.569  dEx(beta)=+1194.950  total=+1207.519  N=6.0000
+  O  uks   E=-75.009671  dEx(alpha)=   +1.991  dEx(beta)= +114.086  total= +116.077  N=8.0000
+  O  roks  E=-75.004556  dEx(alpha)=   +2.106  dEx(beta)= +108.953  total= +111.059  N=8.0000
+  O  frac  E=-74.995821  dEx(alpha)=   +1.980  dEx(beta)=  +70.065  total=  +72.045  N=8.0000
+  Si uks   E=-289.222850  dEx(alpha)=   +1.733  dEx(beta)=  +27.789  total=  +29.522  N=14.0000
+  Si roks  E=-289.221853  dEx(alpha)=   +1.690  dEx(beta)=  +27.386  total=  +29.076  N=14.0000
+  Si frac  E=-289.220734  dEx(alpha)=   +0.445  dEx(beta)=  +27.582  total=  +28.027  N=14.0000
+  S  uks   E=-397.938332  dEx(alpha)=   +0.382  dEx(beta)=  +13.576  total=  +13.958  N=16.0000
+  S  roks  E=-397.934082  dEx(alpha)=   +0.378  dEx(beta)=  +15.615  total=  +15.993  N=16.0000
+  S  frac  E=-397.931895  dEx(alpha)=   +0.382  dEx(beta)=   +0.373  total=   +0.755  N=16.0000
+T3: C atom UKS, grid levels
+  grid 3: dEx(alpha)=  +14.471  dEx(beta)=+1194.996  total=+1209.467
+  grid 6: dEx(alpha)=  +14.471  dEx(beta)=+1194.990  total=+1209.461
+  grid 9: dEx(alpha)=  +14.471  dEx(beta)=+1194.302  total=+1208.773
+T4: Be atom (closed shell 1s2 2s2), grid 6
+  Be: dEx total=+1676.873 mHa  (= dEx[n] of a 4-electron 1s2 2s2 density)

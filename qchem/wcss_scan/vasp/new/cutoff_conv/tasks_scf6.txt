@@ -1,0 +1,10 @@
+# label system a layers kxy cutoff sigma_eV damp shift diis_start guess diis_space max_cycle pulay_alpha pulay_hist kerker_alpha kerker_q0
+# Pt 8-layer slab, 14 A vacuum. Kerker-preconditioned Pulay mixing of grid density AND analytic gradient (exact KS
+# matrix; cutoff_conv.py 2026-11-22), no density-matrix Pulay finish (pulay_alpha 0). Local Pt 3L/6 A/2x2/80 Ha:
+# alpha 0.3: 24 it, E -359.9048674584; alpha 0.5: 20 it, -359.9048674294 (exact refs -359.90486744/-49).
+a30_s10_k4    Pt 3.95 8 4  150 0.10 0 0 1 atom 8 200 0 8 0.3 0.8
+a50_s10_k4    Pt 3.95 8 4  150 0.10 0 0 1 atom 8 200 0 8 0.5 0.8
+a30_s05_k4    Pt 3.95 8 4  150 0.05 0 0 1 atom 8 200 0 8 0.3 0.8
+a30_s10_k8    Pt 3.95 8 8  150 0.10 0 0 1 atom 8 200 0 8 0.3 0.8
+a30_s10_k10   Pt 3.95 8 10 150 0.10 0 0 1 atom 8 200 0 8 0.3 0.8
+a30_s10_k4_h12 Pt 3.95 8 4 150 0.10 0 0 1 atom 12 200 0 12 0.3 0.8

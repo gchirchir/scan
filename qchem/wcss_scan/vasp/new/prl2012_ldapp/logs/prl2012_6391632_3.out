@@ -1,0 +1,1003 @@
+Loading PySCF/2.7.0-foss-2023a
+  Loading requirement: GCCcore/12.3.0 zlib/1.2.13-GCCcore-12.3.0
+    binutils/2.40-GCCcore-12.3.0 GCC/12.3.0 numactl/2.0.16-GCCcore-12.3.0
+    XZ/5.4.2-GCCcore-12.3.0 libxml2/2.11.4-GCCcore-12.3.0
+    libpciaccess/0.17-GCCcore-12.3.0 hwloc/2.9.1-GCCcore-12.3.0 OpenSSL/1.1
+    libevent/2.1.12-GCCcore-12.3.0 UCX/1.14.1-GCCcore-12.3.0
+    libfabric/1.18.0-GCCcore-12.3.0 PMIx/4.2.4-GCCcore-12.3.0
+    UCC/1.2.0-GCCcore-12.3.0 OpenMPI/4.1.5-GCC-12.3.0 OpenBLAS/0.3.23-GCC-12.3.0
+    FlexiBLAS/3.3.1-GCC-12.3.0 FFTW/3.3.10-GCC-12.3.0 gompi/2023a
+    FFTW.MPI/3.3.10-gompi-2023a ScaLAPACK/2.2.0-gompi-2023a-fb foss/2023a
+    bzip2/1.0.8-GCCcore-12.3.0 ncurses/6.4-GCCcore-12.3.0
+    libreadline/8.2-GCCcore-12.3.0 Tcl/8.6.13-GCCcore-12.3.0
+    SQLite/3.42.0-GCCcore-12.3.0 libffi/3.4.4-GCCcore-12.3.0
+    Python/3.11.3-GCCcore-12.3.0 gfbf/2023a cffi/1.15.1-GCCcore-12.3.0
+    cryptography/41.0.1-GCCcore-12.3.0 virtualenv/20.23.1-GCCcore-12.3.0
+    Python-bundle-PyPI/2023.06-GCCcore-12.3.0 pybind11/2.11.1-GCCcore-12.3.0
+    SciPy-bundle/2023.07-gfbf-2023a mpi4py/3.1.4-gompi-2023a
+    Szip/2.1.1-GCCcore-12.3.0 HDF5/1.14.0-gompi-2023a h5py/3.9.0-foss-2023a
+    libcint/5.4.0-gfbf-2023a libxc/6.2.2-GCC-12.3.0 XCFun/2.1.1-GCCcore-12.3.0
+    CPPE/0.3.1-GCC-12.3.0 PyBerny/0.6.3-foss-2023a CheMPS2/1.8.12-foss-2023a
+    PyCheMPS2/1.8.12-foss-2023a gzip/1.12-GCCcore-12.3.0
+    lz4/1.9.4-GCCcore-12.3.0 zstd/1.5.5-GCCcore-12.3.0 ICU/73.2-GCCcore-12.3.0
+    Boost.MPI/1.82.0-gompi-2023a Block/1.5.3-20200525-foss-2023a
+    NECI/20230620-foss-2023a Dice/20240702-foss-2023a tblis/20230422-foss-2023a
+task=3 Pt LDA host=r17ch09b04.lem.kdm.wcss.pl date=2026-11-22T04:38:40+01:00
+#INFO: **** input file is /home/gabchi5762/pyscf/gpu/scan/vasp/new/prl2012_ldapp/prl2012_scf.py ****
+#!/usr/bin/env python3
+"""Self-consistent PySCF recreation of PRL 108, 126402 (2012), Table I (surface-energy panel)  (Claude Code, 2026-11-21).
+
+STANDALONE: numpy + pyscf only; fcc111_cell / SCF set-up copied from codes/SurfaceMetals_cutoff/cutoff_conv.py
+(itself copied from codes/22_surface_density_dcscan.py).
+
+For one metal M and one functional F (LDA, PBE, PBEsol, Q2D-GGA), both solved SELF-CONSISTENTLY with F:
+  * lattice constant a = the PRL Table I value for (M, F)   [reference_prl2012_table1_full.csv]
+  * bulk: 3-layer periodic fcc(111) cell, kxy x kxy x kz mesh
+  * slab: symmetric N-layer fcc(111) slab (PRL: N = 11), vacuum V (PRL: 10 Angstrom), kxy x kxy x 1 mesh
+  * sigma = [E_slab - (N/3) E_bulk] / (2 A)       (J/m^2)
+Differences from the PRL protocol (stated in every output): GTH-PBE pseudopotentials + gth-dzvp-molopt-sr Gaussian
+basis with an FFT density cutoff instead of ultrasoft PW-PPs at 35 Ry; slabs are NOT relaxed (PRL: perpendicular
+relaxation of all layers); Gaussian smearing as given on the command line.
+Libxc names: LDA = LDA_X,LDA_C_PW; PBE = GGA_X_PBE,GGA_C_PBE; PBEsol = GGA_X_PBE_SOL,GGA_C_PBE_SOL;
+Q2D-GGA = GGA_X_Q2D,GGA_C_Q2D (Chiodo et al., the functional of the PRL).
+
+Usage: python prl2012_scf.py --system Pt --functional Q2D-GGA [--layers 11 --vacuum 10 --kxy 10 --kz 4 --cutoff 150
+                             --sigma 0.05 --kerker-alpha 0.3]   (bulk and slab: Kerker density mixing)
+       python prl2012_scf.py --table          (collect results/*.json -> results/prl2012_scf_table.{csv,tex})
+"""
+import argparse, csv, glob, json, math, os, time
+import numpy as np
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+RES = os.path.join(HERE, "results")
+REF = os.path.join(HERE, "reference_prl2012_table1_full.csv")
+HA2EV = 27.211386245988
+HA_PER_BOHR2_TO_J_PER_M2 = 1556.8929
+BOHR_ANG = 0.52917721092
+XC = {"LDA": "LDA_X,LDA_C_PW", "PBE": "GGA_X_PBE,GGA_C_PBE", "PBEsol": "GGA_X_PBE_SOL,GGA_C_PBE_SOL",
+      "Q2D-GGA": "GGA_X_Q2D,GGA_C_Q2D"}
+FUNCS = ["LDA", "PBE", "PBEsol", "Q2D-GGA"]
+METALS = ["Al", "Cu", "Rh", "Au", "Pt", "Pd", "Ti"]
+
+
+def reference():
+    rows = csv.reader(l for l in open(REF) if not l.startswith("#"))
+    head = next(rows)
+    out = {}
+    for r in rows:
+        for f, v in zip(head[2:], r[2:]):
+            out[(r[0], r[1], f)] = float(v)
+    return out
+
+
+def fcc111_cell(symbol, a_ang, layers, vacuum_ang, periodic_bulk=False):
+    """1x1 hexagonal fcc(111) cell; ABC stacking along z (copied from script 22)."""
+    from pyscf.pbc import gto
+    a_in = a_ang / math.sqrt(2.0)
+    d0 = a_ang / math.sqrt(3.0)
+    a1 = np.array([a_in, 0.0, 0.0])
+    a2 = np.array([0.5 * a_in, 0.5 * math.sqrt(3.0) * a_in, 0.0])
+    shift = (a1 + a2) / 3.0
+    if periodic_bulk:
+        if layers % 3:
+            raise SystemExit("bulk cell needs a multiple of 3 layers")
+        height, z0 = layers * d0, 0.5 * d0
+    else:
+        height, z0 = (layers - 1) * d0 + vacuum_ang, 0.5 * vacuum_ang
+    atoms = [[symbol, tuple((k % 3) * shift + np.array([0.0, 0.0, z0 + k * d0]))] for k in range(layers)]
+    cell = gto.Cell()
+    cell.a = np.array([a1, a2, [0.0, 0.0, height]])
+    cell.atom = atoms
+    cell.unit = "Angstrom"
+    cell.basis = "gth-dzvp-molopt-sr"
+    cell.pseudo = "gth-pbe"
+    cell.verbose = 4
+    return cell
+
+
+def run_scf(cell, kmesh, xc, a, kerker=False):
+    """Restricted KRKS + Gaussian smearing for every cell (odd electron counts included: tested 2026-11-22 on Al,
+    3-layer 9-electron vs 6-layer 18-electron bulk, E/atom equal to 3e-8 Ha with DIIS and Kerker).
+    kerker=True: Kerker-preconditioned Pulay mixing of density + analytic gradient (rho_kerker_scf; needed for
+    d-metal slabs); otherwise PySCF DIIS."""
+    from pyscf.pbc import dft
+    from pyscf.pbc.scf.addons import smearing_
+    cell.ke_cutoff = a.cutoff
+    cell.build()
+    kpts = cell.make_kpts(kmesh, wrap_around=True)
+    mf = dft.KRKS(cell, kpts)
+    mf.xc = xc
+    mf = smearing_(mf, sigma=a.sigma / HA2EV, method="gaussian")
+    mf.conv_tol = a.conv_tol
+    mf.max_cycle = a.max_cycle
+    if kerker:
+        conv, it, res = rho_kerker_scf(mf, mf.get_init_guess(cell, "atom"), a.kerker_alpha, a.kerker_q0,
+                                       a.kerker_hist, a.max_cycle)
+        e, g = finish_pulay(mf)
+        mf.converged = bool(conv and g < 1e-4)
+        print(f"Kerker SCF: converged={conv} iterations={it} rms={res:.2e} E={e:.10f} |g|/sqrt(n)={g:.2e}", flush=True)
+        return mf, float(e), it, "KRKS-kerker"
+    mf.init_guess = a.guess
+    mf.diis_space = a.diis_space
+    ncyc = [0]
+    mf.callback = lambda env: ncyc.__setitem__(0, ncyc[0] + 1)
+    e = float(mf.kernel())
+    return mf, e, ncyc[0], "KRKS-diis"
+
+
+def rho_kerker_scf(mf, dm0, alpha=0.3, q0=0.8, nhist=8, max_cycle=300, tol_rho=1e-6, log=print):
+    """Pulay mixing of the grid density with Kerker preconditioning (plane-wave style; Claude Code 2026-11-21).
+
+    KRKS + FFTDF + LDA/GGA only.  The Kohn-Sham matrix is built from the mixed input density rho_in(r): Hartree from
+    rho_in(G), xc from [rho_in, grad rho_in] (libxc via eval_xc_eff).  The analytic gradient of each output density
+    (PySCF GGA density evaluator) is mixed with the same Pulay coefficients and Kerker filter (the filter commutes
+    with the gradient), so the fixed point is exactly the standard PySCF KS solution (2026-11-22; the 2026-11-21
+    version used the FFT gradient and needed a density-matrix Pulay finish, which stalls for d-metal slabs).  Output density rho_out(r) from the
+    smeared occupations; residual R = rho_out - rho_in.  Pulay combination of the last nhist pairs, then
+    rho_in <- rho_opt + P R_opt with P(G) = alpha G^2/(G^2+q0^2) (G = 0 has R = 0 by charge conservation).
+    Returns (converged, iterations, rms residual); mf.mo_* hold the last orbitals (dm_out = mf.make_rdm1()).
+    """
+    from pyscf.pbc import tools
+    from pyscf import lib
+    cell, mydf = mf.cell, mf.with_df
+    ni = mf._numint
+    mesh = np.asarray(mydf.mesh)
+    grids = mydf.grids
+    coulG = tools.get_coulG(cell, mesh=mesh)
+    Gv = cell.get_Gv(mesh)
+    G2 = np.einsum("gx,gx->g", Gv, Gv)
+    P = alpha * G2 / (G2 + q0 * q0)
+    ng = len(coulG)
+    w = cell.vol / ng
+    kpts = mf.kpts
+    xctype = ni._xc_type(mf.xc)
+    assert xctype in ("LDA", "GGA"), xctype
+    deriv = 0 if xctype == "LDA" else 1
+    h1e, s1e = mf.get_hcore(cell), mf.get_ovlp(cell)
+    cplx = not np.allclose(kpts, 0)
+
+    def rho_of(dm):
+        """Density and (GGA) its analytic gradient on the FFT grid: array (1 or 4, ng)."""
+        dms = np.asarray(dm)
+        make_rho, nset, nao = ni._gen_rho_evaluator(cell, dms, 1)
+        out = np.zeros((1 + 3 * deriv, ng))
+        for etc, p0, p1 in mydf.aoR_loop(grids, kpts, deriv=deriv):
+            out[:, p0:p1] += np.array(make_rho(0, etc[0], etc[2], xctype), ndmin=2).real[:1 + 3 * deriv]
+        return out
+
+    def fock_of(x):
+        rG = tools.fft(x[0], mesh)
+        vH = tools.ifft(coulG * rG, mesh).real
+        rho4 = x if deriv else x[0]
+        vxc = ni.eval_xc_eff(mf.xc, rho4, deriv=1, xctype=xctype)[1]
+        wv = np.array(vxc, ndmin=2) * w
+        wv[0] += vH * w
+        wv[0] *= 0.5
+        nk, nao = len(kpts), cell.nao_nr()
+        V = np.zeros((nk, nao, nao), dtype=np.complex128 if cplx else float)
+        for etc, p0, p1 in mydf.aoR_loop(grids, kpts, deriv=deriv):
+            for k in range(nk):
+                ao = np.asarray(etc[0][k])
+                ao = ao if ao.ndim == 3 else ao[None]
+                aow = np.einsum("xgi,xg->gi", ao[:wv.shape[0]], wv[:, p0:p1])
+                V[k] += lib.dot(ao[0].conj().T, aow)
+        V = V + V.conj().transpose(0, 2, 1)
+        return np.asarray(h1e) + V
+
+    if np.asarray(dm0).ndim != 3:
+        raise SystemExit("rho_kerker_scf supports KRKS (even electron count) only")
+    x_in = rho_of(dm0)
+    filt = lambda r: np.array([tools.ifft(P * tools.fft(c, mesh), mesh).real for c in r])
+    hist_x, hist_r = [], []
+    conv, rnorm = False, None
+    for it in range(1, max_cycle + 1):
+        F = fock_of(x_in)
+        mo_e, mo_c = mf.eig(F, s1e)
+        mo_occ = mf.get_occ(mo_e, mo_c)
+        mf.mo_energy, mf.mo_coeff, mf.mo_occ = mo_e, mo_c, mo_occ
+        R = rho_of(mf.make_rdm1(mo_c, mo_occ)) - x_in
+        rnorm = float(np.sqrt(np.sum(R[0] * R[0]) * w / cell.vol))
+        log(f"rhokerker it {it:4d} rms(rho_out-rho_in) = {rnorm:.3e}  N_in = {x_in[0].sum() * w:.6f}", flush=True)
+        if rnorm < tol_rho:
+            conv = True
+            break
+        hist_x.append(x_in.copy()); hist_r.append(R.copy())
+        hist_x, hist_r = hist_x[-nhist:], hist_r[-nhist:]
+        n = len(hist_r)
+        B = np.empty((n + 1, n + 1))
+        for i in range(n):
+            for j in range(i, n):
+                B[i, j] = B[j, i] = float(np.dot(hist_r[i][0], hist_r[j][0]))
+        B[n, :n] = B[:n, n] = -1.0
+        B[n, n] = 0.0
+        sc = np.max(np.abs(np.diag(B)[:n])); B[:n, :n] /= sc
+        rhs = np.zeros(n + 1); rhs[n] = -1.0
+        c = np.linalg.lstsq(B, rhs, rcond=None)[0][:n]
+        x_opt = sum(ci * x for ci, x in zip(c, hist_x))
+        r_opt = sum(ci * r for ci, r in zip(c, hist_r))
+        x_in = x_opt + filt(r_opt)
+    return conv, it, rnorm
+
+
+
+def finish_pulay(mf):
+    """Energy and orbital gradient of the standard functional at the Pulay-converged density (no further iteration:
+    for d-metal slabs a plain diagonalisation step amplifies residual differences, so PySCF's extra cycle is skipped)."""
+    cell = mf.cell
+    h1e, s1e = mf.get_hcore(cell), mf.get_ovlp(cell)
+    dm = mf.make_rdm1(mf.mo_coeff, mf.mo_occ)
+    veff = mf.get_veff(cell, dm)
+    e = float(mf.energy_tot(dm, h1e, veff))
+    fock = mf.get_fock(h1e, s1e, veff, dm)
+    g = np.asarray(mf.get_grad(mf.mo_coeff, mf.mo_occ, fock))
+    return e, float(np.linalg.norm(g) / np.sqrt(g.size))
+
+
+def grid_check(mf):
+    """Electron count on the FFT grid and analytic-vs-FFT gradient error (same metric as script 22)."""
+    cell, ni, grids = mf.cell, mf._numint, mf.grids
+    dm = np.asarray(mf.make_rdm1())
+    unrestricted = dm.ndim == 4 and dm.shape[0] == 2
+    rows = []
+    for ao_k1, ao_k2, mask, weight, coords in ni.block_loop(cell, grids, cell.nao_nr(), deriv=1, kpts=mf.kpts):
+        if unrestricted:
+            r = np.asarray(ni.eval_rho(cell, ao_k1, dm[0], xctype="GGA", hermi=1)) + \
+                np.asarray(ni.eval_rho(cell, ao_k1, dm[1], xctype="GGA", hermi=1))
+        else:
+            r = ni.eval_rho(cell, ao_k1, dm, xctype="GGA", hermi=1)
+        rows.append(np.asarray(r).real)
+    R = np.concatenate(rows, axis=1)
+    rho, grad = R[0], R[1:4]
+    mesh = np.asarray(grids.mesh) if hasattr(grids, "mesh") else np.asarray(cell.mesh)
+    Gv = cell.get_Gv(mesh)
+    nG = np.fft.fftn(rho.reshape(mesh)).ravel()
+    gradF = np.array([np.fft.ifftn((1j * Gv[:, i] * nG).reshape(mesh)).real.ravel() for i in range(3)])
+    gerr = float(np.max(np.abs(grad - gradF)) / max(np.max(np.abs(grad)), 1e-30))
+    return gerr, float(rho.sum() * cell.vol / rho.size), [int(m) for m in mesh]
+
+
+def one(kind, a, a_lat, xc):
+    sfx = "" if a.pseudo == "gth-pbe" else "_" + a.pseudo.replace("-", "")
+    tag = f"{a.system}_{a.functional}{sfx}_{kind}"
+    path = os.path.join(RES, f"prl2012_{tag}.json")
+    if os.path.exists(path):
+        d = json.load(open(path))
+        if d.get("converged"):
+            print(f"reuse {path}")
+            return d
+    layers = 3 if kind == "bulk" else a.layers
+    kmesh = [a.kxy, a.kxy, a.kz if kind == "bulk" else 1]
+    cell = fcc111_cell(a.system, a_lat, layers, a.vacuum, periodic_bulk=(kind == "bulk"))
+    cell.pseudo = a.pseudo                     # default gth-pbe; gth-lda test for LDA (same valence counts)
+    t0 = time.time()
+    mf, e, ncyc, scf_type = run_scf(cell, kmesh, xc, a, kerker=a.kerker_alpha > 0)   # bulk too: DIIS bulks pass
+    # the usual criteria but PySCF's extra plain step can flag d-metal Q2D-GGA bulks "not converged" (2026-11-22 test)
+    d = dict(system=a.system, functional=a.functional, xc=xc, kind=kind, a_ang=a_lat, layers=layers,
+             vacuum_ang=a.vacuum if kind == "slab" else 0.0, kmesh=kmesh, cutoff_ha=a.cutoff, sigma_ev=a.sigma,
+             kerker_alpha=a.kerker_alpha, scf_type=scf_type, nelectron=int(cell.nelectron),
+             energy=e, converged=bool(mf.converged), cycles=ncyc, basis="gth-dzvp-molopt-sr", pseudo=a.pseudo,
+             area_bohr2=float(np.linalg.norm(np.cross(cell.lattice_vectors()[0], cell.lattice_vectors()[1]))))
+    if mf.converged:
+        gerr, ngrid, mesh = grid_check(mf)
+        d.update(grad_fft_relerr=gerr, nelec_err=ngrid - cell.nelectron, mesh=mesh)
+    d["seconds"] = time.time() - t0
+    with open(path, "w") as fh:
+        json.dump(d, fh, indent=1)
+    print(f"{kind}: converged={d['converged']} cycles={ncyc} E={e:.8f} Ha")
+    return d
+
+
+def cmd_run(a):
+    os.makedirs(RES, exist_ok=True)
+    ref = reference()
+    a_lat = ref[("a_ang", a.system, a.functional)]
+    xc = XC[a.functional]
+    b = one("bulk", a, a_lat, xc)
+    if not b["converged"]:
+        raise SystemExit("bulk SCF not converged")
+    s = one("slab", a, a_lat, xc)
+    if not s["converged"]:
+        raise SystemExit("slab SCF not converged")
+    sig = (s["energy"] - s["layers"] / b["layers"] * b["energy"]) / (2 * s["area_bohr2"]) * HA_PER_BOHR2_TO_J_PER_M2
+    out = dict(system=a.system, functional=a.functional, a_ang=a_lat, sigma_J_m2=sig,
+               sigma_prl=ref[("sigma_J_m2", a.system, a.functional)], sigma_exp=ref[("sigma_J_m2", a.system, "Exp")],
+               bulk=b, slab=s)
+    sfx = "" if a.pseudo == "gth-pbe" else "_" + a.pseudo.replace("-", "")
+    with open(os.path.join(RES, f"prl2012_{a.system}_{a.functional}{sfx}.json"), "w") as fh:
+        json.dump(out, fh, indent=1)
+    print(f"RESULT {a.system} {a.functional} [{a.pseudo}]: sigma = {sig:.4f} J/m2 (PRL {out['sigma_prl']:.2f})")
+
+
+def cmd_table(_a):
+    ref = reference()
+    got = {}
+    for f in glob.glob(os.path.join(RES, "prl2012_*_*.json")):
+        d = json.load(open(f))
+        if "sigma_J_m2" in d:
+            got[(d["system"], d["functional"])] = d
+    with open(os.path.join(RES, "prl2012_scf_table.csv"), "w", newline="") as fh:
+        w = csv.writer(fh)
+        w.writerow(["system", "functional", "a_ang", "sigma_pyscf", "sigma_prl", "diff", "sigma_exp",
+                    "grad_err_slab", "nelec_err_slab", "cycles_slab"])
+        for m in METALS:
+            for fn in FUNCS:
+                d = got.get((m, fn))
+                if d:
+                    w.writerow([m, fn, d["a_ang"], f"{d['sigma_J_m2']:.4f}", d["sigma_prl"],
+                                f"{d['sigma_J_m2'] - d['sigma_prl']:+.4f}", d["sigma_exp"],
+                                f"{d['slab'].get('grad_fft_relerr', float('nan')):.2e}",
+                                f"{d['slab'].get('nelec_err', float('nan')):.1e}", d["slab"]["cycles"]])
+    lines = ["% generated by codes/PRL2012_scf/prl2012_scf.py --table -- do not edit by hand",
+             "\\begin{tabular}{@{}l" + "rr" * 4 + "r@{}}", "\\toprule",
+             " & " + " & ".join(f"\\multicolumn{{2}}{{c}}{{{fn}}}" for fn in FUNCS) + " & Exp. \\\\",
+             " & " + " & ".join(["PySCF & PRL"] * 4) + " & \\\\", "\\midrule"]
+    errs = {fn: [] for fn in FUNCS}
+    for m in METALS:
+        cells = []
+        for fn in FUNCS:
+            d = got.get((m, fn))
+            cells.append(f"{d['sigma_J_m2']:.2f}" if d else "--")
+            cells.append(f"{ref[('sigma_J_m2', m, fn)]:.2f}")
+            if d:
+                errs[fn].append(d["sigma_J_m2"] - ref[("sigma_J_m2", m, fn)])
+        lines.append(f"{m}(111) & " + " & ".join(cells) + f" & {ref[('sigma_J_m2', m, 'Exp')]:.2f} \\\\")
+    lines.append("\\midrule")
+    lines.append("MAE vs PRL & " + " & ".join(
+        (f"\\multicolumn{{2}}{{c}}{{{np.mean(np.abs(errs[fn])):.2f} ({len(errs[fn])})}}" if errs[fn] else "\\multicolumn{2}{c}{--}")
+        for fn in FUNCS) + " & \\\\")
+    lines += ["\\bottomrule", "\\end{tabular}"]
+    with open(os.path.join(RES, "prl2012_scf_table.tex"), "w") as fh:
+        fh.write("\n".join(lines) + "\n")
+    print("\n".join(lines))
+
+
+def main():
+    p = argparse.ArgumentParser()
+    p.add_argument("--table", action="store_true")
+    p.add_argument("--system", choices=METALS)
+    p.add_argument("--functional", choices=FUNCS)
+    p.add_argument("--layers", type=int, default=11)
+    p.add_argument("--vacuum", type=float, default=10.0)
+    p.add_argument("--kxy", type=int, default=10)
+    p.add_argument("--kz", type=int, default=4)
+    p.add_argument("--cutoff", type=float, default=None,
+                   help="Ha; default per metal from the bulk cutoff gate: Ti 250, Cu 300, others 150")
+    p.add_argument("--sigma", type=float, default=0.05)
+    p.add_argument("--guess", default="atom")
+    p.add_argument("--diis-space", type=int, default=12)
+    p.add_argument("--conv-tol", type=float, default=1e-7)
+    p.add_argument("--max-cycle", type=int, default=300)
+    p.add_argument("--kerker-alpha", type=float, default=0.3, help="bulk+slab SCF by Kerker mixing (0 = PySCF DIIS)")
+    p.add_argument("--kerker-q0", type=float, default=0.8)
+    p.add_argument("--kerker-hist", type=int, default=12)
+    p.add_argument("--pseudo", default="gth-pbe", help="GTH pseudopotential family (gth-pbe; gth-lda for the LDA test)")
+    a = p.parse_args()
+    if a.table:
+        return cmd_table(a)
+    if not (a.system and a.functional):
+        p.error("--system and --functional are required")
+    if a.cutoff is None:
+        a.cutoff = {"Ti": 250.0, "Cu": 300.0}.get(a.system, 150.0)
+    cmd_run(a)
+
+
+if __name__ == "__main__":
+    main()
+#INFO: ******************** input file end ********************
+
+
+System: uname_result(system='Linux', node='r17ch09b04.lem.kdm.wcss.pl', release='5.14.0-687.60.1.el9_8.x86_64', version='#1 SMP PREEMPT_DYNAMIC Mon Oct 26 08:05:05 EDT 2026', machine='x86_64')  Threads 16
+Python 3.11.3 (main, Dec  9 2024, 15:01:57) [GCC 12.3.0]
+numpy 1.25.1  scipy 1.11.1  h5py 3.9.0
+Date: Sun Nov 22 04:38:41 2026
+PySCF version 2.7.0
+PySCF path  /usr/local/easybuild/software/PySCF/2.7.0-foss-2023a/lib/python3.11/site-packages/pyscf
+
+[ENV] PYSCF_TMPDIR /lustre/pd03/hpc-gabchi5762-1768308766/prl2012_tmp/6391632_3
+[ENV] PYSCF_MAX_MEMORY 147456
+[ENV] EBDEVELPYSCF /usr/local/easybuild/software/PySCF/2.7.0-foss-2023a/easybuild/PySCF-2.7.0-foss-2023a-easybuild-devel
+[ENV] EBVERSIONPYSCF 2.7.0
+[ENV] EBROOTPYSCF /usr/local/easybuild/software/PySCF/2.7.0-foss-2023a
+[ENV] EBEXTSLISTPYSCF dftd3-94091d8,doci-08079a9,icmpspt-50c386e,properties-8b94d8d,qsdopt-3ad2c02,semiempirical-470d716,shciscf-7edb54d,nptyping-2.5.0,MCfun-0.2.3,pyqmc-0.6.0,dmrgscf-a03f7b6,fciqmc-ee98fb4,mbd-485c18c,naive-hci-0c28d6e,tblis-c67c8af,zquatev-4eb41b1
+[CONFIG] conf_file None
+[INPUT] verbose = 4
+[INPUT] num. atoms = 3
+[INPUT] num. electrons = 54
+[INPUT] charge = 0
+[INPUT] spin (= nelec alpha-beta = 2S) = 0
+[INPUT] symmetry False subgroup None
+[INPUT] Mole.unit = Angstrom
+[INPUT] Symbol           X                Y                Z      unit          X                Y                Z       unit  Magmom
+[INPUT]  1 Pt     0.000000000000   0.000000000000   1.131606527612 AA    0.000000000000   0.000000000000   2.138426417956 Bohr   0.0
+[INPUT]  2 Pt     1.385929291126   0.800166649309   3.394819582835 AA    2.619026788240   1.512095821205   6.415279253868 Bohr   0.0
+[INPUT]  3 Pt     2.771858582251   1.600333298618   5.658032638058 AA    5.238053576480   3.024191642410  10.692132089781 Bohr   0.0
+
+nuclear repulsion = -300.799846701163
+number of shells = 12
+number of NR pGTOs = 288
+number of NR cGTOs = 78
+basis = gth-dzvp-molopt-sr
+ecp = {}
+CPU time:         0.60
+lattice vectors  a1 [5.238053576, 0.000000000, 0.000000000]
+                 a2 [2.619026788, 4.536287464, 0.000000000]
+                 a3 [0.000000000, 0.000000000, 12.830558508]
+dimension = 3
+low_dim_ft_type = None
+Cell volume = 304.871
+rcut = 25.73945711839878 (nimgs = [6 6 3])
+lattice sum = 1225 cells
+precision = 1e-08
+pseudo = gth-lda
+ke_cutoff = 150.0
+    = [31 31 73] mesh (70153 PWs)
+Spherically averaged atomic HF for {'Pt'}
+
+
+******** <class 'pyscf.scf.atom_hf_pp.AtomSCFPP'> ********
+method = AtomSCFPP
+initial guess = minao
+damping factor = 0
+level_shift factor = 0
+DIIS = <class 'pyscf.scf.diis.CDIIS'>
+diis_start_cycle = 1
+diis_space = 8
+diis_damp = 0
+SCF conv_tol = 1e-09
+SCF conv_tol_grad = None
+SCF max_cycles = 50
+direct_scf = True
+direct_scf_tol = 1e-13
+chkfile to save SCF result = /lustre/pd03/hpc-gabchi5762-1768308766/prl2012_tmp/6391632_3/tmpsouhce7h
+max_memory 147456 MB (current use 205 MB)
+atom = Pt
+Set gradient conv threshold to 3.16228e-05
+Initial guess from minao.
+tot grids = 24312
+/usr/local/easybuild/software/PySCF/2.7.0-foss-2023a/lib/python3.11/site-packages/pyscf/gto/mole.py:1294: UserWarning: Function mol.dumps drops attribute _mesh because it is not JSON-serializable
+  warnings.warn(msg)
+init E= -116.514979766356
+cycle= 1 E= -119.613834346724  delta_E= -3.1  |g|=    0  |ddm|= 3.13
+cycle= 2 E= -119.70094992232  delta_E= -0.0871  |g|=    0  |ddm|= 1.02
+cycle= 3 E= -119.744413215726  delta_E= -0.0435  |g|=    0  |ddm|= 0.364
+cycle= 4 E= -119.744553084463  delta_E= -0.00014  |g|=    0  |ddm|= 0.0226
+cycle= 5 E= -119.74455377191  delta_E= -6.87e-07  |g|=    0  |ddm|= 0.00136
+cycle= 6 E= -119.744553772574  delta_E= -6.65e-10  |g|=    0  |ddm|= 3.68e-05
+Extra cycle  E= -119.744553772577  delta_E= -2.36e-12  |g|=    0  |ddm|= 1.98e-06
+Atomic HF for atom  Pt  converged. SCF energy = -119.744553772577
+
+    sigma = 0.00183747  Optimized mu = 0.934751553939  entropy = 0.135606414374
+rhokerker it    1 rms(rho_out-rho_in) = 3.021e-02  N_in = 54.000000
+    sigma = 0.00183747  Optimized mu = 0.898629085862  entropy = 0.143796675994
+rhokerker it    2 rms(rho_out-rho_in) = 1.724e-02  N_in = 54.000000
+    sigma = 0.00183747  Optimized mu = 0.857921558418  entropy = 0.121750674561
+rhokerker it    3 rms(rho_out-rho_in) = 4.077e-03  N_in = 54.000000
+    sigma = 0.00183747  Optimized mu = 0.861256786662  entropy = 0.12545800386
+rhokerker it    4 rms(rho_out-rho_in) = 5.527e-04  N_in = 54.000000
+    sigma = 0.00183747  Optimized mu = 0.859479135619  entropy = 0.124125044571
+rhokerker it    5 rms(rho_out-rho_in) = 1.669e-04  N_in = 54.000000
+    sigma = 0.00183747  Optimized mu = 0.859572125422  entropy = 0.124393720091
+rhokerker it    6 rms(rho_out-rho_in) = 9.462e-06  N_in = 54.000000
+    sigma = 0.00183747  Optimized mu = 0.859581414576  entropy = 0.124375830744
+rhokerker it    7 rms(rho_out-rho_in) = 7.922e-06  N_in = 54.000000
+    sigma = 0.00183747  Optimized mu = 0.859575457619  entropy = 0.124353778714
+rhokerker it    8 rms(rho_out-rho_in) = 4.679e-06  N_in = 54.000000
+    sigma = 0.00183747  Optimized mu = 0.8595645915  entropy = 0.124327801601
+rhokerker it    9 rms(rho_out-rho_in) = 1.494e-06  N_in = 54.000000
+    sigma = 0.00183747  Optimized mu = 0.859567392963  entropy = 0.124340674275
+rhokerker it   10 rms(rho_out-rho_in) = 1.278e-07  N_in = 54.000000
+nelec by numeric integration = 53.99999999984187
+    Total E(T) = -362.302043888663  Free energy = -362.302272360438  E0 = -362.30215812455
+Kerker SCF: converged=True iterations=10 rms=1.28e-07 E=-362.3020438887 |g|/sqrt(n)=2.63e-08
+bulk: converged=True cycles=10 E=-362.30204389 Ha
+#INFO: **** input file is /home/gabchi5762/pyscf/gpu/scan/vasp/new/prl2012_ldapp/prl2012_scf.py ****
+#!/usr/bin/env python3
+"""Self-consistent PySCF recreation of PRL 108, 126402 (2012), Table I (surface-energy panel)  (Claude Code, 2026-11-21).
+
+STANDALONE: numpy + pyscf only; fcc111_cell / SCF set-up copied from codes/SurfaceMetals_cutoff/cutoff_conv.py
+(itself copied from codes/22_surface_density_dcscan.py).
+
+For one metal M and one functional F (LDA, PBE, PBEsol, Q2D-GGA), both solved SELF-CONSISTENTLY with F:
+  * lattice constant a = the PRL Table I value for (M, F)   [reference_prl2012_table1_full.csv]
+  * bulk: 3-layer periodic fcc(111) cell, kxy x kxy x kz mesh
+  * slab: symmetric N-layer fcc(111) slab (PRL: N = 11), vacuum V (PRL: 10 Angstrom), kxy x kxy x 1 mesh
+  * sigma = [E_slab - (N/3) E_bulk] / (2 A)       (J/m^2)
+Differences from the PRL protocol (stated in every output): GTH-PBE pseudopotentials + gth-dzvp-molopt-sr Gaussian
+basis with an FFT density cutoff instead of ultrasoft PW-PPs at 35 Ry; slabs are NOT relaxed (PRL: perpendicular
+relaxation of all layers); Gaussian smearing as given on the command line.
+Libxc names: LDA = LDA_X,LDA_C_PW; PBE = GGA_X_PBE,GGA_C_PBE; PBEsol = GGA_X_PBE_SOL,GGA_C_PBE_SOL;
+Q2D-GGA = GGA_X_Q2D,GGA_C_Q2D (Chiodo et al., the functional of the PRL).
+
+Usage: python prl2012_scf.py --system Pt --functional Q2D-GGA [--layers 11 --vacuum 10 --kxy 10 --kz 4 --cutoff 150
+                             --sigma 0.05 --kerker-alpha 0.3]   (bulk and slab: Kerker density mixing)
+       python prl2012_scf.py --table          (collect results/*.json -> results/prl2012_scf_table.{csv,tex})
+"""
+import argparse, csv, glob, json, math, os, time
+import numpy as np
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+RES = os.path.join(HERE, "results")
+REF = os.path.join(HERE, "reference_prl2012_table1_full.csv")
+HA2EV = 27.211386245988
+HA_PER_BOHR2_TO_J_PER_M2 = 1556.8929
+BOHR_ANG = 0.52917721092
+XC = {"LDA": "LDA_X,LDA_C_PW", "PBE": "GGA_X_PBE,GGA_C_PBE", "PBEsol": "GGA_X_PBE_SOL,GGA_C_PBE_SOL",
+      "Q2D-GGA": "GGA_X_Q2D,GGA_C_Q2D"}
+FUNCS = ["LDA", "PBE", "PBEsol", "Q2D-GGA"]
+METALS = ["Al", "Cu", "Rh", "Au", "Pt", "Pd", "Ti"]
+
+
+def reference():
+    rows = csv.reader(l for l in open(REF) if not l.startswith("#"))
+    head = next(rows)
+    out = {}
+    for r in rows:
+        for f, v in zip(head[2:], r[2:]):
+            out[(r[0], r[1], f)] = float(v)
+    return out
+
+
+def fcc111_cell(symbol, a_ang, layers, vacuum_ang, periodic_bulk=False):
+    """1x1 hexagonal fcc(111) cell; ABC stacking along z (copied from script 22)."""
+    from pyscf.pbc import gto
+    a_in = a_ang / math.sqrt(2.0)
+    d0 = a_ang / math.sqrt(3.0)
+    a1 = np.array([a_in, 0.0, 0.0])
+    a2 = np.array([0.5 * a_in, 0.5 * math.sqrt(3.0) * a_in, 0.0])
+    shift = (a1 + a2) / 3.0
+    if periodic_bulk:
+        if layers % 3:
+            raise SystemExit("bulk cell needs a multiple of 3 layers")
+        height, z0 = layers * d0, 0.5 * d0
+    else:
+        height, z0 = (layers - 1) * d0 + vacuum_ang, 0.5 * vacuum_ang
+    atoms = [[symbol, tuple((k % 3) * shift + np.array([0.0, 0.0, z0 + k * d0]))] for k in range(layers)]
+    cell = gto.Cell()
+    cell.a = np.array([a1, a2, [0.0, 0.0, height]])
+    cell.atom = atoms
+    cell.unit = "Angstrom"
+    cell.basis = "gth-dzvp-molopt-sr"
+    cell.pseudo = "gth-pbe"
+    cell.verbose = 4
+    return cell
+
+
+def run_scf(cell, kmesh, xc, a, kerker=False):
+    """Restricted KRKS + Gaussian smearing for every cell (odd electron counts included: tested 2026-11-22 on Al,
+    3-layer 9-electron vs 6-layer 18-electron bulk, E/atom equal to 3e-8 Ha with DIIS and Kerker).
+    kerker=True: Kerker-preconditioned Pulay mixing of density + analytic gradient (rho_kerker_scf; needed for
+    d-metal slabs); otherwise PySCF DIIS."""
+    from pyscf.pbc import dft
+    from pyscf.pbc.scf.addons import smearing_
+    cell.ke_cutoff = a.cutoff
+    cell.build()
+    kpts = cell.make_kpts(kmesh, wrap_around=True)
+    mf = dft.KRKS(cell, kpts)
+    mf.xc = xc
+    mf = smearing_(mf, sigma=a.sigma / HA2EV, method="gaussian")
+    mf.conv_tol = a.conv_tol
+    mf.max_cycle = a.max_cycle
+    if kerker:
+        conv, it, res = rho_kerker_scf(mf, mf.get_init_guess(cell, "atom"), a.kerker_alpha, a.kerker_q0,
+                                       a.kerker_hist, a.max_cycle)
+        e, g = finish_pulay(mf)
+        mf.converged = bool(conv and g < 1e-4)
+        print(f"Kerker SCF: converged={conv} iterations={it} rms={res:.2e} E={e:.10f} |g|/sqrt(n)={g:.2e}", flush=True)
+        return mf, float(e), it, "KRKS-kerker"
+    mf.init_guess = a.guess
+    mf.diis_space = a.diis_space
+    ncyc = [0]
+    mf.callback = lambda env: ncyc.__setitem__(0, ncyc[0] + 1)
+    e = float(mf.kernel())
+    return mf, e, ncyc[0], "KRKS-diis"
+
+
+def rho_kerker_scf(mf, dm0, alpha=0.3, q0=0.8, nhist=8, max_cycle=300, tol_rho=1e-6, log=print):
+    """Pulay mixing of the grid density with Kerker preconditioning (plane-wave style; Claude Code 2026-11-21).
+
+    KRKS + FFTDF + LDA/GGA only.  The Kohn-Sham matrix is built from the mixed input density rho_in(r): Hartree from
+    rho_in(G), xc from [rho_in, grad rho_in] (libxc via eval_xc_eff).  The analytic gradient of each output density
+    (PySCF GGA density evaluator) is mixed with the same Pulay coefficients and Kerker filter (the filter commutes
+    with the gradient), so the fixed point is exactly the standard PySCF KS solution (2026-11-22; the 2026-11-21
+    version used the FFT gradient and needed a density-matrix Pulay finish, which stalls for d-metal slabs).  Output density rho_out(r) from the
+    smeared occupations; residual R = rho_out - rho_in.  Pulay combination of the last nhist pairs, then
+    rho_in <- rho_opt + P R_opt with P(G) = alpha G^2/(G^2+q0^2) (G = 0 has R = 0 by charge conservation).
+    Returns (converged, iterations, rms residual); mf.mo_* hold the last orbitals (dm_out = mf.make_rdm1()).
+    """
+    from pyscf.pbc import tools
+    from pyscf import lib
+    cell, mydf = mf.cell, mf.with_df
+    ni = mf._numint
+    mesh = np.asarray(mydf.mesh)
+    grids = mydf.grids
+    coulG = tools.get_coulG(cell, mesh=mesh)
+    Gv = cell.get_Gv(mesh)
+    G2 = np.einsum("gx,gx->g", Gv, Gv)
+    P = alpha * G2 / (G2 + q0 * q0)
+    ng = len(coulG)
+    w = cell.vol / ng
+    kpts = mf.kpts
+    xctype = ni._xc_type(mf.xc)
+    assert xctype in ("LDA", "GGA"), xctype
+    deriv = 0 if xctype == "LDA" else 1
+    h1e, s1e = mf.get_hcore(cell), mf.get_ovlp(cell)
+    cplx = not np.allclose(kpts, 0)
+
+    def rho_of(dm):
+        """Density and (GGA) its analytic gradient on the FFT grid: array (1 or 4, ng)."""
+        dms = np.asarray(dm)
+        make_rho, nset, nao = ni._gen_rho_evaluator(cell, dms, 1)
+        out = np.zeros((1 + 3 * deriv, ng))
+        for etc, p0, p1 in mydf.aoR_loop(grids, kpts, deriv=deriv):
+            out[:, p0:p1] += np.array(make_rho(0, etc[0], etc[2], xctype), ndmin=2).real[:1 + 3 * deriv]
+        return out
+
+    def fock_of(x):
+        rG = tools.fft(x[0], mesh)
+        vH = tools.ifft(coulG * rG, mesh).real
+        rho4 = x if deriv else x[0]
+        vxc = ni.eval_xc_eff(mf.xc, rho4, deriv=1, xctype=xctype)[1]
+        wv = np.array(vxc, ndmin=2) * w
+        wv[0] += vH * w
+        wv[0] *= 0.5
+        nk, nao = len(kpts), cell.nao_nr()
+        V = np.zeros((nk, nao, nao), dtype=np.complex128 if cplx else float)
+        for etc, p0, p1 in mydf.aoR_loop(grids, kpts, deriv=deriv):
+            for k in range(nk):
+                ao = np.asarray(etc[0][k])
+                ao = ao if ao.ndim == 3 else ao[None]
+                aow = np.einsum("xgi,xg->gi", ao[:wv.shape[0]], wv[:, p0:p1])
+                V[k] += lib.dot(ao[0].conj().T, aow)
+        V = V + V.conj().transpose(0, 2, 1)
+        return np.asarray(h1e) + V
+
+    if np.asarray(dm0).ndim != 3:
+        raise SystemExit("rho_kerker_scf supports KRKS (even electron count) only")
+    x_in = rho_of(dm0)
+    filt = lambda r: np.array([tools.ifft(P * tools.fft(c, mesh), mesh).real for c in r])
+    hist_x, hist_r = [], []
+    conv, rnorm = False, None
+    for it in range(1, max_cycle + 1):
+        F = fock_of(x_in)
+        mo_e, mo_c = mf.eig(F, s1e)
+        mo_occ = mf.get_occ(mo_e, mo_c)
+        mf.mo_energy, mf.mo_coeff, mf.mo_occ = mo_e, mo_c, mo_occ
+        R = rho_of(mf.make_rdm1(mo_c, mo_occ)) - x_in
+        rnorm = float(np.sqrt(np.sum(R[0] * R[0]) * w / cell.vol))
+        log(f"rhokerker it {it:4d} rms(rho_out-rho_in) = {rnorm:.3e}  N_in = {x_in[0].sum() * w:.6f}", flush=True)
+        if rnorm < tol_rho:
+            conv = True
+            break
+        hist_x.append(x_in.copy()); hist_r.append(R.copy())
+        hist_x, hist_r = hist_x[-nhist:], hist_r[-nhist:]
+        n = len(hist_r)
+        B = np.empty((n + 1, n + 1))
+        for i in range(n):
+            for j in range(i, n):
+                B[i, j] = B[j, i] = float(np.dot(hist_r[i][0], hist_r[j][0]))
+        B[n, :n] = B[:n, n] = -1.0
+        B[n, n] = 0.0
+        sc = np.max(np.abs(np.diag(B)[:n])); B[:n, :n] /= sc
+        rhs = np.zeros(n + 1); rhs[n] = -1.0
+        c = np.linalg.lstsq(B, rhs, rcond=None)[0][:n]
+        x_opt = sum(ci * x for ci, x in zip(c, hist_x))
+        r_opt = sum(ci * r for ci, r in zip(c, hist_r))
+        x_in = x_opt + filt(r_opt)
+    return conv, it, rnorm
+
+
+
+def finish_pulay(mf):
+    """Energy and orbital gradient of the standard functional at the Pulay-converged density (no further iteration:
+    for d-metal slabs a plain diagonalisation step amplifies residual differences, so PySCF's extra cycle is skipped)."""
+    cell = mf.cell
+    h1e, s1e = mf.get_hcore(cell), mf.get_ovlp(cell)
+    dm = mf.make_rdm1(mf.mo_coeff, mf.mo_occ)
+    veff = mf.get_veff(cell, dm)
+    e = float(mf.energy_tot(dm, h1e, veff))
+    fock = mf.get_fock(h1e, s1e, veff, dm)
+    g = np.asarray(mf.get_grad(mf.mo_coeff, mf.mo_occ, fock))
+    return e, float(np.linalg.norm(g) / np.sqrt(g.size))
+
+
+def grid_check(mf):
+    """Electron count on the FFT grid and analytic-vs-FFT gradient error (same metric as script 22)."""
+    cell, ni, grids = mf.cell, mf._numint, mf.grids
+    dm = np.asarray(mf.make_rdm1())
+    unrestricted = dm.ndim == 4 and dm.shape[0] == 2
+    rows = []
+    for ao_k1, ao_k2, mask, weight, coords in ni.block_loop(cell, grids, cell.nao_nr(), deriv=1, kpts=mf.kpts):
+        if unrestricted:
+            r = np.asarray(ni.eval_rho(cell, ao_k1, dm[0], xctype="GGA", hermi=1)) + \
+                np.asarray(ni.eval_rho(cell, ao_k1, dm[1], xctype="GGA", hermi=1))
+        else:
+            r = ni.eval_rho(cell, ao_k1, dm, xctype="GGA", hermi=1)
+        rows.append(np.asarray(r).real)
+    R = np.concatenate(rows, axis=1)
+    rho, grad = R[0], R[1:4]
+    mesh = np.asarray(grids.mesh) if hasattr(grids, "mesh") else np.asarray(cell.mesh)
+    Gv = cell.get_Gv(mesh)
+    nG = np.fft.fftn(rho.reshape(mesh)).ravel()
+    gradF = np.array([np.fft.ifftn((1j * Gv[:, i] * nG).reshape(mesh)).real.ravel() for i in range(3)])
+    gerr = float(np.max(np.abs(grad - gradF)) / max(np.max(np.abs(grad)), 1e-30))
+    return gerr, float(rho.sum() * cell.vol / rho.size), [int(m) for m in mesh]
+
+
+def one(kind, a, a_lat, xc):
+    sfx = "" if a.pseudo == "gth-pbe" else "_" + a.pseudo.replace("-", "")
+    tag = f"{a.system}_{a.functional}{sfx}_{kind}"
+    path = os.path.join(RES, f"prl2012_{tag}.json")
+    if os.path.exists(path):
+        d = json.load(open(path))
+        if d.get("converged"):
+            print(f"reuse {path}")
+            return d
+    layers = 3 if kind == "bulk" else a.layers
+    kmesh = [a.kxy, a.kxy, a.kz if kind == "bulk" else 1]
+    cell = fcc111_cell(a.system, a_lat, layers, a.vacuum, periodic_bulk=(kind == "bulk"))
+    cell.pseudo = a.pseudo                     # default gth-pbe; gth-lda test for LDA (same valence counts)
+    t0 = time.time()
+    mf, e, ncyc, scf_type = run_scf(cell, kmesh, xc, a, kerker=a.kerker_alpha > 0)   # bulk too: DIIS bulks pass
+    # the usual criteria but PySCF's extra plain step can flag d-metal Q2D-GGA bulks "not converged" (2026-11-22 test)
+    d = dict(system=a.system, functional=a.functional, xc=xc, kind=kind, a_ang=a_lat, layers=layers,
+             vacuum_ang=a.vacuum if kind == "slab" else 0.0, kmesh=kmesh, cutoff_ha=a.cutoff, sigma_ev=a.sigma,
+             kerker_alpha=a.kerker_alpha, scf_type=scf_type, nelectron=int(cell.nelectron),
+             energy=e, converged=bool(mf.converged), cycles=ncyc, basis="gth-dzvp-molopt-sr", pseudo=a.pseudo,
+             area_bohr2=float(np.linalg.norm(np.cross(cell.lattice_vectors()[0], cell.lattice_vectors()[1]))))
+    if mf.converged:
+        gerr, ngrid, mesh = grid_check(mf)
+        d.update(grad_fft_relerr=gerr, nelec_err=ngrid - cell.nelectron, mesh=mesh)
+    d["seconds"] = time.time() - t0
+    with open(path, "w") as fh:
+        json.dump(d, fh, indent=1)
+    print(f"{kind}: converged={d['converged']} cycles={ncyc} E={e:.8f} Ha")
+    return d
+
+
+def cmd_run(a):
+    os.makedirs(RES, exist_ok=True)
+    ref = reference()
+    a_lat = ref[("a_ang", a.system, a.functional)]
+    xc = XC[a.functional]
+    b = one("bulk", a, a_lat, xc)
+    if not b["converged"]:
+        raise SystemExit("bulk SCF not converged")
+    s = one("slab", a, a_lat, xc)
+    if not s["converged"]:
+        raise SystemExit("slab SCF not converged")
+    sig = (s["energy"] - s["layers"] / b["layers"] * b["energy"]) / (2 * s["area_bohr2"]) * HA_PER_BOHR2_TO_J_PER_M2
+    out = dict(system=a.system, functional=a.functional, a_ang=a_lat, sigma_J_m2=sig,
+               sigma_prl=ref[("sigma_J_m2", a.system, a.functional)], sigma_exp=ref[("sigma_J_m2", a.system, "Exp")],
+               bulk=b, slab=s)
+    sfx = "" if a.pseudo == "gth-pbe" else "_" + a.pseudo.replace("-", "")
+    with open(os.path.join(RES, f"prl2012_{a.system}_{a.functional}{sfx}.json"), "w") as fh:
+        json.dump(out, fh, indent=1)
+    print(f"RESULT {a.system} {a.functional} [{a.pseudo}]: sigma = {sig:.4f} J/m2 (PRL {out['sigma_prl']:.2f})")
+
+
+def cmd_table(_a):
+    ref = reference()
+    got = {}
+    for f in glob.glob(os.path.join(RES, "prl2012_*_*.json")):
+        d = json.load(open(f))
+        if "sigma_J_m2" in d:
+            got[(d["system"], d["functional"])] = d
+    with open(os.path.join(RES, "prl2012_scf_table.csv"), "w", newline="") as fh:
+        w = csv.writer(fh)
+        w.writerow(["system", "functional", "a_ang", "sigma_pyscf", "sigma_prl", "diff", "sigma_exp",
+                    "grad_err_slab", "nelec_err_slab", "cycles_slab"])
+        for m in METALS:
+            for fn in FUNCS:
+                d = got.get((m, fn))
+                if d:
+                    w.writerow([m, fn, d["a_ang"], f"{d['sigma_J_m2']:.4f}", d["sigma_prl"],
+                                f"{d['sigma_J_m2'] - d['sigma_prl']:+.4f}", d["sigma_exp"],
+                                f"{d['slab'].get('grad_fft_relerr', float('nan')):.2e}",
+                                f"{d['slab'].get('nelec_err', float('nan')):.1e}", d["slab"]["cycles"]])
+    lines = ["% generated by codes/PRL2012_scf/prl2012_scf.py --table -- do not edit by hand",
+             "\\begin{tabular}{@{}l" + "rr" * 4 + "r@{}}", "\\toprule",
+             " & " + " & ".join(f"\\multicolumn{{2}}{{c}}{{{fn}}}" for fn in FUNCS) + " & Exp. \\\\",
+             " & " + " & ".join(["PySCF & PRL"] * 4) + " & \\\\", "\\midrule"]
+    errs = {fn: [] for fn in FUNCS}
+    for m in METALS:
+        cells = []
+        for fn in FUNCS:
+            d = got.get((m, fn))
+            cells.append(f"{d['sigma_J_m2']:.2f}" if d else "--")
+            cells.append(f"{ref[('sigma_J_m2', m, fn)]:.2f}")
+            if d:
+                errs[fn].append(d["sigma_J_m2"] - ref[("sigma_J_m2", m, fn)])
+        lines.append(f"{m}(111) & " + " & ".join(cells) + f" & {ref[('sigma_J_m2', m, 'Exp')]:.2f} \\\\")
+    lines.append("\\midrule")
+    lines.append("MAE vs PRL & " + " & ".join(
+        (f"\\multicolumn{{2}}{{c}}{{{np.mean(np.abs(errs[fn])):.2f} ({len(errs[fn])})}}" if errs[fn] else "\\multicolumn{2}{c}{--}")
+        for fn in FUNCS) + " & \\\\")
+    lines += ["\\bottomrule", "\\end{tabular}"]
+    with open(os.path.join(RES, "prl2012_scf_table.tex"), "w") as fh:
+        fh.write("\n".join(lines) + "\n")
+    print("\n".join(lines))
+
+
+def main():
+    p = argparse.ArgumentParser()
+    p.add_argument("--table", action="store_true")
+    p.add_argument("--system", choices=METALS)
+    p.add_argument("--functional", choices=FUNCS)
+    p.add_argument("--layers", type=int, default=11)
+    p.add_argument("--vacuum", type=float, default=10.0)
+    p.add_argument("--kxy", type=int, default=10)
+    p.add_argument("--kz", type=int, default=4)
+    p.add_argument("--cutoff", type=float, default=None,
+                   help="Ha; default per metal from the bulk cutoff gate: Ti 250, Cu 300, others 150")
+    p.add_argument("--sigma", type=float, default=0.05)
+    p.add_argument("--guess", default="atom")
+    p.add_argument("--diis-space", type=int, default=12)
+    p.add_argument("--conv-tol", type=float, default=1e-7)
+    p.add_argument("--max-cycle", type=int, default=300)
+    p.add_argument("--kerker-alpha", type=float, default=0.3, help="bulk+slab SCF by Kerker mixing (0 = PySCF DIIS)")
+    p.add_argument("--kerker-q0", type=float, default=0.8)
+    p.add_argument("--kerker-hist", type=int, default=12)
+    p.add_argument("--pseudo", default="gth-pbe", help="GTH pseudopotential family (gth-pbe; gth-lda for the LDA test)")
+    a = p.parse_args()
+    if a.table:
+        return cmd_table(a)
+    if not (a.system and a.functional):
+        p.error("--system and --functional are required")
+    if a.cutoff is None:
+        a.cutoff = {"Ti": 250.0, "Cu": 300.0}.get(a.system, 150.0)
+    cmd_run(a)
+
+
+if __name__ == "__main__":
+    main()
+#INFO: ******************** input file end ********************
+
+
+System: uname_result(system='Linux', node='r17ch09b04.lem.kdm.wcss.pl', release='5.14.0-687.60.1.el9_8.x86_64', version='#1 SMP PREEMPT_DYNAMIC Mon Oct 26 08:05:05 EDT 2026', machine='x86_64')  Threads 16
+Python 3.11.3 (main, Dec  9 2024, 15:01:57) [GCC 12.3.0]
+numpy 1.25.1  scipy 1.11.1  h5py 3.9.0
+Date: Sun Nov 22 04:47:08 2026
+PySCF version 2.7.0
+PySCF path  /usr/local/easybuild/software/PySCF/2.7.0-foss-2023a/lib/python3.11/site-packages/pyscf
+
+[ENV] PYSCF_TMPDIR /lustre/pd03/hpc-gabchi5762-1768308766/prl2012_tmp/6391632_3
+[ENV] PYSCF_MAX_MEMORY 147456
+[ENV] EBDEVELPYSCF /usr/local/easybuild/software/PySCF/2.7.0-foss-2023a/easybuild/PySCF-2.7.0-foss-2023a-easybuild-devel
+[ENV] EBVERSIONPYSCF 2.7.0
+[ENV] EBROOTPYSCF /usr/local/easybuild/software/PySCF/2.7.0-foss-2023a
+[ENV] EBEXTSLISTPYSCF dftd3-94091d8,doci-08079a9,icmpspt-50c386e,properties-8b94d8d,qsdopt-3ad2c02,semiempirical-470d716,shciscf-7edb54d,nptyping-2.5.0,MCfun-0.2.3,pyqmc-0.6.0,dmrgscf-a03f7b6,fciqmc-ee98fb4,mbd-485c18c,naive-hci-0c28d6e,tblis-c67c8af,zquatev-4eb41b1
+[CONFIG] conf_file None
+[INPUT] verbose = 4
+[INPUT] num. atoms = 11
+[INPUT] num. electrons = 198
+[INPUT] charge = 0
+[INPUT] spin (= nelec alpha-beta = 2S) = 0
+[INPUT] symmetry False subgroup None
+[INPUT] Mole.unit = Angstrom
+[INPUT] Symbol           X                Y                Z      unit          X                Y                Z       unit  Magmom
+[INPUT]  1 Pt     0.000000000000   0.000000000000   5.000000000000 AA    0.000000000000   0.000000000000   9.448630622825 Bohr   0.0
+[INPUT]  2 Pt     1.385929291126   0.800166649309   7.263213055223 AA    2.619026788240   1.512095821205  13.725483458738 Bohr   0.0
+[INPUT]  3 Pt     2.771858582251   1.600333298618   9.526426110447 AA    5.238053576480   3.024191642410  18.002336294650 Bohr   0.0
+[INPUT]  4 Pt     0.000000000000   0.000000000000  11.789639165670 AA    0.000000000000   0.000000000000  22.279189130562 Bohr   0.0
+[INPUT]  5 Pt     1.385929291126   0.800166649309  14.052852220893 AA    2.619026788240   1.512095821205  26.556041966474 Bohr   0.0
+[INPUT]  6 Pt     2.771858582251   1.600333298618  16.316065276117 AA    5.238053576480   3.024191642410  30.832894802387 Bohr   0.0
+[INPUT]  7 Pt     0.000000000000   0.000000000000  18.579278331340 AA    0.000000000000   0.000000000000  35.109747638299 Bohr   0.0
+[INPUT]  8 Pt     1.385929291126   0.800166649309  20.842491386563 AA    2.619026788240   1.512095821205  39.386600474211 Bohr   0.0
+[INPUT]  9 Pt     2.771858582251   1.600333298618  23.105704441787 AA    5.238053576480   3.024191642410  43.663453310123 Bohr   0.0
+[INPUT] 10 Pt     0.000000000000   0.000000000000  25.368917497010 AA    0.000000000000   0.000000000000  47.940306146035 Bohr   0.0
+[INPUT] 11 Pt     1.385929291126   0.800166649309  27.632130552233 AA    2.619026788240   1.512095821205  52.217158981948 Bohr   0.0
+
+nuclear repulsion = 1971.75598356786
+number of shells = 44
+number of NR pGTOs = 1056
+number of NR cGTOs = 286
+basis = gth-dzvp-molopt-sr
+ecp = {}
+CPU time:      4208.72
+lattice vectors  a1 [5.238053576, 0.000000000, 0.000000000]
+                 a2 [2.619026788, 4.536287464, 0.000000000]
+                 a3 [0.000000000, 0.000000000, 61.665789605]
+dimension = 3
+low_dim_ft_type = None
+Cell volume = 1465.26
+rcut = 25.73945711839878 (nimgs = [6 6 1])
+lattice sum = 803 cells
+precision = 1e-08
+pseudo = gth-lda
+ke_cutoff = 150.0
+    = [ 31  31 341] mesh (327701 PWs)
+Spherically averaged atomic HF for {'Pt'}
+
+
+******** <class 'pyscf.scf.atom_hf_pp.AtomSCFPP'> ********
+method = AtomSCFPP
+initial guess = minao
+damping factor = 0
+level_shift factor = 0
+DIIS = <class 'pyscf.scf.diis.CDIIS'>
+diis_start_cycle = 1
+diis_space = 8
+diis_damp = 0
+SCF conv_tol = 1e-09
+SCF conv_tol_grad = None
+SCF max_cycles = 50
+direct_scf = True
+direct_scf_tol = 1e-13
+chkfile to save SCF result = /lustre/pd03/hpc-gabchi5762-1768308766/prl2012_tmp/6391632_3/tmpw7s9zh_v
+max_memory 147456 MB (current use 701 MB)
+atom = Pt
+Set gradient conv threshold to 3.16228e-05
+Initial guess from minao.
+tot grids = 24312
+init E= -116.514979766356
+cycle= 1 E= -119.613834346724  delta_E= -3.1  |g|=    0  |ddm|= 3.13
+cycle= 2 E= -119.70094992232  delta_E= -0.0871  |g|=    0  |ddm|= 1.02
+cycle= 3 E= -119.744413215726  delta_E= -0.0435  |g|=    0  |ddm|= 0.364
+cycle= 4 E= -119.744553084463  delta_E= -0.00014  |g|=    0  |ddm|= 0.0226
+cycle= 5 E= -119.74455377191  delta_E= -6.87e-07  |g|=    0  |ddm|= 0.00136
+cycle= 6 E= -119.744553772574  delta_E= -6.65e-10  |g|=    0  |ddm|= 3.68e-05
+Extra cycle  E= -119.744553772577  delta_E= -2.39e-12  |g|=    0  |ddm|= 1.98e-06
+Atomic HF for atom  Pt  converged. SCF energy = -119.744553772577
+
+    sigma = 0.00183747  Optimized mu = 0.701439042941  entropy = 0.470968040334
+rhokerker it    1 rms(rho_out-rho_in) = 2.729e-02  N_in = 198.000000
+    sigma = 0.00183747  Optimized mu = 0.659874917738  entropy = 0.381809542036
+rhokerker it    2 rms(rho_out-rho_in) = 1.551e-02  N_in = 198.000000
+    sigma = 0.00183747  Optimized mu = 0.630714300344  entropy = 0.351606950381
+rhokerker it    3 rms(rho_out-rho_in) = 1.276e-02  N_in = 198.000000
+    sigma = 0.00183747  Optimized mu = 0.619365768636  entropy = 0.466702237958
+rhokerker it    4 rms(rho_out-rho_in) = 5.542e-03  N_in = 198.000000
+    sigma = 0.00183747  Optimized mu = 0.617064235061  entropy = 0.526085178305
+rhokerker it    5 rms(rho_out-rho_in) = 3.727e-03  N_in = 198.000000
+    sigma = 0.00183747  Optimized mu = 0.618030121231  entropy = 0.48464600874
+rhokerker it    6 rms(rho_out-rho_in) = 3.064e-03  N_in = 198.000000
+    sigma = 0.00183747  Optimized mu = 0.617533369789  entropy = 0.486821486176
+rhokerker it    7 rms(rho_out-rho_in) = 1.447e-03  N_in = 198.000000
+    sigma = 0.00183747  Optimized mu = 0.616461632823  entropy = 0.550038765022
+rhokerker it    8 rms(rho_out-rho_in) = 6.662e-04  N_in = 198.000000
+    sigma = 0.00183747  Optimized mu = 0.616027105481  entropy = 0.517552882555
+rhokerker it    9 rms(rho_out-rho_in) = 2.415e-04  N_in = 198.000000
+    sigma = 0.00183747  Optimized mu = 0.615222660424  entropy = 0.522792420584
+rhokerker it   10 rms(rho_out-rho_in) = 2.593e-04  N_in = 198.000000
+    sigma = 0.00183747  Optimized mu = 0.614051252182  entropy = 0.53215449465
+rhokerker it   11 rms(rho_out-rho_in) = 2.127e-04  N_in = 198.000000
+    sigma = 0.00183747  Optimized mu = 0.613314754512  entropy = 0.523910593977
+rhokerker it   12 rms(rho_out-rho_in) = 2.399e-04  N_in = 198.000000
+    sigma = 0.00183747  Optimized mu = 0.611146031406  entropy = 0.526248153033
+rhokerker it   13 rms(rho_out-rho_in) = 1.352e-04  N_in = 198.000000
+    sigma = 0.00183747  Optimized mu = 0.610838469986  entropy = 0.526736358424
+rhokerker it   14 rms(rho_out-rho_in) = 1.114e-04  N_in = 198.000000
+    sigma = 0.00183747  Optimized mu = 0.609435422665  entropy = 0.530185127264
+rhokerker it   15 rms(rho_out-rho_in) = 1.607e-04  N_in = 198.000000
+    sigma = 0.00183747  Optimized mu = 0.608979591725  entropy = 0.527026721377
+rhokerker it   16 rms(rho_out-rho_in) = 9.687e-05  N_in = 198.000000
+    sigma = 0.00183747  Optimized mu = 0.60641941109  entropy = 0.527058075003
+rhokerker it   17 rms(rho_out-rho_in) = 6.290e-05  N_in = 198.000000
+    sigma = 0.00183747  Optimized mu = 0.605121921932  entropy = 0.525745801764
+rhokerker it   18 rms(rho_out-rho_in) = 4.619e-05  N_in = 198.000000
+    sigma = 0.00183747  Optimized mu = 0.603617831611  entropy = 0.52470810972
+rhokerker it   19 rms(rho_out-rho_in) = 3.277e-05  N_in = 198.000000
+    sigma = 0.00183747  Optimized mu = 0.603345801368  entropy = 0.523688804357
+rhokerker it   20 rms(rho_out-rho_in) = 2.239e-05  N_in = 198.000000
+    sigma = 0.00183747  Optimized mu = 0.603036891804  entropy = 0.522972192106
+rhokerker it   21 rms(rho_out-rho_in) = 1.626e-05  N_in = 198.000000
+    sigma = 0.00183747  Optimized mu = 0.602856439604  entropy = 0.523186290043
+rhokerker it   22 rms(rho_out-rho_in) = 1.144e-05  N_in = 198.000000
+    sigma = 0.00183747  Optimized mu = 0.602731165455  entropy = 0.522506397046
+rhokerker it   23 rms(rho_out-rho_in) = 5.702e-06  N_in = 198.000000
+    sigma = 0.00183747  Optimized mu = 0.602662300952  entropy = 0.522526495022
+rhokerker it   24 rms(rho_out-rho_in) = 2.931e-06  N_in = 198.000000
+    sigma = 0.00183747  Optimized mu = 0.6026762803  entropy = 0.522476760931
+rhokerker it   25 rms(rho_out-rho_in) = 2.043e-06  N_in = 198.000000
+    sigma = 0.00183747  Optimized mu = 0.602670063924  entropy = 0.522488702173
+rhokerker it   26 rms(rho_out-rho_in) = 2.439e-06  N_in = 198.000000
+    sigma = 0.00183747  Optimized mu = 0.602678746375  entropy = 0.522509759772
+rhokerker it   27 rms(rho_out-rho_in) = 2.293e-06  N_in = 198.000000
+    sigma = 0.00183747  Optimized mu = 0.602657131439  entropy = 0.522478986398
+rhokerker it   28 rms(rho_out-rho_in) = 7.624e-07  N_in = 198.000000
+nelec by numeric integration = 197.999999999958
+    Total E(T) = -1328.34720085674  Free energy = -1328.34816089417  E0 = -1328.34768087546
+Kerker SCF: converged=True iterations=28 rms=7.62e-07 E=-1328.3472008567 |g|/sqrt(n)=6.53e-06
+slab: converged=True cycles=28 E=-1328.34720086 Ha
+RESULT Pt LDA [gth-lda]: sigma = 3.0673 J/m2 (PRL 2.07)
+done date=2026-11-22T06:03:13+01:00

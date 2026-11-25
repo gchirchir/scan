@@ -1,0 +1,5 @@
+# system a_ang(PRL PBEsol)   8-layer (111) slab, 14 A vacuum, 3-layer bulk, 8x8x1 / 8x8x4, 150 Ha, sigma 0.05 eV,
+# slab SCF by Kerker density mixing (alpha 0.3, q0 0.8 bohr^-1, 12 vectors); bulk by PySCF DIIS. Script 22 (2026-11-22).
+Pt 3.95
+Pd 3.92
+Ti 4.06

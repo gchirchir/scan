@@ -1,0 +1,213 @@
+Loading PySCF/2.7.0-foss-2023a
+  Loading requirement: GCCcore/12.3.0 zlib/1.2.13-GCCcore-12.3.0
+    binutils/2.40-GCCcore-12.3.0 GCC/12.3.0 numactl/2.0.16-GCCcore-12.3.0
+    XZ/5.4.2-GCCcore-12.3.0 libxml2/2.11.4-GCCcore-12.3.0
+    libpciaccess/0.17-GCCcore-12.3.0 hwloc/2.9.1-GCCcore-12.3.0 OpenSSL/1.1
+    libevent/2.1.12-GCCcore-12.3.0 UCX/1.14.1-GCCcore-12.3.0
+    libfabric/1.18.0-GCCcore-12.3.0 PMIx/4.2.4-GCCcore-12.3.0
+    UCC/1.2.0-GCCcore-12.3.0 OpenMPI/4.1.5-GCC-12.3.0 OpenBLAS/0.3.23-GCC-12.3.0
+    FlexiBLAS/3.3.1-GCC-12.3.0 FFTW/3.3.10-GCC-12.3.0 gompi/2023a
+    FFTW.MPI/3.3.10-gompi-2023a ScaLAPACK/2.2.0-gompi-2023a-fb foss/2023a
+    bzip2/1.0.8-GCCcore-12.3.0 ncurses/6.4-GCCcore-12.3.0
+    libreadline/8.2-GCCcore-12.3.0 Tcl/8.6.13-GCCcore-12.3.0
+    SQLite/3.42.0-GCCcore-12.3.0 libffi/3.4.4-GCCcore-12.3.0
+    Python/3.11.3-GCCcore-12.3.0 gfbf/2023a cffi/1.15.1-GCCcore-12.3.0
+    cryptography/41.0.1-GCCcore-12.3.0 virtualenv/20.23.1-GCCcore-12.3.0
+    Python-bundle-PyPI/2023.06-GCCcore-12.3.0 pybind11/2.11.1-GCCcore-12.3.0
+    SciPy-bundle/2023.07-gfbf-2023a mpi4py/3.1.4-gompi-2023a
+    Szip/2.1.1-GCCcore-12.3.0 HDF5/1.14.0-gompi-2023a h5py/3.9.0-foss-2023a
+    libcint/5.4.0-gfbf-2023a libxc/6.2.2-GCC-12.3.0 XCFun/2.1.1-GCCcore-12.3.0
+    CPPE/0.3.1-GCC-12.3.0 PyBerny/0.6.3-foss-2023a CheMPS2/1.8.12-foss-2023a
+    PyCheMPS2/1.8.12-foss-2023a gzip/1.12-GCCcore-12.3.0
+    lz4/1.9.4-GCCcore-12.3.0 zstd/1.5.5-GCCcore-12.3.0 ICU/73.2-GCCcore-12.3.0
+    Boost.MPI/1.82.0-gompi-2023a Block/1.5.3-20200525-foss-2023a
+    NECI/20230620-foss-2023a Dice/20240702-foss-2023a tblis/20230422-foss-2023a
+task=4 Pt 3.95 host=r19ch08b02.lem.kdm.wcss.pl date=2026-11-22T15:02:40+01:00
+/usr/local/easybuild/software/PySCF/2.7.0-foss-2023a/lib/python3.11/site-packages/pyscf/gto/mole.py:1294: UserWarning: Function mol.dumps drops attribute _mesh because it is not JSON-serializable
+  warnings.warn(msg)
+rhokerker it    1 rms(rho_out-rho_in) = 7.129e-02  N_in = 54.000000
+rhokerker it    2 rms(rho_out-rho_in) = 3.215e-02  N_in = 54.000000
+rhokerker it    3 rms(rho_out-rho_in) = 8.619e-03  N_in = 54.000000
+rhokerker it    4 rms(rho_out-rho_in) = 2.688e-03  N_in = 54.000000
+rhokerker it    5 rms(rho_out-rho_in) = 3.480e-04  N_in = 54.000000
+rhokerker it    6 rms(rho_out-rho_in) = 2.330e-04  N_in = 54.000000
+rhokerker it    7 rms(rho_out-rho_in) = 3.143e-05  N_in = 54.000000
+rhokerker it    8 rms(rho_out-rho_in) = 2.186e-05  N_in = 54.000000
+rhokerker it    9 rms(rho_out-rho_in) = 1.001e-05  N_in = 54.000000
+rhokerker it   10 rms(rho_out-rho_in) = 3.006e-06  N_in = 54.000000
+rhokerker it   11 rms(rho_out-rho_in) = 8.326e-07  N_in = 54.000000
+Kerker SCF: converged=True iterations=11 rms=8.33e-07 E=-360.5854752640 |g|/sqrt(n)=2.73e-07
+bulk: E=-360.58547526 Ha, N_grid=54.000000/54, FFT-grad rel.err 1.66e-04
+rhokerker it    1 rms(rho_out-rho_in) = 6.567e-02  N_in = 198.000000
+rhokerker it    2 rms(rho_out-rho_in) = 3.070e-02  N_in = 198.000000
+rhokerker it    3 rms(rho_out-rho_in) = 3.688e-02  N_in = 198.000000
+rhokerker it    4 rms(rho_out-rho_in) = 1.085e-02  N_in = 198.000000
+rhokerker it    5 rms(rho_out-rho_in) = 7.355e-03  N_in = 198.000000
+rhokerker it    6 rms(rho_out-rho_in) = 5.456e-03  N_in = 198.000000
+rhokerker it    7 rms(rho_out-rho_in) = 2.960e-03  N_in = 198.000000
+rhokerker it    8 rms(rho_out-rho_in) = 1.915e-03  N_in = 198.000000
+rhokerker it    9 rms(rho_out-rho_in) = 7.142e-04  N_in = 198.000000
+rhokerker it   10 rms(rho_out-rho_in) = 5.346e-04  N_in = 198.000000
+rhokerker it   11 rms(rho_out-rho_in) = 4.687e-04  N_in = 198.000000
+rhokerker it   12 rms(rho_out-rho_in) = 2.901e-04  N_in = 198.000000
+rhokerker it   13 rms(rho_out-rho_in) = 3.258e-04  N_in = 198.000000
+rhokerker it   14 rms(rho_out-rho_in) = 2.910e-04  N_in = 198.000000
+rhokerker it   15 rms(rho_out-rho_in) = 2.099e-04  N_in = 198.000000
+rhokerker it   16 rms(rho_out-rho_in) = 2.486e-04  N_in = 198.000000
+rhokerker it   17 rms(rho_out-rho_in) = 2.832e-04  N_in = 198.000000
+rhokerker it   18 rms(rho_out-rho_in) = 2.142e-04  N_in = 198.000000
+rhokerker it   19 rms(rho_out-rho_in) = 2.495e-04  N_in = 198.000000
+rhokerker it   20 rms(rho_out-rho_in) = 2.164e-04  N_in = 198.000000
+rhokerker it   21 rms(rho_out-rho_in) = 1.913e-04  N_in = 198.000000
+rhokerker it   22 rms(rho_out-rho_in) = 2.212e-04  N_in = 198.000000
+rhokerker it   23 rms(rho_out-rho_in) = 1.947e-04  N_in = 198.000000
+rhokerker it   24 rms(rho_out-rho_in) = 2.120e-04  N_in = 198.000000
+rhokerker it   25 rms(rho_out-rho_in) = 1.260e-04  N_in = 198.000000
+rhokerker it   26 rms(rho_out-rho_in) = 1.656e-04  N_in = 198.000000
+rhokerker it   27 rms(rho_out-rho_in) = 1.991e-04  N_in = 198.000000
+rhokerker it   28 rms(rho_out-rho_in) = 1.190e-02  N_in = 198.000000
+rhokerker it   29 rms(rho_out-rho_in) = 2.012e-04  N_in = 198.000000
+rhokerker it   30 rms(rho_out-rho_in) = 2.091e-04  N_in = 198.000000
+rhokerker it   31 rms(rho_out-rho_in) = 1.279e-04  N_in = 198.000000
+rhokerker it   32 rms(rho_out-rho_in) = 1.818e-04  N_in = 198.000000
+rhokerker it   33 rms(rho_out-rho_in) = 1.742e-04  N_in = 198.000000
+rhokerker it   34 rms(rho_out-rho_in) = 1.662e-04  N_in = 198.000000
+rhokerker it   35 rms(rho_out-rho_in) = 1.639e-04  N_in = 198.000000
+rhokerker it   36 rms(rho_out-rho_in) = 1.731e-04  N_in = 198.000000
+rhokerker it   37 rms(rho_out-rho_in) = 1.748e-04  N_in = 198.000000
+rhokerker it   38 rms(rho_out-rho_in) = 1.755e-04  N_in = 198.000000
+rhokerker it   39 rms(rho_out-rho_in) = 1.673e-04  N_in = 198.000000
+rhokerker it   40 rms(rho_out-rho_in) = 1.648e-04  N_in = 198.000000
+rhokerker it   41 rms(rho_out-rho_in) = 1.356e-04  N_in = 198.000000
+rhokerker it   42 rms(rho_out-rho_in) = 1.321e-04  N_in = 198.000000
+rhokerker it   43 rms(rho_out-rho_in) = 1.126e-04  N_in = 198.000000
+rhokerker it   44 rms(rho_out-rho_in) = 9.874e-05  N_in = 198.000000
+rhokerker it   45 rms(rho_out-rho_in) = 1.498e-04  N_in = 198.000000
+rhokerker it   46 rms(rho_out-rho_in) = 8.186e-05  N_in = 198.000000
+rhokerker it   47 rms(rho_out-rho_in) = 8.121e-05  N_in = 198.000000
+rhokerker it   48 rms(rho_out-rho_in) = 2.588e-05  N_in = 198.000000
+rhokerker it   49 rms(rho_out-rho_in) = 3.586e-05  N_in = 198.000000
+rhokerker it   50 rms(rho_out-rho_in) = 4.616e-05  N_in = 198.000000
+rhokerker it   51 rms(rho_out-rho_in) = 7.171e-05  N_in = 198.000000
+rhokerker it   52 rms(rho_out-rho_in) = 7.379e-05  N_in = 198.000000
+rhokerker it   53 rms(rho_out-rho_in) = 7.951e-05  N_in = 198.000000
+rhokerker it   54 rms(rho_out-rho_in) = 1.061e-04  N_in = 198.000000
+rhokerker it   55 rms(rho_out-rho_in) = 6.648e-05  N_in = 198.000000
+rhokerker it   56 rms(rho_out-rho_in) = 2.318e-05  N_in = 198.000000
+rhokerker it   57 rms(rho_out-rho_in) = 2.235e-05  N_in = 198.000000
+rhokerker it   58 rms(rho_out-rho_in) = 2.118e-05  N_in = 198.000000
+rhokerker it   59 rms(rho_out-rho_in) = 2.450e-05  N_in = 198.000000
+rhokerker it   60 rms(rho_out-rho_in) = 2.344e-05  N_in = 198.000000
+rhokerker it   61 rms(rho_out-rho_in) = 2.243e-05  N_in = 198.000000
+rhokerker it   62 rms(rho_out-rho_in) = 2.083e-05  N_in = 198.000000
+rhokerker it   63 rms(rho_out-rho_in) = 2.536e-05  N_in = 198.000000
+rhokerker it   64 rms(rho_out-rho_in) = 1.723e-05  N_in = 198.000000
+rhokerker it   65 rms(rho_out-rho_in) = 1.292e-05  N_in = 198.000000
+rhokerker it   66 rms(rho_out-rho_in) = 1.735e-05  N_in = 198.000000
+rhokerker it   67 rms(rho_out-rho_in) = 1.313e-05  N_in = 198.000000
+rhokerker it   68 rms(rho_out-rho_in) = 1.608e-05  N_in = 198.000000
+rhokerker it   69 rms(rho_out-rho_in) = 9.593e-06  N_in = 198.000000
+rhokerker it   70 rms(rho_out-rho_in) = 1.231e-05  N_in = 198.000000
+rhokerker it   71 rms(rho_out-rho_in) = 4.335e-06  N_in = 198.000000
+rhokerker it   72 rms(rho_out-rho_in) = 1.103e-05  N_in = 198.000000
+rhokerker it   73 rms(rho_out-rho_in) = 1.009e-05  N_in = 198.000000
+rhokerker it   74 rms(rho_out-rho_in) = 9.179e-06  N_in = 198.000000
+rhokerker it   75 rms(rho_out-rho_in) = 8.700e-06  N_in = 198.000000
+rhokerker it   76 rms(rho_out-rho_in) = 8.921e-06  N_in = 198.000000
+rhokerker it   77 rms(rho_out-rho_in) = 7.567e-06  N_in = 198.000000
+rhokerker it   78 rms(rho_out-rho_in) = 7.058e-06  N_in = 198.000000
+rhokerker it   79 rms(rho_out-rho_in) = 5.458e-06  N_in = 198.000000
+rhokerker it   80 rms(rho_out-rho_in) = 6.055e-06  N_in = 198.000000
+rhokerker it   81 rms(rho_out-rho_in) = 5.471e-06  N_in = 198.000000
+rhokerker it   82 rms(rho_out-rho_in) = 5.759e-06  N_in = 198.000000
+rhokerker it   83 rms(rho_out-rho_in) = 9.297e-06  N_in = 198.000000
+rhokerker it   84 rms(rho_out-rho_in) = 5.938e-06  N_in = 198.000000
+rhokerker it   85 rms(rho_out-rho_in) = 7.018e-06  N_in = 198.000000
+rhokerker it   86 rms(rho_out-rho_in) = 5.125e-06  N_in = 198.000000
+rhokerker it   87 rms(rho_out-rho_in) = 3.602e-06  N_in = 198.000000
+rhokerker it   88 rms(rho_out-rho_in) = 2.918e-06  N_in = 198.000000
+rhokerker it   89 rms(rho_out-rho_in) = 2.567e-06  N_in = 198.000000
+rhokerker it   90 rms(rho_out-rho_in) = 2.215e-06  N_in = 198.000000
+rhokerker it   91 rms(rho_out-rho_in) = 2.264e-06  N_in = 198.000000
+rhokerker it   92 rms(rho_out-rho_in) = 3.406e-06  N_in = 198.000000
+rhokerker it   93 rms(rho_out-rho_in) = 4.686e-06  N_in = 198.000000
+rhokerker it   94 rms(rho_out-rho_in) = 3.997e-06  N_in = 198.000000
+rhokerker it   95 rms(rho_out-rho_in) = 3.341e-06  N_in = 198.000000
+rhokerker it   96 rms(rho_out-rho_in) = 2.589e-06  N_in = 198.000000
+rhokerker it   97 rms(rho_out-rho_in) = 4.828e-06  N_in = 198.000000
+rhokerker it   98 rms(rho_out-rho_in) = 4.292e-06  N_in = 198.000000
+rhokerker it   99 rms(rho_out-rho_in) = 2.943e-06  N_in = 198.000000
+rhokerker it  100 rms(rho_out-rho_in) = 1.411e-06  N_in = 198.000000
+rhokerker it  101 rms(rho_out-rho_in) = 1.319e-06  N_in = 198.000000
+rhokerker it  102 rms(rho_out-rho_in) = 2.772e-06  N_in = 198.000000
+rhokerker it  103 rms(rho_out-rho_in) = 2.400e-06  N_in = 198.000000
+rhokerker it  104 rms(rho_out-rho_in) = 2.471e-06  N_in = 198.000000
+rhokerker it  105 rms(rho_out-rho_in) = 1.096e-06  N_in = 198.000000
+rhokerker it  106 rms(rho_out-rho_in) = 2.179e-06  N_in = 198.000000
+rhokerker it  107 rms(rho_out-rho_in) = 2.646e-06  N_in = 198.000000
+rhokerker it  108 rms(rho_out-rho_in) = 2.991e-06  N_in = 198.000000
+rhokerker it  109 rms(rho_out-rho_in) = 4.604e-06  N_in = 198.000000
+rhokerker it  110 rms(rho_out-rho_in) = 5.196e-06  N_in = 198.000000
+rhokerker it  111 rms(rho_out-rho_in) = 5.296e-06  N_in = 198.000000
+rhokerker it  112 rms(rho_out-rho_in) = 5.472e-06  N_in = 198.000000
+rhokerker it  113 rms(rho_out-rho_in) = 5.523e-06  N_in = 198.000000
+rhokerker it  114 rms(rho_out-rho_in) = 5.529e-06  N_in = 198.000000
+rhokerker it  115 rms(rho_out-rho_in) = 5.344e-06  N_in = 198.000000
+rhokerker it  116 rms(rho_out-rho_in) = 5.285e-06  N_in = 198.000000
+rhokerker it  117 rms(rho_out-rho_in) = 5.244e-06  N_in = 198.000000
+rhokerker it  118 rms(rho_out-rho_in) = 6.699e-06  N_in = 198.000000
+rhokerker it  119 rms(rho_out-rho_in) = 1.397e-05  N_in = 198.000000
+rhokerker it  120 rms(rho_out-rho_in) = 5.530e-06  N_in = 198.000000
+rhokerker it  121 rms(rho_out-rho_in) = 1.987e-06  N_in = 198.000000
+rhokerker it  122 rms(rho_out-rho_in) = 3.352e-06  N_in = 198.000000
+rhokerker it  123 rms(rho_out-rho_in) = 2.964e-06  N_in = 198.000000
+rhokerker it  124 rms(rho_out-rho_in) = 3.214e-06  N_in = 198.000000
+rhokerker it  125 rms(rho_out-rho_in) = 3.200e-06  N_in = 198.000000
+rhokerker it  126 rms(rho_out-rho_in) = 2.472e-06  N_in = 198.000000
+rhokerker it  127 rms(rho_out-rho_in) = 3.334e-06  N_in = 198.000000
+rhokerker it  128 rms(rho_out-rho_in) = 2.913e-06  N_in = 198.000000
+rhokerker it  129 rms(rho_out-rho_in) = 3.442e-06  N_in = 198.000000
+rhokerker it  130 rms(rho_out-rho_in) = 3.204e-06  N_in = 198.000000
+rhokerker it  131 rms(rho_out-rho_in) = 3.981e-06  N_in = 198.000000
+rhokerker it  132 rms(rho_out-rho_in) = 4.757e-06  N_in = 198.000000
+rhokerker it  133 rms(rho_out-rho_in) = 5.398e-06  N_in = 198.000000
+rhokerker it  134 rms(rho_out-rho_in) = 5.133e-06  N_in = 198.000000
+rhokerker it  135 rms(rho_out-rho_in) = 4.744e-06  N_in = 198.000000
+rhokerker it  136 rms(rho_out-rho_in) = 4.696e-06  N_in = 198.000000
+rhokerker it  137 rms(rho_out-rho_in) = 4.098e-06  N_in = 198.000000
+rhokerker it  138 rms(rho_out-rho_in) = 3.195e-06  N_in = 198.000000
+rhokerker it  139 rms(rho_out-rho_in) = 3.488e-06  N_in = 198.000000
+rhokerker it  140 rms(rho_out-rho_in) = 4.081e-06  N_in = 198.000000
+rhokerker it  141 rms(rho_out-rho_in) = 3.884e-06  N_in = 198.000000
+rhokerker it  142 rms(rho_out-rho_in) = 1.520e-06  N_in = 198.000000
+rhokerker it  143 rms(rho_out-rho_in) = 2.593e-06  N_in = 198.000000
+rhokerker it  144 rms(rho_out-rho_in) = 2.763e-06  N_in = 198.000000
+rhokerker it  145 rms(rho_out-rho_in) = 3.167e-06  N_in = 198.000000
+rhokerker it  146 rms(rho_out-rho_in) = 2.844e-06  N_in = 198.000000
+rhokerker it  147 rms(rho_out-rho_in) = 2.294e-06  N_in = 198.000000
+rhokerker it  148 rms(rho_out-rho_in) = 2.242e-06  N_in = 198.000000
+rhokerker it  149 rms(rho_out-rho_in) = 2.263e-06  N_in = 198.000000
+rhokerker it  150 rms(rho_out-rho_in) = 2.271e-06  N_in = 198.000000
+rhokerker it  151 rms(rho_out-rho_in) = 2.232e-06  N_in = 198.000000
+rhokerker it  152 rms(rho_out-rho_in) = 2.528e-06  N_in = 198.000000
+rhokerker it  153 rms(rho_out-rho_in) = 1.055e-06  N_in = 198.000000
+rhokerker it  154 rms(rho_out-rho_in) = 1.142e-06  N_in = 198.000000
+rhokerker it  155 rms(rho_out-rho_in) = 5.646e-07  N_in = 198.000000
+Kerker SCF: converged=True iterations=155 rms=5.65e-07 E=-1322.0868413557 |g|/sqrt(n)=1.63e-06
+slab: E=-1322.08684136 Ha, N_grid=198.000000/198, FFT-grad rel.err 2.03e-04
+{
+ "scf_SCAN": 1.9327350919336963,
+ "x_LDA": 3.6573148717651924,
+ "xc_LDA": 4.003290024957239,
+ "x_PBE": 1.981167985205849,
+ "xc_PBE": 3.3603225541738326,
+ "x_PBEsol": 2.576701510050102,
+ "xc_PBEsol": 3.805896176118184,
+ "x_Q2D-GGA": 2.868506884285961,
+ "xc_Q2D-GGA": 4.24756271292049,
+ "x_SCAN": 2.6663072236500986,
+ "xc_SCAN": 3.691106458676961,
+ "x_DC-SCAN": 3.0507166944283983,
+ "xc_DC-SCAN": 4.075515929454343
+}
+done date=2026-11-23T19:47:25+01:00

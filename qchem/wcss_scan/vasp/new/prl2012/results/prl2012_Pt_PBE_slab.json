@@ -1,0 +1,33 @@
+{
+ "system": "Pt",
+ "functional": "PBE",
+ "xc": "GGA_X_PBE,GGA_C_PBE",
+ "kind": "slab",
+ "a_ang": 4.0,
+ "layers": 11,
+ "vacuum_ang": 10.0,
+ "kmesh": [
+  10,
+  10,
+  1
+ ],
+ "cutoff_ha": 150.0,
+ "sigma_ev": 0.05,
+ "kerker_alpha": 0.3,
+ "scf_type": "KRKS-kerker",
+ "nelectron": 198,
+ "energy": -1322.0378282689035,
+ "converged": true,
+ "cycles": 31,
+ "basis": "gth-dzvp-molopt-sr",
+ "pseudo": "gth-pbe",
+ "area_bohr2": 24.741062862072045,
+ "grad_fft_relerr": 0.00021146064463197617,
+ "nelec_err": 9.237055564881302e-12,
+ "mesh": [
+  31,
+  31,
+  347
+ ],
+ "seconds": 10305.040508270264
+}

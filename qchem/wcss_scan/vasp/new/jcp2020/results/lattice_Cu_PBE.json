@@ -1,0 +1,94 @@
+{
+ "system": "Cu",
+ "structure": "fcc",
+ "functional": "PBE",
+ "a0_ang": 3.6521313486293154,
+ "B0_GPa": 133.9689886751266,
+ "fit_rms_meV": 0.04390797270903007,
+ "minimum_near_edge": false,
+ "a_exp": 3.615,
+ "c_over_a_fixed": null,
+ "k": [
+  12,
+  12,
+  12
+ ],
+ "sigma_ev": 0.05,
+ "cutoff_ha": 600.0,
+ "spin": false,
+ "points": [
+  {
+   "a_ang": 3.43425,
+   "volume_ang3": 10.125948853722655,
+   "energy": -48.11822970555685,
+   "converged": true,
+   "iterations": 7,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.4794375000000004,
+   "volume_ang3": 10.530939750775824,
+   "energy": -48.121350659312164,
+   "converged": true,
+   "iterations": 8,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.5246250000000003,
+   "volume_ang3": 10.946587695982915,
+   "energy": -48.123569635037875,
+   "converged": true,
+   "iterations": 8,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.5698125000000003,
+   "volume_ang3": 11.37303109256671,
+   "energy": -48.12500343327172,
+   "converged": true,
+   "iterations": 8,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.615,
+   "volume_ang3": 11.810408343750003,
+   "energy": -48.125758041897576,
+   "converged": true,
+   "iterations": 12,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.6601875,
+   "volume_ang3": 12.258857852755556,
+   "energy": -48.12593396516941,
+   "converged": true,
+   "iterations": 9,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.705375,
+   "volume_ang3": 12.718518022806148,
+   "energy": -48.12560662182929,
+   "converged": true,
+   "iterations": 7,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.7505625000000005,
+   "volume_ang3": 13.189527257124572,
+   "energy": -48.1248397265187,
+   "converged": true,
+   "iterations": 9,
+   "solver": "KRKS-kerker"
+  },
+  {
+   "a_ang": 3.7957500000000004,
+   "volume_ang3": 13.672023958933606,
+   "energy": -48.123712723102706,
+   "converged": true,
+   "iterations": 8,
+   "solver": "KRKS-kerker"
+  }
+ ],
+ "seconds": 56934.0972700119
+}

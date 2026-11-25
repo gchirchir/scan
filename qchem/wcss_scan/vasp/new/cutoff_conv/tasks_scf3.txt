@@ -1,0 +1,9 @@
+# label system a layers kxy cutoff sigma_eV damp shift diis_start guess diis_space max_cycle   (Pt 8-layer slab, 14 A vacuum)
+# Heavy Fock damping held for many cycles (PySCF applies damp only while cycle < diis_start-1; earlier scans had
+# diis_start 1-3, i.e. effectively no damping). Local 3-layer/6 A test: damp 0.95 diverges, 0.98 descends steadily.
+d98_s10       Pt 3.95 8 4 150 0.10 0.98 0 2000 atom 8 800
+d99_s10       Pt 3.95 8 4 150 0.10 0.99 0 2000 atom 8 1200
+d95_s10       Pt 3.95 8 4 150 0.10 0.95 0 2000 atom 8 600
+d98_s10_dii   Pt 3.95 8 4 150 0.10 0.98 0 151  atom 8 800
+d98_s05       Pt 3.95 8 4 150 0.05 0.98 0 2000 atom 8 800
+d98_s20       Pt 3.95 8 4 150 0.20 0.98 0 2000 atom 8 800

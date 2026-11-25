@@ -1,0 +1,29 @@
+
+H (2S=1, def2-tzvp, grid 6, PBE density, N=1.000000)
+  W=0 : Ex -0.3087721098  Libxc r2SCAN Ex -0.3087721093  diff -4.83e-10
+        Ec -0.0000000000  Libxc r2SCAN Ec -0.0000000000  diff +0.00e+00
+        Exc -0.3087721098  PySCF nr_*ks('r2scan') -0.3087721093  diff -4.83e-10
+  W=1 : Ex -0.1942128473  pure Q2D Ex -0.1942128473  diff +0.00e+00   (Ec(W=1) -0.00000000)
+  W[n]: dEx +0.0000 mHa vs delta_xc SS +0.0000  dEc +0.0000 vs +0.0000
+
+C (2S=2, def2-tzvp, grid 6, PBE density, N=6.000000)
+  W=0 : Ex -5.0540606398  Libxc r2SCAN Ex -5.0540606398  diff -1.21e-13
+        Ec -0.1467645850  Libxc r2SCAN Ec -0.1467645850  diff +0.00e+00
+        Exc -5.2008252248  PySCF nr_*ks('r2scan') -5.2008252248  diff -1.20e-13
+  W=1 : Ex -2.3762528732  pure Q2D Ex -2.3762528732  diff +0.00e+00   (Ec(W=1) -0.38230559)
+  W[n]: dEx +1209.4608 mHa vs delta_xc SS +1209.4608  dEc -6.6373 vs -6.6373
+
+O (2S=2, def2-tzvp, grid 6, PBE density, N=8.000000)
+  W=0 : Ex -8.1956876343  Libxc r2SCAN Ex -8.1956876343  diff -3.38e-14
+        Ec -0.2360896623  Libxc r2SCAN Ec -0.2360896623  diff +0.00e+00
+        Exc -8.4317772966  PySCF nr_*ks('r2scan') -8.4317772966  diff -3.38e-14
+  W=1 : Ex -4.9465349996  pure Q2D Ex -4.9465349996  diff +0.00e+00   (Ec(W=1) -0.62788024)
+  W[n]: dEx +116.0858 mHa vs delta_xc SS +116.0858  dEc -0.9315 vs -0.9315
+
+SiH4 (2S=0, def2-tzvp, grid 6, PBE density, N=18.000000)
+  W=0 : Ex -21.7358396373  Libxc r2SCAN Ex -21.7358396373  diff +0.00e+00
+        Ec -0.5964952351  Libxc r2SCAN Ec -0.5964952351  diff +0.00e+00
+        Exc -22.3323348725  PySCF nr_*ks('r2scan') -22.3323348725  diff +2.49e-14
+  W=1 : Ex -16.0909702355  pure Q2D Ex -16.0909702355  diff +0.00e+00   (Ec(W=1) -1.45239492)
+  W[n]: dEx +175.6445 mHa vs delta_xc SS +175.6445  dEc -19.5623 vs -19.5623
+        closed shell: Ex -21.5601951769 vs evaluate(n) -21.5601951769  Ec -0.6160575277 vs -0.6160575277

@@ -1,0 +1,9 @@
+# PRL 108, 126402 (2012), Table I bottom panel: surface energies (J/m2) of the (111) surfaces; transcribed 2026-11-20 by Claude Code; Q2D and Exp columns cross-checked against codes/surface_q2d/reference_prl2012_table1.csv
+system,LDA,PBE,PBEsol,Q2D-GGA,Exp
+Al,1.10,0.81,0.95,1.25,1.14
+Cu,1.94,1.41,1.77,2.06,1.83
+Rh,2.50,2.02,2.42,2.85,2.70
+Au,1.27,0.73,1.02,1.50,1.50
+Pt,2.07,1.56,1.91,2.35,2.49
+Pd,1.83,1.27,1.63,2.02,2.00
+Ti,2.12,1.85,2.03,2.40,2.47

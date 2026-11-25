@@ -1,0 +1,77 @@
+Loading PySCF/2.7.0-foss-2023a
+  Loading requirement: GCCcore/12.3.0 zlib/1.2.13-GCCcore-12.3.0
+    binutils/2.40-GCCcore-12.3.0 GCC/12.3.0 numactl/2.0.16-GCCcore-12.3.0
+    XZ/5.4.2-GCCcore-12.3.0 libxml2/2.11.4-GCCcore-12.3.0
+    libpciaccess/0.17-GCCcore-12.3.0 hwloc/2.9.1-GCCcore-12.3.0 OpenSSL/1.1
+    libevent/2.1.12-GCCcore-12.3.0 UCX/1.14.1-GCCcore-12.3.0
+    libfabric/1.18.0-GCCcore-12.3.0 PMIx/4.2.4-GCCcore-12.3.0
+    UCC/1.2.0-GCCcore-12.3.0 OpenMPI/4.1.5-GCC-12.3.0 OpenBLAS/0.3.23-GCC-12.3.0
+    FlexiBLAS/3.3.1-GCC-12.3.0 FFTW/3.3.10-GCC-12.3.0 gompi/2023a
+    FFTW.MPI/3.3.10-gompi-2023a ScaLAPACK/2.2.0-gompi-2023a-fb foss/2023a
+    bzip2/1.0.8-GCCcore-12.3.0 ncurses/6.4-GCCcore-12.3.0
+    libreadline/8.2-GCCcore-12.3.0 Tcl/8.6.13-GCCcore-12.3.0
+    SQLite/3.42.0-GCCcore-12.3.0 libffi/3.4.4-GCCcore-12.3.0
+    Python/3.11.3-GCCcore-12.3.0 gfbf/2023a cffi/1.15.1-GCCcore-12.3.0
+    cryptography/41.0.1-GCCcore-12.3.0 virtualenv/20.23.1-GCCcore-12.3.0
+    Python-bundle-PyPI/2023.06-GCCcore-12.3.0 pybind11/2.11.1-GCCcore-12.3.0
+    SciPy-bundle/2023.07-gfbf-2023a mpi4py/3.1.4-gompi-2023a
+    Szip/2.1.1-GCCcore-12.3.0 HDF5/1.14.0-gompi-2023a h5py/3.9.0-foss-2023a
+    libcint/5.4.0-gfbf-2023a libxc/6.2.2-GCC-12.3.0 XCFun/2.1.1-GCCcore-12.3.0
+    CPPE/0.3.1-GCC-12.3.0 PyBerny/0.6.3-foss-2023a CheMPS2/1.8.12-foss-2023a
+    PyCheMPS2/1.8.12-foss-2023a gzip/1.12-GCCcore-12.3.0
+    lz4/1.9.4-GCCcore-12.3.0 zstd/1.5.5-GCCcore-12.3.0 ICU/73.2-GCCcore-12.3.0
+    Boost.MPI/1.82.0-gompi-2023a Block/1.5.3-20200525-foss-2023a
+    NECI/20230620-foss-2023a Dice/20240702-foss-2023a tblis/20230422-foss-2023a
+task=0 Cu 3.56 host=r17ch04b03.lem.kdm.wcss.pl date=2026-11-22T02:44:17+01:00
+WARNING!
+  Very diffused basis functions are found in the basis set. They may lead to severe
+  linear dependence and numerical instability.  You can set  cell.exp_to_discard=0.1
+  to remove the diffused Gaussians whose exponents are less than 0.1.
+
+converged SCF energy = -288.052022221117
+bulk: E=-288.05202222 Ha, N_grid=66.000000/66, FFT-grad rel.err 2.80e-04
+WARNING!
+  Very diffused basis functions are found in the basis set. They may lead to severe
+  linear dependence and numerical instability.  You can set  cell.exp_to_discard=0.1
+  to remove the diffused Gaussians whose exponents are less than 0.1.
+
+rhokerker it    1 rms(rho_out-rho_in) = 1.558e-02  N_in = 88.000000
+rhokerker it    2 rms(rho_out-rho_in) = 2.969e-03  N_in = 88.000000
+rhokerker it    3 rms(rho_out-rho_in) = 1.949e-03  N_in = 88.000000
+rhokerker it    4 rms(rho_out-rho_in) = 1.290e-03  N_in = 88.000000
+rhokerker it    5 rms(rho_out-rho_in) = 5.179e-04  N_in = 88.000000
+rhokerker it    6 rms(rho_out-rho_in) = 3.213e-04  N_in = 88.000000
+rhokerker it    7 rms(rho_out-rho_in) = 2.157e-04  N_in = 88.000000
+rhokerker it    8 rms(rho_out-rho_in) = 1.584e-04  N_in = 88.000000
+rhokerker it    9 rms(rho_out-rho_in) = 1.204e-04  N_in = 88.000000
+rhokerker it   10 rms(rho_out-rho_in) = 1.028e-04  N_in = 88.000000
+rhokerker it   11 rms(rho_out-rho_in) = 1.007e-04  N_in = 88.000000
+rhokerker it   12 rms(rho_out-rho_in) = 7.542e-05  N_in = 88.000000
+rhokerker it   13 rms(rho_out-rho_in) = 8.091e-05  N_in = 88.000000
+rhokerker it   14 rms(rho_out-rho_in) = 5.866e-05  N_in = 88.000000
+rhokerker it   15 rms(rho_out-rho_in) = 5.201e-05  N_in = 88.000000
+rhokerker it   16 rms(rho_out-rho_in) = 3.812e-05  N_in = 88.000000
+rhokerker it   17 rms(rho_out-rho_in) = 2.212e-05  N_in = 88.000000
+rhokerker it   18 rms(rho_out-rho_in) = 1.372e-05  N_in = 88.000000
+rhokerker it   19 rms(rho_out-rho_in) = 8.064e-06  N_in = 88.000000
+rhokerker it   20 rms(rho_out-rho_in) = 2.836e-06  N_in = 88.000000
+rhokerker it   21 rms(rho_out-rho_in) = 1.488e-06  N_in = 88.000000
+rhokerker it   22 rms(rho_out-rho_in) = 6.812e-07  N_in = 88.000000
+Kerker SCF: converged=True iterations=22 rms=6.81e-07 E=-384.0286576992 |g|/sqrt(n)=1.97e-06
+slab: E=-384.02865770 Ha, N_grid=88.000000/88, FFT-grad rel.err 2.96e-04
+{
+ "scf_PBEsol": 1.616891920970146,
+ "x_LDA": 2.656502283367266,
+ "xc_LDA": 2.9594993643713146,
+ "x_PBE": 1.225748089211803,
+ "xc_PBE": 2.42530334845923,
+ "x_PBEsol": 1.7368316710745813,
+ "xc_PBEsol": 2.7985526879922795,
+ "x_Q2D-GGA": 1.974071876726158,
+ "xc_Q2D-GGA": 3.1736402333299685,
+ "x_SCAN": 1.921326383357279,
+ "xc_SCAN": 2.830069525554625,
+ "x_DC-SCAN": 2.470046231177248,
+ "xc_DC-SCAN": 3.3787893733743117
+}
+done date=2026-11-22T05:27:01+01:00

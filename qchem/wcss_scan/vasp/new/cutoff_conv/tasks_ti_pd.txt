@@ -1,0 +1,10 @@
+# system a_ang kind layers kxy kz cutoff damp shift   (3-layer periodic fcc(111) bulk, 8x8x4; cutoff gate for Ti, Pd)
+# Ti bulk at 150 Ha in production job 6389255 had FFT-gradient rel. error 1.49e-2 (> 1 % gate).
+Ti 4.06 bulk 3 8 4 150 0 0
+Ti 4.06 bulk 3 8 4 200 0 0
+Ti 4.06 bulk 3 8 4 250 0 0
+Ti 4.06 bulk 3 8 4 300 0 0
+Ti 4.06 bulk 3 8 4 400 0 0
+Pd 3.92 bulk 3 8 4 80 0 0
+Pd 3.92 bulk 3 8 4 150 0 0
+Pd 3.92 bulk 3 8 4 250 0 0

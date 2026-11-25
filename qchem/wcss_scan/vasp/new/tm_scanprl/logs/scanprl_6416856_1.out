@@ -1,0 +1,115 @@
+Loading PySCF/2.7.0-foss-2023a
+  Loading requirement: GCCcore/12.3.0 zlib/1.2.13-GCCcore-12.3.0
+    binutils/2.40-GCCcore-12.3.0 GCC/12.3.0 numactl/2.0.16-GCCcore-12.3.0
+    XZ/5.4.2-GCCcore-12.3.0 libxml2/2.11.4-GCCcore-12.3.0
+    libpciaccess/0.17-GCCcore-12.3.0 hwloc/2.9.1-GCCcore-12.3.0 OpenSSL/1.1
+    libevent/2.1.12-GCCcore-12.3.0 UCX/1.14.1-GCCcore-12.3.0
+    libfabric/1.18.0-GCCcore-12.3.0 PMIx/4.2.4-GCCcore-12.3.0
+    UCC/1.2.0-GCCcore-12.3.0 OpenMPI/4.1.5-GCC-12.3.0 OpenBLAS/0.3.23-GCC-12.3.0
+    FlexiBLAS/3.3.1-GCC-12.3.0 FFTW/3.3.10-GCC-12.3.0 gompi/2023a
+    FFTW.MPI/3.3.10-gompi-2023a ScaLAPACK/2.2.0-gompi-2023a-fb foss/2023a
+    bzip2/1.0.8-GCCcore-12.3.0 ncurses/6.4-GCCcore-12.3.0
+    libreadline/8.2-GCCcore-12.3.0 Tcl/8.6.13-GCCcore-12.3.0
+    SQLite/3.42.0-GCCcore-12.3.0 libffi/3.4.4-GCCcore-12.3.0
+    Python/3.11.3-GCCcore-12.3.0 gfbf/2023a cffi/1.15.1-GCCcore-12.3.0
+    cryptography/41.0.1-GCCcore-12.3.0 virtualenv/20.23.1-GCCcore-12.3.0
+    Python-bundle-PyPI/2023.06-GCCcore-12.3.0 pybind11/2.11.1-GCCcore-12.3.0
+    SciPy-bundle/2023.07-gfbf-2023a mpi4py/3.1.4-gompi-2023a
+    Szip/2.1.1-GCCcore-12.3.0 HDF5/1.14.0-gompi-2023a h5py/3.9.0-foss-2023a
+    libcint/5.4.0-gfbf-2023a libxc/6.2.2-GCC-12.3.0 XCFun/2.1.1-GCCcore-12.3.0
+    CPPE/0.3.1-GCC-12.3.0 PyBerny/0.6.3-foss-2023a CheMPS2/1.8.12-foss-2023a
+    PyCheMPS2/1.8.12-foss-2023a gzip/1.12-GCCcore-12.3.0
+    lz4/1.9.4-GCCcore-12.3.0 zstd/1.5.5-GCCcore-12.3.0 ICU/73.2-GCCcore-12.3.0
+    Boost.MPI/1.82.0-gompi-2023a Block/1.5.3-20200525-foss-2023a
+    NECI/20230620-foss-2023a Dice/20240702-foss-2023a tblis/20230422-foss-2023a
+task=1 Pd 3.92 host=r17ch12b01.lem.kdm.wcss.pl date=2026-11-23T13:45:44+01:00
+/usr/local/easybuild/software/PySCF/2.7.0-foss-2023a/lib/python3.11/site-packages/pyscf/gto/mole.py:1294: UserWarning: Function mol.dumps drops attribute _mesh because it is not JSON-serializable
+  warnings.warn(msg)
+rhokerker it    1 rms(rho_out-rho_in) = 1.077e-01  N_in = 54.000000
+rhokerker it    2 rms(rho_out-rho_in) = 3.522e-02  N_in = 54.000000
+rhokerker it    3 rms(rho_out-rho_in) = 9.346e-03  N_in = 54.000000
+rhokerker it    4 rms(rho_out-rho_in) = 2.671e-03  N_in = 54.000000
+rhokerker it    5 rms(rho_out-rho_in) = 7.069e-04  N_in = 54.000000
+rhokerker it    6 rms(rho_out-rho_in) = 2.999e-04  N_in = 54.000000
+rhokerker it    7 rms(rho_out-rho_in) = 4.008e-05  N_in = 54.000000
+rhokerker it    8 rms(rho_out-rho_in) = 2.508e-05  N_in = 54.000000
+rhokerker it    9 rms(rho_out-rho_in) = 1.166e-05  N_in = 54.000000
+rhokerker it   10 rms(rho_out-rho_in) = 1.153e-06  N_in = 54.000000
+rhokerker it   11 rms(rho_out-rho_in) = 8.225e-07  N_in = 54.000000
+Kerker SCF: converged=True iterations=11 rms=8.22e-07 E=-381.8252304477 |g|/sqrt(n)=8.03e-08
+bulk: E=-381.82523045 Ha, N_grid=54.000000/54, FFT-grad rel.err 1.23e-09
+rhokerker it    1 rms(rho_out-rho_in) = 9.742e-02  N_in = 198.000000
+rhokerker it    2 rms(rho_out-rho_in) = 3.888e-02  N_in = 198.000000
+rhokerker it    3 rms(rho_out-rho_in) = 5.974e-02  N_in = 198.000000
+rhokerker it    4 rms(rho_out-rho_in) = 3.243e-02  N_in = 198.000000
+rhokerker it    5 rms(rho_out-rho_in) = 1.625e-02  N_in = 198.000000
+rhokerker it    6 rms(rho_out-rho_in) = 1.255e-02  N_in = 198.000000
+rhokerker it    7 rms(rho_out-rho_in) = 1.679e-02  N_in = 198.000000
+rhokerker it    8 rms(rho_out-rho_in) = 7.943e-03  N_in = 198.000000
+rhokerker it    9 rms(rho_out-rho_in) = 4.940e-03  N_in = 198.000000
+rhokerker it   10 rms(rho_out-rho_in) = 1.947e-03  N_in = 198.000000
+rhokerker it   11 rms(rho_out-rho_in) = 1.959e-03  N_in = 198.000000
+rhokerker it   12 rms(rho_out-rho_in) = 1.770e-03  N_in = 198.000000
+rhokerker it   13 rms(rho_out-rho_in) = 2.168e-03  N_in = 198.000000
+rhokerker it   14 rms(rho_out-rho_in) = 5.307e-04  N_in = 198.000000
+rhokerker it   15 rms(rho_out-rho_in) = 5.935e-04  N_in = 198.000000
+rhokerker it   16 rms(rho_out-rho_in) = 7.877e-04  N_in = 198.000000
+rhokerker it   17 rms(rho_out-rho_in) = 2.392e-04  N_in = 198.000000
+rhokerker it   18 rms(rho_out-rho_in) = 9.613e-03  N_in = 198.000000
+rhokerker it   19 rms(rho_out-rho_in) = 3.156e-03  N_in = 198.000000
+rhokerker it   20 rms(rho_out-rho_in) = 3.396e-04  N_in = 198.000000
+rhokerker it   21 rms(rho_out-rho_in) = 3.211e-04  N_in = 198.000000
+rhokerker it   22 rms(rho_out-rho_in) = 3.360e-04  N_in = 198.000000
+rhokerker it   23 rms(rho_out-rho_in) = 1.955e-04  N_in = 198.000000
+rhokerker it   24 rms(rho_out-rho_in) = 4.911e-04  N_in = 198.000000
+rhokerker it   25 rms(rho_out-rho_in) = 5.161e-04  N_in = 198.000000
+rhokerker it   26 rms(rho_out-rho_in) = 3.631e-04  N_in = 198.000000
+rhokerker it   27 rms(rho_out-rho_in) = 6.254e-04  N_in = 198.000000
+rhokerker it   28 rms(rho_out-rho_in) = 7.066e-04  N_in = 198.000000
+rhokerker it   29 rms(rho_out-rho_in) = 6.947e-04  N_in = 198.000000
+rhokerker it   30 rms(rho_out-rho_in) = 7.796e-04  N_in = 198.000000
+rhokerker it   31 rms(rho_out-rho_in) = 6.795e-04  N_in = 198.000000
+rhokerker it   32 rms(rho_out-rho_in) = 2.835e-04  N_in = 198.000000
+rhokerker it   33 rms(rho_out-rho_in) = 4.943e-04  N_in = 198.000000
+rhokerker it   34 rms(rho_out-rho_in) = 6.103e-04  N_in = 198.000000
+rhokerker it   35 rms(rho_out-rho_in) = 5.451e-04  N_in = 198.000000
+rhokerker it   36 rms(rho_out-rho_in) = 2.270e-04  N_in = 198.000000
+rhokerker it   37 rms(rho_out-rho_in) = 6.134e-04  N_in = 198.000000
+rhokerker it   38 rms(rho_out-rho_in) = 6.167e-04  N_in = 198.000000
+rhokerker it   39 rms(rho_out-rho_in) = 4.810e-04  N_in = 198.000000
+rhokerker it   40 rms(rho_out-rho_in) = 6.756e-04  N_in = 198.000000
+rhokerker it   41 rms(rho_out-rho_in) = 8.031e-04  N_in = 198.000000
+rhokerker it   42 rms(rho_out-rho_in) = 7.747e-04  N_in = 198.000000
+rhokerker it   43 rms(rho_out-rho_in) = 6.735e-04  N_in = 198.000000
+rhokerker it   44 rms(rho_out-rho_in) = 7.441e-04  N_in = 198.000000
+rhokerker it   45 rms(rho_out-rho_in) = 6.821e-04  N_in = 198.000000
+rhokerker it   46 rms(rho_out-rho_in) = 3.074e-04  N_in = 198.000000
+rhokerker it   47 rms(rho_out-rho_in) = 6.201e-04  N_in = 198.000000
+rhokerker it   48 rms(rho_out-rho_in) = 3.576e-04  N_in = 198.000000
+rhokerker it   49 rms(rho_out-rho_in) = 6.093e-04  N_in = 198.000000
+rhokerker it   50 rms(rho_out-rho_in) = 5.034e-04  N_in = 198.000000
+rhokerker it   51 rms(rho_out-rho_in) = 4.804e-04  N_in = 198.000000
+rhokerker it   52 rms(rho_out-rho_in) = 3.445e-04  N_in = 198.000000
+rhokerker it   53 rms(rho_out-rho_in) = 5.083e-04  N_in = 198.000000
+rhokerker it   54 rms(rho_out-rho_in) = 3.209e-04  N_in = 198.000000
+rhokerker it   55 rms(rho_out-rho_in) = 4.493e-04  N_in = 198.000000
+rhokerker it   56 rms(rho_out-rho_in) = 5.292e-04  N_in = 198.000000
+rhokerker it   57 rms(rho_out-rho_in) = 5.359e-04  N_in = 198.000000
+rhokerker it   58 rms(rho_out-rho_in) = 6.327e-04  N_in = 198.000000
+rhokerker it   59 rms(rho_out-rho_in) = 5.571e-04  N_in = 198.000000
+rhokerker it   60 rms(rho_out-rho_in) = 3.514e-04  N_in = 198.000000
+rhokerker it   61 rms(rho_out-rho_in) = 5.965e-04  N_in = 198.000000
+rhokerker it   62 rms(rho_out-rho_in) = 6.023e-04  N_in = 198.000000
+rhokerker it   63 rms(rho_out-rho_in) = 5.600e-04  N_in = 198.000000
+rhokerker it   64 rms(rho_out-rho_in) = 6.489e-04  N_in = 198.000000
+rhokerker it   65 rms(rho_out-rho_in) = 6.774e-04  N_in = 198.000000
+rhokerker it   66 rms(rho_out-rho_in) = 6.599e-04  N_in = 198.000000
+rhokerker it   67 rms(rho_out-rho_in) = 5.591e-04  N_in = 198.000000
+rhokerker it   68 rms(rho_out-rho_in) = 1.990e-04  N_in = 198.000000
+rhokerker it   69 rms(rho_out-rho_in) = 1.602e-04  N_in = 198.000000
+rhokerker it   70 rms(rho_out-rho_in) = 1.754e-04  N_in = 198.000000
+rhokerker it   71 rms(rho_out-rho_in) = 1.598e-02  N_in = 198.000000
+rhokerker it   72 rms(rho_out-rho_in) = 1.398e-04  N_in = 198.000000
+rhokerker it   73 rms(rho_out-rho_in) = 2.458e-04  N_in = 198.000000
+rhokerker it   74 rms(rho_out-rho_in) = 1.193e-04  N_in = 198.000000
+rhokerker it   75 rms(rho_out-rho_in) = 1.287e-04  N_in = 198.000000

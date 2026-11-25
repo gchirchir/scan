@@ -1,0 +1,22 @@
+H       ncore=0  dEx full/val/mask =     +0.00     +0.00     +0.00 mHa   dEc =   -0.00   -0.00   -0.00
+C       ncore=1  dEx full/val/mask =  +1209.46     +1.09   +140.24 mHa   dEc =   -6.64   -0.62   -0.84
+O       ncore=1  dEx full/val/mask =   +116.09    +40.89    +37.94 mHa   dEc =   -0.93   -0.33   -0.36
+Si      ncore=5  dEx full/val/mask =    +29.52     +1.39    +28.61 mHa   dEc =   -0.46   -0.53   -0.42
+S       ncore=5  dEx full/val/mask =    +13.96    +20.09    +13.38 mHa   dEc =   -0.42   -0.40   -0.40
+SiH4    ncore=5  dEx full/val/mask =   +175.64   +175.80   +174.80 mHa   dEc =  -19.56  -19.66  -19.52
+SiO     ncore=6  dEx full/val/mask =    +24.37     +9.92    +10.26 mHa   dEc =   -3.70   -3.20   -3.14
+S2      ncore=10  dEx full/val/mask =     +4.28     +3.63     +3.16 mHa   dEc =   -0.22   -0.18   -0.18
+C3H4    ncore=3  dEx full/val/mask =   +235.87    +36.25    +43.26 mHa   dEc =  -17.37   -9.67   -9.94
+C2H2O2  ncore=4  dEx full/val/mask =   +199.04    +20.78    +27.52 mHa   dEc =  -12.21   -5.38   -5.63
+C4H8    ncore=4  dEx full/val/mask =   +339.85    +63.06    +72.36 mHa   dEc =  -27.91  -17.27  -17.62
+molecule     ref  r2scan    full  FC_val  FC_mask
+    SiH4  324.59  321.44  241.74  224.01   241.70
+     SiO  193.40  187.47  265.00  209.24   224.27
+      S2  103.90  111.02  125.45  133.55   125.44
+    C3H4  705.28  704.41 2831.65  688.61   945.93
+  C2H2O2  635.33  635.91 2172.77  677.73   844.29
+    C4H8 1150.12 1149.82 3973.21 1122.27  1465.39
+r2scan   ME=    -0.42  MAE=     2.99 kcal/mol
+full     ME= +1082.87  MAE=  1110.49 kcal/mol
+FC_val   ME=    -9.54  MAE=    38.83 kcal/mol
+FC_mask  ME=  +122.40  MAE=   150.03 kcal/mol
